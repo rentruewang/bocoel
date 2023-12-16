@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "bocol"
+version = "0.0.0"
+description = "Bayesian Optimization as a Coverage Tool for Large Language Models"
+authors = ["RenChu Wang <patrick1031wang@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
