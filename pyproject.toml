@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "bocol"
+name = "bocoel"
 version = "0.0.0"
-description = "Bayesian Optimization as a Coverage Tool for Large Language Models"
+description = "Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models"
 authors = ["RenChu Wang <patrick1031wang@gmail.com>"]
 license = "Apache 2.0"
 readme = "README.md"
