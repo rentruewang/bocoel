@@ -1,12 +1,9 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, Protocol
+from typing import Protocol
 
 from numpy.typing import NDArray
-
-from .embedders import Embedder
-from .storages import Storage
 
 
 class Index(Protocol):
@@ -83,32 +80,6 @@ class Index(Protocol):
 
         A numpy array of shape [k].
         This corresponds to the indices of the nearest neighbors.
-        """
-
-        ...
-
-    @abc.abstractmethod
-    @classmethod
-    def from_fields(cls, store: Storage, emb: Embedder, key: str) -> Index:
-        """
-        Construct an index from fields.
-
-        Parameters
-        ----------
-
-        `store: Storage`
-        The storage to index.
-
-        `emb: Embedder`
-        The embedder to use.
-
-        `key: str`
-        The key in the storage to index.
-
-        Returns
-        -------
-
-        An index.
         """
 
         ...

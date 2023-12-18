@@ -34,7 +34,9 @@ class HnswlibIndex(Index):
         return self._index.knn_query(query, k=k)
 
     @classmethod
-    def from_fields(cls, store: Storage, emb: Embedder, key: str) -> Index:
-        items = [store[idx][key] for idx in range(len(store))]
+    def from_fields(
+        cls, store: Storage, emb: Embedder, key: str, threads: int = -1
+    ) -> Index:
+        items = store.get(key)
         embedded = emb(items)
-        return cls(key, embedded)
+        return cls(key, embedded, threads=threads)

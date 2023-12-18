@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typing
 from pathlib import Path
-from typing import AbstractSet, Mapping
+from typing import Container, Mapping
 
 import ujson as json
 from pandas import DataFrame
@@ -15,7 +15,7 @@ class JsonLStorage(Storage):
     def __init__(self, data: DataFrame) -> None:
         self._data = data
 
-    def keys(self) -> AbstractSet:
+    def keys(self) -> Container:
         return self._data.columns
 
     def __len__(self) -> int:

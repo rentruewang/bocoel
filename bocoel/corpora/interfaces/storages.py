@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import abc
-from pathlib import Path
-from typing import AbstractSet, Mapping, Protocol
+from typing import Container, Mapping, Protocol, Sequence
 
 
 class Storage(Protocol):
@@ -12,7 +11,7 @@ class Storage(Protocol):
     """
 
     @abc.abstractmethod
-    def keys(self) -> AbstractSet:
+    def keys(self) -> Container:
         ...
 
     @abc.abstractmethod
@@ -29,3 +28,6 @@ class Storage(Protocol):
         Returns the row at the given index.
         """
         ...
+
+    def get(self, key: str) -> Sequence[str]:
+        return [self[i][key] for i in range(len(self))]

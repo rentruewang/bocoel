@@ -18,7 +18,7 @@ class Experiment(Protocol):
     done: bool
 
     def optimize(self):
-        index = self.corpus.keys_index[self.key]
+        index = self.corpus.index
 
         while not self.done:
             target = self.acquisition_function()
