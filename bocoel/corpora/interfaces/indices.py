@@ -43,6 +43,20 @@ class Index(Protocol):
         ...
 
     @abc.abstractmethod
+    def ranges(self) -> NDArray:
+        """
+        The ranges of the input.
+
+        Returns
+        -------
+
+        An ndarray of shape [2, dims] where the first row is the lower bound,
+        and the second row is the upper bound.
+        """
+
+        ...
+
+    @abc.abstractmethod
     def dims(self) -> int:
         """
         The number of dimensions that the query vector should be.

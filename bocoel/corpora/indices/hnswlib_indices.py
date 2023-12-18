@@ -16,12 +16,16 @@ class HnswlibIndex(Index):
 
         self._key = key
         self._dims = dims
+        self._ranges = np.stack([np.min(embeddings), np.max(embeddings)])
 
         self._index = _HnswlibIndex(max_elements=num_elems, threads=threads)
         self._index.add_items(embeddings)
 
     def key(self) -> str:
         return self._key
+
+    def ranges(self) -> NDArray:
+        return self._ranges
 
     def dims(self) -> int:
         return self._dims

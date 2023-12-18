@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typing
 from pathlib import Path
-from typing import Mapping
+from typing import AbstractSet, Mapping
 
 import ujson as json
 from pandas import DataFrame
@@ -14,6 +14,9 @@ from bocoel.corpora.interfaces import Storage
 class JsonLStorage(Storage):
     def __init__(self, data: DataFrame) -> None:
         self._data = data
+
+    def keys(self) -> AbstractSet:
+        return self._data.columns
 
     def __len__(self) -> int:
         return len(self._data)
