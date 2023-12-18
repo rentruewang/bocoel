@@ -7,8 +7,26 @@ license = "Apache 2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
+ax-platform = "^0.3.6"
+botorch = "^0.9.5"
+faiss-cpu = "^1.7.4"
+hnswlib = "^0.8.0"
+numpy = "^1.26.2"
+pandas = "^2.1.4"
 python = "^3.10"
+sentence-transformers = "^2.2.2"
+torch = "^2.1.2"
+transformers = "^4.36.1"
+ujson = "^5.9.0"
+vllm = "^0.2.6"
 
+
+[tool.poetry.group.dev.dependencies]
+autoflake = "^2.2.1"
+black = "^23.12.0"
+ipython = "^8.18.1"
+isort = "^5.13.2"
+pytype = "^2023.12.8"
 
 [build-system]
 requires = ["poetry-core"]
