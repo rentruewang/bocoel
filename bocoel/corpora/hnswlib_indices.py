@@ -6,10 +6,9 @@ from numpy.typing import NDArray
 
 from bocoel.corpora.interfaces import Embedder, Index, Storage
 
+
 # FIXME: Could raise ValueError instead of using asserts
 # FIXME: Threads
-
-
 class HnswlibIndex(Index):
     def __init__(self, key: str, embeddings: NDArray) -> None:
         assert embeddings.ndim == 2
@@ -26,7 +25,7 @@ class HnswlibIndex(Index):
         return self._index.knn_query(query, k=k)
 
     @classmethod
-    def from_storage(cls, store: Storage, key: str, emb: Embedder) -> HnswlibIndex:
+    def from_fields(cls, store: Storage, emb: Embedder, key: str) -> Index:
         items = [store[idx][key] for idx in range(len(store))]
         embedded = [emb.encode(text) for text in items]
         assert all(len(e) == emb.dims for e in embedded)

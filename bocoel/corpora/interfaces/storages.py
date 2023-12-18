@@ -1,36 +1,35 @@
 from __future__ import annotations
 
 import abc
-import typing
 from pathlib import Path
-from typing import Mapping, Protocol, Sequence
-
-from numpy.typing import NDArray
+from typing import Mapping, Protocol
 
 
 class Storage(Protocol):
+    """
+    Storage is responsible for storing the data.
+    This can be thought of as a table.
+    """
+
     @abc.abstractmethod
     def __len__(self) -> int:
+        """
+        Returns the number of rows in the storage.
+        """
+
         ...
 
-    @typing.overload
     @abc.abstractmethod
     def __getitem__(self, idx: int) -> Mapping[str, str]:
-        ...
-
-    @typing.overload
-    @abc.abstractmethod
-    def __getitem__(
-        self, idx: slice | Sequence[int] | NDArray
-    ) -> Sequence[Mapping[str, str]]:
+        """
+        Returns the row at the given index.
+        """
         ...
 
     @abc.abstractmethod
-    def __getitem__(
-        self, idx: int | slice | Sequence[int] | NDArray
-    ) -> Mapping[str, str] | Sequence[Mapping[str, str]]:
-        ...
-
-    @abc.abstractclassmethod
+    @classmethod
     def from_path(cls, path: str | Path) -> Storage:
+        """
+        Construct a storage from a local file.
+        """
         ...
