@@ -3,9 +3,9 @@ from __future__ import annotations
 import dataclasses as dcls
 from typing import Mapping, Type
 
-from .embedders import Embedder
-from .indices import Index
-from .storages import Storage
+from .interfaces.embedders import Embedder
+from .interfaces.indices import Index
+from .interfaces.storages import Storage
 
 
 @dcls.dataclass(frozen=True)

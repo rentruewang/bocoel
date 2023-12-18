@@ -13,11 +13,6 @@ class Embedder(Protocol):
     unless some database that encodes this functionality is found.
     """
 
-    dims: int
-    """
-    The dimensions of the embeddings
-    """
-
     def __call__(self, text: str | Sequence[str]) -> NDArray:
         """
         Calls the encode function and performs some checks.
@@ -31,6 +26,14 @@ class Embedder(Protocol):
             )
 
         return encoded
+
+    @abc.abstractmethod
+    def dims(self) -> int:
+        """
+        The dimensions of the embeddings
+        """
+
+        ...
 
     @abc.abstractmethod
     def encode(self, text: str | Sequence[str]) -> NDArray:

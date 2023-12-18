@@ -16,16 +16,6 @@ class Index(Protocol):
     as some databases support vector queries natively.
     """
 
-    key: str
-    """
-    The key in the original table that this index is for.
-    """
-
-    dims: int
-    """
-    The number of dimensions that the query vector should be.
-    """
-
     def __call__(self, query: NDArray, k: int = 1) -> NDArray:
         """
         Calls the search function and performs some checks.
@@ -43,6 +33,22 @@ class Index(Protocol):
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
         return self.search(query, k=k)
+
+    @abc.abstractmethod
+    def key(self) -> str:
+        """
+        The key in the original table that this index is for.
+        """
+
+        ...
+
+    @abc.abstractmethod
+    def dims(self) -> int:
+        """
+        The number of dimensions that the query vector should be.
+        """
+
+        ...
 
     @abc.abstractmethod
     def search(self, query: NDArray, k: int = 1) -> NDArray:

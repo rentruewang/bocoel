@@ -3,7 +3,7 @@ from typing import Protocol
 
 from numpy.typing import NDArray
 
-from bocoel.corpora.interfaces import Corpus
+from bocoel.corpora import Corpus
 from bocoel.models import LanguageModel
 
 from .histories import History
