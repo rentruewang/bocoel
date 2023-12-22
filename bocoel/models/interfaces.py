@@ -1,6 +1,9 @@
-from typing import Protocol
+from typing import Protocol, Sequence
 
 
 class LanguageModel(Protocol):
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: Sequence[str]) -> Sequence[str]:
         ...
+
+    def generate_one(self, prompt: str) -> str:
+        return self.generate(prompt=[prompt])[0]
