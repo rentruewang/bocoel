@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Sequence
 
 from torch import Tensor, device
@@ -18,7 +20,7 @@ class HuggingfaceLanguageModel(LanguageModel):
 
     def generate(self, prompt: Sequence[str]) -> Sequence[str]:
         input_ids: Tensor = self._tokenizer(prompt, return_tensors="pt").input_ids
-        input_ids = input_ids.to(self._device)
+        input_ids = input_ids.to(self.device)
         outputs = self._model.generate(
             input_ids, max_length=self._max_len, num_return_sequences=1
         )
@@ -26,5 +28,10 @@ class HuggingfaceLanguageModel(LanguageModel):
         return outputs
 
     def to(self, device: Device) -> Self:
-        self._device = self._model.to(device)
+        self._device = device
+        self._model = self._model.to(device)
         return self
+
+    @property
+    def device(self) -> Device:
+        return self._device

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Mapping, Protocol
 
 from numpy.typing import NDArray
