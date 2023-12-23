@@ -4,7 +4,6 @@ from typing import Sequence
 
 from torch import Tensor, device
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from typing_extensions import Self
 
 from bocoel.models.interfaces import LanguageModel
 
@@ -27,7 +26,7 @@ class HuggingfaceLanguageModel(LanguageModel):
         outputs = self._tokenizer.batch_decode(outputs)
         return outputs
 
-    def to(self, device: Device) -> Self:
+    def to(self, device: Device) -> HuggingfaceLanguageModel:
         self._device = device
         self._model = self._model.to(device)
         return self

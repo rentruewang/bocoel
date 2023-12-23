@@ -6,7 +6,8 @@ from numpy.typing import NDArray
 
 from bocoel.corpora.interfaces import Embedder, Index, Storage
 
-from .hnswlib_indices import HnswlibIndex
+from . import utils
+from .hnsw import HnswlibIndex
 
 
 class WhiteningIndex(Index):
@@ -39,6 +40,8 @@ class WhiteningIndex(Index):
 
     @staticmethod
     def _whiten(embeddings: NDArray, k: int) -> NDArray:
+        embeddings = utils.normalize(embeddings)
+
         mean = embeddings.mean(axis=0, keepdims=True)
         covar = np.cov(embeddings)
 

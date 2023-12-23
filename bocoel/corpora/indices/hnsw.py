@@ -6,6 +6,8 @@ from numpy.typing import NDArray
 
 from bocoel.corpora.interfaces import Embedder, Index, Storage
 
+from . import utils
+
 
 class HnswlibIndex(Index):
     def __init__(self, key: str, embeddings: NDArray, threads: int = -1) -> None:
@@ -19,6 +21,8 @@ class HnswlibIndex(Index):
         self._ranges = np.stack([np.min(embeddings), np.max(embeddings)])
 
         self._index = _HnswlibIndex(max_elements=num_elems, threads=threads)
+
+        embeddings = utils.normalize(embeddings)
         self._index.add_items(embeddings)
 
     def key(self) -> str:

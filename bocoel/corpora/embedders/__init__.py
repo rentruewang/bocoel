@@ -1,1 +1,1 @@
-from .sbert_embedders import SBertEmbedder
+from .sberts import SBertEmbedder

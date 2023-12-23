@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typing
 from pathlib import Path
-from typing import Container, Mapping
+from typing import Container, Mapping, Sequence
 
 import ujson as json
 from pandas import DataFrame
@@ -10,8 +10,7 @@ from pandas import DataFrame
 from bocoel.corpora.interfaces import Storage
 
 
-# FIXME: Only supports file not directory for jsonl loading now.
-class JsonLStorage(Storage):
+class DataFrameStorage(Storage):
     def __init__(self, data: DataFrame) -> None:
         self._data = data
 
@@ -25,7 +24,7 @@ class JsonLStorage(Storage):
         return typing.cast(Mapping[str, str], self._data.iloc[idx])
 
     @classmethod
-    def from_path(cls, path: str | Path) -> JsonLStorage:
+    def from_jsonl_file(cls, path: str | Path) -> DataFrameStorage:
         path = Path(path)
 
         assert path.is_file()
@@ -33,5 +32,10 @@ class JsonLStorage(Storage):
         with open(path) as f:
             lines = map(lambda s: s.strip("\n"), f.readlines())
 
-        data = DataFrame.from_records([json.loads(line) for line in lines])
+        data = [json.loads(line) for line in lines]
         return cls(data)
+
+    @classmethod
+    def from_jsonl(cls, data: Sequence[Mapping[str, str]]) -> DataFrameStorage:
+        df = DataFrame.from_records(data)
+        return cls(df)

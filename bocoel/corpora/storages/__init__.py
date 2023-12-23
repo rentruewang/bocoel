@@ -1,1 +1,1 @@
-from .jsonl_storages import JsonLStorage
+from .dataframes import DataFrameStorage

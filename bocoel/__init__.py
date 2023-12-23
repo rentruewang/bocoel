@@ -1,9 +1,9 @@
 from .corpora import (
     Corpus,
+    DataFrameStorage,
     Embedder,
     HnswlibIndex,
     Index,
-    JsonLStorage,
     SBertEmbedder,
     Storage,
 )

@@ -1,1 +1,1 @@
-from .hnswlib_indices import HnswlibIndex
+from .hnsw import HnswlibIndex
