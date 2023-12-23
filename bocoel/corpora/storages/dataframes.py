@@ -33,7 +33,7 @@ class DataFrameStorage(Storage):
             lines = map(lambda s: s.strip("\n"), f.readlines())
 
         data = [json.loads(line) for line in lines]
-        return cls(data)
+        return cls.from_jsonl(data)
 
     @classmethod
     def from_jsonl(cls, data: Sequence[Mapping[str, str]]) -> DataFrameStorage:

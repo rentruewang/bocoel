@@ -40,15 +40,15 @@ class Index(Protocol):
         ...
 
     @abc.abstractmethod
-    def ranges(self) -> NDArray:
+    def bounds(self) -> NDArray:
         """
-        The ranges of the input.
+        The bounds of the input.
 
         Returns
         -------
 
-        An ndarray of shape [2, dims] where the first row is the lower bound,
-        and the second row is the upper bound.
+        An ndarray of shape [dims, 2] where the first column is the lower bound,
+        and the second column is the upper bound.
         """
 
         ...

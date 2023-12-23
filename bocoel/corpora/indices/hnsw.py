@@ -28,7 +28,7 @@ class HnswlibIndex(Index):
     def key(self) -> str:
         return self._key
 
-    def ranges(self) -> NDArray:
+    def bounds(self) -> NDArray:
         return self._ranges
 
     def dims(self) -> int:

@@ -24,8 +24,8 @@ class WhiteningIndex(Index):
     def dims(self) -> int:
         return self._hnswidx.dims()
 
-    def ranges(self) -> NDArray:
-        return self._hnswidx.ranges()
+    def bounds(self) -> NDArray:
+        return self._hnswidx.bounds()
 
     def search(self, query: NDArray, k: int = 1) -> NDArray:
         return self._hnswidx.search(query, k=k)
