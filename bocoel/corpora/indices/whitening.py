@@ -16,16 +16,19 @@ class WhiteningIndex(Index):
     ) -> None:
         white = self._whiten(embeddings, k)
         self._hnswidx = HnswlibIndex(key, white, threads)
-        assert k == self._hnswidx.dims()
+        assert k == self._hnswidx.dims
 
+    @property
     def key(self) -> str:
-        return self._hnswidx.key()
+        return self._hnswidx.key
 
+    @property
     def dims(self) -> int:
-        return self._hnswidx.dims()
+        return self._hnswidx.dims
 
+    @property
     def bounds(self) -> NDArray:
-        return self._hnswidx.bounds()
+        return self._hnswidx.bounds
 
     def search(self, query: NDArray, k: int = 1) -> NDArray:
         return self._hnswidx.search(query, k=k)

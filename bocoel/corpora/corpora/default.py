@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import dataclasses as dcls
+from typing import Container, Mapping, Sequence
 
-from corpora.interfaces import Corpus, Embedder, Index, Storage
+from numpy.typing import NDArray
+
+from bocoel.corpora.interfaces import Corpus, Embedder, Index, Storage
 
 
 @dcls.dataclass(frozen=True)
-class SimpleCorpus(Corpus):
+class ComposedCorpus(Corpus):
     index: Index
     storage: Storage
     embedder: Embedder

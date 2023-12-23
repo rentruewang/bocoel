@@ -1,1 +1,1 @@
-from .default import SimpleCorpus
+from .default import ComposedCorpus

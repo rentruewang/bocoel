@@ -31,7 +31,7 @@ class Index(Protocol):
 
         return self.search(query, k=k)
 
-    @abc.abstractmethod
+    @abc.abstractproperty
     def key(self) -> str:
         """
         The key in the original table that this index is for.
@@ -39,7 +39,7 @@ class Index(Protocol):
 
         ...
 
-    @abc.abstractmethod
+    @abc.abstractproperty
     def bounds(self) -> NDArray:
         """
         The bounds of the input.
@@ -53,7 +53,7 @@ class Index(Protocol):
 
         ...
 
-    @abc.abstractmethod
+    @abc.abstractproperty
     def dims(self) -> int:
         """
         The number of dimensions that the query vector should be.
@@ -83,3 +83,11 @@ class Index(Protocol):
         """
 
         ...
+
+    @property
+    def lower(self) -> NDArray:
+        return self.bounds[:, 0]
+
+    @property
+    def upper(self) -> NDArray:
+        return self.bounds[:, 1]

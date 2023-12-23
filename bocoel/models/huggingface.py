@@ -26,6 +26,9 @@ class HuggingfaceLanguageModel(LanguageModel):
         outputs = self._tokenizer.batch_decode(outputs)
         return outputs
 
+    def bleu(self, prompt: Sequence[str], target: str) -> Sequence[float]:
+        return super().bleu(prompt, target)
+
     def to(self, device: Device) -> HuggingfaceLanguageModel:
         self._device = device
         self._model = self._model.to(device)

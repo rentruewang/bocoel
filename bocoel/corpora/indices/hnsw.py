@@ -25,14 +25,17 @@ class HnswlibIndex(Index):
         embeddings = utils.normalize(embeddings)
         self._index.add_items(embeddings)
 
+    @property
     def key(self) -> str:
         return self._key
 
-    def bounds(self) -> NDArray:
-        return self._ranges
-
+    @property
     def dims(self) -> int:
         return self._dims
+
+    @property
+    def bounds(self) -> NDArray:
+        return self._ranges
 
     def search(self, query: NDArray, k: int = 1) -> NDArray:
         return self._index.knn_query(query, k=k)

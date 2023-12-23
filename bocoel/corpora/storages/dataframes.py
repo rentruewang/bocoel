@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import typing
 from pathlib import Path
 from typing import Container, Mapping, Sequence
 
@@ -11,22 +10,23 @@ from bocoel.corpora.interfaces import Storage
 
 
 class DataFrameStorage(Storage):
-    def __init__(self, data: DataFrame) -> None:
-        self._data = data
+    def __init__(self, df: DataFrame) -> None:
+        self._df = df
 
-    def keys(self) -> Container:
-        return self._data.columns
+    def keys(self) -> Container[str]:
+        return self._df.columns
 
     def __len__(self) -> int:
-        return len(self._data)
+        return len(self._df)
 
     def __getitem__(self, idx: int) -> Mapping[str, str]:
-        return typing.cast(Mapping[str, str], self._data.iloc[idx])
+        return self._df.iloc[idx].to_dict()
 
     @classmethod
     def from_jsonl_file(cls, path: str | Path) -> DataFrameStorage:
         path = Path(path)
 
+        # TODO: Also support directories.
         assert path.is_file()
 
         with open(path) as f:

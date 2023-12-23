@@ -27,6 +27,7 @@ class Storage(Protocol):
         """
         Returns the row at the given index.
         """
+
         ...
 
     def get(self, key: str) -> Sequence[str]:
