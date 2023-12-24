@@ -9,7 +9,3 @@ class LanguageModel(Protocol):
     @abc.abstractmethod
     def generate(self, prompt: Sequence[str]) -> Sequence[str]:
         ...
-
-    @abc.abstractmethod
-    def bleu(self, prompt: Sequence[str], target: str) -> Sequence[float]:
-        ...

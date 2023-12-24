@@ -1,1 +1,2 @@
-from .lm import LanguageModel
+from .evaluators import Evaluator
+from .lms import LanguageModel

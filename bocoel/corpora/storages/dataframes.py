@@ -22,6 +22,9 @@ class DataFrameStorage(Storage):
     def __getitem__(self, idx: int) -> Mapping[str, str]:
         return self._df.iloc[idx].to_dict()
 
+    def get(self, key: str) -> Sequence[str]:
+        return self._df[key].to_list()
+
     @classmethod
     def from_jsonl_file(cls, path: str | Path) -> DataFrameStorage:
         path = Path(path)

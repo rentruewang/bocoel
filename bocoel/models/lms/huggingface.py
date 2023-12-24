@@ -10,7 +10,7 @@ from bocoel.models.interfaces import LanguageModel
 Device = str | device
 
 
-class HuggingfaceLanguageModel(LanguageModel):
+class HuggingfaceLM(LanguageModel):
     def __init__(self, model_path: str, max_len: int, device: Device) -> None:
         self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -26,10 +26,7 @@ class HuggingfaceLanguageModel(LanguageModel):
         outputs = self._tokenizer.batch_decode(outputs)
         return outputs
 
-    def bleu(self, prompt: Sequence[str], target: str) -> Sequence[float]:
-        return super().bleu(prompt, target)
-
-    def to(self, device: Device) -> HuggingfaceLanguageModel:
+    def to(self, device: Device) -> HuggingfaceLM:
         self._device = device
         self._model = self._model.to(device)
         return self

@@ -1,1 +1,2 @@
-from .interfaces import LanguageModel
+from .interfaces import Evaluator, LanguageModel
+from .lms import HuggingfaceLM

@@ -30,5 +30,10 @@ class Storage(Protocol):
 
         ...
 
+    @abc.abstractmethod
     def get(self, key: str) -> Sequence[str]:
-        return [self[i][key] for i in range(len(self))]
+        """
+        Get the entire column by given key.
+        """
+
+        ...
