@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import abc
 from typing import Protocol, Sequence
 
@@ -13,12 +11,12 @@ class Embedder(Protocol):
     unless some database that encodes this functionality is found.
     """
 
-    def __call__(self, text: str | Sequence[str]) -> NDArray:
+    def encode(self, text: str | Sequence[str]) -> NDArray:
         """
         Calls the encode function and performs some checks.
         """
 
-        encoded = self.encode(text)
+        encoded = self._encode(text)
 
         if (dim := encoded.shape[-1]) != self.dims:
             raise ValueError(
@@ -36,7 +34,7 @@ class Embedder(Protocol):
         ...
 
     @abc.abstractmethod
-    def encode(self, text: str | Sequence[str]) -> NDArray:
+    def _encode(self, text: str | Sequence[str]) -> NDArray:
         """
         Implements the encode function.
 

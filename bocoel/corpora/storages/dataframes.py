@@ -1,10 +1,9 @@
-from __future__ import annotations
-
 from pathlib import Path
 from typing import Container, Mapping, Sequence
 
 import ujson as json
 from pandas import DataFrame
+from typing_extensions import Self
 
 from bocoel.corpora.interfaces import Storage
 
@@ -26,7 +25,7 @@ class DataFrameStorage(Storage):
         return self._df[key].to_list()
 
     @classmethod
-    def from_jsonl_file(cls, path: str | Path) -> DataFrameStorage:
+    def from_jsonl_file(cls, path: str | Path) -> Self:
         path = Path(path)
 
         # TODO: Also support directories.
@@ -39,6 +38,6 @@ class DataFrameStorage(Storage):
         return cls.from_jsonl(data)
 
     @classmethod
-    def from_jsonl(cls, data: Sequence[Mapping[str, str]]) -> DataFrameStorage:
+    def from_jsonl(cls, data: Sequence[Mapping[str, str]]) -> Self:
         df = DataFrame.from_records(data)
         return cls(df)

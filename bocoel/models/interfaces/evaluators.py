@@ -1,21 +1,49 @@
-from __future__ import annotations
-
 import abc
-from typing import Any, Mapping, Protocol, Sequence
+import typing
+from typing import Protocol, Sequence
+
+from numpy.typing import NDArray
 
 from bocoel.corpora import Corpus, Storage
 from bocoel.models.interfaces import LanguageModel
 
 
 class Evaluator(Protocol):
-    def __call__(self, lm: LanguageModel, corpus: Corpus, /, *keys: str) -> Any:
-        self._validate_inputs(*keys)
-        return self.eval(lm, corpus.storage, *keys)
+    """
+    Evaluator protocol is used to evaluate the language model on a given corpus.
+    """
 
-    @abc.abstractmethod
-    def eval(self, lm: LanguageModel, store: Storage, /, *keys: str) -> Sequence[float]:
+    @typing.overload
+    def evaluate(self, lm: LanguageModel, corpus: Corpus, indices: int) -> float:
         ...
 
+    @typing.overload
+    def evaluate(
+        self, lm: LanguageModel, corpus: Corpus, indices: Sequence[int] | NDArray
+    ) -> Sequence[float]:
+        ...
+
+    def evaluate(
+        self, lm: LanguageModel, corpus: Corpus, indices: int | Sequence[int] | NDArray
+    ) -> float | Sequence[float]:
+        # FIXME: Using an if-else pattern to pack/unpack. Should remove in the future.
+
+        pack = isinstance(indices, int)
+
+        if pack:
+            idxs = [indices]
+        else:
+            idxs = indices
+
+        evaluation = self._evaluate(lm=lm, store=corpus.storage, indices=idxs)
+
+        if pack:
+            return evaluation[0]
+        else:
+            return evaluation
+
     @abc.abstractmethod
-    def _validate_inputs(self, *keys: str) -> None:
+    def _evaluate(
+        self, lm: LanguageModel, store: Storage, indices: Sequence[int] | NDArray
+    ) -> Sequence[float]:
         ...

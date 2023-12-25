@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import typing
 from typing import List, Sequence
 
@@ -26,7 +24,7 @@ class SBertEmbedder(Embedder):
         assert isinstance(d, int)
         return d
 
-    def encode(self, text: str | Sequence[str]) -> NDArray:
+    def _encode(self, text: str | Sequence[str]) -> NDArray:
         if isinstance(text, str):
             text = [text]
 

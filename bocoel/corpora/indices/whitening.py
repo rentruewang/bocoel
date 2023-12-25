@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 from numpy import linalg
 from numpy.typing import NDArray
@@ -30,7 +28,7 @@ class WhiteningIndex(Index):
     def bounds(self) -> NDArray:
         return self._hnswidx.bounds
 
-    def search(self, query: NDArray, k: int = 1) -> NDArray:
+    def _search(self, query: NDArray, k: int = 1) -> NDArray:
         return self._hnswidx.search(query, k=k)
 
     @classmethod
@@ -38,7 +36,7 @@ class WhiteningIndex(Index):
         cls, store: Storage, emb: Embedder, key: str, k: int, threads: int = -1
     ) -> Index:
         items = store.get(key)
-        embedded = emb(items)
+        embedded = emb.encode(items)
         return cls(key, embedded, k, threads=threads)
 
     @staticmethod

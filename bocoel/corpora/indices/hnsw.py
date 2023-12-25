@@ -1,8 +1,7 @@
-from __future__ import annotations
-
 import numpy as np
 from hnswlib import Index as _HnswlibIndex
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 from bocoel.corpora.interfaces import Embedder, Index, Storage
 
@@ -37,13 +36,13 @@ class HnswlibIndex(Index):
     def bounds(self) -> NDArray:
         return self._ranges
 
-    def search(self, query: NDArray, k: int = 1) -> NDArray:
+    def _search(self, query: NDArray, k: int = 1) -> NDArray:
         return self._index.knn_query(query, k=k)
 
     @classmethod
     def from_fields(
         cls, store: Storage, emb: Embedder, key: str, threads: int = -1
-    ) -> Index:
+    ) -> Self:
         items = store.get(key)
-        embedded = emb(items)
+        embedded = emb.encode(items)
         return cls(key, embedded, threads=threads)

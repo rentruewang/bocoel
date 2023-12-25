@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 
 from bocoel.corpora import Corpus

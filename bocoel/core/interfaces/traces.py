@@ -1,16 +1,9 @@
-from __future__ import annotations
-
 import abc
-from typing import Mapping, Protocol
+from typing import Protocol
 
-from numpy.typing import NDArray
 from pandas import DataFrame
 
-
-class Step(Protocol):
-    @abc.abstractproperty
-    def candidates(self) -> NDArray:
-        ...
+from .states import State
 
 
 class Trace(Protocol):
@@ -19,11 +12,11 @@ class Trace(Protocol):
         ...
 
     @abc.abstractmethod
-    def __getitem__(self, idx) -> Step:
+    def __getitem__(self, idx: int, /) -> State:
         ...
 
     @abc.abstractmethod
-    def append(self, step: Step) -> None:
+    def append(self, state: State, /) -> None:
         ...
 
     @abc.abstractmethod

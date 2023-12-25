@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from numpy import linalg
 from numpy.typing import NDArray
 

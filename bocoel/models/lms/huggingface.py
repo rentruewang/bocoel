@@ -1,9 +1,8 @@
-from __future__ import annotations
-
 from typing import Sequence
 
 from torch import Tensor, device
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from typing_extensions import Self
 
 from bocoel.models.interfaces import LanguageModel
 
@@ -11,6 +10,12 @@ Device = str | device
 
 
 class HuggingfaceLM(LanguageModel):
+    """
+    The Huggingface implementation of LanguageModel.
+    This is a wrapper around the Huggingface library,
+    which would try to pull the model from the huggingface hub.
+    """
+
     def __init__(self, model_path: str, max_len: int, device: Device) -> None:
         self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -26,7 +31,7 @@ class HuggingfaceLM(LanguageModel):
         outputs = self._tokenizer.batch_decode(outputs)
         return outputs
 
-    def to(self, device: Device) -> HuggingfaceLM:
+    def to(self, device: Device) -> Self:
         self._device = device
         self._model = self._model.to(device)
         return self

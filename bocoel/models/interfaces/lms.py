@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import abc
 from typing import Protocol, Sequence
 
@@ -8,4 +6,21 @@ from typing import Protocol, Sequence
 class LanguageModel(Protocol):
     @abc.abstractmethod
     def generate(self, prompt: Sequence[str]) -> Sequence[str]:
+        """
+        Generate a sequence of responses given a prompt.
+
+        Parameters
+        ----------
+
+        `prompt: Sequence[str]`
+        The prompt to generate responses from.
+
+        Returns
+        -------
+
+        A sequence of responses.
+        This has the same length as the prompt.
+        Each response is a string.
+        """
+
         ...

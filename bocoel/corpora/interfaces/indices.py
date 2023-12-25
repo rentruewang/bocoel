@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import abc
 from typing import Protocol
 
@@ -13,7 +11,7 @@ class Index(Protocol):
     as some databases support vector queries natively.
     """
 
-    def __call__(self, query: NDArray, k: int = 1) -> NDArray:
+    def search(self, query: NDArray, k: int = 1) -> NDArray:
         """
         Calls the search function and performs some checks.
         """
@@ -29,7 +27,7 @@ class Index(Protocol):
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
-        return self.search(query, k=k)
+        return self._search(query, k=k)
 
     @abc.abstractproperty
     def key(self) -> str:
@@ -62,7 +60,7 @@ class Index(Protocol):
         ...
 
     @abc.abstractmethod
-    def search(self, query: NDArray, k: int = 1) -> NDArray:
+    def _search(self, query: NDArray, k: int = 1) -> NDArray:
         """
         Search the index with a given query.
 
