@@ -9,6 +9,10 @@ from . import utils
 
 
 class HnswlibIndex(Index):
+    """
+    HNSWLIB index. Uses the hnswlib library.
+    """
+
     def __init__(self, key: str, embeddings: NDArray, threads: int = -1) -> None:
         if embeddings.ndim != 2:
             raise ValueError(f"Expected embeddings to be 2D, got {embeddings.ndim}D.")

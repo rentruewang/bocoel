@@ -9,6 +9,11 @@ from .hnsw import HnswlibIndex
 
 
 class WhiteningIndex(Index):
+    """
+    Whitening index. Uses the hnswlib library but first whitens the data.
+    See https://arxiv.org/abs/2103.15316 for more info.
+    """
+
     def __init__(
         self, key: str, embeddings: NDArray, k: int, threads: int = -1
     ) -> None:

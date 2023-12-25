@@ -32,22 +32,18 @@ class AxServiceCore(Core):
         self._lm = lm
         self._evaluator = evaluator
         self._ax_client = AxClient(
-            generation_strategy=[
-                GenerationStrategy(
-                    [
-                        GenerationStep(
-                            model=Models.SOBOL,
-                            num_trials=5,
-                        ),
-                    ],
-                    [
-                        GenerationStep(
-                            model=Models.GPMES,
-                            num_trials=-1,
-                        ),
-                    ],
-                )
-            ]
+            generation_strategy=GenerationStrategy(
+                [
+                    GenerationStep(
+                        model=Models.SOBOL,
+                        num_trials=5,
+                    ),
+                    GenerationStep(
+                        model=Models.GPMES,
+                        num_trials=-1,
+                    ),
+                ],
+            )
         )
         self._create_experiment()
 

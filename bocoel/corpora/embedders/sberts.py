@@ -9,6 +9,10 @@ from bocoel.corpora.interfaces import Embedder
 
 
 class SBertEmbedder(Embedder):
+    """
+    Sentence-BERT embedder. Uses the sentence_transformers library.
+    """
+
     def __init__(
         self,
         model_name: str = "all-mpnet-base-v2",
