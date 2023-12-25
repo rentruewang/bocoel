@@ -20,7 +20,7 @@ class HuggingfaceLM(LanguageModel):
         self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
         self._max_len = max_len
-        self._device = device
+        self.to(device)
 
     def generate(self, prompt: Sequence[str]) -> Sequence[str]:
         input_ids: Tensor = self._tokenizer(prompt, return_tensors="pt").input_ids

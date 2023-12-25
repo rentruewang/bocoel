@@ -16,13 +16,15 @@ class Core(Protocol):
     with relatively few evaluations, making the process fast.
     """
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def corpus(self) -> Corpus:
         """ """
 
         ...
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def lm(self) -> LanguageModel:
         ...
 
