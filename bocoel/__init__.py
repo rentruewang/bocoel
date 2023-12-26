@@ -1,3 +1,4 @@
+from .bocoel import bocoel
 from .corpora import (
     Corpus,
     DataFrameStorage,
@@ -7,6 +8,4 @@ from .corpora import (
     SBertEmbedder,
     Storage,
 )
-from .bocoel import bocoel
-
-from .models import LanguageModel, Evaluator
+from .models import Evaluator, LanguageModel
