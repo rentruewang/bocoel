@@ -1,6 +1,8 @@
 from typing import Protocol
 
-from bocoel.corpora.interfaces import Embedder, Index, Storage
+from .embedders import Embedder
+from .indices import Index
+from .storages import Storage
 
 
 # TODO: Currently only supports 1 index for 1 single key.

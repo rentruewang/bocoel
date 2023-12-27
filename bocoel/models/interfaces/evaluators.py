@@ -5,7 +5,8 @@ from typing import Protocol, Sequence
 from numpy.typing import NDArray
 
 from bocoel.corpora import Corpus, Storage
-from bocoel.models.interfaces import LanguageModel
+
+from .lms import LanguageModel
 
 
 class Evaluator(Protocol):

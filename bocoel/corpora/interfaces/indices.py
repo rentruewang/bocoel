@@ -1,9 +1,17 @@
 import abc
-from typing import Protocol
+import typing
+from typing import NamedTuple, Protocol
 
 from numpy.typing import NDArray
 
 
+class SearchResult(NamedTuple):
+    vectors: NDArray
+    distances: NDArray
+    indices: NDArray
+
+
+@typing.runtime_checkable
 class Index(Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
@@ -11,7 +19,7 @@ class Index(Protocol):
     as some databases support vector queries natively.
     """
 
-    def search(self, query: NDArray, k: int = 1) -> NDArray:
+    def search(self, query: NDArray, k: int = 1) -> SearchResult:
         """
         Calls the search function and performs some checks.
         """
@@ -28,15 +36,6 @@ class Index(Protocol):
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
         return self._search(query, k=k)
-
-    @property
-    @abc.abstractmethod
-    def key(self) -> str:
-        """
-        The key in the original table that this index is for.
-        """
-
-        ...
 
     @property
     @abc.abstractmethod
@@ -63,7 +62,7 @@ class Index(Protocol):
         ...
 
     @abc.abstractmethod
-    def _search(self, query: NDArray, k: int = 1) -> NDArray:
+    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
         """
         Search the index with a given query.
 

@@ -2,10 +2,10 @@ import numpy as np
 from numpy import linalg
 from numpy.typing import NDArray
 
-from bocoel.corpora.interfaces import Embedder, Index, Storage
+from bocoel.corpora.interfaces import Embedder, Index, SearchResult, Storage
 
 from . import utils
-from .hnsw import HnswlibIndex
+from .hnswlib import HnswlibDist, HnswlibIndex
 
 
 class WhiteningIndex(Index):
@@ -14,35 +14,38 @@ class WhiteningIndex(Index):
     See https://arxiv.org/abs/2103.15316 for more info.
     """
 
+    # FIXME: Maybe I should use *args, **kwargs instead?
     def __init__(
-        self, key: str, embeddings: NDArray, k: int, threads: int = -1
+        self, embeddings: NDArray, dist: HnswlibDist, remains: int, threads: int = -1
     ) -> None:
-        white = self._whiten(embeddings, k)
-        self._hnswidx = HnswlibIndex(key, white, threads)
-        assert k == self._hnswidx.dims
-
-    @property
-    def key(self) -> str:
-        return self._hnswidx.key
+        white = self._whiten(embeddings, remains)
+        self._hnswlib_index = HnswlibIndex(embeddings=white, dist=dist, threads=threads)
+        assert remains == self._hnswlib_index.dims
 
     @property
     def dims(self) -> int:
-        return self._hnswidx.dims
+        return self._hnswlib_index.dims
 
     @property
     def bounds(self) -> NDArray:
-        return self._hnswidx.bounds
+        return self._hnswlib_index.bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> NDArray:
-        return self._hnswidx.search(query, k=k)
+    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
+        return self._hnswlib_index.search(query, k=k)
 
     @classmethod
     def from_fields(
-        cls, store: Storage, emb: Embedder, key: str, k: int, threads: int = -1
+        cls,
+        store: Storage,
+        emb: Embedder,
+        key: str,
+        dist: HnswlibDist,
+        remains: int,
+        threads: int = -1,
     ) -> Index:
         items = store.get(key)
         embedded = emb.encode(items)
-        return cls(key, embedded, k, threads=threads)
+        return cls(embeddings=embedded, dist=dist, remains=remains, threads=threads)
 
     @staticmethod
     def _whiten(embeddings: NDArray, k: int) -> NDArray:

@@ -68,9 +68,14 @@ class AxServiceCore(Core):
         index_dims = self.corpus.index.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
-        indices: int = self.corpus.index.search(query).item()
+
+        # Result is a singleton since k = 1.
+        result = self.corpus.index.search(query)
+        indices: int = result.indices.item()
+        vectors = result.vectors
+
         evaluation = self._evaluator.evaluate(self.lm, self.corpus, indices=indices)
-        return State(candidates=query.squeeze(), scores=evaluation)
+        return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
 
     def _create_experiment(self) -> None:
         self._ax_client.create_experiment(

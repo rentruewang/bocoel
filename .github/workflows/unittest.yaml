@@ -1,4 +1,4 @@
-name: Type Checking
+name: Unit Testing
 on: [push]
 jobs:
   type-check:
@@ -23,5 +23,11 @@ jobs:
       - name: 🚂 Activate environment
         run: echo "$(poetry env info --path)/bin" >> $GITHUB_PATH
 
-      - name: 🏃 pyright
-        uses: jakebailey/pyright-action@v1
+      - name: 🏃 pytest
+        run: pytest -xv
+
+      # - name: 🏃 pytest
+      #   run: coverage run -m pytest -v
+
+      # - name: 📊 coverage
+      #   run: coverage report -m
