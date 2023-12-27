@@ -1,10 +1,8 @@
-from typing import List
-
 from bocoel.core import Core, State
 
 
 # FIXME: Should use a config dictionary.
-def bocoel(iterations: int, core: Core) -> List[State]:
+def bocoel(iterations: int, core: Core) -> list[State]:
     """
     This is the entry point fo the entire library.
 

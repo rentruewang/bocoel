@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 import pytest
 from numpy.typing import NDArray
@@ -30,7 +28,6 @@ def test_normalize(embeddings: NDArray) -> None:
 def test_init_hnswlib_index(embeddings: NDArray) -> None:
     index = init_hnswlib_index(embeddings)
     assert index.dims == embeddings.shape[1]
-    assert isinstance(index, Index)
 
 
 def test_hnswlib_index_search_match(embeddings: NDArray) -> None:

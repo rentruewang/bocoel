@@ -1,5 +1,4 @@
 import abc
-import typing
 from typing import NamedTuple, Protocol
 
 from numpy.typing import NDArray
@@ -11,7 +10,6 @@ class SearchResult(NamedTuple):
     indices: NDArray
 
 
-@typing.runtime_checkable
 class Index(Protocol):
     """
     Index is responsible for fast retrieval given a vector query.

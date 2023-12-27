@@ -26,5 +26,5 @@ jobs:
       - name: 🏃 autoflake, isort, black
         run: |
           autoflake -cr $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --remove-all-unused-imports
-          isort --check .
+          isort --profile black --check .
           black --check .

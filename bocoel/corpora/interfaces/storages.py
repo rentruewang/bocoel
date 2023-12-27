@@ -1,5 +1,6 @@
 import abc
-from typing import Container, Mapping, Protocol, Sequence
+from collections.abc import Collection, Mapping, Sequence
+from typing import Protocol
 
 
 class Storage(Protocol):
@@ -9,7 +10,7 @@ class Storage(Protocol):
     """
 
     @abc.abstractmethod
-    def keys(self) -> Container:
+    def keys(self) -> Collection[str]:
         ...
 
     @abc.abstractmethod

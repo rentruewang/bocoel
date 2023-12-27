@@ -1,5 +1,5 @@
 import typing
-from typing import Sequence
+from collections.abc import Sequence
 
 from nltk.translate import bleu_score
 from numpy.typing import NDArray

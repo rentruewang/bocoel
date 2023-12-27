@@ -1,5 +1,6 @@
 import abc
-from typing import Protocol, Sequence
+from collections.abc import Sequence
+from typing import Protocol
 
 from numpy.typing import NDArray
 

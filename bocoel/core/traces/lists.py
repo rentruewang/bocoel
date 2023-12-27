@@ -1,5 +1,3 @@
-from typing import List
-
 from pandas import DataFrame
 
 from bocoel.core.interfaces import State, Trace
@@ -7,7 +5,7 @@ from bocoel.core.interfaces import State, Trace
 
 class ListTrace(Trace):
     def __init__(self) -> None:
-        self.__list: List[State] = []
+        self.__list: list[State] = []
 
     def __len__(self) -> int:
         return len(self.__list)

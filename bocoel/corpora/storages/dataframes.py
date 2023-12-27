@@ -1,5 +1,5 @@
+from collections.abc import Collection, Mapping, Sequence
 from pathlib import Path
-from typing import Container, Mapping, Sequence
 
 import ujson as json
 from pandas import DataFrame
@@ -12,7 +12,7 @@ class DataFrameStorage(Storage):
     def __init__(self, df: DataFrame) -> None:
         self._df = df
 
-    def keys(self) -> Container[str]:
+    def keys(self) -> Collection[str]:
         return self._df.columns
 
     def __len__(self) -> int:

@@ -1,5 +1,3 @@
-from typing import Dict
-
 import numpy as np
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.modelbridge.registry import Models
@@ -64,7 +62,7 @@ class AxServiceCore(Core):
         )
         return state
 
-    def _evaluate(self, parameters: Dict[str, AxServiceParameter]) -> State:
+    def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
         index_dims = self.corpus.index.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])

@@ -1,5 +1,5 @@
 import typing
-from typing import List, Sequence
+from collections.abc import Sequence
 
 import numpy as np
 from numpy.typing import NDArray
@@ -45,6 +45,6 @@ class SBertEmbedder(Embedder):
 
         return np.squeeze(result)
 
-    def _encode_one(self, text: List[str]) -> NDArray:
+    def _encode_one(self, text: list[str]) -> NDArray:
         enc = self._sbert.encode(text, convert_to_numpy=True, show_progress_bar=False)
         return typing.cast(NDArray, enc)
