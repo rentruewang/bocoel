@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 
-from torch import Tensor, device
+from torch import device
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from typing_extensions import Self
 

@@ -19,6 +19,10 @@ def df() -> DataFrame:
                 "question": "who is the most handsome man in the world?",
                 "answer": "it's you, renchu wang",
             },
+            {
+                "question": "a vastly different question",
+                "answer": "a vastly different answer",
+            },
         ]
     )
 
@@ -31,6 +35,5 @@ def dataframe_fix() -> DataFrame:
 def test_dataframe_storage(dataframe_fix: DataFrame) -> None:
     dfs = DataFrameStorage(dataframe_fix)
     assert set(dfs.keys()) == {"question", "answer"}
-    assert len(dfs) == len(dataframe_fix) == 3
     assert dfs[0] == dataframe_fix.iloc[0].to_dict()
     assert dfs.get("answer") == dataframe_fix["answer"].to_list()

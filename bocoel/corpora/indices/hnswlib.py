@@ -28,7 +28,8 @@ class HnswlibIndex(Index):
         self._emb = embeddings
         self._dist = dist
         self._dims = embeddings.shape[1]
-        self._bounds = np.stack([embeddings.min(axis=0), embeddings.max(axis=0)])
+        self._bounds = np.stack([embeddings.min(axis=0), embeddings.max(axis=0)]).T
+        assert self._bounds.shape[1] == 2
 
         # A public attribute because this can be changed at anytime.
         self.threads = threads

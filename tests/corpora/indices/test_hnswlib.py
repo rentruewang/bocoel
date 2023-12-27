@@ -1,7 +1,6 @@
 import numpy as np
 import pytest
 from numpy.typing import NDArray
-from pytest import FixtureRequest
 
 from bocoel import HnswlibIndex, Index
 from bocoel.corpora.indices import utils as idx_utils
@@ -17,7 +16,7 @@ def embeddings_fix() -> NDArray:
 
 
 def index(embeddings: NDArray) -> Index:
-    return HnswlibIndex(embeddings=embeddings, dist="l2")
+    return HnswlibIndex(embeddings=embeddings, dist="cosine")
 
 
 @pytest.fixture

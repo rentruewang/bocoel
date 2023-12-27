@@ -18,7 +18,13 @@ class WhiteningIndex(Index):
     def __init__(
         self, embeddings: NDArray, dist: HnswlibDist, remains: int, threads: int = -1
     ) -> None:
+        remains = min(remains, embeddings.shape[1])
+
         white = self._whiten(embeddings, remains)
+        assert white.shape[1] == remains, {
+            "whitened": white.shape,
+            "remains": remains,
+        }
         self._hnswlib_index = HnswlibIndex(embeddings=white, dist=dist, threads=threads)
         assert remains == self._hnswlib_index.dims
 
@@ -52,11 +58,11 @@ class WhiteningIndex(Index):
         embeddings = utils.normalize(embeddings)
 
         mean = embeddings.mean(axis=0, keepdims=True)
-        covar = np.cov(embeddings)
+        covar = np.cov(embeddings.T)
 
         u, v, _ = linalg.svd(covar)
         sqrt_inv_v = 1 / (v**0.5)
-        w = (u @ sqrt_inv_v)[:, :k]
+        w = u @ np.diag(sqrt_inv_v)[:, :k]
 
         white = (embeddings - mean) @ w
         return white

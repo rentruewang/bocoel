@@ -18,7 +18,7 @@ def lm_fix(request: FixtureRequest) -> LanguageModel:
 def test_lm_generate(lm_fix: LanguageModel) -> None:
     prompts = ["Hello, my name is", "I am a", "I like to eat"]
 
-    gen: list[str] = lm_fix.generate(prompts)
+    gen = lm_fix.generate(prompts)
     assert len(gen) == len(prompts), {
         "gen": gen,
         "prompts": prompts,

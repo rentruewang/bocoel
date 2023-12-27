@@ -26,7 +26,7 @@ def _parameter_dict(corpus: Corpus, i: int) -> dict[str, Any]:
     return {
         "name": _parameter_name(i, dims),
         "type": "range",
-        "bounds": bounds[i],
+        "bounds": bounds[i].tolist(),
         "value_type": "float",
     }
 

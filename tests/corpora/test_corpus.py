@@ -4,14 +4,14 @@ from pytest import FixtureRequest
 from bocoel import ComposedCorpus, Corpus, DataFrameStorage, SBertEmbedder
 from tests import utils
 
-from .indices import test_hnswlib
+from .indices import test_whitening
 from .storages import test_df_storage
 
 
 def corpus(device: str) -> Corpus:
     storage = DataFrameStorage(test_df_storage.df())
     embedder = SBertEmbedder(device=device)
-    index = test_hnswlib.index(embedder.encode(storage.get("question")))
+    index = test_whitening.whiten_index(embedder.encode(storage.get("question")))
 
     return ComposedCorpus(index=index, embedder=embedder, storage=storage)
 
