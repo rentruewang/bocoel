@@ -4,7 +4,6 @@ from pandas import DataFrame
 from bocoel import DataFrameStorage
 
 
-@pytest.fixture
 def df() -> DataFrame:
     return DataFrame.from_records(
         [
@@ -24,9 +23,14 @@ def df() -> DataFrame:
     )
 
 
-def test_dataframe_storage(df: DataFrame) -> None:
-    dfs = DataFrameStorage(df)
+@pytest.fixture
+def dataframe_fix() -> DataFrame:
+    return df()
+
+
+def test_dataframe_storage(dataframe_fix: DataFrame) -> None:
+    dfs = DataFrameStorage(dataframe_fix)
     assert set(dfs.keys()) == {"question", "answer"}
-    assert len(dfs) == len(df) == 3
-    assert dfs[0] == df.iloc[0].to_dict()
-    assert dfs.get("answer") == df["answer"].to_list()
+    assert len(dfs) == len(dataframe_fix) == 3
+    assert dfs[0] == dataframe_fix.iloc[0].to_dict()
+    assert dfs.get("answer") == dataframe_fix["answer"].to_list()

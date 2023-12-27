@@ -23,6 +23,7 @@ class SBertEmbedder(Embedder):
 
         self.batch_size = batch_size
 
+    @property
     def dims(self) -> int:
         d = self._sbert.get_sentence_embedding_dimension()
         assert isinstance(d, int)

@@ -1,69 +1,76 @@
 import numpy as np
 import pytest
 from numpy.typing import NDArray
+from pytest import FixtureRequest
 
 from bocoel import HnswlibIndex, Index
 from bocoel.corpora.indices import utils as idx_utils
 
 
-@pytest.fixture
-def embeddings() -> NDArray:
+def emb() -> NDArray:
     return np.eye(5)
 
 
-def init_hnswlib_index(embeddings: NDArray) -> Index:
+@pytest.fixture
+def embeddings_fix() -> NDArray:
+    return emb()
+
+
+def index(embeddings: NDArray) -> Index:
     return HnswlibIndex(embeddings=embeddings, dist="l2")
 
 
-def test_normalize(embeddings: NDArray) -> None:
-    scaled = embeddings * np.array([1, 2, 3, 4, 5])[None, :]
+@pytest.fixture
+def index_fix(embeddings_fix: NDArray) -> Index:
+    return index(embeddings_fix)
+
+
+def test_normalize(embeddings_fix: NDArray) -> None:
+    scaled = embeddings_fix * np.array([1, 2, 3, 4, 5])[None, :]
     normalized = idx_utils.normalize(scaled)
-    assert np.allclose(normalized, embeddings), {
+    assert np.allclose(normalized, embeddings_fix), {
         "scaled": scaled,
         "normalized": normalized,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }
 
 
-def test_init_hnswlib_index(embeddings: NDArray) -> None:
-    index = init_hnswlib_index(embeddings)
-    assert index.dims == embeddings.shape[1]
+def test_init_hnswlib_index(index_fix: Index, embeddings_fix: NDArray) -> None:
+    assert index_fix.dims == embeddings_fix.shape[1]
 
 
-def test_hnswlib_index_search_match(embeddings: NDArray) -> None:
-    index = init_hnswlib_index(embeddings)
-
-    query = embeddings[0]
+def test_hnswlib_index_search_match(index_fix: Index, embeddings_fix: NDArray) -> None:
+    query = embeddings_fix[0]
     query = idx_utils.normalize(query)
 
-    result = index.search(query)
+    result = index_fix.search(query)
     assert np.isclose(result.distances, 0), {
         "results": result,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }
     assert np.allclose(result.vectors, query), {
         "results": result,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }
     assert result.indices == 0, {
         "results": result,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }
 
 
-def test_hnswlib_index_search_mismatch(embeddings: NDArray) -> None:
-    index = init_hnswlib_index(embeddings)
-
-    e0 = embeddings[0]
-    query = embeddings[0] + embeddings[1] / 2
+def test_hnswlib_index_search_mismatch(
+    index_fix: Index, embeddings_fix: NDArray
+) -> None:
+    e0 = embeddings_fix[0]
+    query = embeddings_fix[0] + embeddings_fix[1] / 2
     query = idx_utils.normalize(query)
 
-    result = index.search(query)
+    result = index_fix.search(query)
     assert np.allclose(result.vectors, e0), {
         "results": result,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }
     assert result.indices == 0, {
         "results": result,
-        "embeddings": embeddings,
+        "embeddings": embeddings_fix,
     }

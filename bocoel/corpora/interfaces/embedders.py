@@ -26,6 +26,7 @@ class Embedder(Protocol):
 
         return encoded
 
+    @property
     @abc.abstractmethod
     def dims(self) -> int:
         """
