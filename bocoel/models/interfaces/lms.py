@@ -6,15 +6,15 @@ from typing import Protocol
 # FIXME: Should I set generate to take in a sequence of strings or just a string?
 class LanguageModel(Protocol):
     @abc.abstractmethod
-    def generate(self, prompt: Sequence[str]) -> Sequence[str]:
+    def generate(self, prompts: Sequence[str]) -> Sequence[str]:
         """
-        Generate a sequence of responses given a prompt.
+        Generate a sequence of responses given prompts.
 
         Parameters
         ----------
 
-        `prompt: Sequence[str]`
-        The prompt to generate responses from.
+        `prompts: Sequence[str]`
+        The prompts to generate responses from.
 
         Returns
         -------

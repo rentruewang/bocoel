@@ -1,5 +1,5 @@
 from .corpora import ComposedCorpus
 from .embedders import SBertEmbedder
-from .indices import HnswlibIndex, WhiteningIndex
-from .interfaces import Corpus, Embedder, Index, Storage
+from .indices import FaissIndex, HnswlibIndex, WhiteningIndex
+from .interfaces import Corpus, Distance, Embedder, Index, Storage
 from .storages import DataFrameStorage

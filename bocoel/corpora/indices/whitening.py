@@ -1,11 +1,14 @@
+from typing import Any
+
 import numpy as np
 from numpy import linalg
 from numpy.typing import NDArray
+from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Embedder, Index, SearchResult, Storage
+from bocoel.corpora.interfaces import Distance, Index, SearchResult
 
 from . import utils
-from .hnswlib import HnswlibDist, HnswlibIndex
+from .hnswlib import HnswlibIndex
 
 
 class WhiteningIndex(Index):
@@ -14,10 +17,16 @@ class WhiteningIndex(Index):
     See https://arxiv.org/abs/2103.15316 for more info.
     """
 
-    # FIXME: Maybe I should use *args, **kwargs instead?
+    # TODO: Support many types of indicies.
     def __init__(
-        self, embeddings: NDArray, dist: HnswlibDist, remains: int, threads: int = -1
+        self,
+        embeddings: NDArray,
+        distance: str | Distance,
+        remains: int,
+        threads: int = -1,
     ) -> None:
+        # Remains might be smaller than embeddings.
+        # In such case, no dimensionality reduction is performed.
         remains = min(remains, embeddings.shape[1])
 
         white = self._whiten(embeddings, remains)
@@ -25,8 +34,14 @@ class WhiteningIndex(Index):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._hnswlib_index = HnswlibIndex(embeddings=white, dist=dist, threads=threads)
+        self._hnswlib_index = HnswlibIndex(
+            embeddings=white, distance=distance, threads=threads
+        )
         assert remains == self._hnswlib_index.dims
+
+    @property
+    def distance(self) -> Distance:
+        return self._hnswlib_index.distance
 
     @property
     def dims(self) -> int:
@@ -40,18 +55,10 @@ class WhiteningIndex(Index):
         return self._hnswlib_index.search(query, k=k)
 
     @classmethod
-    def from_fields(
-        cls,
-        store: Storage,
-        emb: Embedder,
-        key: str,
-        dist: HnswlibDist,
-        remains: int,
-        threads: int = -1,
-    ) -> Index:
-        items = store.get(key)
-        embedded = emb.encode(items)
-        return cls(embeddings=embedded, dist=dist, remains=remains, threads=threads)
+    def from_embeddings(
+        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
+    ) -> Self:
+        raise NotImplementedError
 
     @staticmethod
     def _whiten(embeddings: NDArray, k: int) -> NDArray:

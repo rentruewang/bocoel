@@ -1,12 +1,15 @@
 import abc
-from typing import NamedTuple, Protocol
+from typing import Any, NamedTuple, Protocol
 
 from numpy.typing import NDArray
+from typing_extensions import Self
+
+from .distances import Distance
 
 
 class SearchResult(NamedTuple):
     vectors: NDArray
-    distances: NDArray
+    scores: NDArray
     indices: NDArray
 
 
@@ -34,6 +37,15 @@ class Index(Protocol):
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
         return self._search(query, k=k)
+
+    @property
+    @abc.abstractmethod
+    def distance(self) -> Distance:
+        """
+        The distance metric used by the index.
+        """
+
+        ...
 
     @property
     @abc.abstractmethod
@@ -78,6 +90,30 @@ class Index(Protocol):
 
         A numpy array of shape [k].
         This corresponds to the indices of the nearest neighbors.
+        """
+
+        ...
+
+    @classmethod
+    @abc.abstractmethod
+    def from_embeddings(
+        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
+    ) -> Self:
+        """
+        Constructs an index from a set of embeddings.
+
+        Parameters
+        ----------
+
+        `embeddings: NDArray`
+        The embeddings to construct the index from.
+
+        `distance: str | Distance`
+        The distance to use. Can be a string or a Distance enum.
+
+        Returns
+        -------
+        An index.
         """
 
         ...

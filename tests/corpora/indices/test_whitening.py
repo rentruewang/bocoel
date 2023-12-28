@@ -1,12 +1,14 @@
 from numpy.typing import NDArray
 
-from bocoel import Index, WhiteningIndex
+from bocoel import Distance, Index, WhiteningIndex
 
 from . import test_hnswlib
 
 
 def whiten_index(embeddings: NDArray) -> Index:
-    return WhiteningIndex(embeddings=embeddings, dist="cosine", remains=3)
+    return WhiteningIndex(
+        embeddings=embeddings, distance=Distance.INNER_PRODUCT, remains=3
+    )
 
 
 def test_init_whiten_index() -> None:

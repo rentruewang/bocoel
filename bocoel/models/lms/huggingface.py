@@ -18,28 +18,21 @@ class HuggingfaceLM(LanguageModel):
 
     def __init__(self, model_path: str, max_len: int, device: Device) -> None:
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self._model = AutoModelForCausalLM.from_pretrained(
-            model_path, pad_token_id=self._tokenizer.eos_token_id
-        )
+        self._tokenizer.pad_token = self._tokenizer.eos_token
+        self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._max_len = max_len
         self.to(device)
 
-        # TODO: Verify that this works.
-        # Source: https://stackoverflow.com/a/73137031
-        if self._tokenizer.pad_token is None:
-            self._tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-            self._model.resize_token_embeddings(len(self._tokenizer))
+    def generate(self, prompts: Sequence[str]) -> Sequence[str]:
+        # FIXME: Only able to generate one by one for now, due to padding issues.
+        return [self._generate_one(prompt=p) for p in prompts]
 
-    def generate(self, prompt: Sequence[str]) -> Sequence[str]:
-        # FIXME: Perhaps there is a better way to perform tokenization?
-        inputs = self._tokenizer(
-            prompt, return_tensors="pt", padding="max_length", max_length=self._max_len
-        )
+    def _generate_one(self, prompt: str) -> str:
+        inputs = self._tokenizer(prompt, return_tensors="pt", padding=True)
         inputs = inputs.to(self.device)
-        outputs = self._model.generate(
-            **inputs, max_length=self._max_len, num_return_sequences=1
-        )
-        outputs = self._tokenizer.batch_decode(outputs)
+
+        outputs = self._model.generate(**inputs, max_length=self._max_len)
+        outputs = self._tokenizer.batch_decode(outputs)[0]
         return outputs
 
     def to(self, device: Device) -> Self:

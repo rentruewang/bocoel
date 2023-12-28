@@ -1,27 +1,31 @@
 import numpy as np
 import pytest
 from numpy.typing import NDArray
+from pytest import FixtureRequest
 
-from bocoel import Distance, HnswlibIndex, Index
+from bocoel import Distance, FaissIndex, Index
 from bocoel.corpora.indices import utils as idx_utils
+from tests.corpora.indices import test_hnswlib
 
 
-def emb() -> NDArray:
-    return np.eye(5)
+def index_factory() -> list[str]:
+    return ["Flat", "HNSW32"]
 
 
 @pytest.fixture
 def embeddings_fix() -> NDArray:
-    return emb()
-
-
-def index(embeddings: NDArray) -> Index:
-    return HnswlibIndex(embeddings=embeddings, distance=Distance.INNER_PRODUCT)
+    return test_hnswlib.emb()
 
 
 @pytest.fixture
-def index_fix(embeddings_fix: NDArray) -> Index:
-    return index(embeddings_fix)
+def index_fix(request: FixtureRequest) -> FaissIndex:
+    embeddings = test_hnswlib.emb()
+
+    return FaissIndex(
+        embeddings=embeddings,
+        distance=Distance.INNER_PRODUCT,
+        index_string=request.param,
+    )
 
 
 def test_normalize(embeddings_fix: NDArray) -> None:
@@ -34,17 +38,18 @@ def test_normalize(embeddings_fix: NDArray) -> None:
     }
 
 
-def test_init_hnswlib_index(index_fix: Index, embeddings_fix: NDArray) -> None:
+@pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
+def test_init_faiss_index(index_fix: Index, embeddings_fix: NDArray) -> None:
     assert index_fix.dims == embeddings_fix.shape[1]
 
 
-def test_hnswlib_index_search_match(index_fix: Index, embeddings_fix: NDArray) -> None:
+@pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
+def test_faiss_index_search_match(index_fix: Index, embeddings_fix: NDArray) -> None:
     query = embeddings_fix[0]
     query = idx_utils.normalize(query)
 
     result = index_fix.search(query)
-    # See https://github.com/nmslib/hnswlib#supported-distances
-    assert np.isclose(result.scores, 1 - 1), {
+    assert np.isclose(result.scores, 1), {
         "results": result,
         "embeddings": embeddings_fix,
     }
@@ -58,9 +63,8 @@ def test_hnswlib_index_search_match(index_fix: Index, embeddings_fix: NDArray) -
     }
 
 
-def test_hnswlib_index_search_mismatch(
-    index_fix: Index, embeddings_fix: NDArray
-) -> None:
+@pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
+def test_faiss_index_search_mismatch(index_fix: Index, embeddings_fix: NDArray) -> None:
     e0 = embeddings_fix[0]
     query = embeddings_fix[0] + embeddings_fix[1] / 2
     query = idx_utils.normalize(query)
