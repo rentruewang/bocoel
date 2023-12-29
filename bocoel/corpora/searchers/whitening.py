@@ -11,7 +11,7 @@ from bocoel.corpora.searchers import utils
 
 class WhiteningSearcher(Searcher):
     """
-    Whitening index. Uses the hnswlib library but first whitens the data.
+    Whitening searcher. Whitens the data before indexing.
     See https://arxiv.org/abs/2103.15316 for more info.
     """
 
@@ -19,8 +19,8 @@ class WhiteningSearcher(Searcher):
         self,
         embeddings: NDArray,
         remains: int,
-        distance: Distance,
-        idx_cls: type[Searcher],
+        distance: str | Distance,
+        backend: type[Searcher],
         **kwargs: Any
     ) -> None:
         # Remains might be smaller than embeddings.
@@ -32,31 +32,31 @@ class WhiteningSearcher(Searcher):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._index = idx_cls.from_embeddings(
+        self._searcher = backend.from_embeddings(
             embeddings=white, distance=distance, **kwargs
         )
-        assert remains == self._index.dims
+        assert remains == self._searcher.dims
 
     @property
     def distance(self) -> Distance:
-        return self._index.distance
+        return self._searcher.distance
 
     @property
     def dims(self) -> int:
-        return self._index.dims
+        return self._searcher.dims
 
     @property
     def bounds(self) -> NDArray:
-        return self._index.bounds
+        return self._searcher.bounds
 
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
-        return self._index.search(query, k=k)
+        return self._searcher.search(query, k=k)
 
     @classmethod
     def from_embeddings(
         cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
     ) -> Self:
-        raise NotImplementedError
+        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
     def _whiten(embeddings: NDArray, k: int) -> NDArray:

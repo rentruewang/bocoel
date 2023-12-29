@@ -5,17 +5,17 @@ from bocoel import Distance, HnswlibSearcher, Searcher, WhiteningSearcher
 from . import test_hnswlib
 
 
-def whiten_index(embeddings: NDArray) -> Searcher:
+def whiten(embeddings: NDArray) -> Searcher:
     return WhiteningSearcher(
         embeddings=embeddings,
         distance=Distance.INNER_PRODUCT,
         remains=3,
-        idx_cls=HnswlibSearcher,
+        backend=HnswlibSearcher,
         threads=-1,
     )
 
 
-def test_init_whiten_index() -> None:
+def test_init_whiten() -> None:
     embeddings = test_hnswlib.emb()
-    idx = whiten_index(embeddings)
+    idx = whiten(embeddings)
     assert idx.dims == 3

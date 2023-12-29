@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any
 
 import numpy as np
@@ -13,37 +13,30 @@ from bocoel.core.interfaces import Optimizer, State
 from bocoel.corpora import Corpus
 from bocoel.models import Evaluator, LanguageModel
 
-from . import types
+from . import types, utils
 from .types import AxServiceParameter
+from .utils import GenStepDict, RemainingSteps
 
 _UNCERTAINTY = "uncertainty"
-
-
-class RemainingSteps:
-    def __init__(self, count: int) -> None:
-        self._count = count
-
-    def step(self) -> None:
-        self._count -= 1
-
-    @property
-    def terminate(self) -> bool:
-        return self._count == 0
 
 
 # TODO:
 # Use BOTORCH_MODULAR so that it runs on GPU.
 # It would also allow configuration of surrogate models.
 class AxServiceOptimizer(Optimizer):
-    def __init__(self, corpus: Corpus, steps: list[GenerationStep]) -> None:
-        self._ax_client = AxClient(generation_strategy=GenerationStrategy(steps))
+    def __init__(
+        self, corpus: Corpus, steps: Sequence[GenStepDict | GenerationStep]
+    ) -> None:
+        gen_steps = [utils.generation_step(step) for step in steps]
+        gen_strat = GenerationStrategy(steps=gen_steps)
+
+        self._ax_client = AxClient(generation_strategy=gen_strat)
         self._create_experiment(corpus=corpus)
-        self._remaining_steps = RemainingSteps(self._terminate_step(steps))
+        self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
     @property
     def terminate(self) -> bool:
-        # This would never be true if renaming steps if < 0 at first.
-        return self._remaining_steps.terminate
+        return self._remaining_steps.done
 
     def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
         self._remaining_steps.step()
@@ -107,7 +100,9 @@ class AxServiceOptimizer(Optimizer):
         return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
 
     @classmethod
-    def from_steps(cls, corpus: Corpus, steps: list[GenerationStep]) -> Self:
+    def from_steps(
+        cls, corpus: Corpus, steps: Sequence[GenStepDict | GenerationStep]
+    ) -> Self:
         return cls(corpus=corpus, steps=steps)
 
     @staticmethod

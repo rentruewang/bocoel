@@ -28,4 +28,4 @@ class PolarSearcher(Searcher):
     def from_embeddings(
         cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
     ) -> Self:
-        raise NotImplementedError
+        return cls(embeddings=embeddings, distance=distance, **kwargs)

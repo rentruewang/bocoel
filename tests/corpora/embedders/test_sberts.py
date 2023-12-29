@@ -4,7 +4,7 @@ from bocoel import SBertEmbedder
 from tests import utils
 
 
-@pytest.mark.parametrize("device", utils.devices())
+@pytest.mark.parametrize("device", utils.torch_devices())
 def test_encoding(device: str) -> None:
     sentence_bert = SBertEmbedder(device=device)
 

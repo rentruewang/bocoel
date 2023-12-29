@@ -12,11 +12,15 @@ from bocoel.corpora.searchers import utils
 
 class FaissSearcher(Searcher):
     """
-    HNSWLIB index. Uses the hnswlib library.
+    Faiss searcher. Uses the faiss library.
     """
 
     def __init__(
-        self, embeddings: NDArray, distance: str | Distance, index_string: str
+        self,
+        embeddings: NDArray,
+        distance: str | Distance,
+        index_string: str,
+        cuda: bool = False,
     ) -> None:
         if embeddings.ndim != 2:
             raise ValueError(f"Expected embeddings to be 2D, got {embeddings.ndim}D.")
@@ -29,7 +33,7 @@ class FaissSearcher(Searcher):
         self._bounds = utils.boundaries(embeddings)
         assert self._bounds.shape[1] == 2
 
-        self._init_index(index_string=index_string)
+        self._init_index(index_string=index_string, cuda=cuda)
 
     @property
     def distance(self) -> Distance:
@@ -53,7 +57,7 @@ class FaissSearcher(Searcher):
         vectors = self._emb[indices]
         return SearchResult(vectors=vectors, scores=scores, indices=indices)
 
-    def _init_index(self, index_string: str) -> None:
+    def _init_index(self, index_string: str, cuda: bool) -> None:
         metric = self._faiss_metric(self.distance)
 
         # Using Any as type hint to prevent errors coming up in add / search.
@@ -62,6 +66,9 @@ class FaissSearcher(Searcher):
         self._index: Any = faiss.index_factory(self.dims, index_string, metric)
         self._index.train(self._emb)
         self._index.add(self._emb)
+
+        if cuda:
+            self._index = faiss.index_cpu_to_all_gpus(self._index)
 
     @classmethod
     def from_embeddings(

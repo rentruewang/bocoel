@@ -5,21 +5,22 @@ from .searchers import Searcher
 from .storages import Storage
 
 
-# TODO: Currently only supports 1 index for 1 single key.
-# Maybe extend to support multiple indices?
 class Corpus(Protocol):
     """
     Corpus is the entry point to handling the data in this library.
 
     A corpus has 3 main components:
-    - Index: Indexes one particular column in the storage.Provides fast retrival.
+    - Searcher: Searches one particular column in the storage.Provides fast retrival.
     - Storage: Used to store the questions / answers / texts.
     - Embedder: Embeds the text into vectors for faster access.
+
+    A searcher only corresponds to one key. If search over multiple keys is desired,
+    a new column or a new corpus (with shared storage) should be created.
     """
 
     searcher: Searcher
     """
-    Index indexes one particular column in the storage into vectors.
+    Searcher searches one particular column in the storage into vectors.
     """
 
     storage: Storage
@@ -31,5 +32,5 @@ class Corpus(Protocol):
     embedder: Embedder
     """
     Embedder is used to embed the texts into vectors.
-    It should provide the ranges such that the index can be built.
+    It should provide the ranges such that the searchers look into.
     """

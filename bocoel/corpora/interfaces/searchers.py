@@ -15,9 +15,7 @@ class SearchResult(NamedTuple):
 
 class Searcher(Protocol):
     """
-    Index is responsible for fast retrieval given a vector query.
-    An index can be considered volatile or static,
-    as some databases support vector queries natively.
+    Searcher is responsible for fast retrieval given a vector query.
     """
 
     def search(self, query: NDArray, k: int = 1) -> SearchResult:
@@ -42,7 +40,7 @@ class Searcher(Protocol):
     @abc.abstractmethod
     def distance(self) -> Distance:
         """
-        The distance metric used by the index.
+        The distance metric used by the searcher.
         """
 
         ...
@@ -74,7 +72,7 @@ class Searcher(Protocol):
     @abc.abstractmethod
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
         """
-        Search the index with a given query.
+        Search the searcher with a given query.
 
         Parameters
         ----------
@@ -100,20 +98,20 @@ class Searcher(Protocol):
         cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
     ) -> Self:
         """
-        Constructs an index from a set of embeddings.
+        Constructs a seasrcher from a set of embeddings.
 
         Parameters
         ----------
 
         `embeddings: NDArray`
-        The embeddings to construct the index from.
+        The embeddings to construct the searcher from.
 
         `distance: str | Distance`
         The distance to use. Can be a string or a Distance enum.
 
         Returns
         -------
-        An index.
+        A searcher.
         """
 
         ...
