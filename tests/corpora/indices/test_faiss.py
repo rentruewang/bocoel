@@ -5,7 +5,8 @@ from pytest import FixtureRequest
 
 from bocoel import Distance, FaissIndex, Index
 from bocoel.corpora.indices import utils as idx_utils
-from tests.corpora.indices import test_hnswlib
+
+from . import test_hnswlib
 
 
 def index_factory() -> list[str]:

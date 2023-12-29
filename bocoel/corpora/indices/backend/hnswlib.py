@@ -4,11 +4,10 @@ from hnswlib import Index as _HnswlibIndex
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.corpora.indices import utils
 from bocoel.corpora.interfaces import Distance, Index, SearchResult
 
-from . import utils
-
-HnswlibDist = Literal["l2", "ip", "cosine"]
+_HnswlibDist = Literal["l2", "ip", "cosine"]
 
 
 class HnswlibIndex(Index):
@@ -73,7 +72,7 @@ class HnswlibIndex(Index):
         )
 
     @staticmethod
-    def _hnswlib_space(distance: Distance) -> HnswlibDist:
+    def _hnswlib_space(distance: Distance) -> _HnswlibDist:
         match distance:
             case Distance.L2:
                 return "l2"

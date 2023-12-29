@@ -5,10 +5,8 @@ from numpy import linalg
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.corpora.indices import utils
 from bocoel.corpora.interfaces import Distance, Index, SearchResult
-
-from . import utils
-from .hnswlib import HnswlibIndex
 
 
 class WhiteningIndex(Index):
@@ -17,13 +15,13 @@ class WhiteningIndex(Index):
     See https://arxiv.org/abs/2103.15316 for more info.
     """
 
-    # TODO: Support many types of indicies.
     def __init__(
         self,
         embeddings: NDArray,
-        distance: str | Distance,
         remains: int,
-        threads: int = -1,
+        distance: Distance,
+        idx_cls: type[Index],
+        **kwargs: Any
     ) -> None:
         # Remains might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
@@ -34,25 +32,25 @@ class WhiteningIndex(Index):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._hnswlib_index = HnswlibIndex(
-            embeddings=white, distance=distance, threads=threads
+        self._index = idx_cls.from_embeddings(
+            embeddings=white, distance=distance, **kwargs
         )
-        assert remains == self._hnswlib_index.dims
+        assert remains == self._index.dims
 
     @property
     def distance(self) -> Distance:
-        return self._hnswlib_index.distance
+        return self._index.distance
 
     @property
     def dims(self) -> int:
-        return self._hnswlib_index.dims
+        return self._index.dims
 
     @property
     def bounds(self) -> NDArray:
-        return self._hnswlib_index.bounds
+        return self._index.bounds
 
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
-        return self._hnswlib_index.search(query, k=k)
+        return self._index.search(query, k=k)
 
     @classmethod
     def from_embeddings(

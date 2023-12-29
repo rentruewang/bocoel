@@ -1,3 +1,2 @@
-from .faiss import FaissIndex
-from .hnswlib import HnswlibIndex
+from .backend import FaissIndex, HnswlibIndex
 from .whitening import WhiteningIndex

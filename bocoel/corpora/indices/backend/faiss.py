@@ -1,13 +1,11 @@
 from typing import Any
 
 import faiss
-import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.corpora.indices import utils
 from bocoel.corpora.interfaces import Distance, Index, SearchResult
-
-from . import utils
 
 # TODO: Allow use of GPU for faiss index.
 
@@ -69,7 +67,7 @@ class FaissIndex(Index):
     def from_embeddings(
         cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
     ) -> Self:
-        raise NotImplementedError
+        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
     def _faiss_metric(distance: str | Distance) -> Any:

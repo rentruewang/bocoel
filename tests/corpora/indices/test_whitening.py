@@ -1,13 +1,17 @@
 from numpy.typing import NDArray
 
-from bocoel import Distance, Index, WhiteningIndex
+from bocoel import Distance, HnswlibIndex, Index, WhiteningIndex
 
 from . import test_hnswlib
 
 
 def whiten_index(embeddings: NDArray) -> Index:
     return WhiteningIndex(
-        embeddings=embeddings, distance=Distance.INNER_PRODUCT, remains=3
+        embeddings=embeddings,
+        distance=Distance.INNER_PRODUCT,
+        remains=3,
+        idx_cls=HnswlibIndex,
+        threads=-1,
     )
 
 
