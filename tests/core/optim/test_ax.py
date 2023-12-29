@@ -1,7 +1,8 @@
 import pytest
-from pytest import FixtureRequest
+from ax.modelbridge.generation_strategy import GenerationStep
+from ax.modelbridge.registry import Models
 
-from bocoel import AxServiceOptimizer, ComposedCore, ComposedCorpus, Corpus, Optimizer
+from bocoel import AxServiceOptimizer, ComposedCore, Corpus, Optimizer
 from tests import utils
 from tests.corpora import test_corpus
 from tests.models.evaluators import test_bleu
@@ -9,7 +10,17 @@ from tests.models.lms import test_huggingface
 
 
 def optim(corpus: Corpus) -> Optimizer:
-    return AxServiceOptimizer(corpus)
+    steps = [
+        GenerationStep(
+            model=Models.SOBOL,
+            num_trials=5,
+        ),
+        GenerationStep(
+            model=Models.GPMES,
+            num_trials=-1,
+        ),
+    ]
+    return AxServiceOptimizer.from_steps(corpus, steps)
 
 
 @pytest.mark.parametrize("device", utils.devices())
@@ -27,7 +38,4 @@ def test_optimize(device: str) -> None:
 
     core = ComposedCore(corpus, lm, evaluator, optimizer)
 
-    # FIXME: Sobol has 5 iterations.
-    # This should be changed when the hardcode is removed.
-    for _ in range(5):
-        _ = core.step()
+    core.run(iterations=5)

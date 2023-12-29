@@ -6,7 +6,9 @@ from tests import utils
 
 
 def lm(device: str) -> LanguageModel:
-    return HuggingfaceLM(model_path="distilgpt2", device=device, max_len=512)
+    return HuggingfaceLM(
+        model_path="distilgpt2", device=device, batch_size=4, max_len=512
+    )
 
 
 @pytest.fixture

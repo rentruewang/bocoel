@@ -1,4 +1,3 @@
-import abc
 from typing import Protocol
 
 from bocoel.corpora import Corpus

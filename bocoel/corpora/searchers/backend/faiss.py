@@ -4,8 +4,8 @@ import faiss
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.searchers import utils
 from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
+from bocoel.corpora.searchers import utils
 
 # TODO: Allow use of GPU for faiss index.
 

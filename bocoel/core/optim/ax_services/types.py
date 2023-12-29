@@ -1,4 +1,3 @@
-import math
 from typing import Any, TypedDict
 
 from typing_extensions import NotRequired
@@ -16,32 +15,21 @@ class AxServiceParameter(TypedDict):
 
 # FIXME: Currently using Any to silence typing warnings.
 def corpus_parameters(corpus: Corpus) -> list[dict[str, Any]]:
-    return [_parameter_dict(corpus, i) for i in range(corpus.searcher.dims)]
+    return [param_name_dict(corpus, i) for i in range(corpus.searcher.dims)]
 
 
-def _parameter_dict(corpus: Corpus, i: int) -> dict[str, Any]:
-    dims = corpus.searcher.dims
-    bounds = corpus.searcher.bounds
-
+def param_name_dict(corpus: Corpus, i: int) -> dict[str, Any]:
     return {
-        "name": _parameter_name(i, dims),
+        "name": param_name(i),
         "type": "range",
-        "bounds": bounds[i].tolist(),
+        "bounds": corpus.searcher.bounds[i].tolist(),
         "value_type": "float",
     }
 
 
 def parameter_name_list(total: int) -> list[str]:
-    return [_parameter_name(i, total) for i in range(total)]
+    return [param_name(i) for i in range(total)]
 
 
-def _parameter_name(number: int, total: int) -> str:
-    formatted = _format_number_uniform(number, total)
-    return f"x{formatted}"
-
-
-def _format_number_uniform(number: int, total: int) -> str:
-    digits = int(math.ceil(math.log10(total)))
-
-    template = "{{:0{}d}}"
-    return template.format(digits).format(number)
+def param_name(number: int) -> str:
+    return f"x{number}"

@@ -5,8 +5,8 @@ from numpy import linalg
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.searchers import utils
 from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
+from bocoel.corpora.searchers import utils
 
 
 class WhiteningSearcher(Searcher):

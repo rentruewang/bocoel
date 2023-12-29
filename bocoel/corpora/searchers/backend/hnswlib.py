@@ -4,8 +4,8 @@ from hnswlib import Index as _HnswlibIndex
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.searchers import utils
 from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
+from bocoel.corpora.searchers import utils
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
 
