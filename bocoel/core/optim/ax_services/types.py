@@ -16,12 +16,12 @@ class AxServiceParameter(TypedDict):
 
 # FIXME: Currently using Any to silence typing warnings.
 def corpus_parameters(corpus: Corpus) -> list[dict[str, Any]]:
-    return [_parameter_dict(corpus, i) for i in range(corpus.index.dims)]
+    return [_parameter_dict(corpus, i) for i in range(corpus.searcher.dims)]
 
 
 def _parameter_dict(corpus: Corpus, i: int) -> dict[str, Any]:
-    dims = corpus.index.dims
-    bounds = corpus.index.bounds
+    dims = corpus.searcher.dims
+    bounds = corpus.searcher.bounds
 
     return {
         "name": _parameter_name(i, dims),

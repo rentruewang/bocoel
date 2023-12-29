@@ -1,16 +1,16 @@
 from numpy.typing import NDArray
 
-from bocoel import Distance, HnswlibIndex, Index, WhiteningIndex
+from bocoel import Distance, HnswlibSearcher, Searcher, WhiteningSearcher
 
 from . import test_hnswlib
 
 
-def whiten_index(embeddings: NDArray) -> Index:
-    return WhiteningIndex(
+def whiten_index(embeddings: NDArray) -> Searcher:
+    return WhiteningSearcher(
         embeddings=embeddings,
         distance=Distance.INNER_PRODUCT,
         remains=3,
-        idx_cls=HnswlibIndex,
+        idx_cls=HnswlibSearcher,
         threads=-1,
     )
 

@@ -6,11 +6,11 @@ from .corpora import (
     DataFrameStorage,
     Distance,
     Embedder,
-    FaissIndex,
-    HnswlibIndex,
-    Index,
+    FaissSearcher,
+    HnswlibSearcher,
     SBertEmbedder,
+    Searcher,
     Storage,
-    WhiteningIndex,
+    WhiteningSearcher,
 )
 from .models import BleuEvaluator, Evaluator, HuggingfaceLM, LanguageModel

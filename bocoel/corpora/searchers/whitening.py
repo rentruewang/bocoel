@@ -5,11 +5,11 @@ from numpy import linalg
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.indices import utils
-from bocoel.corpora.interfaces import Distance, Index, SearchResult
+from bocoel.corpora.searchers import utils
+from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
 
 
-class WhiteningIndex(Index):
+class WhiteningSearcher(Searcher):
     """
     Whitening index. Uses the hnswlib library but first whitens the data.
     See https://arxiv.org/abs/2103.15316 for more info.
@@ -20,7 +20,7 @@ class WhiteningIndex(Index):
         embeddings: NDArray,
         remains: int,
         distance: Distance,
-        idx_cls: type[Index],
+        idx_cls: type[Searcher],
         **kwargs: Any
     ) -> None:
         # Remains might be smaller than embeddings.

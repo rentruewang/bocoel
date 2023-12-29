@@ -22,6 +22,18 @@ class Core(Protocol):
     evaluator: Evaluator
     optimizer: Optimizer
 
+    def run(self, iterations: int) -> list[State]:
+        states = []
+
+        for _ in range(iterations):
+            if self.optimizer.terminate:
+                break
+
+            state = self.step()
+            states.append(state)
+
+        return states
+
     def step(self) -> State:
         return self.optimizer.step(
             corpus=self.corpus, lm=self.lm, evaluator=self.evaluator

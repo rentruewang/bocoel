@@ -1,7 +1,7 @@
 from typing import Protocol
 
 from .embedders import Embedder
-from .indices import Index
+from .searchers import Searcher
 from .storages import Storage
 
 
@@ -17,7 +17,7 @@ class Corpus(Protocol):
     - Embedder: Embeds the text into vectors for faster access.
     """
 
-    index: Index
+    searcher: Searcher
     """
     Index indexes one particular column in the storage into vectors.
     """

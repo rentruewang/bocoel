@@ -37,6 +37,10 @@ class AxServiceOptimizer(Optimizer):
         )
         self._create_experiment(corpus=corpus)
 
+    @property
+    def terminate(self) -> bool:
+        return False
+
     def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
@@ -59,12 +63,12 @@ class AxServiceOptimizer(Optimizer):
         lm: LanguageModel,
         evaluator: Evaluator,
     ) -> State:
-        index_dims = corpus.index.dims
+        index_dims = corpus.searcher.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
         # Result is a singleton since k = 1.
-        result = corpus.index.search(query)
+        result = corpus.searcher.search(query)
         indices: int = result.indices.item()
         vectors = result.vectors
 

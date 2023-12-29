@@ -2,7 +2,7 @@ from bocoel.core import Core, State
 
 
 # FIXME: Should use a config dictionary.
-def bocoel(iterations: int, core: Core) -> list[State]:
+def bocoel(core: Core, iterations: int) -> list[State]:
     """
     This is the entry point fo the entire library.
 
@@ -19,10 +19,4 @@ def bocoel(iterations: int, core: Core) -> list[State]:
     The list of state changes given by the optimizer.
     """
 
-    states = []
-
-    for _ in range(iterations):
-        state = core.step()
-        states.append(state)
-
-    return states
+    return core.run(iterations)

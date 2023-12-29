@@ -13,7 +13,7 @@ class SearchResult(NamedTuple):
     indices: NDArray
 
 
-class Index(Protocol):
+class Searcher(Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
     An index can be considered volatile or static,

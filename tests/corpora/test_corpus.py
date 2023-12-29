@@ -13,7 +13,7 @@ def corpus(device: str) -> Corpus:
     embedder = SBertEmbedder(device=device)
     index = test_whitening.whiten_index(embedder.encode(storage.get("question")))
 
-    return ComposedCorpus(index=index, embedder=embedder, storage=storage)
+    return ComposedCorpus(searcher=index, embedder=embedder, storage=storage)
 
 
 @pytest.fixture

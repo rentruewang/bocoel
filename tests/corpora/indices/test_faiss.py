@@ -3,8 +3,8 @@ import pytest
 from numpy.typing import NDArray
 from pytest import FixtureRequest
 
-from bocoel import Distance, FaissIndex, Index
-from bocoel.corpora.indices import utils as idx_utils
+from bocoel import Distance, FaissSearcher, Searcher
+from bocoel.corpora.searchers import utils as idx_utils
 
 from . import test_hnswlib
 
@@ -19,10 +19,10 @@ def embeddings_fix() -> NDArray:
 
 
 @pytest.fixture
-def index_fix(request: FixtureRequest) -> FaissIndex:
+def index_fix(request: FixtureRequest) -> FaissSearcher:
     embeddings = test_hnswlib.emb()
 
-    return FaissIndex(
+    return FaissSearcher(
         embeddings=embeddings,
         distance=Distance.INNER_PRODUCT,
         index_string=request.param,
@@ -40,12 +40,12 @@ def test_normalize(embeddings_fix: NDArray) -> None:
 
 
 @pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
-def test_init_faiss_index(index_fix: Index, embeddings_fix: NDArray) -> None:
+def test_init_faiss_index(index_fix: Searcher, embeddings_fix: NDArray) -> None:
     assert index_fix.dims == embeddings_fix.shape[1]
 
 
 @pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
-def test_faiss_index_search_match(index_fix: Index, embeddings_fix: NDArray) -> None:
+def test_faiss_index_search_match(index_fix: Searcher, embeddings_fix: NDArray) -> None:
     query = embeddings_fix[0]
     query = idx_utils.normalize(query)
 
@@ -65,7 +65,9 @@ def test_faiss_index_search_match(index_fix: Index, embeddings_fix: NDArray) -> 
 
 
 @pytest.mark.parametrize("index_fix", index_factory(), indirect=True)
-def test_faiss_index_search_mismatch(index_fix: Index, embeddings_fix: NDArray) -> None:
+def test_faiss_index_search_mismatch(
+    index_fix: Searcher, embeddings_fix: NDArray
+) -> None:
     e0 = embeddings_fix[0]
     query = embeddings_fix[0] + embeddings_fix[1] / 2
     query = idx_utils.normalize(query)
