@@ -1,9 +1,8 @@
 import numpy as np
 import pytest
 from numpy.typing import NDArray
-from pytest import FixtureRequest
 
-from bocoel import Distance, FaissSearcher, Searcher
+from bocoel import Distance, FaissSearcher
 from bocoel.corpora.searchers import utils
 from tests import utils as test_utils
 
