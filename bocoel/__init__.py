@@ -1,5 +1,5 @@
 from .bocoel import bocoel
-from .core import AxServiceCore, AxServiceParameter, Core
+from .core import AxServiceOptimizer, AxServiceParameter, ComposedCore, Core, Optimizer
 from .corpora import (
     ComposedCorpus,
     Corpus,

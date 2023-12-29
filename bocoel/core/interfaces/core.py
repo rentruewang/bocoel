@@ -2,8 +2,9 @@ import abc
 from typing import Protocol
 
 from bocoel.corpora import Corpus
-from bocoel.models import LanguageModel
+from bocoel.models import Evaluator, LanguageModel
 
+from .optim import Optimizer
 from .states import State
 
 
@@ -16,18 +17,12 @@ class Core(Protocol):
     with relatively few evaluations, making the process fast.
     """
 
-    @property
-    @abc.abstractmethod
-    def corpus(self) -> Corpus:
-        """ """
+    corpus: Corpus
+    lm: LanguageModel
+    evaluator: Evaluator
+    optimizer: Optimizer
 
-        ...
-
-    @property
-    @abc.abstractmethod
-    def lm(self) -> LanguageModel:
-        ...
-
-    @abc.abstractmethod
-    def optimize(self) -> State:
-        ...
+    def step(self) -> State:
+        return self.optimizer.step(
+            corpus=self.corpus, lm=self.lm, evaluator=self.evaluator
+        )

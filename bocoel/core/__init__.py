@@ -1,3 +1,4 @@
-from .core import AxServiceCore, AxServiceParameter
-from .interfaces import Core, State, Trace
+from .core import ComposedCore
+from .interfaces import Core, Optimizer, State, Trace
+from .optim import AxServiceOptimizer, AxServiceParameter
 from .traces import ListTrace

@@ -11,13 +11,7 @@ def bocoel(iterations: int, core: Core) -> list[State]:
     Parameters
     ----------
 
-    `iteartions: int`
-    FIXME: Should remove this in favor of config dictionary.
-
-    `core: Core`
-    The algorithms to use.
-    A core contains both language model and corpus,
-    and is responsible for finding the best language model.
+    # TODO: Parameters
 
     Returns
     -------
@@ -28,7 +22,7 @@ def bocoel(iterations: int, core: Core) -> list[State]:
     states = []
 
     for _ in range(iterations):
-        state = core.optimize()
+        state = core.step()
         states.append(state)
 
     return states

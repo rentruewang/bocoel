@@ -3,7 +3,7 @@ from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrateg
 from ax.modelbridge.registry import Models
 from ax.service.ax_client import AxClient, ObjectiveProperties
 
-from bocoel.core.interfaces import Core, State
+from bocoel.core.interfaces import Optimizer, State
 from bocoel.corpora import Corpus
 from bocoel.models import Evaluator, LanguageModel
 
@@ -19,16 +19,8 @@ _UNCERTAINTY = "uncertainty"
 # TODO:
 # Use BOTORCH_MODULAR so that it runs on GPU.
 # It would also allow configuration of surrogate models.
-class AxServiceCore(Core):
-    def __init__(
-        self,
-        corpus: Corpus,
-        lm: LanguageModel,
-        evaluator: Evaluator,
-    ) -> None:
-        self._corpus = corpus
-        self._lm = lm
-        self._evaluator = evaluator
+class AxServiceOptimizer(Optimizer):
+    def __init__(self, corpus: Corpus) -> None:
         self._ax_client = AxClient(
             generation_strategy=GenerationStrategy(
                 [
@@ -43,40 +35,38 @@ class AxServiceCore(Core):
                 ],
             )
         )
-        self._create_experiment()
+        self._create_experiment(corpus=corpus)
 
-    @property
-    def corpus(self) -> Corpus:
-        return self._corpus
-
-    @property
-    def lm(self) -> LanguageModel:
-        return self._lm
-
-    def optimize(self) -> State:
+    def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
-        state = self._evaluate(parameters)
+        state = self._evaluate(parameters, corpus=corpus, lm=lm, evaluator=evaluator)
         self._ax_client.complete_trial(
             trial_index, raw_data={_UNCERTAINTY: float(state.scores)}
         )
         return state
 
-    def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
-        index_dims = self.corpus.index.dims
+    def _create_experiment(self, corpus: Corpus) -> None:
+        self._ax_client.create_experiment(
+            parameters=types.corpus_parameters(corpus),
+            objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
+        )
+
+    @staticmethod
+    def _evaluate(
+        parameters: dict[str, AxServiceParameter],
+        corpus: Corpus,
+        lm: LanguageModel,
+        evaluator: Evaluator,
+    ) -> State:
+        index_dims = corpus.index.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
         # Result is a singleton since k = 1.
-        result = self.corpus.index.search(query)
+        result = corpus.index.search(query)
         indices: int = result.indices.item()
         vectors = result.vectors
 
-        evaluation = self._evaluator.evaluate(self.lm, self.corpus, indices=indices)
+        evaluation = evaluator.evaluate(lm, corpus, indices=indices)
         return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
-
-    def _create_experiment(self) -> None:
-        self._ax_client.create_experiment(
-            parameters=types.corpus_parameters(self._corpus),
-            objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
-        )
