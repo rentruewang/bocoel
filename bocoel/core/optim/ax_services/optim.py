@@ -96,7 +96,8 @@ class AxServiceOptimizer(Optimizer):
         indices: int = result.indices.item()
         vectors = result.vectors
 
-        evaluation = evaluator.evaluate(lm, corpus, indices=indices)
+        # FIXME: This is a temporary hack to only evaluate one query.
+        evaluation = evaluator.evaluate(lm, corpus, indices=[indices])[0]
         return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
 
     @classmethod

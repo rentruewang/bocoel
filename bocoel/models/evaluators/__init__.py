@@ -1,1 +1,1 @@
-from .bleu import BleuEvaluator
+from .comparison import BleuEvaluator, ComparisonEvaluator

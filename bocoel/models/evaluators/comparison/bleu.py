@@ -4,25 +4,28 @@ from collections.abc import Sequence
 from nltk.translate import bleu_score
 from numpy.typing import NDArray
 
-from bocoel.corpora import Storage
+from bocoel.corpora import Corpus
 from bocoel.models.interfaces import Evaluator, LanguageModel
 
+from .comparison import ComparisonEvaluator
 
-class BleuEvaluator(Evaluator):
+
+class BleuEvaluator(ComparisonEvaluator):
     def __init__(self, problem: str, answer: str) -> None:
         self._problem_key = problem
         self._answer_key = answer
 
+    @property
+    def source(self) -> str:
+        return self._problem_key
+
+    @property
+    def target(self) -> str:
+        return self._answer_key
+
     def _evaluate(
-        self, lm: LanguageModel, store: Storage, indices: Sequence[int] | NDArray
-    ) -> Sequence[float]:
-        # FIXME: Only allows one correct answer in BLEU as of right now.
-
-        retrieved = [store[idx] for idx in indices]
-        problems = [r[self._problem_key] for r in retrieved]
-        answers = [r[self._answer_key] for r in retrieved]
-        generated = lm.generate(problems)
-
+        self, generated: Sequence[str], answers: Sequence[str]
+    ) -> Sequence[float] | NDArray:
         return [
             typing.cast(float, bleu_score.sentence_bleu([ans.split()], gen.split()))
             for ans, gen in zip(answers, generated)
