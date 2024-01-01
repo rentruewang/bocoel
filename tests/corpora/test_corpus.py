@@ -4,7 +4,7 @@ from pytest import FixtureRequest
 from bocoel import ComposedCorpus, Corpus, DataFrameStorage, SBertEmbedder
 from tests import utils
 
-from .indices import test_whitening
+from .searchers import test_whitening
 from .storages import test_df_storage
 
 

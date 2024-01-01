@@ -70,7 +70,7 @@ class AxServiceOptimizer(Optimizer):
             case "tile":
                 func = self._render_tile
             case _:
-                raise ValueError("Not supported.")
+                raise ValueError("Not supported")
 
         func(**kwargs)
 

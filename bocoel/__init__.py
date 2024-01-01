@@ -20,4 +20,11 @@ from .corpora import (
     Storage,
     WhiteningSearcher,
 )
-from .models import BleuEvaluator, Evaluator, HuggingfaceLM, LanguageModel
+from .models import (
+    BleuEvaluator,
+    ComparisonEvaluator,
+    Evaluator,
+    HuggingfaceLM,
+    LanguageModel,
+    LoneEvaluator,
+)

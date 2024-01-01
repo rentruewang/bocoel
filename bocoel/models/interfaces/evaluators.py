@@ -1,11 +1,10 @@
 import abc
-import typing
 from collections.abc import Sequence
 from typing import Protocol
 
 from numpy.typing import NDArray
 
-from bocoel.corpora import Corpus, Storage
+from bocoel.corpora import Corpus
 
 from .lms import LanguageModel
 

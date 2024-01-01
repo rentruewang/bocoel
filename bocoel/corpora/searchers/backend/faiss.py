@@ -22,14 +22,11 @@ class FaissSearcher(Searcher):
         index_string: str,
         cuda: bool = False,
     ) -> None:
-        if embeddings.ndim != 2:
-            raise ValueError(f"Expected embeddings to be 2D, got {embeddings.ndim}D.")
-
+        utils.validate_embeddings(embeddings)
         embeddings = utils.normalize(embeddings)
-
         self._emb = embeddings
-        self._dist = distance
-        self._dims = embeddings.shape[1]
+
+        self._dist = Distance(distance)
         self._bounds = utils.boundaries(embeddings)
         assert self._bounds.shape[1] == 2
 
@@ -37,11 +34,11 @@ class FaissSearcher(Searcher):
 
     @property
     def distance(self) -> Distance:
-        return Distance(self._dist)
+        return self._dist
 
     @property
     def dims(self) -> int:
-        return self._dims
+        return self._emb.shape[1]
 
     @property
     def bounds(self) -> NDArray:

@@ -4,9 +4,6 @@ from collections.abc import Sequence
 from nltk.translate import bleu_score
 from numpy.typing import NDArray
 
-from bocoel.corpora import Corpus
-from bocoel.models.interfaces import Evaluator, LanguageModel
-
 from .comparison import ComparisonEvaluator
 
 
