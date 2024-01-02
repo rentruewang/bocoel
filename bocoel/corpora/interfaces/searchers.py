@@ -37,6 +37,16 @@ class Searcher(Protocol):
         return self._search(query, k=k)
 
     @property
+    def embeddings(self) -> NDArray:
+        """
+        The embeddings used by the searcher.
+
+        FIXME: Move away from NDArray in the future due to scalability concerns.
+        """
+
+        ...
+
+    @property
     @abc.abstractmethod
     def distance(self) -> Distance:
         """

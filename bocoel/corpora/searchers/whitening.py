@@ -38,6 +38,10 @@ class WhiteningSearcher(Searcher):
         assert remains == self._searcher.dims
 
     @property
+    def embeddings(self) -> NDArray:
+        return self._searcher.embeddings
+
+    @property
     def distance(self) -> Distance:
         return self._searcher.distance
 

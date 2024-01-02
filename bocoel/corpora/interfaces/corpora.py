@@ -1,6 +1,5 @@
 from typing import Protocol
 
-from .embedders import Embedder
 from .searchers import Searcher
 from .storages import Storage
 
@@ -18,19 +17,13 @@ class Corpus(Protocol):
     a new column or a new corpus (with shared storage) should be created.
     """
 
-    searcher: Searcher
-    """
-    Searcher searches one particular column in the storage into vectors.
-    """
-
     storage: Storage
     """
     Storage is used to store the questions / answers / etc.
     Can be viewed as a dataframe of texts.
     """
 
-    embedder: Embedder
+    searcher: Searcher
     """
-    Embedder is used to embed the texts into vectors.
-    It should provide the ranges such that the searchers look into.
+    Searcher searches one particular column in the storage into vectors.
     """

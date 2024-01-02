@@ -37,6 +37,10 @@ class HnswlibSearcher(Searcher):
         self._init_index()
 
     @property
+    def embeddings(self) -> NDArray:
+        return self._emb
+
+    @property
     def distance(self) -> Distance:
         return self._dist
 

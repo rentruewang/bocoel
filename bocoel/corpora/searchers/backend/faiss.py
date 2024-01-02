@@ -33,6 +33,10 @@ class FaissSearcher(Searcher):
         self._init_index(index_string=index_string, cuda=cuda)
 
     @property
+    def embeddings(self) -> NDArray:
+        return self._emb
+
+    @property
     def distance(self) -> Distance:
         return self._dist
 

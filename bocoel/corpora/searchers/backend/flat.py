@@ -42,6 +42,10 @@ class FlatSearcher(Searcher):
     distance = property(_get_distance, _set_distance)
 
     @property
+    def embeddings(self) -> NDArray:
+        return self._emb
+
+    @property
     def bounds(self) -> NDArray:
         return self._bounds
 

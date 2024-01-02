@@ -10,12 +10,14 @@ from ax.utils.notebook import plotting
 from typing_extensions import Self
 
 from bocoel.core.interfaces import Optimizer, State
+from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Corpus
 from bocoel.models import Evaluator, LanguageModel
 
 from . import types, utils
 from .types import AxServiceParameter
-from .utils import GenStepDict, RemainingSteps
+from .utils import GenStepDict
 
 _UNCERTAINTY = "uncertainty"
 
@@ -24,6 +26,11 @@ _UNCERTAINTY = "uncertainty"
 # Use BOTORCH_MODULAR so that it runs on GPU.
 # It would also allow configuration of surrogate models.
 class AxServiceOptimizer(Optimizer):
+    """
+    The Ax optimizer that uses the service API.
+    See https://ax.dev/tutorials/gpei_hartmann_service.html
+    """
+
     def __init__(
         self, corpus: Corpus, steps: Sequence[GenStepDict | GenerationStep]
     ) -> None:
@@ -91,14 +98,9 @@ class AxServiceOptimizer(Optimizer):
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
-        # Result is a singleton since k = 1.
-        result = corpus.searcher.search(query)
-        indices: int = result.indices.item()
-        vectors = result.vectors
-
-        # FIXME: This is a temporary hack to only evaluate one query.
-        evaluation = evaluator.evaluate(lm, corpus, indices=[indices])[0]
-        return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
+        return optim_utils.evaluate_query(
+            query=query, corpus=corpus, lm=lm, evaluator=evaluator
+        )
 
     @classmethod
     def from_steps(

@@ -13,6 +13,10 @@ class PolarSearcher(Searcher):
         raise NotImplementedError
 
     @property
+    def embeddings(self) -> NDArray:
+        raise NotImplementedError
+
+    @property
     def distance(self) -> Distance:
         raise NotImplementedError
 

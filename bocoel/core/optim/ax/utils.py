@@ -19,16 +19,3 @@ def generation_step(step: GenStepDict | GenerationStep) -> GenerationStep:
     copied = {**step}
     copied["model"] = _MODEL_MAPPING[copied["model"]]
     return GenerationStep(**copied)
-
-
-class RemainingSteps:
-    def __init__(self, count: int) -> None:
-        self._count = count
-
-    def step(self) -> None:
-        self._count -= 1
-
-    @property
-    def done(self) -> bool:
-        # This would never be true if renaming steps if < 0 at first.
-        return self._count == 0
