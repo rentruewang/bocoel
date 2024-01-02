@@ -27,7 +27,7 @@ class WhiteningSearcher(Searcher):
         # In such case, no dimensionality reduction is performed.
         remains = min(remains, embeddings.shape[1])
 
-        white = self._whiten(embeddings, remains)
+        white = self.whiten(embeddings, remains)
         assert white.shape[1] == remains, {
             "whitened": white.shape,
             "remains": remains,
@@ -63,7 +63,7 @@ class WhiteningSearcher(Searcher):
         return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
-    def _whiten(embeddings: NDArray, k: int) -> NDArray:
+    def whiten(embeddings: NDArray, k: int) -> NDArray:
         embeddings = utils.normalize(embeddings)
 
         mean = embeddings.mean(axis=0, keepdims=True)
