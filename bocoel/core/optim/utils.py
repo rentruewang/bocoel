@@ -4,7 +4,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.core.interfaces import State
-from bocoel.corpora import Corpus, Searcher
+from bocoel.corpora import Corpus, Searcher, SearchResult
 from bocoel.models import Evaluator
 from bocoel.models import utils as model_utils
 
@@ -37,27 +37,23 @@ def check_bounds(corpus: Corpus) -> None:
         raise ValueError("lower > upper at some points")
 
 
-def evaluate_query(*, query: NDArray, corpus: Corpus, evaluator: Evaluator) -> State:
-    # FIXME: Result is a singleton since k = 1. Support batch in the future.
-    result = corpus.searcher.search(query)
-    indices: int = result.indices.item()
-    vectors = result.vectors
-
-    # FIXME: This is a temporary hack to only evaluate one query.
-    evaluation = model_utils.evaluate_on_corpus(
-        evaluator=evaluator, corpus=corpus, indices=[indices]
-    )[0]
-    return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
-
-
+# TODO: Expand batch support.
 def evaluate_searcher(
-    *,
-    query: NDArray,
-    searcher: Searcher,
-    evaluate_fn: Callable[[Mapping[str, str]], float]
+    *, query: NDArray, searcher: Searcher, evaluate_fn: Callable[[SearchResult], float]
 ) -> State:
     # FIXME: Result is a singleton since k = 1. Support batch in the future.
     result = searcher.search(query)
-    indices: int = result.indices.item()
+    evaluation = evaluate_fn(result)
+    return State(candidates=query.squeeze(), actual=result.vectors, scores=evaluation)
 
-    raise NotImplementedError
+
+def evaluate_query(*, query: NDArray, corpus: Corpus, evaluator: Evaluator) -> State:
+    def evaluate_fn(result: SearchResult) -> float:
+        # FIXME: This is a temporary hack to only evaluate one query.
+        return model_utils.evaluate_on_corpus(
+            evaluator=evaluator, corpus=corpus, indices=[result.indices.item()]
+        )[0]
+
+    return evaluate_searcher(
+        query=query, searcher=corpus.searcher, evaluate_fn=evaluate_fn
+    )

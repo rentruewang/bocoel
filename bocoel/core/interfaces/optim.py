@@ -19,18 +19,9 @@ class Optimizer(Protocol):
         ...
 
     @abc.abstractmethod
-    def step(self, corpus: Corpus, evaluator: Evaluator) -> State:
+    def step(self) -> State:
         """
         Performs a single step of optimization.
-
-        Parameters
-        ----------
-
-        `corpus: Corpus`
-
-        `lm: LanguageModel`
-
-        `evaluator: Evaluator`
 
         Returns
         -------

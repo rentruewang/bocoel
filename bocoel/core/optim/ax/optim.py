@@ -32,7 +32,10 @@ class AxServiceOptimizer(Optimizer):
     """
 
     def __init__(
-        self, corpus: Corpus, steps: Sequence[GenStepDict | GenerationStep]
+        self,
+        corpus: Corpus,
+        evaluator: Evaluator,
+        steps: Sequence[GenStepDict | GenerationStep],
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
@@ -41,16 +44,19 @@ class AxServiceOptimizer(Optimizer):
         self._create_experiment(corpus=corpus)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
+        self._corpus = corpus
+        self._evaluator = evaluator
+
     @property
     def terminate(self) -> bool:
         return self._remaining_steps.done
 
-    def step(self, corpus: Corpus, evaluator: Evaluator) -> State:
+    def step(self) -> State:
         self._remaining_steps.step()
 
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
-        state = self._evaluate(parameters, corpus=corpus, evaluator=evaluator)
+        state = self._evaluate(parameters)
         self._ax_client.complete_trial(
             trial_index, raw_data={_UNCERTAINTY: float(state.scores)}
         )
@@ -87,23 +93,23 @@ class AxServiceOptimizer(Optimizer):
             objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
         )
 
-    @staticmethod
-    def _evaluate(
-        parameters: dict[str, AxServiceParameter], corpus: Corpus, evaluator: Evaluator
-    ) -> State:
-        index_dims = corpus.searcher.dims
+    def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
+        index_dims = self._corpus.searcher.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
         return optim_utils.evaluate_query(
-            query=query, corpus=corpus, evaluator=evaluator
+            query=query, corpus=self._corpus, evaluator=self._evaluator
         )
 
     @classmethod
     def from_steps(
-        cls, corpus: Corpus, steps: Sequence[GenStepDict | GenerationStep]
+        cls,
+        corpus: Corpus,
+        evaluator: Evaluator,
+        steps: Sequence[GenStepDict | GenerationStep],
     ) -> Self:
-        return cls(corpus=corpus, steps=steps)
+        return cls(corpus=corpus, evaluator=evaluator, steps=steps)
 
     @staticmethod
     def _terminate_step(steps: list[GenerationStep]) -> int:

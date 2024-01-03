@@ -2,10 +2,9 @@ from .bocoel import bocoel
 from .core import (
     AxServiceOptimizer,
     AxServiceParameter,
-    ComposedCore,
-    Core,
     GenStepDict,
     Optimizer,
+    SklearnClusterOptimizer,
 )
 from .corpora import (
     ComposedCorpus,
