@@ -7,7 +7,7 @@ from .optim import (
     SklearnClusterOptimizer,
     check_bounds,
     evaluate_corpus_fn,
-    evaluate_searcher,
+    evaluate_index,
     generation_step,
 )
 from .traces import ListTrace

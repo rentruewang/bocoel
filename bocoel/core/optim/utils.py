@@ -4,7 +4,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.core.interfaces import State
-from bocoel.corpora import Corpus, Searcher, SearchResult
+from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator
 from bocoel.models import utils as model_utils
 
@@ -27,7 +27,7 @@ class RemainingSteps:
 
 
 def check_bounds(corpus: Corpus) -> None:
-    bounds = corpus.searcher.bounds
+    bounds = corpus.index.bounds
 
     if bounds.ndim != 2 or bounds.shape[1] != 2:
         raise ValueError("The bound is not valid")
@@ -38,11 +38,11 @@ def check_bounds(corpus: Corpus) -> None:
 
 
 # TODO: Expand batch support.
-def evaluate_searcher(
-    *, query: NDArray, searcher: Searcher, evaluate_fn: Callable[[SearchResult], float]
+def evaluate_index(
+    *, query: NDArray, index: Index, evaluate_fn: Callable[[SearchResult], float]
 ) -> State:
     # FIXME: Result is a singleton since k = 1. Support batch in the future.
-    result = searcher.search(query)
+    result = index.search(query)
     evaluation = evaluate_fn(result)
     return State(candidates=query.squeeze(), actual=result.vectors, scores=evaluation)
 

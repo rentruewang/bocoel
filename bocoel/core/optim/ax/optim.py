@@ -12,7 +12,7 @@ from typing_extensions import Self
 from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.utils import RemainingSteps
-from bocoel.corpora import Corpus, Searcher, SearchResult
+from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator
 
 from . import types, utils
@@ -30,7 +30,7 @@ class AxServiceOptimizer(Optimizer):
 
     def __init__(
         self,
-        searcher: Searcher,
+        index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
     ) -> None:
@@ -38,10 +38,10 @@ class AxServiceOptimizer(Optimizer):
         gen_strat = GenerationStrategy(steps=gen_steps)
 
         self._ax_client = AxClient(generation_strategy=gen_strat)
-        self._create_experiment(searcher)
+        self._create_experiment(index)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
-        self._searcher = searcher
+        self._index = index
         self._evaluate_fn = evaluate_fn
 
     @property
@@ -84,29 +84,29 @@ class AxServiceOptimizer(Optimizer):
 
         func(**kwargs)
 
-    def _create_experiment(self, searcher: Searcher) -> None:
+    def _create_experiment(self, index: Index) -> None:
         self._ax_client.create_experiment(
-            parameters=types.parameter_configs(searcher),
+            parameters=types.parameter_configs(index),
             objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
-        index_dims = self._searcher.dims
+        index_dims = self._index.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
-        return optim_utils.evaluate_searcher(
-            query=query, searcher=self._searcher, evaluate_fn=self._evaluate_fn
+        return optim_utils.evaluate_index(
+            query=query, index=self._index, evaluate_fn=self._evaluate_fn
         )
 
     @classmethod
-    def from_searcher(
+    def from_index(
         cls,
-        searcher: Searcher,
+        index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         **kwargs: Any,
     ) -> Self:
-        return cls(searcher=searcher, evaluate_fn=evaluate_fn, **kwargs)
+        return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
 
     @classmethod
     def from_steps(

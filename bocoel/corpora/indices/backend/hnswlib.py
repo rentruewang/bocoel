@@ -1,16 +1,16 @@
 from typing import Any, Literal
 
-from hnswlib import Index
+from hnswlib import Index as _HnswlibIndex
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
-from bocoel.corpora.searchers import utils
+from bocoel.corpora.indices import utils
+from bocoel.corpora.interfaces import Distance, Index, SearchResult
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
 
 
-class HnswlibSearcher(Searcher):
+class HnswlibIndex(Index):
     """
     HNSWLIB index. Uses the hnswlib library.
 
@@ -59,7 +59,7 @@ class HnswlibSearcher(Searcher):
 
     def _init_index(self) -> None:
         space = self._hnswlib_space(self.distance)
-        self._index = Index(space=space, dim=self.dims)
+        self._index = _HnswlibIndex(space=space, dim=self.dims)
         self._index.init_index(max_elements=len(self._emb))
         self._index.add_items(self._emb, num_threads=self.threads)
 

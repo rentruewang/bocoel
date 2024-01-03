@@ -12,12 +12,12 @@ from .corpora import (
     DataFrameStorage,
     Distance,
     Embedder,
-    FaissSearcher,
-    HnswlibSearcher,
+    FaissIndex,
+    HnswlibIndex,
+    Index,
     SBertEmbedder,
-    Searcher,
     Storage,
-    WhiteningSearcher,
+    WhiteningIndex,
 )
 from .models import (
     BleuEvaluator,

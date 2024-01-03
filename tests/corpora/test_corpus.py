@@ -6,11 +6,11 @@ from bocoel import (
     Corpus,
     DataFrameStorage,
     SBertEmbedder,
-    WhiteningSearcher,
+    WhiteningIndex,
 )
 from tests import utils
 
-from .searchers import test_whitening
+from .indices import test_whitening
 from .storages import test_df_storage
 
 
@@ -22,7 +22,7 @@ def corpus(device: str) -> Corpus:
         storage=storage,
         embedder=embedder,
         key="question",
-        klass=WhiteningSearcher,
+        klass=WhiteningIndex,
         **test_whitening.whiten_kwargs(),
     )
 

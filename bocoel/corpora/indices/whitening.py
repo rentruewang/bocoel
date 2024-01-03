@@ -5,13 +5,13 @@ from numpy import linalg
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
-from bocoel.corpora.searchers import utils
+from bocoel.corpora.indices import utils
+from bocoel.corpora.interfaces import Distance, Index, SearchResult
 
 
-class WhiteningSearcher(Searcher):
+class WhiteningIndex(Index):
     """
-    Whitening searcher. Whitens the data before indexing.
+    Whitening index. Whitens the data before indexing.
     See https://arxiv.org/abs/2103.15316 for more info.
     """
 
@@ -20,7 +20,7 @@ class WhiteningSearcher(Searcher):
         embeddings: NDArray,
         remains: int,
         distance: str | Distance,
-        backend: type[Searcher],
+        backend: type[Index],
         **kwargs: Any
     ) -> None:
         # Remains might be smaller than embeddings.
@@ -32,29 +32,29 @@ class WhiteningSearcher(Searcher):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._searcher = backend.from_embeddings(
+        self._index = backend.from_embeddings(
             embeddings=white, distance=distance, **kwargs
         )
-        assert remains == self._searcher.dims
+        assert remains == self._index.dims
 
     @property
     def embeddings(self) -> NDArray:
-        return self._searcher.embeddings
+        return self._index.embeddings
 
     @property
     def distance(self) -> Distance:
-        return self._searcher.distance
+        return self._index.distance
 
     @property
     def dims(self) -> int:
-        return self._searcher.dims
+        return self._index.dims
 
     @property
     def bounds(self) -> NDArray:
-        return self._searcher.bounds
+        return self._index.bounds
 
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
-        return self._searcher.search(query, k=k)
+        return self._index.search(query, k=k)
 
     @classmethod
     def from_embeddings(

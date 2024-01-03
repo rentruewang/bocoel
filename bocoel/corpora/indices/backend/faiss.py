@@ -4,14 +4,14 @@ import faiss
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
-from bocoel.corpora.searchers import utils
+from bocoel.corpora.indices import utils
+from bocoel.corpora.interfaces import Distance, Index, SearchResult
 
 
 # TODO: Allow use of GPU for faiss index.
-class FaissSearcher(Searcher):
+class FaissIndex(Index):
     """
-    Faiss searcher. Uses the faiss library.
+    Faiss index. Uses the faiss library.
     """
 
     def __init__(

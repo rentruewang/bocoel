@@ -13,9 +13,9 @@ class SearchResult(NamedTuple):
     indices: NDArray
 
 
-class Searcher(Protocol):
+class Index(Protocol):
     """
-    Searcher is responsible for fast retrieval given a vector query.
+    Index is responsible for fast retrieval given a vector query.
     """
 
     def search(self, query: NDArray, k: int = 1) -> SearchResult:
@@ -39,7 +39,7 @@ class Searcher(Protocol):
     @property
     def embeddings(self) -> NDArray:
         """
-        The embeddings used by the searcher.
+        The embeddings used by the index.
 
         FIXME: Move away from NDArray in the future due to scalability concerns.
         """
@@ -50,7 +50,7 @@ class Searcher(Protocol):
     @abc.abstractmethod
     def distance(self) -> Distance:
         """
-        The distance metric used by the searcher.
+        The distance metric used by the index.
         """
 
         ...
@@ -82,7 +82,7 @@ class Searcher(Protocol):
     @abc.abstractmethod
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
         """
-        Search the searcher with a given query.
+        Search the index with a given query.
 
         Parameters
         ----------
@@ -114,14 +114,14 @@ class Searcher(Protocol):
         ----------
 
         `embeddings: NDArray`
-        The embeddings to construct the searcher from.
+        The embeddings to construct the index from.
 
         `distance: str | Distance`
         The distance to use. Can be a string or a Distance enum.
 
         Returns
         -------
-        A searcher.
+        A index.
         """
 
         ...
