@@ -2,7 +2,7 @@ from typing import Any, TypedDict
 
 from typing_extensions import NotRequired
 
-from bocoel.corpora import Corpus
+from bocoel.corpora import Searcher
 
 
 class AxServiceParameter(TypedDict):
@@ -14,15 +14,15 @@ class AxServiceParameter(TypedDict):
 
 
 # FIXME: Currently using Any to silence typing warnings.
-def corpus_parameters(corpus: Corpus) -> list[dict[str, Any]]:
-    return [param_name_dict(corpus, i) for i in range(corpus.searcher.dims)]
+def parameter_configs(searcher: Searcher) -> list[dict[str, Any]]:
+    return [param_name_dict(searcher, i) for i in range(searcher.dims)]
 
 
-def param_name_dict(corpus: Corpus, i: int) -> dict[str, Any]:
+def param_name_dict(searcher: Searcher, i: int) -> dict[str, Any]:
     return {
         "name": param_name(i),
         "type": "range",
-        "bounds": corpus.searcher.bounds[i].tolist(),
+        "bounds": searcher.bounds[i].tolist(),
         "value_type": "float",
     }
 

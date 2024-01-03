@@ -3,7 +3,6 @@ from collections.abc import Sequence
 from typing import Protocol
 
 
-# FIXME: Should I set generate to take in a sequence of strings or just a string?
 class LanguageModel(Protocol):
     @abc.abstractmethod
     def generate(self, prompts: Sequence[str]) -> Sequence[str]:

@@ -13,7 +13,7 @@ def optim(corpus: Corpus, evaluator: Evaluator, device: str) -> Optimizer:
         {"model": "sobol", "num_trials": 5},
         {"model": "gpmes", "num_trials": 5, "model_kwargs": {"torch_device": device}},
     ]
-    return AxServiceOptimizer.from_steps(corpus, evaluator, steps)
+    return AxServiceOptimizer.from_steps(corpus, evaluator, steps=steps)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())

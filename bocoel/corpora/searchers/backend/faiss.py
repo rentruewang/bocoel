@@ -7,9 +7,8 @@ from typing_extensions import Self
 from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
 from bocoel.corpora.searchers import utils
 
+
 # TODO: Allow use of GPU for faiss index.
-
-
 class FaissSearcher(Searcher):
     """
     Faiss searcher. Uses the faiss library.

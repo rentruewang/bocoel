@@ -5,9 +5,8 @@ from typing_extensions import Self
 
 from bocoel.corpora.interfaces import Distance, Searcher, SearchResult
 
+
 # TODO: Implement polar version of coordinates.
-
-
 class PolarSearcher(Searcher):
     def _search(self, query: NDArray, k: int = 1) -> SearchResult:
         raise NotImplementedError

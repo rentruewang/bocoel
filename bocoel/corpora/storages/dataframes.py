@@ -28,8 +28,11 @@ class DataFrameStorage(Storage):
     def from_jsonl_file(cls, path: str | Path) -> Self:
         path = Path(path)
 
-        # TODO: Also support directories.
-        assert path.is_file()
+        if not path.exists():
+            raise FileNotFoundError(path)
+
+        if not path.is_file():
+            raise ValueError(f"Cannot open file: {path}")
 
         with open(path) as f:
             lines = map(lambda s: s.strip("\n"), f.readlines())

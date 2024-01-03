@@ -1,7 +1,10 @@
 import abc
+from collections.abc import Callable
 from typing import Any, Protocol
 
-from bocoel.corpora import Corpus
+from typing_extensions import Self
+
+from bocoel.corpora import Corpus, Searcher, SearchResult
 from bocoel.models import Evaluator
 
 from .states import State
@@ -48,3 +51,27 @@ class Optimizer(Protocol):
         """
 
         ...
+
+    @classmethod
+    @abc.abstractmethod
+    def from_searcher(
+        cls,
+        searcher: Searcher,
+        evaluate_fn: Callable[[SearchResult], float],
+        **kwargs: Any
+    ) -> Self:
+        ...
+
+    @classmethod
+    def evaluate_corpus(
+        cls, corpus: Corpus, evaluator: Evaluator, **kwargs: Any
+    ) -> Self:
+        # Import here because implementation depends on interface,
+        # and importing at the top-level will cause circular imports.
+        from bocoel.core.optim import utils
+
+        return cls.from_searcher(
+            searcher=corpus.searcher,
+            evaluate_fn=utils.evaluate_corpus_fn(corpus=corpus, evaluator=evaluator),
+            **kwargs
+        )

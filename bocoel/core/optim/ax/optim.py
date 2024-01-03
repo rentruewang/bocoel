@@ -12,7 +12,7 @@ from typing_extensions import Self
 from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.utils import RemainingSteps
-from bocoel.corpora import Corpus
+from bocoel.corpora import Corpus, Searcher, SearchResult
 from bocoel.models import Evaluator
 
 from . import types, utils
@@ -22,9 +22,6 @@ from .utils import GenStepDict
 _UNCERTAINTY = "uncertainty"
 
 
-# TODO:
-# Use BOTORCH_MODULAR so that it runs on GPU.
-# It would also allow configuration of surrogate models.
 class AxServiceOptimizer(Optimizer):
     """
     The Ax optimizer that uses the service API.
@@ -33,19 +30,19 @@ class AxServiceOptimizer(Optimizer):
 
     def __init__(
         self,
-        corpus: Corpus,
-        evaluator: Evaluator,
+        searcher: Searcher,
+        evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
 
         self._ax_client = AxClient(generation_strategy=gen_strat)
-        self._create_experiment(corpus=corpus)
+        self._create_experiment(searcher)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
-        self._corpus = corpus
-        self._evaluator = evaluator
+        self._searcher = searcher
+        self._evaluate_fn = evaluate_fn
 
     @property
     def terminate(self) -> bool:
@@ -87,29 +84,38 @@ class AxServiceOptimizer(Optimizer):
 
         func(**kwargs)
 
-    def _create_experiment(self, corpus: Corpus) -> None:
+    def _create_experiment(self, searcher: Searcher) -> None:
         self._ax_client.create_experiment(
-            parameters=types.corpus_parameters(corpus),
+            parameters=types.parameter_configs(searcher),
             objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
-        index_dims = self._corpus.searcher.dims
+        index_dims = self._searcher.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
-        return optim_utils.evaluate_query(
-            query=query, corpus=self._corpus, evaluator=self._evaluator
+        return optim_utils.evaluate_searcher(
+            query=query, searcher=self._searcher, evaluate_fn=self._evaluate_fn
         )
+
+    @classmethod
+    def from_searcher(
+        cls,
+        searcher: Searcher,
+        evaluate_fn: Callable[[SearchResult], float],
+        **kwargs: Any,
+    ) -> Self:
+        return cls(searcher=searcher, evaluate_fn=evaluate_fn, **kwargs)
 
     @classmethod
     def from_steps(
         cls,
         corpus: Corpus,
         evaluator: Evaluator,
-        steps: Sequence[GenStepDict | GenerationStep],
+        **kwargs: Any,
     ) -> Self:
-        return cls(corpus=corpus, evaluator=evaluator, steps=steps)
+        return cls.evaluate_corpus(corpus=corpus, evaluator=evaluator, **kwargs)
 
     @staticmethod
     def _terminate_step(steps: list[GenerationStep]) -> int:

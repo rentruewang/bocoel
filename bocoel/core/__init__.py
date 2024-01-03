@@ -6,7 +6,7 @@ from .optim import (
     RemainingSteps,
     SklearnClusterOptimizer,
     check_bounds,
-    evaluate_query,
+    evaluate_corpus_fn,
     evaluate_searcher,
     generation_step,
 )

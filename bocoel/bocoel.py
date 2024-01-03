@@ -1,12 +1,10 @@
 from bocoel.core import Optimizer, State
 
 
-# FIXME: Should use a config dictionary.
+# FIXME: Should use a config dictionary to make it more configurable.
 def bocoel(optimizer: Optimizer, iterations: int) -> list[State]:
     """
     This is the entry point fo the entire library.
-
-    FIXME: Should make it more configurable (with the aid of factory functions).
 
     Parameters
     ----------

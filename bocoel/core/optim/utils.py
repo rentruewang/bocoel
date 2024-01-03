@@ -1,4 +1,4 @@
-from collections.abc import Callable, Mapping
+from collections.abc import Callable
 
 import numpy as np
 from numpy.typing import NDArray
@@ -47,13 +47,11 @@ def evaluate_searcher(
     return State(candidates=query.squeeze(), actual=result.vectors, scores=evaluation)
 
 
-def evaluate_query(*, query: NDArray, corpus: Corpus, evaluator: Evaluator) -> State:
+def evaluate_corpus_fn(*, corpus: Corpus, evaluator: Evaluator) -> Callable[..., float]:
     def evaluate_fn(result: SearchResult) -> float:
         # FIXME: This is a temporary hack to only evaluate one query.
         return model_utils.evaluate_on_corpus(
             evaluator=evaluator, corpus=corpus, indices=[result.indices.item()]
         )[0]
 
-    return evaluate_searcher(
-        query=query, searcher=corpus.searcher, evaluate_fn=evaluate_fn
-    )
+    return evaluate_fn
