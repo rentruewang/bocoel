@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.interfaces import Distance, Index, SearchResult
+from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
 
 
 class WhiteningIndex(Index):
@@ -53,8 +53,8 @@ class WhiteningIndex(Index):
     def bounds(self) -> NDArray:
         return self._index.bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
-        return self._index.search(query, k=k)
+    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+        return self._index._search(query, k=k)
 
     @classmethod
     def from_embeddings(

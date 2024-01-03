@@ -23,7 +23,7 @@ def corpus(device: str) -> Corpus:
         embedder=embedder,
         key="question",
         klass=WhiteningIndex,
-        **test_whitening.whiten_kwargs(),
+        index_kwargs=test_whitening.whiten_kwargs(),
     )
 
 

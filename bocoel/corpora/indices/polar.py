@@ -3,12 +3,12 @@ from typing import Any
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Distance, Index, SearchResult
+from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
 
 
 # TODO: Implement polar version of coordinates.
 class PolarIndex(Index):
-    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
         raise NotImplementedError
 
     @property

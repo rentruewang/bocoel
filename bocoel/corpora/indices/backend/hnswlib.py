@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.interfaces import Distance, Index, SearchResult
+from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
 
@@ -52,10 +52,9 @@ class HnswlibIndex(Index):
     def bounds(self) -> NDArray:
         return self._bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
-        indices, scores = self._index.knn_query(query, k=k)
-        vectors = self._emb[indices]
-        return SearchResult(vectors=vectors, scores=scores, indices=indices)
+    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+        indices, distances = self._index.knn_query(query, k=k)
+        return InternalSearchResult(indices=indices, distances=distances)
 
     def _init_index(self) -> None:
         space = self._hnswlib_space(self.distance)

@@ -57,7 +57,7 @@ def test_faiss_search_match(
     query = utils.normalize(query)
 
     result = idx.search(query)
-    assert np.isclose(result.scores, 1), {
+    assert np.isclose(result.distances, 1), {
         "results": result,
         "embeddings": embeddings_fix,
     }

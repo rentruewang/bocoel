@@ -8,9 +8,37 @@ from .distances import Distance
 
 
 class SearchResult(NamedTuple):
+    query: NDArray
+    """
+    Query vector.
+    """
+
     vectors: NDArray
-    scores: NDArray
+    """
+    Nearest neighbors.
+    """
+
+    distances: NDArray
+    """
+    Calculated distance.
+    """
+
     indices: NDArray
+    """
+    Index in the original embeddings. Must be integers.
+    """
+
+
+class InternalSearchResult(NamedTuple):
+    distances: NDArray
+    """
+    Calculated distance.
+    """
+
+    indices: NDArray
+    """
+    Index in the original embeddings. Must be integers.
+    """
 
 
 class Index(Protocol):
@@ -34,7 +62,16 @@ class Index(Protocol):
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
-        return self._search(query, k=k)
+        result = self._search(query, k=k)
+
+        indices = result.indices
+        distances = result.distances
+
+        vectors = self.embeddings[indices]
+
+        return SearchResult(
+            query=query, vectors=vectors, distances=distances, indices=indices
+        )
 
     @property
     def embeddings(self) -> NDArray:
@@ -80,7 +117,7 @@ class Index(Protocol):
         ...
 
     @abc.abstractmethod
-    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
         """
         Search the index with a given query.
 

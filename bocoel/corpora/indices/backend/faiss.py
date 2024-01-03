@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.interfaces import Distance, Index, SearchResult
+from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
 
 
 # TODO: Allow use of GPU for faiss index.
@@ -47,15 +47,14 @@ class FaissIndex(Index):
     def bounds(self) -> NDArray:
         return self._bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> SearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
         # FIXME: Doing expand_dims because currently only supports 1D non-batched query.
-        scores, indices = self._index.search(query[None, :], k)
+        distances, indices = self._index.search(query[None, :], k)
 
-        scores = scores.squeeze(axis=0)
+        distances = distances.squeeze(axis=0)
         indices = indices.squeeze(axis=0)
 
-        vectors = self._emb[indices]
-        return SearchResult(vectors=vectors, scores=scores, indices=indices)
+        return InternalSearchResult(distances=distances, indices=indices)
 
     def _init_index(self, index_string: str, cuda: bool) -> None:
         metric = self._faiss_metric(self.distance)

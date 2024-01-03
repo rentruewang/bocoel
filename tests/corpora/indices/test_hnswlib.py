@@ -44,7 +44,7 @@ def test_hnswlib_search_match(index_fix: Index, embeddings_fix: NDArray) -> None
 
     result = index_fix.search(query)
     # See https://github.com/nmslib/hnswlib#supported-distances
-    assert np.isclose(result.scores, 1 - 1), {
+    assert np.isclose(result.distances, 1 - 1), {
         "results": result,
         "embeddings": embeddings_fix,
     }

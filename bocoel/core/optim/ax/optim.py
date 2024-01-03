@@ -19,7 +19,7 @@ from . import types, utils
 from .types import AxServiceParameter
 from .utils import GenStepDict
 
-_UNCERTAINTY = "uncertainty"
+_KEY = "entropy"
 
 
 class AxServiceOptimizer(Optimizer):
@@ -33,6 +33,7 @@ class AxServiceOptimizer(Optimizer):
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
+        minimize: bool,
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
@@ -40,6 +41,7 @@ class AxServiceOptimizer(Optimizer):
         self._ax_client = AxClient(generation_strategy=gen_strat)
         self._create_experiment(index)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
+        self._minimize = minimize
 
         self._index = index
         self._evaluate_fn = evaluate_fn
@@ -55,7 +57,7 @@ class AxServiceOptimizer(Optimizer):
         parameters, trial_index = self._ax_client.get_next_trial()
         state = self._evaluate(parameters)
         self._ax_client.complete_trial(
-            trial_index, raw_data={_UNCERTAINTY: float(state.scores)}
+            trial_index, raw_data={_KEY: float(state.evaluation)}
         )
         return state
 
@@ -87,7 +89,7 @@ class AxServiceOptimizer(Optimizer):
     def _create_experiment(self, index: Index) -> None:
         self._ax_client.create_experiment(
             parameters=types.parameter_configs(index),
-            objectives={_UNCERTAINTY: ObjectiveProperties(minimize=True)},
+            objectives={_KEY: ObjectiveProperties(minimize=self._minimize)},
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
@@ -134,21 +136,19 @@ class AxServiceOptimizer(Optimizer):
     def _render_static(self, param_x: str, param_y: str) -> None:
         plotting.render(
             self._ax_client.get_contour_plot(
-                param_x=param_x, param_y=param_y, metric_name=_UNCERTAINTY
+                param_x=param_x, param_y=param_y, metric_name=_KEY
             )
         )
 
     def _render_interactive(self) -> None:
         plotting.render(
-            contour.interact_contour(
-                model=self._gen_strat_model, metric_name=_UNCERTAINTY
-            )
+            contour.interact_contour(model=self._gen_strat_model, metric_name=_KEY)
         )
 
     def _render_tradeoff(self) -> None:
         plotting.render(
             scatter.plot_objective_vs_constraints(
-                model=self._gen_strat_model, objective=_UNCERTAINTY, rel=False
+                model=self._gen_strat_model, objective=_KEY, rel=False
             )
         )
 
@@ -164,7 +164,7 @@ class AxServiceOptimizer(Optimizer):
             slice.plot_slice(
                 model=self._gen_strat_model,
                 param_name=param_name,
-                metric_name=_UNCERTAINTY,
+                metric_name=_KEY,
             )
         )
 

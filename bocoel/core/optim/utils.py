@@ -44,7 +44,7 @@ def evaluate_index(
     # FIXME: Result is a singleton since k = 1. Support batch in the future.
     result = index.search(query)
     evaluation = evaluate_fn(result)
-    return State(candidates=query.squeeze(), actual=result.vectors, scores=evaluation)
+    return State(result=result, evaluation=evaluation)
 
 
 def evaluate_corpus_fn(*, corpus: Corpus, evaluator: Evaluator) -> Callable[..., float]:
