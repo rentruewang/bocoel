@@ -13,7 +13,7 @@ from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Evaluator
 
 from . import types, utils
 from .types import AxServiceParameter
@@ -45,12 +45,12 @@ class AxServiceOptimizer(Optimizer):
     def terminate(self) -> bool:
         return self._remaining_steps.done
 
-    def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
+    def step(self, corpus: Corpus, evaluator: Evaluator) -> State:
         self._remaining_steps.step()
 
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
-        state = self._evaluate(parameters, corpus=corpus, lm=lm, evaluator=evaluator)
+        state = self._evaluate(parameters, corpus=corpus, evaluator=evaluator)
         self._ax_client.complete_trial(
             trial_index, raw_data={_UNCERTAINTY: float(state.scores)}
         )
@@ -89,17 +89,14 @@ class AxServiceOptimizer(Optimizer):
 
     @staticmethod
     def _evaluate(
-        parameters: dict[str, AxServiceParameter],
-        corpus: Corpus,
-        lm: LanguageModel,
-        evaluator: Evaluator,
+        parameters: dict[str, AxServiceParameter], corpus: Corpus, evaluator: Evaluator
     ) -> State:
         index_dims = corpus.searcher.dims
         names = types.parameter_name_list(index_dims)
         query = np.array([parameters[name] for name in names])
 
         return optim_utils.evaluate_query(
-            query=query, corpus=corpus, lm=lm, evaluator=evaluator
+            query=query, corpus=corpus, evaluator=evaluator
         )
 
     @classmethod

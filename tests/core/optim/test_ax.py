@@ -25,7 +25,7 @@ def test_init_optimizer(device: str) -> None:
 def test_optimize(device: str) -> None:
     corpus = test_corpus.corpus(device=device)
     lm = test_huggingface.lm(device=device)
-    evaluator = test_bleu.bleu()
+    evaluator = test_bleu.bleu(device=device)
     optimizer = optim(corpus, device)
 
     core = ComposedCore(corpus, lm, evaluator, optimizer)

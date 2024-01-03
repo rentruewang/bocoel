@@ -34,6 +34,4 @@ class Core(Protocol):
         return states
 
     def step(self) -> State:
-        return self.optimizer.step(
-            corpus=self.corpus, lm=self.lm, evaluator=self.evaluator
-        )
+        return self.optimizer.step(corpus=self.corpus, evaluator=self.evaluator)

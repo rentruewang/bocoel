@@ -1,9 +1,12 @@
+from collections.abc import Callable, Mapping
+
 import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.core.interfaces import State
-from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.corpora import Corpus, Searcher
+from bocoel.models import Evaluator
+from bocoel.models import utils as model_utils
 
 
 class RemainingSteps:
@@ -34,14 +37,27 @@ def check_bounds(corpus: Corpus) -> None:
         raise ValueError("lower > upper at some points")
 
 
-def evaluate_query(
-    *, query: NDArray, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator
-) -> State:
-    # Result is a singleton since k = 1.
+def evaluate_query(*, query: NDArray, corpus: Corpus, evaluator: Evaluator) -> State:
+    # FIXME: Result is a singleton since k = 1. Support batch in the future.
     result = corpus.searcher.search(query)
     indices: int = result.indices.item()
     vectors = result.vectors
 
     # FIXME: This is a temporary hack to only evaluate one query.
-    evaluation = evaluator.evaluate(lm, corpus, indices=[indices])[0]
+    evaluation = model_utils.evaluate_on_corpus(
+        evaluator=evaluator, corpus=corpus, indices=[indices]
+    )[0]
     return State(candidates=query.squeeze(), actual=vectors, scores=evaluation)
+
+
+def evaluate_searcher(
+    *,
+    query: NDArray,
+    searcher: Searcher,
+    evaluate_fn: Callable[[Mapping[str, str]], float]
+) -> State:
+    # FIXME: Result is a singleton since k = 1. Support batch in the future.
+    result = searcher.search(query)
+    indices: int = result.indices.item()
+
+    raise NotImplementedError

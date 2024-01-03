@@ -1,12 +1,10 @@
 import abc
-from typing import Any, ParamSpec, Protocol
+from typing import Any, Protocol
 
 from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Evaluator
 
 from .states import State
-
-P = ParamSpec("P")
 
 
 class Optimizer(Protocol):
@@ -21,7 +19,7 @@ class Optimizer(Protocol):
         ...
 
     @abc.abstractmethod
-    def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
+    def step(self, corpus: Corpus, evaluator: Evaluator) -> State:
         """
         Performs a single step of optimization.
 

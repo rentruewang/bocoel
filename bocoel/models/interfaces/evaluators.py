@@ -1,10 +1,8 @@
 import abc
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import Protocol
 
 from numpy.typing import NDArray
-
-from bocoel.corpora import Corpus
 
 from .lms import LanguageModel
 
@@ -15,7 +13,15 @@ class Evaluator(Protocol):
     """
 
     @abc.abstractmethod
-    def evaluate(
-        self, lm: LanguageModel, corpus: Corpus, indices: Sequence[int] | NDArray
-    ) -> Sequence[float] | NDArray:
+    def evaluate(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
+        ...
+
+
+# TODO:
+# Further modularize reusable components
+# when expanding on numbers of supporting functionalities.
+class LanguageModelEvaluator(Evaluator, Protocol):
+    @property
+    @abc.abstractmethod
+    def lm(self) -> LanguageModel:
         ...

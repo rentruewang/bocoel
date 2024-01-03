@@ -22,9 +22,9 @@ from .corpora import (
 )
 from .models import (
     BleuEvaluator,
-    ComparisonEvaluator,
     Evaluator,
     HuggingfaceLM,
     LanguageModel,
-    LoneEvaluator,
+    collate,
+    evaluate_on_corpus,
 )

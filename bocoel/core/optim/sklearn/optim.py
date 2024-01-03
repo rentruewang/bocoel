@@ -7,7 +7,7 @@ from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Evaluator
 
 
 # TODO: Add tests.
@@ -26,13 +26,13 @@ class SklearnClusterOptimizer(Optimizer):
     def terminate(self) -> bool:
         return self._remaining_steps.done
 
-    def step(self, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> State:
+    def step(self, corpus: Corpus, evaluator: Evaluator) -> State:
         self._remaining_steps.step()
         idx = self._remaining_steps.count
         center = self._model.cluster_centers_[idx]
 
         return optim_utils.evaluate_query(
-            query=center, corpus=corpus, lm=lm, evaluator=evaluator
+            query=center, corpus=corpus, evaluator=evaluator
         )
 
     def render(self, kind: str, **kwargs: Any) -> None:
