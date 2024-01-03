@@ -33,15 +33,14 @@ class AxServiceOptimizer(Optimizer):
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
-        minimize: bool,
+        minimize: bool = True,
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
 
         self._ax_client = AxClient(generation_strategy=gen_strat)
-        self._create_experiment(index)
+        self._create_experiment(index, minimize=minimize)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
-        self._minimize = minimize
 
         self._index = index
         self._evaluate_fn = evaluate_fn
@@ -86,10 +85,10 @@ class AxServiceOptimizer(Optimizer):
 
         func(**kwargs)
 
-    def _create_experiment(self, index: Index) -> None:
+    def _create_experiment(self, index: Index, minimize: bool) -> None:
         self._ax_client.create_experiment(
             parameters=types.parameter_configs(index),
-            objectives={_KEY: ObjectiveProperties(minimize=self._minimize)},
+            objectives={_KEY: ObjectiveProperties(minimize=minimize)},
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
