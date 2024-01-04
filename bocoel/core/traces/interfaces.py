@@ -3,7 +3,7 @@ from typing import Protocol
 
 from pandas import DataFrame
 
-from .states import State
+from bocoel.core.optim import State
 
 
 class Trace(Protocol):

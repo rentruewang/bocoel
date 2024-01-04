@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
+from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
 

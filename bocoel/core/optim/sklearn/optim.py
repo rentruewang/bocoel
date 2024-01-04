@@ -5,8 +5,8 @@ from sklearn.cluster import KMeans
 from sklearn.utils import validation
 from typing_extensions import Self
 
-from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.interfaces import Optimizer, State
 from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Index, SearchResult
 

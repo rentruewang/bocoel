@@ -1,6 +1,7 @@
 from pandas import DataFrame
 
-from bocoel.core.interfaces import State, Trace
+from bocoel.core.optim import State
+from bocoel.core.traces.interfaces import Trace
 
 
 class ListTrace(Trace):

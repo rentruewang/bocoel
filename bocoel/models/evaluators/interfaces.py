@@ -4,7 +4,7 @@ from typing import Protocol
 
 from numpy.typing import NDArray
 
-from .lms import LanguageModel
+from bocoel.models.lms import LanguageModel
 
 
 class Evaluator(Protocol):

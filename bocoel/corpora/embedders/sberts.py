@@ -5,7 +5,7 @@ import numpy as np
 from numpy.typing import NDArray
 from sentence_transformers import SentenceTransformer
 
-from bocoel.corpora.interfaces import Embedder
+from bocoel.corpora.embedders.interfaces import Embedder
 
 
 class SBertEmbedder(Embedder):

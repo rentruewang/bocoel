@@ -5,7 +5,7 @@ import ujson as json
 from pandas import DataFrame
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Storage
+from bocoel.corpora.storages.interfaces import Storage
 
 
 class DataFrameStorage(Storage):

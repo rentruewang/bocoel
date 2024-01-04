@@ -1,45 +1,11 @@
 import abc
-from typing import Any, NamedTuple, Protocol
+from typing import Any, Protocol
 
-import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
 from .distances import Distance
-
-
-class SearchResult(NamedTuple):
-    query: NDArray
-    """
-    Query vector.
-    """
-
-    vectors: NDArray
-    """
-    Nearest neighbors.
-    """
-
-    distances: NDArray
-    """
-    Calculated distance.
-    """
-
-    indices: NDArray
-    """
-    Index in the original embeddings. Must be integers.
-    """
-
-
-class InternalSearchResult(NamedTuple):
-    distances: NDArray
-    """
-    Calculated distance.
-    """
-
-    indices: NDArray
-    """
-    Index in the original embeddings. Must be integers.
-    """
+from .results import InternalSearchResult, SearchResult
 
 
 class Index(Protocol):

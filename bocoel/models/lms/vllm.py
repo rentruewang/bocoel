@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 
-from bocoel.models.interfaces import LanguageModel
+from bocoel.models.lms.interfaces import LanguageModel
 
 
 # TODO: Support VLLM as a backend.

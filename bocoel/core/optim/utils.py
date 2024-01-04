@@ -3,7 +3,7 @@ from collections.abc import Callable
 import numpy as np
 from numpy.typing import NDArray
 
-from bocoel.core.interfaces import State
+from bocoel.core.optim.interfaces import State
 from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator
 from bocoel.models import utils as model_utils
@@ -47,7 +47,9 @@ def evaluate_index(
     return State(result=result, evaluation=evaluation)
 
 
-def evaluate_corpus_fn(*, corpus: Corpus, evaluator: Evaluator) -> Callable[..., float]:
+def evaluate_corpus_fn(
+    *, corpus: Corpus, evaluator: Evaluator
+) -> Callable[[SearchResult], float]:
     def evaluate_fn(result: SearchResult) -> float:
         # FIXME: This is a temporary hack to only evaluate one query.
         return model_utils.evaluate_on_corpus(

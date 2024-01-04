@@ -3,7 +3,10 @@ from typing import Any
 
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Corpus, Embedder, Index, Storage
+from bocoel.corpora.corpora.interfaces import Corpus
+from bocoel.corpora.embedders import Embedder
+from bocoel.corpora.indices import Index
+from bocoel.corpora.storages import Storage
 
 
 @dcls.dataclass(frozen=True)

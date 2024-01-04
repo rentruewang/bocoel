@@ -9,8 +9,8 @@ from ax.service.ax_client import AxClient, ObjectiveProperties
 from ax.utils.notebook import plotting
 from typing_extensions import Self
 
-from bocoel.core.interfaces import Optimizer, State
 from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.interfaces import Optimizer, State
 from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator

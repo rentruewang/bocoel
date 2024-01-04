@@ -4,7 +4,7 @@ from collections.abc import Mapping, Sequence
 from nltk.translate import bleu_score
 from numpy.typing import NDArray
 
-from bocoel.models.interfaces import LanguageModel, LanguageModelEvaluator
+from bocoel.models.evaluators.interfaces import LanguageModel, LanguageModelEvaluator
 
 
 class BleuEvaluator(LanguageModelEvaluator):

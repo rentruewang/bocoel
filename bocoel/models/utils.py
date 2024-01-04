@@ -3,7 +3,7 @@ from collections.abc import Mapping, Sequence
 from numpy.typing import NDArray
 
 from bocoel.corpora import Corpus
-from bocoel.models.interfaces import Evaluator
+from bocoel.models.evaluators.interfaces import Evaluator
 
 
 def collate(mappings: Sequence[Mapping[str, str]]) -> dict[str, Sequence[str]]:

@@ -24,6 +24,7 @@ from .models import (
     Evaluator,
     HuggingfaceLM,
     LanguageModel,
+    LanguageModelEvaluator,
     collate,
     evaluate_on_corpus,
 )

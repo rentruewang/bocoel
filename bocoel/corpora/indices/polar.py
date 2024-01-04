@@ -1,4 +1,3 @@
-import functools
 from collections.abc import Sequence
 from typing import Any
 
@@ -6,7 +5,7 @@ import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.interfaces import Distance, Index, InternalSearchResult
+from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
 
 
 # TODO: Add tests.

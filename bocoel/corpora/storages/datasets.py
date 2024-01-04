@@ -2,7 +2,7 @@ from collections.abc import Collection, Mapping, Sequence
 
 from datasets import Dataset
 
-from bocoel.corpora.interfaces import Storage
+from bocoel.corpora.storages.interfaces import Storage
 
 
 # TODO: Write tests for this class.

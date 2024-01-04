@@ -1,7 +1,7 @@
 from typing import Protocol
 
-from .indices import Index
-from .storages import Storage
+from bocoel.corpora.indices import Index
+from bocoel.corpora.storages import Storage
 
 
 class Corpus(Protocol):

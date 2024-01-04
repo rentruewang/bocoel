@@ -4,7 +4,7 @@ from torch import device
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from typing_extensions import Self
 
-from bocoel.models.interfaces import LanguageModel
+from bocoel.models.lms.interfaces import LanguageModel
 
 Device = str | device
 
