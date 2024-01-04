@@ -18,10 +18,10 @@ class WhiteningIndex(Index):
     def __init__(
         self,
         embeddings: NDArray,
-        remains: int,
         distance: str | Distance,
+        remains: int,
         backend: type[Index],
-        **kwargs: Any
+        backend_kwargs: dict[str, Any],
     ) -> None:
         # Remains might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
@@ -33,7 +33,7 @@ class WhiteningIndex(Index):
             "remains": remains,
         }
         self._index = backend.from_embeddings(
-            embeddings=white, distance=distance, **kwargs
+            embeddings=white, distance=distance, **backend_kwargs
         )
         assert remains == self._index.dims
 

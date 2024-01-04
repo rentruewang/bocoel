@@ -12,7 +12,9 @@ def whiten_kwargs() -> dict[str, Any]:
         "distance": Distance.INNER_PRODUCT,
         "remains": 3,
         "backend": HnswlibIndex,
-        "threads": -1,
+        "backend_kwargs": {
+            "threads": -1,
+        },
     }
 
 

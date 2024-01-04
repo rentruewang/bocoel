@@ -1,6 +1,7 @@
 import abc
 from typing import Any, NamedTuple, Protocol
 
+import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
@@ -59,19 +60,26 @@ class Index(Protocol):
         if (dim := query.shape[0]) != self.dims:
             raise ValueError(f"Expected query to have dimension {self.dims}, got {dim}")
 
+        if not self.in_range(query):
+            raise ValueError(
+                "Query is out of bounds. Call index.lower and index.upper for the boundary."
+            )
+
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
         result = self._search(query, k=k)
-
-        indices = result.indices
-        distances = result.distances
-
-        vectors = self.embeddings[indices]
+        vectors = self.embeddings[result.indices]
 
         return SearchResult(
-            query=query, vectors=vectors, distances=distances, indices=indices
+            query=query,
+            vectors=vectors,
+            distances=result.distances,
+            indices=result.indices,
         )
+
+    def in_range(self, query: NDArray) -> bool:
+        return all(query >= self.lower) and all(query <= self.upper)
 
     @property
     def embeddings(self) -> NDArray:
