@@ -52,7 +52,7 @@ class Index(Protocol):
         """
         The embeddings used by the index.
 
-        FIXME: Move away from NDArray in the future due to scalability concerns.
+        TODO: Move away from NDArray in the future due to scalability concerns.
         """
 
         ...

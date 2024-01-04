@@ -8,7 +8,6 @@ from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
 
 
-# TODO: Allow use of GPU for faiss index.
 class FaissIndex(Index):
     """
     Faiss index. Uses the faiss library.
@@ -48,7 +47,6 @@ class FaissIndex(Index):
         return self._bounds
 
     def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
-        # FIXME: Doing expand_dims because currently only supports 1D non-batched query.
         distances, indices = self._index.search(query[None, :], k)
 
         distances = distances.squeeze(axis=0)

@@ -3,8 +3,8 @@ from .core import (
     AxServiceOptimizer,
     AxServiceParameter,
     GenStepDict,
+    KMeansOptimizer,
     Optimizer,
-    SklearnClusterOptimizer,
 )
 from .corpora import (
     ComposedCorpus,

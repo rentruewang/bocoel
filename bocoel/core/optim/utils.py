@@ -37,12 +37,11 @@ def check_bounds(corpus: Corpus) -> None:
         raise ValueError("lower > upper at some points")
 
 
-# TODO: Expand batch support.
+# TODO: Result is a singleton since k = 1. Support k != 1 in the future.
 def evaluate_index(
     *, query: NDArray, index: Index, evaluate_fn: Callable[[SearchResult], float]
 ) -> State:
-    # FIXME: Result is a singleton since k = 1. Support batch in the future.
-    result = index.search(query)
+    result = index.search(query, k=1)
     evaluation = evaluate_fn(result)
     return State(result=result, evaluation=evaluation)
 
@@ -51,7 +50,7 @@ def evaluate_corpus_fn(
     *, corpus: Corpus, evaluator: Evaluator
 ) -> Callable[[SearchResult], float]:
     def evaluate_fn(result: SearchResult) -> float:
-        # FIXME: This is a temporary hack to only evaluate one query.
+        # Result is a singleton. Only evaluate one query.
         return model_utils.evaluate_on_corpus(
             evaluator=evaluator, corpus=corpus, indices=[result.indices.item()]
         )[0]
