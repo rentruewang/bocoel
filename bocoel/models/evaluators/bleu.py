@@ -11,11 +11,7 @@ class BleuEvaluator(LanguageModelEvaluator):
     def __init__(self, problem: str, answer: str, lm: LanguageModel) -> None:
         self._problem = problem
         self._answer = answer
-        self._lang_model = lm
-
-    @property
-    def _lm(self) -> LanguageModel:
-        return self._lang_model
+        self._lm = lm
 
     def evaluate(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
         problems = items[self._problem]

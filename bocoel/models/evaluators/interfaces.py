@@ -25,13 +25,9 @@ class Evaluator(Protocol):
 # Further modularize reusable components
 # when expanding on numbers of supporting functionalities.
 class LanguageModelEvaluator(Evaluator, Protocol):
-    @property
-    @abc.abstractmethod
-    def _lm(self) -> LanguageModel:
-        """
-        The language model used by the evaluator.
+    _lm: LanguageModel
+    """
+    The language model used by the evaluator.
 
-        This method is private because it is only used by the evaluator itself.
-        """
-
-        ...
+    This method is private because it is only used by the evaluator itself.
+    """
