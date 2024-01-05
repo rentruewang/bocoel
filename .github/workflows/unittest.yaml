@@ -1,7 +1,7 @@
 name: Unit Testing
 on: [push]
 jobs:
-  type-check:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: 🔔 Check out
