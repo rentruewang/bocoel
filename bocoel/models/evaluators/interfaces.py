@@ -14,6 +14,10 @@ class Evaluator(Protocol):
 
     @abc.abstractmethod
     def evaluate(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
+        """
+        Evaluate the language model on the given items.
+        """
+
         ...
 
 
@@ -23,5 +27,11 @@ class Evaluator(Protocol):
 class LanguageModelEvaluator(Evaluator, Protocol):
     @property
     @abc.abstractmethod
-    def lm(self) -> LanguageModel:
+    def _lm(self) -> LanguageModel:
+        """
+        The language model used by the evaluator.
+
+        This method is private because it is only used by the evaluator itself.
+        """
+
         ...

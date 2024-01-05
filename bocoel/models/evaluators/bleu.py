@@ -14,13 +14,13 @@ class BleuEvaluator(LanguageModelEvaluator):
         self._lm = lm
 
     @property
-    def lm(self) -> LanguageModel:
+    def _lm(self) -> LanguageModel:
         return self._lm
 
     def evaluate(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
         problems = items[self._problem]
         answers: Sequence[str] = items[self._answer]
-        generated = self.lm.generate(problems)
+        generated = self._lm.generate(problems)
         return [
             typing.cast(float, bleu_score.sentence_bleu([ans.split()], gen.split()))
             for ans, gen in zip(answers, generated)
