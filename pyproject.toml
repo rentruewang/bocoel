@@ -37,6 +37,7 @@ ipython = "^8.18.1"
 isort = "^5.13.2"
 pytest = "^7.4.3"
 pytest-xdist = "^3.5.0"
+pytype = "^2023.12.18"
 
 [build-system]
 requires = ["poetry-core"]

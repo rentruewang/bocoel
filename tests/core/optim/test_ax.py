@@ -1,7 +1,7 @@
 import pytest
 
 import bocoel
-from bocoel import AxServiceOptimizer, Corpus, Evaluator, GenStepDict, Optimizer
+from bocoel import AxServiceOptimizer, Corpus, Evaluator, Optimizer
 from tests import utils
 from tests.corpora import test_corpus
 from tests.models.evaluators import test_bleu
@@ -9,7 +9,7 @@ from tests.models.lms import test_huggingface
 
 
 def optim(corpus: Corpus, evaluator: Evaluator, device: str) -> Optimizer:
-    steps: list[GenStepDict] = [
+    steps = [
         {"model": "sobol", "num_trials": 5},
         {"model": "gpmes", "num_trials": 5, "model_kwargs": {"torch_device": device}},
     ]
