@@ -9,7 +9,7 @@ from bocoel.models.lms import LanguageModel
 
 class Evaluator(Protocol):
     """
-    Evaluator protocol is used to evaluate the language model on a given corpus.
+    Evaluator protocol is used for evaluation of a given data structure.
     """
 
     @abc.abstractmethod
