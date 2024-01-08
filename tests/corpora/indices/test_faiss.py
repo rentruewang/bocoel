@@ -6,20 +6,16 @@ from bocoel import Distance, FaissIndex
 from bocoel.corpora.indices import utils
 from tests import utils as test_utils
 
-from . import test_hnswlib
-
-
-def index_factory() -> list[str]:
-    return ["Flat", "HNSW32"]
+from . import factories
 
 
 @pytest.fixture
 def embeddings_fix() -> NDArray:
-    return test_hnswlib.emb()
+    return factories.emb()
 
 
 def index(index_string: str, device: str) -> FaissIndex:
-    embeddings = test_hnswlib.emb()
+    embeddings = factories.emb()
 
     return FaissIndex(
         embeddings=embeddings,
@@ -39,14 +35,14 @@ def test_normalize(embeddings_fix: NDArray) -> None:
     }
 
 
-@pytest.mark.parametrize("index_string", index_factory())
+@pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
 def test_init_faiss(index_string: str, device: str, embeddings_fix: NDArray) -> None:
     search = index(index_string, device)
     assert search.dims == embeddings_fix.shape[1]
 
 
-@pytest.mark.parametrize("index_string", index_factory())
+@pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
 def test_faiss_search_match(
     index_string: str, device: str, embeddings_fix: NDArray
@@ -71,7 +67,7 @@ def test_faiss_search_match(
     }
 
 
-@pytest.mark.parametrize("index_string", index_factory())
+@pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
 def test_faiss_search_mismatch(
     index_string: str, device: str, embeddings_fix: NDArray

@@ -2,26 +2,20 @@ import numpy as np
 import pytest
 from numpy.typing import NDArray
 
-from bocoel import Distance, HnswlibIndex, Index
+from bocoel import Index
 from bocoel.corpora.indices import utils
 
-
-def emb() -> NDArray:
-    return np.eye(5)
+from . import factories
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def embeddings_fix() -> NDArray:
-    return emb()
-
-
-def index(embeddings: NDArray) -> Index:
-    return HnswlibIndex(embeddings=embeddings, distance=Distance.INNER_PRODUCT)
+    return factories.emb()
 
 
 @pytest.fixture
 def index_fix(embeddings_fix: NDArray) -> Index:
-    return index(embeddings_fix)
+    return factories.hnsw_index(embeddings_fix)
 
 
 def test_normalize(embeddings_fix: NDArray) -> None:

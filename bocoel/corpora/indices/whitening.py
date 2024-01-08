@@ -1,3 +1,5 @@
+from collections.abc import Mapping
+from types import MappingProxyType
 from typing import Any
 
 import numpy as np
@@ -21,7 +23,7 @@ class WhiteningIndex(Index):
         distance: str | Distance,
         remains: int,
         backend: type[Index],
-        backend_kwargs: dict[str, Any],
+        backend_kwargs: Mapping[str, Any] = MappingProxyType({}),
     ) -> None:
         # Remains might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.

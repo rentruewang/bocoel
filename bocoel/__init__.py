@@ -15,6 +15,7 @@ from .corpora import (
     FaissIndex,
     HnswlibIndex,
     Index,
+    PolarIndex,
     SBertEmbedder,
     Storage,
     WhiteningIndex,

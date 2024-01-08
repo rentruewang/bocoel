@@ -1,5 +1,6 @@
 from collections.abc import Sequence
-from typing import Any
+from types import MappingProxyType
+from typing import Any, Mapping
 
 import numpy as np
 from numpy.typing import NDArray
@@ -8,7 +9,6 @@ from typing_extensions import Self
 from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
 
 
-# TODO: Add tests.
 class PolarIndex(Index):
     """
     Index that uses N-sphere coordinates as interfaces.
@@ -21,13 +21,10 @@ class PolarIndex(Index):
         embeddings: NDArray,
         distance: str | Distance,
         backend: type[Index],
-        backend_kwargs: dict[str, Any],
+        backend_kwargs: Mapping[str, Any] = MappingProxyType({}),
     ) -> None:
-        if (distance := Distance(distance)) != Distance.INNER_PRODUCT:
-            raise ValueError("Only inner product distance is supported.")
-
         self._index = backend.from_embeddings(
-            embeddings=embeddings, distance=distance, **backend_kwargs
+            embeddings=embeddings, distance=Distance(distance), **backend_kwargs
         )
 
     def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:

@@ -9,8 +9,7 @@ from typing_extensions import Self
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State
 from bocoel.core.optim.utils import RemainingSteps
-from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Evaluator
+from bocoel.corpora import Index, SearchResult
 
 from . import renderers, types, utils
 from .types import AxServiceParameter
@@ -105,15 +104,6 @@ class AxServiceOptimizer(Optimizer):
         **kwargs: Any,
     ) -> Self:
         return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
-
-    @classmethod
-    def from_steps(
-        cls,
-        corpus: Corpus,
-        evaluator: Evaluator,
-        **kwargs: Any,
-    ) -> Self:
-        return cls.evaluate_corpus(corpus=corpus, evaluator=evaluator, **kwargs)
 
     @staticmethod
     def _terminate_step(steps: list[GenerationStep]) -> int:

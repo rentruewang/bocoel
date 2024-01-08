@@ -7,7 +7,6 @@ from dash import Dash, Input, Output
 from dash.dash_table import DataTable
 from dash.dcc import Graph, Slider
 from dash.html import H1, H2, H3, B, Div, Img, P
-from hiplot import Experiment
 from numpy.typing import NDArray
 from pandas import DataFrame
 from plotly.graph_objects import Figure, Indicator, Scatter, Surface

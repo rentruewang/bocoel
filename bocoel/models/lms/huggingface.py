@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from typing import TypeAlias
 
 from torch import device
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -6,7 +7,7 @@ from typing_extensions import Self
 
 from bocoel.models.lms.interfaces import LanguageModel
 
-Device = str | device
+Device: TypeAlias = str | device
 
 
 class HuggingfaceLM(LanguageModel):

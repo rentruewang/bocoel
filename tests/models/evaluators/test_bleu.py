@@ -3,7 +3,7 @@ import pytest
 import bocoel
 from bocoel import BleuEvaluator, Evaluator
 from tests import utils
-from tests.corpora import test_corpus
+from tests.corpora import factories as corpora_factories
 from tests.models.lms import test_huggingface
 
 
@@ -16,7 +16,7 @@ def bleu(device: str) -> Evaluator:
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_bleu_eval(device: str) -> None:
     bleu_eval = bleu(device=device)
-    corpus = test_corpus.corpus(device=device)
+    corpus = corpora_factories.corpus(device=device)
 
     results = bocoel.evaluate_on_corpus(bleu_eval, corpus, [0, 1])
     assert len(results) == 2
