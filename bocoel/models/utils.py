@@ -6,7 +6,7 @@ from bocoel.corpora import Corpus
 from bocoel.models.evaluators.interfaces import Evaluator
 
 
-def collate(mappings: Sequence[Mapping[str, str]]) -> dict[str, Sequence[str]]:
+def collate(mappings: Sequence[Mapping[str, str]]) -> Mapping[str, Sequence[str]]:
     if len(mappings) == 0:
         return {}
 

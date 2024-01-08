@@ -1,5 +1,5 @@
 import abc
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Protocol
 
 import numpy as np
@@ -24,7 +24,7 @@ FONT_COLOR = "LightBlue"
 #### Process Data ####
 class DataProcessor(Protocol):
     @abc.abstractmethod
-    def process() -> DataFrame:
+    def process(self) -> DataFrame:
         ...
 
 
@@ -35,8 +35,8 @@ class PCAPreprocessor(DataProcessor):
         X: NDArray = np.random.rand(100, 512) * 100,
         scores: NDArray = np.random.rand(100),
         size: float = 0.5,
-        sample_size: list = [i for i in range(1, 101)],
-        Description: list = ["Fake prompt number {}".format(i) for i in range(1, 101)],
+        sample_size: Sequence = tuple(range(1, 101)),
+        desc: Sequence = (),
         algo: str = "PCA",
     ):
         self._X = X
@@ -44,17 +44,17 @@ class PCAPreprocessor(DataProcessor):
         self._size = size
         self._sample_size = sample_size
         self._algo = algo
-        self._Description = Description
+        self._description = (
+            desc if desc else ["Fake prompt number {}".format(i) for i in range(1, 101)]
+        )
 
-    def _dim_reduce(self, X) -> NDArray:
+    def _dim_reduce(self, X: NDArray) -> NDArray:
         func: Callable
-        algo = self._algo
-
-        """match algo:
-            case "PCA":
-                func = sklearn.decomposition.PCA(n_components=2, svd_solver='full').fit_transform
-            case _:
-                raise ValueError("Not supported.")"""
+        # match algo:
+        #     case "PCA":
+        #         func = PCA(n_components=2, svd_solver='full').fit_transform
+        #     case _:
+        #         raise ValueError("Not supported.")
         func = PCA(n_components=2, svd_solver="full").fit_transform
         return func(X)
 
@@ -65,7 +65,7 @@ class PCAPreprocessor(DataProcessor):
         df["std"] = np.std(self._scores)
         df["sample_size"] = self._sample_size
         df["scores"] = self._scores
-        df["Description"] = self._Description
+        df["Description"] = self._description
 
         x_reduced = self._dim_reduce(self._X)
         df["x"] = x_reduced[:, 0]
@@ -213,7 +213,8 @@ hi_data = [
     {"dropout": 0.15, "lr": 0.01, "loss": 3.5, "optimizer": "Adam"},
     {"dropout": 0.3, "lr": 0.1, "loss": 4.5, "optimizer": "Adam"},
 ]
-hi_html = Experiment.to_html()
+hi_html = None
+# hi_html = Experiment.to_html()
 
 #### app Layout ####
 app.layout = Div(
@@ -272,7 +273,7 @@ app.layout = Div(
 
 
 @app.callback(Output("data_card_1", "children"), [Input("slider", "value")])
-def update_control_text(slider_value):
+def update_control_text_1(slider_value):
     return P(
         "#Prompt size: {}".format(slider_value),
         style={"font-size": "16px", "align": "center"},
@@ -280,7 +281,7 @@ def update_control_text(slider_value):
 
 
 @app.callback(Output("data_card_2", "figure"), [Input("CI", "value")])
-def update_control_text(slider_value) -> Figure:
+def update_control_text_2(slider_value) -> Figure:
     fig = Figure(
         Indicator(
             mode="gauge+number",
