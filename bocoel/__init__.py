@@ -22,11 +22,11 @@ from .corpora import (
     WhiteningIndex,
 )
 from .models import (
-    BleuEvaluator,
-    Evaluator,
+    BleuScore,
     HuggingfaceLM,
     LanguageModel,
-    LanguageModelEvaluator,
+    LanguageModelScore,
+    Score,
     collate,
     evaluate_on_corpus,
 )

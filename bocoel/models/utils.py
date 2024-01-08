@@ -3,7 +3,7 @@ from collections.abc import Mapping, Sequence
 from numpy.typing import NDArray
 
 from bocoel.corpora import Corpus
-from bocoel.models.evaluators.interfaces import Evaluator
+from bocoel.models.scores.interfaces import Score
 
 
 def collate(mappings: Sequence[Mapping[str, str]]) -> Mapping[str, Sequence[str]]:
@@ -23,10 +23,10 @@ def collate(mappings: Sequence[Mapping[str, str]]) -> Mapping[str, Sequence[str]
 
 
 def evaluate_on_corpus(
-    evaluator: Evaluator, corpus: Corpus, indices: Sequence[int] | NDArray
+    evaluator: Score, corpus: Corpus, indices: Sequence[int] | NDArray
 ) -> Sequence[float] | NDArray:
     items = [corpus.storage[idx] for idx in indices]
 
     collated = collate(items)
 
-    return evaluator.evaluate(collated)
+    return evaluator.compute(collated)

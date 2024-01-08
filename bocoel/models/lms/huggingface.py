@@ -35,7 +35,7 @@ class HuggingfaceLM(LanguageModel):
     ) -> None:
         # Initializes the tokenizer and pad to the left (this is how it's generated)
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self._tokenizer.pad_token = self._tokenizer.eos_token
+        self._tokenizer.pad_token_id = self._tokenizer.eos_token_id
         self._tokenizer.padding_side = "left"
 
         self._model = AutoModelForCausalLM.from_pretrained(model_path)

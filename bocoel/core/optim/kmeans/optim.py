@@ -57,9 +57,6 @@ class KMeansOptimizer(Optimizer):
             query=center, index=self._index, evaluate_fn=self._evaluate_fn
         )
 
-    def render(self, kind: str, **kwargs: Any) -> None:
-        raise NotImplementedError
-
     @classmethod
     def from_index(
         cls, index: Index, evaluate_fn: Callable[[SearchResult], float], **kwargs: Any

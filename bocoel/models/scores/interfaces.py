@@ -7,21 +7,21 @@ from numpy.typing import NDArray
 from bocoel.models.lms import LanguageModel
 
 
-class Evaluator(Protocol):
+class Score(Protocol):
     """
     Evaluator protocol is used for evaluation of a given data structure.
     """
 
     @abc.abstractmethod
-    def evaluate(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
+    def compute(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
         """
-        Evaluate the language model on the given items.
+        Compute the score on the given items.
         """
 
         ...
 
 
-class LanguageModelEvaluator(Evaluator, Protocol):
+class LanguageModelScore(Score, Protocol):
     _lm: LanguageModel
     """
     The language model used by the evaluator.

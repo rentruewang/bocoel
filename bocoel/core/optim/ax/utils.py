@@ -4,7 +4,11 @@ from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep
 from typing_extensions import NotRequired
 
-_MODEL_MAPPING = {"sobol": Models.SOBOL, "gpmes": Models.GPMES}
+_MODEL_MAPPING = {
+    "sobol": Models.SOBOL,
+    "gpmes": Models.GPMES,
+    "modular": Models.BOTORCH_MODULAR,
+}
 
 
 class ModelsDict(TypedDict):

@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 
 from bocoel.core.optim.interfaces import State
 from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Evaluator
+from bocoel.models import Score
 from bocoel.models import utils as model_utils
 
 
@@ -47,7 +47,7 @@ def evaluate_index(
 
 
 def evaluate_corpus_fn(
-    *, corpus: Corpus, evaluator: Evaluator
+    *, corpus: Corpus, evaluator: Score
 ) -> Callable[[SearchResult], float]:
     def evaluate_fn(result: SearchResult) -> float:
         # Result is a singleton. Only evaluate one query.

@@ -56,31 +56,6 @@ class AxServiceOptimizer(Optimizer):
         )
         return state
 
-    def render(self, kind: str, **kwargs: Any) -> None:
-        """
-        See https://ax.dev/tutorials/visualizations.html for details.
-        """
-
-        func: Callable
-
-        match kind:
-            case "interactive":
-                func = renderers.render_interactive
-            case "static":
-                func = renderers.render_static
-            case "tradeoff":
-                func = renderers.render_tradeoff
-            case "cross_validate" | "cv":
-                func = renderers.render_cross_validate
-            case "slice":
-                func = renderers.render_slice
-            case "tile":
-                func = renderers.render_tile
-            case _:
-                raise ValueError("Not supported")
-
-        func(ax_client=self._ax_client, metric_name=_KEY, **kwargs)
-
     def _create_experiment(self, index: Index, minimize: bool) -> None:
         self._ax_client.create_experiment(
             parameters=types.parameter_configs(index),
@@ -112,3 +87,28 @@ class AxServiceOptimizer(Optimizer):
             return sum(trials)
         else:
             return -1
+
+    def render(self, kind: str, **kwargs: Any) -> None:
+        """
+        See https://ax.dev/tutorials/visualizations.html for details.
+        """
+
+        func: Callable
+
+        match kind:
+            case "interactive":
+                func = renderers.render_interactive
+            case "static":
+                func = renderers.render_static
+            case "tradeoff":
+                func = renderers.render_tradeoff
+            case "cross_validate" | "cv":
+                func = renderers.render_cross_validate
+            case "slice":
+                func = renderers.render_slice
+            case "tile":
+                func = renderers.render_tile
+            case _:
+                raise ValueError("Not supported")
+
+        func(ax_client=self._ax_client, metric_name=_KEY, **kwargs)

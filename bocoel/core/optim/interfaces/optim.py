@@ -5,7 +5,7 @@ from typing import Any, Protocol
 from typing_extensions import Self
 
 from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Evaluator
+from bocoel.models import Score
 
 from .states import State
 
@@ -34,24 +34,6 @@ class Optimizer(Protocol):
 
         ...
 
-    @abc.abstractmethod
-    def render(self, kind: str, **kwargs: Any) -> None:
-        """
-        Renders the history of the optimizer for debug use.
-
-        Parameters
-        ----------
-
-        `kind: str`
-        The type of rendering to perform. Is dependent on optimizer.
-        See documentation for each render for more.
-
-        `**kwargs: Any`
-        Additional arguments to pass to the rendering function.
-        """
-
-        ...
-
     @classmethod
     @abc.abstractmethod
     def from_index(
@@ -60,9 +42,7 @@ class Optimizer(Protocol):
         ...
 
     @classmethod
-    def evaluate_corpus(
-        cls, corpus: Corpus, evaluator: Evaluator, **kwargs: Any
-    ) -> Self:
+    def evaluate_corpus(cls, corpus: Corpus, evaluator: Score, **kwargs: Any) -> Self:
         # Import here because implementation depends on interface,
         # and importing at the top-level will cause circular imports.
         from bocoel.core.optim import utils
