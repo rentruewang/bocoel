@@ -1,5 +1,5 @@
 import abc
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 from typing import Protocol
 
 import numpy as np
@@ -22,59 +22,62 @@ FONT_COLOR = "LightBlue"
 
 #### Process Data ####
 class DataProcessor(Protocol):
+    size: float
+    # FIXME: Better abstraction in the future.
+    scores: NDArray
+
+    sample_size: Sequence[int]
+    description: Sequence[str]
+
     @abc.abstractmethod
-    def process(self) -> DataFrame:
+    def reduce_2d(self, X: NDArray) -> NDArray:
         ...
 
-
-# TODO: Attach real data
-class PCAPreprocessor(DataProcessor):
-    def __init__(
-        self,
-        X: NDArray = np.random.rand(100, 512) * 100,
-        scores: NDArray = np.random.rand(100),
-        size: float = 0.5,
-        sample_size: Sequence = tuple(range(1, 101)),
-        desc: Sequence = (),
-        algo: str = "PCA",
-    ):
-        self._X = X
-        self._scores = scores
-        self._size = size
-        self._sample_size = sample_size
-        self._algo = algo
-        self._description = (
-            desc if desc else ["Fake prompt number {}".format(i) for i in range(1, 101)]
-        )
-
-    def _dim_reduce(self, X: NDArray) -> NDArray:
-        func: Callable
-        # match algo:
-        #     case "PCA":
-        #         func = PCA(n_components=2, svd_solver='full').fit_transform
-        #     case _:
-        #         raise ValueError("Not supported.")
-        func = PCA(n_components=2, svd_solver="full").fit_transform
-        return func(X)
-
-    def process(self) -> DataFrame:
+    def process(self, X: NDArray) -> DataFrame:
         df = DataFrame()
 
-        df["size"] = self._size
-        df["std"] = np.std(self._scores)
-        df["sample_size"] = self._sample_size
-        df["scores"] = self._scores
-        df["Description"] = self._description
+        df["size"] = self.size
+        df["std"] = np.std(self.scores)
+        df["sample_size"] = self.sample_size
+        df["scores"] = self.scores
+        df["Description"] = self.description
 
-        x_reduced = self._dim_reduce(self._X)
+        x_reduced = self.reduce_2d(X)
+
         df["x"] = x_reduced[:, 0]
         df["y"] = x_reduced[:, 1]
 
         return df
 
 
+# TODO: Attach real data
+class PCAPreprocessor(DataProcessor):
+    def __init__(
+        self,
+        scores: NDArray = np.random.rand(100),
+        size: float = 0.5,
+        sample_size: Sequence = tuple(range(1, 101)),
+        desc: Sequence = (),
+        algo: str = "PCA",
+    ):
+        self.scores = scores
+        self.size = size
+        self.sample_size = sample_size
+        self._algo = algo
+        self.description = (
+            desc if desc else ["Fake prompt number {}".format(i) for i in range(1, 101)]
+        )
+
+    def reduce_2d(self, X: NDArray) -> NDArray:
+        func = PCA(n_components=2, svd_solver="full").fit_transform
+        return func(X)
+
+
 def process_data(processor: DataProcessor) -> DataFrame:
-    df = processor.process()
+    # TODO: Use real data.
+    X = np.random.rand(100, 512) * 100
+
+    df = processor.process(X)
     return df
 
 
@@ -215,57 +218,61 @@ hi_data = [
 hi_html = None
 # hi_html = Experiment.to_html()
 
-#### app Layout ####
-app.layout = Div(
-    id="app-container",
-    children=[
-        # Banner
-        Div(
-            id="banner",
-            className="banner",
-            children=[
-                H1(
-                    "BoCoEl:Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models",
-                    style={"color": FONT_COLOR},
-                ),
-                Img(src="banner.png", alt="banner"),
-            ],
-            style={"display": "flex", "gap": "20px"},
-        ),
-        # Upper column
-        Div(
-            id="left-column",
-            className="three columns",
-            children=[description_card(), generate_table()],
-            style={
-                "display": "flex",
-                "gap": "20px",
-                "align-items": "flex-stretch",
-                "width": "100%",
-            },
-        ),
-        # Lower column
-        Div(H2("ParBayesian Optimization in Action", style={"color": FONT_COLOR})),
-        Div(
-            id="right-column",
-            className="eight columns",
-            children=[
-                Div(
-                    children=[generate_2D()] + [generate_3D()],
-                    style={
-                        "display": "flex",
-                        "gap": "20px",
-                        "align-items": "flex-top",
-                        "width": "100%",
-                    },
-                ),
-            ],
-        ),
-        Div(hi_html),
-    ],
-    style={"background-color": BG_COLOR},
-)
 
+#### app Layout ####
+def app_layout():
+    return Div(
+        id="app-container",
+        children=[
+            # Banner
+            Div(
+                id="banner",
+                className="banner",
+                children=[
+                    H1(
+                        "BoCoEl:Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models",
+                        style={"color": FONT_COLOR},
+                    ),
+                    Img(src="banner.png", alt="banner"),
+                ],
+                style={"display": "flex", "gap": "20px"},
+            ),
+            # Upper column
+            Div(
+                id="left-column",
+                className="three columns",
+                children=[description_card(), generate_table()],
+                style={
+                    "display": "flex",
+                    "gap": "20px",
+                    "align-items": "flex-stretch",
+                    "width": "100%",
+                },
+            ),
+            # Lower column
+            Div(H2("ParBayesian Optimization in Action", style={"color": FONT_COLOR})),
+            Div(
+                id="right-column",
+                className="eight columns",
+                children=[
+                    Div(
+                        children=[generate_2D()] + [generate_3D()],
+                        style={
+                            "display": "flex",
+                            "gap": "20px",
+                            "align-items": "flex-top",
+                            "width": "100%",
+                        },
+                    ),
+                ],
+            ),
+            Div(hi_html),
+        ],
+        style={"background-color": BG_COLOR},
+    )
+
+
+app.layout = app_layout()
 
 #### CALLBACKS ####
 """Reads control input and update div generators"""
