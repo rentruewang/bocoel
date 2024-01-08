@@ -1,7 +1,7 @@
-import pytest
+from datasets import Dataset
 from pandas import DataFrame
 
-from bocoel import DataFrameStorage
+from bocoel import DataFrameStorage, DatasetsStorage, Storage
 
 
 def df() -> DataFrame:
@@ -27,13 +27,13 @@ def df() -> DataFrame:
     )
 
 
-@pytest.fixture
-def dataframe_fix() -> DataFrame:
-    return df()
+def df_storage() -> Storage:
+    return DataFrameStorage(df=df())
 
 
-def test_dataframe_storage(dataframe_fix: DataFrame) -> None:
-    dfs = DataFrameStorage(dataframe_fix)
-    assert set(dfs.keys()) == {"question", "answer"}
-    assert dfs[0] == dataframe_fix.iloc[0].to_dict()
-    assert dfs.get("answer") == dataframe_fix["answer"].to_list()
+def dataset() -> Dataset:
+    return Dataset.from_pandas(df())
+
+
+def datasets_storage() -> Storage:
+    return DatasetsStorage(dataset=dataset())

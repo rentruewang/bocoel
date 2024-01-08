@@ -10,6 +10,7 @@ from .corpora import (
     ComposedCorpus,
     Corpus,
     DataFrameStorage,
+    DatasetsStorage,
     Distance,
     Embedder,
     FaissIndex,

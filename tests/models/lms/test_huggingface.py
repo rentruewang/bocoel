@@ -1,19 +1,15 @@
 import pytest
 from pytest import FixtureRequest
 
-from bocoel import HuggingfaceLM, LanguageModel
+from bocoel import LanguageModel
 from tests import utils
 
-
-def lm(device: str) -> LanguageModel:
-    return HuggingfaceLM(
-        model_path="distilgpt2", device=device, batch_size=4, max_len=512
-    )
+from . import factories
 
 
 @pytest.fixture
 def lm_fix(request: FixtureRequest) -> LanguageModel:
-    return lm(device=request.param)
+    return factories.lm(device=request.param)
 
 
 @pytest.mark.parametrize("lm_fix", utils.torch_devices(), indirect=True)

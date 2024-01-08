@@ -21,9 +21,6 @@ class Evaluator(Protocol):
         ...
 
 
-# TODO:
-# Further modularize reusable components
-# when expanding on numbers of supporting functionalities.
 class LanguageModelEvaluator(Evaluator, Protocol):
     _lm: LanguageModel
     """

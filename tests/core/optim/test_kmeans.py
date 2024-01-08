@@ -2,26 +2,26 @@ import pytest
 
 import bocoel
 from tests import utils
-from tests.corpora import factories as corpora_factories
-from tests.models.evaluators import test_bleu
-from tests.models.lms import test_huggingface
+from tests.corpora import factories as corpus_factories
+from tests.models.evaluators import factories as evaluator_factories
+from tests.models.lms import factories as lm_factories
 
 from . import factories
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_init_optimizer(device: str) -> None:
-    corpus = corpora_factories.corpus(device=device)
-    evaluator = test_bleu.bleu(device=device)
+    corpus = corpus_factories.corpus(device=device)
+    evaluator = evaluator_factories.bleu(device=device)
 
     _ = factories.kmeans_optim(corpus, evaluator)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_optimize(device: str) -> None:
-    corpus = corpora_factories.corpus(device=device)
-    lm = test_huggingface.lm(device=device)
-    evaluator = test_bleu.bleu(device=device)
+    corpus = corpus_factories.corpus(device=device)
+    lm = lm_factories.lm(device=device)
+    evaluator = evaluator_factories.bleu(device=device)
     optimizer = factories.kmeans_optim(corpus, evaluator)
 
     bocoel.bocoel(optimizer=optimizer, iterations=5)

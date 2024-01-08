@@ -8,11 +8,11 @@ from bocoel import (
 )
 
 from .indices import factories
-from .storages import test_df_storage
+from .storages import factories as storage_factories
 
 
 def corpus(device: str) -> Corpus:
-    storage = DataFrameStorage(test_df_storage.df())
+    storage = DataFrameStorage(storage_factories.df())
     embedder = SBertEmbedder(device=device)
     index_kwargs = {"distance": Distance.INNER_PRODUCT, **factories.whiten_kwargs()}
     return ComposedCorpus.index_storage(

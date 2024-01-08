@@ -12,4 +12,6 @@ def ax_optim(corpus: Corpus, evaluator: Evaluator, device: str) -> Optimizer:
 
 
 def kmeans_optim(corpus: Corpus, evaluator: Evaluator) -> Optimizer:
-    return KMeansOptimizer.evaluate_corpus(corpus=corpus, evaluator=evaluator)
+    return KMeansOptimizer.evaluate_corpus(
+        corpus=corpus, evaluator=evaluator, n_clusters=3
+    )

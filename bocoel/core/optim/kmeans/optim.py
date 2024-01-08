@@ -22,7 +22,6 @@ class KmeansOptions(TypedDict):
     algorithm: NotRequired[Literal["llyod", "elkan"]]
 
 
-# TODO: Add tests.
 class KMeansOptimizer(Optimizer):
     """
     The sklearn optimizer that uses clustering algorithms.
@@ -34,7 +33,7 @@ class KMeansOptimizer(Optimizer):
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
-        model_kwargs: KmeansOptions,
+        **model_kwargs: KmeansOptions,
     ) -> None:
         # FIXME: Seems like there is some issues with Scikit Learn stub files.
         self._model = KMeans(**typing.cast(Any, model_kwargs))

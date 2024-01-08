@@ -5,8 +5,7 @@ from datasets import Dataset
 from bocoel.corpora.storages.interfaces import Storage
 
 
-# TODO: Write tests for this class.
-class HuggingfaceDatasetsStorage(Storage):
+class DatasetsStorage(Storage):
     def __init__(self, dataset: Dataset) -> None:
         super().__init__()
 
