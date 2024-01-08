@@ -4,11 +4,11 @@ import numpy as np
 from numpy.typing import NDArray
 from sklearn.decomposition import PCA
 
-from .interfaces import Processor
+from .interfaces import Reducer
 
 
 # TODO: Attach real data
-class PCAPreprocessor(Processor):
+class PCAReducer(Reducer):
     def __init__(
         self,
         scores: NDArray = np.random.rand(100),

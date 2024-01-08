@@ -7,7 +7,7 @@ from numpy.typing import NDArray
 from pandas import DataFrame
 
 
-class Processor(Protocol):
+class Reducer(Protocol):
     size: float
     # FIXME: Better abstraction in the future.
     scores: NDArray
