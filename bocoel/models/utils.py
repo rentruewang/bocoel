@@ -23,10 +23,10 @@ def collate(mappings: Sequence[Mapping[str, str]]) -> Mapping[str, Sequence[str]
 
 
 def evaluate_on_corpus(
-    evaluator: Score, corpus: Corpus, indices: Sequence[int] | NDArray
+    score: Score, corpus: Corpus, indices: Sequence[int] | NDArray
 ) -> Sequence[float] | NDArray:
     items = [corpus.storage[idx] for idx in indices]
 
     collated = collate(items)
 
-    return evaluator.compute(collated)
+    return score.compute(collated)

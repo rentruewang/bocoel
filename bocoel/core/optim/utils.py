@@ -46,13 +46,13 @@ def evaluate_index(
     return State(result=result, score=evaluation)
 
 
-def evaluate_corpus_fn(
-    *, corpus: Corpus, evaluator: Score
+def evaluate_corpus_from_score(
+    *, corpus: Corpus, score: Score
 ) -> Callable[[SearchResult], float]:
     def evaluate_fn(result: SearchResult) -> float:
         # Result is a singleton. Only evaluate one query.
         return model_utils.evaluate_on_corpus(
-            evaluator=evaluator, corpus=corpus, indices=[result.indices.item()]
+            score=score, corpus=corpus, indices=[result.indices.item()]
         )[0]
 
     return evaluate_fn

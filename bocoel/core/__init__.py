@@ -7,7 +7,7 @@ from .optim import (
     RemainingSteps,
     State,
     check_bounds,
-    evaluate_corpus_fn,
+    evaluate_corpus_from_score,
     evaluate_index,
     generation_step,
 )

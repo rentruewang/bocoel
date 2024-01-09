@@ -15,4 +15,7 @@ class AccuracyScore(CmpScore):
         self, generated: Sequence[str], reference: Sequence[str]
     ) -> Sequence[float]:
         # TODO: Maybe handle special sequences?
-        return [gen == ans for gen, ans in zip(generated, reference)]
+        return [
+            gen.lower().strip() == ans.lower().strip()
+            for gen, ans in zip(generated, reference)
+        ]

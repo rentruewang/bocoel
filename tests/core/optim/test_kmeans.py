@@ -12,16 +12,16 @@ from . import factories
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_init_optimizer(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    evaluator = score_factories.bleu(device=device)
+    score = score_factories.bleu(device=device)
 
-    _ = factories.kmeans_optim(corpus, evaluator)
+    _ = factories.kmeans_optim(corpus, score)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_optimize(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = score_factories.bleu(device=device)
-    optimizer = factories.kmeans_optim(corpus, evaluator)
+    score = score_factories.bleu(device=device)
+    optimizer = factories.kmeans_optim(corpus, score)
 
     bocoel.bocoel(optimizer=optimizer, iterations=15)

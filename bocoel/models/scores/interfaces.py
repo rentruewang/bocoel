@@ -9,7 +9,7 @@ from bocoel.models.lms import LanguageModel
 
 class Score(Protocol):
     """
-    Evaluator protocol is used for evaluation of a given data structure.
+    Score protocol is used for evaluation of a given data structure.
     """
 
     @abc.abstractmethod
@@ -24,7 +24,7 @@ class Score(Protocol):
 class LanguageModelScore(Score, Protocol):
     _lm: LanguageModel
     """
-    The language model used by the evaluator.
+    The language model used in the evaluation.
 
-    This method is private because it is only used by the evaluator itself.
+    This method is private because it is only used by the instance itself.
     """
