@@ -29,7 +29,7 @@ class AxServiceOptimizer(Optimizer):
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
-        minimize: bool = True,
+        minimize: bool = False,
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
@@ -51,9 +51,7 @@ class AxServiceOptimizer(Optimizer):
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
         state = self._evaluate(parameters)
-        self._ax_client.complete_trial(
-            trial_index, raw_data={_KEY: float(state.evaluation)}
-        )
+        self._ax_client.complete_trial(trial_index, raw_data={_KEY: float(state.score)})
         return state
 
     def _create_experiment(self, index: Index, minimize: bool) -> None:

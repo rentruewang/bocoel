@@ -7,11 +7,11 @@ def ax_optim(corpus: Corpus, evaluator: Score) -> Optimizer:
         {"model": "modular", "num_trials": -1},
     ]
     return AxServiceOptimizer.evaluate_corpus(
-        corpus=corpus, evaluator=evaluator, steps=steps
+        corpus=corpus, scorer=evaluator, steps=steps
     )
 
 
 def kmeans_optim(corpus: Corpus, evaluator: Score) -> Optimizer:
     return KMeansOptimizer.evaluate_corpus(
-        corpus=corpus, evaluator=evaluator, n_clusters=3
+        corpus=corpus, scorer=evaluator, n_clusters=3
     )

@@ -42,13 +42,13 @@ class Optimizer(Protocol):
         ...
 
     @classmethod
-    def evaluate_corpus(cls, corpus: Corpus, evaluator: Score, **kwargs: Any) -> Self:
+    def evaluate_corpus(cls, corpus: Corpus, scorer: Score, **kwargs: Any) -> Self:
         # Import here because implementation depends on interface,
         # and importing at the top-level will cause circular imports.
         from bocoel.core.optim import utils
 
         return cls.from_index(
             index=corpus.index,
-            evaluate_fn=utils.evaluate_corpus_fn(corpus=corpus, evaluator=evaluator),
+            evaluate_fn=utils.evaluate_corpus_fn(corpus=corpus, evaluator=scorer),
             **kwargs
         )

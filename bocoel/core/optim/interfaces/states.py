@@ -11,7 +11,7 @@ class State(NamedTuple):
     The search result.
     """
 
-    evaluation: float | NDArray
+    score: float | NDArray
     """
     The evalution outcome.
     """

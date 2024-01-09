@@ -26,10 +26,11 @@ class Index(Protocol):
         if (dim := query.shape[0]) != self.dims:
             raise ValueError(f"Expected query to have dimension {self.dims}, got {dim}")
 
-        if not self.in_range(query):
-            raise ValueError(
-                "Query is out of bounds. Call index.lower and index.upper for the boundary."
-            )
+        # TODO: Investigate if this hurts performance.
+        # if not self.in_range(query):
+        #     raise ValueError(
+        #         "Query is out of bounds. Call index.lower and index.upper for the boundary."
+        #     )
 
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")

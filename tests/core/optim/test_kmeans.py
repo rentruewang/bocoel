@@ -24,4 +24,4 @@ def test_optimize(device: str) -> None:
     evaluator = score_factories.bleu(device=device)
     optimizer = factories.kmeans_optim(corpus, evaluator)
 
-    bocoel.bocoel(optimizer=optimizer, iterations=5)
+    bocoel.bocoel(optimizer=optimizer, iterations=15)

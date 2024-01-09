@@ -43,7 +43,7 @@ def evaluate_index(
 ) -> State:
     result = index.search(query, k=1)
     evaluation = evaluate_fn(result)
-    return State(result=result, evaluation=evaluation)
+    return State(result=result, score=evaluation)
 
 
 def evaluate_corpus_fn(
