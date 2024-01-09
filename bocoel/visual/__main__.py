@@ -66,7 +66,7 @@ def update_table(slider_value: float) -> DataTable:
 
 
 @APP.callback(Output("2D-plane", "figure"), Input("slider", "value"))
-def update_2D(slider_value: float) -> Figure:
+def update_2D_plot(slider_value: float) -> Figure:
     return updates.two_d(slider_value=slider_value, df=data)
 
 
