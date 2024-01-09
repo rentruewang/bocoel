@@ -5,8 +5,9 @@ from typing import Any, Protocol
 from typing_extensions import Self
 
 from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Score
+from bocoel.models import Evaluator, Score
 
+from . import utils
 from .states import State
 
 
@@ -43,12 +44,10 @@ class Optimizer(Protocol):
 
     @classmethod
     def evaluate_corpus(cls, corpus: Corpus, score: Score, **kwargs: Any) -> Self:
-        # Import here because implementation depends on interface,
-        # and importing at the top-level will cause circular imports.
-        from bocoel.core.optim import utils
+        fn = utils.evaluate_corpus_from_score(corpus=corpus, score=score)
+        return cls.from_index(index=corpus.index, evaluate_fn=fn, **kwargs)
 
-        return cls.from_index(
-            index=corpus.index,
-            evaluate_fn=utils.evaluate_corpus_from_score(corpus=corpus, score=score),
-            **kwargs
-        )
+    @classmethod
+    def from_evaluator(cls, evaluator: Evaluator, **kwargs: Any) -> Self:
+        fn = utils.evaluate_with_evaluator(evaluator)
+        return cls.from_index(index=evaluator.corpus.index, evaluate_fn=fn, **kwargs)
