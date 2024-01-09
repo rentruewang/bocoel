@@ -1,2 +1,2 @@
-from .interfaces import Evaluator
+from .interfaces import CorpusEvaluator, Evaluator
 from .scored import ScoredEvaluator

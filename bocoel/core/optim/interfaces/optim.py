@@ -50,4 +50,4 @@ class Optimizer(Protocol):
     @classmethod
     def from_evaluator(cls, evaluator: Evaluator, **kwargs: Any) -> Self:
         fn = utils.evaluate_with_evaluator(evaluator)
-        return cls.from_index(index=evaluator.corpus.index, evaluate_fn=fn, **kwargs)
+        return cls.from_index(index=evaluator.index, evaluate_fn=fn, **kwargs)

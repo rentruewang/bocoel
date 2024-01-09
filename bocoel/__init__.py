@@ -23,10 +23,13 @@ from .corpora import (
 )
 from .models import (
     BleuScore,
+    CorpusEvaluator,
+    Evaluator,
     HuggingfaceLM,
     LanguageModel,
     LanguageModelScore,
     Score,
+    ScoredEvaluator,
     collate,
     evaluate_on_corpus,
 )
