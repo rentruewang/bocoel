@@ -62,7 +62,7 @@ def main(
     lm = HuggingfaceLM(
         model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
     )
-    score = BleuScore(problem=ds_key, answer=ds_target, lm=lm)
+    score = BleuScore(problem=ds_key, answers=ds_target, lm=lm)
 
     # ------------------------
     # The optimizer part.

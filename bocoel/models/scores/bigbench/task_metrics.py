@@ -571,7 +571,7 @@ def argmax(array):
 class GenerativeScorer(CmpScore):
     def __init__(self, problem: str, answer: str, lm: LanguageModel, type: str) -> None:
         self._problem = problem
-        self._answer = answer
+        self._answers = answer
         self._lm = lm
         self._metric = GENERATIVE_FN[type]
 

@@ -5,16 +5,20 @@ from bocoel.models.scores.interfaces import CmpScore
 
 
 class AccuracyScore(CmpScore):
-    def __init__(self, problem: str, answer: str, lm: LanguageModel) -> None:
+    def __init__(self, problem: str, answers: Sequence[str], lm: LanguageModel) -> None:
         self._problem = problem
-        self._answer = answer
+        self._answers = answers
         self._lm = lm
 
     def compare(
-        self, generated: Sequence[str], reference: Sequence[str]
+        self, generated: Sequence[str], reference: Sequence[Sequence[str]]
     ) -> Sequence[float]:
         # TODO: Maybe handle special sequences?
         return [
-            gen.lower().strip() == ans.lower().strip()
+            _cleanup(gen) in [_cleanup(a) for a in ans]
             for gen, ans in zip(generated, reference)
         ]
+
+
+def _cleanup(string: str) -> str:
+    return string.lower().strip()

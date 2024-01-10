@@ -9,16 +9,16 @@ from .scores import LanguageModelScore
 
 class CmpScore(LanguageModelScore, Protocol):
     _problem: str
-    _answer: str
+    _answers: Sequence[str]
 
     def compute(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
         problems = items[self._problem]
-        answers = items[self._answer]
+        answers = [items[ans] for ans in self._answers]
         generated = self._lm.generate(problems)
         return self.compare(generated=generated, reference=answers)
 
     @abc.abstractmethod
     def compare(
-        self, generated: Sequence[str], reference: Sequence[str]
+        self, generated: Sequence[str], reference: Sequence[Sequence[str]]
     ) -> Sequence[float]:
         ...
