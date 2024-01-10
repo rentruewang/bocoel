@@ -1,6 +1,6 @@
 import abc
 from collections.abc import Mapping, Sequence
-from typing import Protocol
+from typing import Any, Protocol
 
 from numpy.typing import NDArray
 
@@ -13,7 +13,7 @@ class Score(Protocol):
     """
 
     @abc.abstractmethod
-    def compute(self, items: Mapping[str, Sequence[str]]) -> Sequence[float] | NDArray:
+    def compute(self, items: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:
         """
         Compute the score on the given items.
         """

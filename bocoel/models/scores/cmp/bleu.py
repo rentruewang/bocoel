@@ -1,12 +1,12 @@
-import typing
 from collections.abc import Sequence
+from typing import Any
 
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores.interfaces import CmpScore
 
 
 class BleuScore(CmpScore):
-    def __init__(self, problem: str, answers: Sequence[str], lm: LanguageModel) -> None:
+    def __init__(self, problem: str, answers: str, lm: LanguageModel) -> None:
         # Optional dependency.
         from nltk.translate import bleu_score
 
@@ -16,11 +16,5 @@ class BleuScore(CmpScore):
 
         self._bleu = bleu_score.sentence_bleu
 
-    # TODO: Improve performance.
-    def compare(
-        self, generated: Sequence[str], reference: Sequence[Sequence[str]]
-    ) -> Sequence[float]:
-        return [
-            typing.cast(float, self._bleu([a.split() for a in ans], gen.split()))
-            for ans, gen in zip(reference, generated)
-        ]
+    def compare_one(self, generated: str, references: Sequence[Any]) -> float:
+        return self._bleu([ref.split() for ref in references], generated.split())

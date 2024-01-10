@@ -1,4 +1,5 @@
 from collections.abc import Collection, Mapping, Sequence
+from typing import Any
 
 from datasets import Dataset
 
@@ -15,10 +16,10 @@ class DatasetsStorage(Storage):
     def __len__(self) -> int:
         return len(self._dataset)
 
-    def __getitem__(self, idx: int) -> Mapping[str, str]:
+    def __getitem__(self, idx: int) -> Mapping[str, Any]:
         return self._dataset[idx]
 
-    def get(self, key: str) -> Sequence[str]:
+    def get(self, key: str) -> Sequence[Any]:
         if not isinstance(key, str):
             raise ValueError("Key should be a string")
 

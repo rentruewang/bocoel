@@ -1,6 +1,6 @@
 import abc
 from collections.abc import Collection, Mapping, Sequence
-from typing import Protocol
+from typing import Any, Protocol
 
 
 class Storage(Protocol):
@@ -22,7 +22,7 @@ class Storage(Protocol):
         ...
 
     @abc.abstractmethod
-    def __getitem__(self, idx: int) -> Mapping[str, str]:
+    def __getitem__(self, idx: int) -> Mapping[str, Any]:
         """
         Returns the row at the given index.
         """
@@ -30,7 +30,7 @@ class Storage(Protocol):
         ...
 
     @abc.abstractmethod
-    def get(self, key: str) -> Sequence[str]:
+    def get(self, key: str) -> Sequence[Any]:
         """
         Get the entire column by given key.
         """

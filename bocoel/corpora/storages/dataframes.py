@@ -1,5 +1,6 @@
 from collections.abc import Collection, Mapping, Sequence
 from pathlib import Path
+from typing import Any
 
 import ujson as json
 from pandas import DataFrame
@@ -18,10 +19,10 @@ class DataFrameStorage(Storage):
     def __len__(self) -> int:
         return len(self._df)
 
-    def __getitem__(self, idx: int) -> Mapping[str, str]:
+    def __getitem__(self, idx: int) -> Mapping[str, Any]:
         return self._df.iloc[idx].to_dict()
 
-    def get(self, key: str) -> Sequence[str]:
+    def get(self, key: str) -> Sequence[Any]:
         return self._df[key].to_list()
 
     @classmethod

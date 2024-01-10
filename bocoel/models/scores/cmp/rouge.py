@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from typing import Any
 
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores.interfaces import CmpScore
@@ -12,11 +13,8 @@ class RougeScore(CmpScore):
         self._problem = problem
         self._answers = answers
         self._lm = lm
+
         self._rouge = Rouge()
 
-    def compare(
-        self, generated: Sequence[str], reference: Sequence[Sequence[str]]
-    ) -> Sequence[float]:
-        return [
-            self._rouge.get_scores(gen, ans) for gen, ans in zip(generated, reference)
-        ]
+    def compare_one(self, generated: str, references: Sequence[Any]) -> float:
+        return self._rouge.get_scores(generated, references)
