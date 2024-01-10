@@ -2,8 +2,6 @@ import typing
 from collections.abc import Callable
 from typing import Any, Literal, TypedDict
 
-from sklearn.cluster import KMeans
-from sklearn.utils import validation
 from typing_extensions import NotRequired, Self
 
 from bocoel.core.optim import utils as optim_utils
@@ -35,6 +33,10 @@ class KMeansOptimizer(Optimizer):
         evaluate_fn: Callable[[SearchResult], float],
         **model_kwargs: KmeansOptions,
     ) -> None:
+        # Optional dependencies.
+        from sklearn.cluster import KMeans
+        from sklearn.utils import validation
+
         # FIXME: Seems like there is some issues with Scikit Learn stub files.
         self._model = KMeans(**typing.cast(Any, model_kwargs))
         self._model.fit(index.embeddings)

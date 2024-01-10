@@ -4,7 +4,7 @@ from typing import Protocol
 
 from numpy.typing import NDArray
 
-from bocoel.models.scores.interfaces import LanguageModelScore
+from .scores import LanguageModelScore
 
 
 class CmpScore(LanguageModelScore, Protocol):

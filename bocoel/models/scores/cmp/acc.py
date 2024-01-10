@@ -1,8 +1,7 @@
 from collections.abc import Sequence
 
 from bocoel.models.lms import LanguageModel
-
-from .comparisons import CmpScore
+from bocoel.models.scores.interfaces import CmpScore
 
 
 class AccuracyScore(CmpScore):

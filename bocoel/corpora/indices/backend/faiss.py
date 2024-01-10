@@ -1,11 +1,19 @@
+import functools
 from typing import Any
 
-import faiss
 from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
+
+
+@functools.cache
+def _faiss():
+    # Optional dependency.
+    import faiss
+
+    return faiss
 
 
 class FaissIndex(Index):
@@ -60,12 +68,12 @@ class FaissIndex(Index):
         # Using Any as type hint to prevent errors coming up in add / search.
         # Faiss is not type check ready yet.
         # https://github.com/facebookresearch/faiss/issues/2891
-        self._index: Any = faiss.index_factory(self.dims, index_string, metric)
+        self._index: Any = _faiss().index_factory(self.dims, index_string, metric)
         self._index.train(self._emb)
         self._index.add(self._emb)
 
         if cuda:
-            self._index = faiss.index_cpu_to_all_gpus(self._index)
+            self._index = _faiss().index_cpu_to_all_gpus(self._index)
 
     @classmethod
     def from_embeddings(
@@ -77,6 +85,6 @@ class FaissIndex(Index):
     def _faiss_metric(distance: str | Distance) -> Any:
         match distance:
             case Distance.L2:
-                return faiss.METRIC_L2
+                return _faiss().METRIC_L2
             case Distance.INNER_PRODUCT:
-                return faiss.METRIC_INNER_PRODUCT
+                return _faiss().METRIC_INNER_PRODUCT

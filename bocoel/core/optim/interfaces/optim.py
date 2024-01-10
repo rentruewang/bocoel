@@ -4,10 +4,10 @@ from typing import Any, Protocol
 
 from typing_extensions import Self
 
+from bocoel.core import utils
 from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator, Score
 
-from . import utils
 from .states import State
 
 

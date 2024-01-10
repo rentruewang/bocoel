@@ -7,8 +7,6 @@ from bocoel.corpora.storages.interfaces import Storage
 
 class DatasetsStorage(Storage):
     def __init__(self, dataset: Dataset) -> None:
-        super().__init__()
-
         self._dataset = dataset
 
     def keys(self) -> Collection[str]:

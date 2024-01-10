@@ -3,7 +3,6 @@ from collections.abc import Sequence
 
 import numpy as np
 from numpy.typing import NDArray
-from sentence_transformers import SentenceTransformer
 
 from bocoel.corpora.embedders.interfaces import Embedder
 
@@ -19,6 +18,9 @@ class SBertEmbedder(Embedder):
         device: str = "cpu",
         batch_size: int = 64,
     ) -> None:
+        # Optional dependency.
+        from sentence_transformers import SentenceTransformer
+
         self._sbert = SentenceTransformer(model_name, device=device)
 
         self.batch_size = batch_size

@@ -2,7 +2,6 @@ from collections.abc import Sequence
 from typing import TypeAlias
 
 from torch import device
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from typing_extensions import Self
 
 from bocoel.models.lms.interfaces import LanguageModel
@@ -33,6 +32,9 @@ class HuggingfaceLM(LanguageModel):
     def __init__(
         self, model_path: str, max_len: int, batch_size: int, device: Device
     ) -> None:
+        # Optional dependency.
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
         # Initializes the tokenizer and pad to the left (this is how it's generated)
         self._tokenizer = AutoTokenizer.from_pretrained(model_path)
         self._tokenizer.pad_token_id = self._tokenizer.eos_token_id

@@ -1,14 +1,14 @@
 from collections.abc import Sequence
 
-from rouge import Rouge
-
 from bocoel.models.lms import LanguageModel
-
-from .comparisons import CmpScore
+from bocoel.models.scores.interfaces import CmpScore
 
 
 class RougeScore(CmpScore):
     def __init__(self, problem: str, answer: str, lm: LanguageModel) -> None:
+        # Optional dependency.
+        from rouge import Rouge
+
         self._problem = problem
         self._answer = answer
         self._lm = lm

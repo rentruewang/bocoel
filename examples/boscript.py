@@ -2,6 +2,10 @@ import datasets
 import fire
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep
+from botorch.acquisition import qMaxValueEntropy
+from rich import print
+from tqdm import tqdm
+
 from bocoel import (
     AxServiceOptimizer,
     BleuScore,
@@ -13,9 +17,6 @@ from bocoel import (
     SBertEmbedder,
     WhiteningIndex,
 )
-from botorch.acquisition import qMaxValueEntropy
-from rich import print
-from tqdm import tqdm
 
 
 def main(
@@ -28,7 +29,7 @@ def main(
     llm_model: str = "distilgpt2",
     batch_size: int = 16,
     max_len: int = 512,
-    device="cpu",
+    device: str = "cpu",
     sobol_steps: int = 20,
     index_threads: int = 8,
     optimizer_steps: int = 30,
@@ -61,7 +62,7 @@ def main(
     lm = HuggingfaceLM(
         model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
     )
-    scorer = BleuScore(problem=ds_key, answer=ds_target, lm=lm)
+    score = BleuScore(problem=ds_key, answer=ds_target, lm=lm)
 
     # ------------------------
     # The optimizer part.
@@ -77,8 +78,11 @@ def main(
             },
         ),
     ]
+
     optim = AxServiceOptimizer.evaluate_corpus(
-        corpus=corpus, scorer=scorer, steps=steps
+        corpus=corpus,
+        score=score,
+        steps=steps,
     )
 
     for i in tqdm(range(optimizer_steps)):

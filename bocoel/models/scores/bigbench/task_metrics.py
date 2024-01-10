@@ -1,3 +1,6 @@
+# type: ignore
+# FIXME: Don't ignore type in the future.
+
 # Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,23 +16,21 @@
 
 """Implements Evaluation Metrics."""
 
+
 import copy
 import hashlib
-import numpy as np
-from typing import Any, Dict, List
 import warnings
+from collections.abc import Sequence
+from typing import Any, Dict, List
 
+import numpy as np
 from datasets import load_metric
 from scipy.special import logsumexp
-from t5.evaluation import metrics
 from sklearn.metrics import f1_score
-
-
-from collections.abc import Sequence
+from t5.evaluation import metrics
 
 from bocoel.models.lms import LanguageModel
-
-from .comparisons import CmpScore
+from bocoel.models.scores.interfaces import CmpScore
 
 
 def measure_multiple_choice_grade(samples):
@@ -210,7 +211,7 @@ def measure_expected_calibration_error(samples, num_buckets=15):
     n_samples = len(samples)
     assert sum(map(len, bucket_values)) == n_samples
     expected_calibration_error = 0.0
-    for (bucket, accuracy, confidence) in zip(
+    for bucket, accuracy, confidence in zip(
         bucket_values, bucket_accuracy, bucket_confidence
     ):
         if len(bucket) > 0:
@@ -391,7 +392,7 @@ def bleu_fn(targets: List[List[str]], responses: List[str]) -> Dict[str, float]:
 
 def sequence_f1_fn(targets: List[List[str]], responses: List[str]) -> Dict[str, float]:
     f1s = []
-    for (t, p) in zip(targets, responses):
+    for t, p in zip(targets, responses):
         # pad or trim to size of target
         predicted_labels = p.split(" ")
         target_labels = t[0].split(" ")

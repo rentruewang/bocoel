@@ -1,4 +1,5 @@
 from collections.abc import Callable, Sequence
+from enum import Enum
 from typing import Any
 
 import numpy as np
@@ -18,6 +19,12 @@ from .utils import GenStepDict
 _KEY = "entropy"
 
 
+class Task(str, Enum):
+    MINIMIZE = "minimize"
+    MAXIMIZE = "maximize"
+    ENTROPY_SEARCH = "entropy_search"
+
+
 class AxServiceOptimizer(Optimizer):
     """
     The Ax optimizer that uses the service API.
@@ -29,13 +36,19 @@ class AxServiceOptimizer(Optimizer):
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
         steps: Sequence[GenStepDict | GenerationStep],
-        minimize: bool = False,
+        task: Task = Task.ENTROPY_SEARCH,
     ) -> None:
         gen_steps = [utils.generation_step(step) for step in steps]
         gen_strat = GenerationStrategy(steps=gen_steps)
 
         self._ax_client = AxClient(generation_strategy=gen_strat)
-        self._create_experiment(index, minimize=minimize)
+
+        # FIXME: Don't allow this hack in the future.
+        # Minimize = None means explore only.
+        self._task = task
+        assert self._task is Task.ENTROPY_SEARCH
+
+        self._create_experiment(index)
         self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
         self._index = index
@@ -50,14 +63,26 @@ class AxServiceOptimizer(Optimizer):
 
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
+
         state = self._evaluate(parameters)
-        self._ax_client.complete_trial(trial_index, raw_data={_KEY: float(state.score)})
+
+        # FIXME: Also write an acquisition function for ES.
+        self._ax_client.complete_trial(trial_index, raw_data={_KEY: 0})
         return state
 
-    def _create_experiment(self, index: Index, minimize: bool) -> None:
+    def _create_experiment(self, index: Index) -> None:
+        task_objectives = {
+            Task.MINIMIZE: ObjectiveProperties(minimize=True),
+            Task.MAXIMIZE: ObjectiveProperties(minimize=False),
+        }
+
+        if (obj := task_objectives.get(self._task)) is None:
+            objectives = None
+        else:
+            objectives = {_KEY: obj}
+
         self._ax_client.create_experiment(
-            parameters=types.parameter_configs(index),
-            objectives={_KEY: ObjectiveProperties(minimize=minimize)},
+            parameters=types.parameter_configs(index), objectives=objectives
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:

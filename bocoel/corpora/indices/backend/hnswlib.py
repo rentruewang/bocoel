@@ -1,6 +1,5 @@
 from typing import Any, Literal
 
-from hnswlib import Index as _HnswlibIndex
 from numpy.typing import NDArray
 from typing_extensions import Self
 
@@ -57,6 +56,9 @@ class HnswlibIndex(Index):
         return InternalSearchResult(indices=indices, distances=distances)
 
     def _init_index(self) -> None:
+        # Optional dependency.
+        from hnswlib import Index as _HnswlibIndex
+
         space = self._hnswlib_space(self.distance)
         self._index = _HnswlibIndex(space=space, dim=self.dims)
         self._index.init_index(max_elements=len(self._emb))
