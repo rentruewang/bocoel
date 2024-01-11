@@ -5,7 +5,7 @@ from ax.service.ax_client import AxClient, ObjectiveProperties
 from botorch.acquisition import qMaxValueEntropy
 from tqdm import tqdm
 
-from bocoel.core.optim.ax.acquisition import MaxEntropy
+from bocoel.core.optim.ax.acquisition import Entropy
 
 K = "K"
 
@@ -13,8 +13,8 @@ K = "K"
 def main(acqf: str) -> None:
     if acqf == "qMaxValueEntropy":
         botorch_acqf_class = qMaxValueEntropy
-    elif acqf == "MaxEntropy":
-        botorch_acqf_class = MaxEntropy
+    elif acqf == "Entropy":
+        botorch_acqf_class = Entropy
 
     cli = AxClient(
         GenerationStrategy(

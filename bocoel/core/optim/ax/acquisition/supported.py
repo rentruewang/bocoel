@@ -7,7 +7,7 @@ from botorch.acquisition import (
     qUpperConfidenceBound,
 )
 
-from .max_entropy import MaxEntropy
+from .entropy import Entropy
 
 
 class AcquisitionFunc(str, Enum):
@@ -20,7 +20,7 @@ class AcquisitionFunc(str, Enum):
     def botorch_acqf_class(self) -> type[AcquisitionFunction]:
         match self:
             case AcquisitionFunc.MAX_ENTROPY:
-                return MaxEntropy
+                return Entropy
             case AcquisitionFunc.MAX_VALUE_ENTROPY:
                 return qMaxValueEntropy
             case AcquisitionFunc.UPPER_CONFIDENCE_BOUND:

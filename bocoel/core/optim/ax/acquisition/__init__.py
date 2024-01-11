@@ -1,2 +1,2 @@
-from .max_entropy import MaxEntropy
+from .entropy import Entropy
 from .supported import AcquisitionFunc

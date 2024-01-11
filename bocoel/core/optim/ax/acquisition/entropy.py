@@ -1,19 +1,9 @@
-from typing import Any
-
-from botorch.acquisition import qMaxValueEntropy
+from botorch.acquisition import input_constructors, qMaxValueEntropy
 from botorch.models import utils
 from torch import Tensor
 
 
-class MaxEntropy(qMaxValueEntropy):
-    """
-    @doctryucsd
-    FIXME: This is not currently accomplishing computing the maximum value entropy function.
-    """
-
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-
+class Entropy(qMaxValueEntropy):
     def _compute_information_gain(
         self, X: Tensor, mean_M: Tensor, variance_M: Tensor, covar_mM: Tensor
     ) -> Tensor:
@@ -37,3 +27,7 @@ class MaxEntropy(qMaxValueEntropy):
             permute_idcs = [-2, *range(H0.ndim - 2), -1]
         ig = H0.permute(*permute_idcs)  # num_fantasies x batch_shape x (m)
         return ig
+
+
+__ACQF_CONSTRUCTOR = input_constructors.acqf_input_constructor(Entropy)
+__ACQF_CONSTRUCTOR(input_constructors.construct_inputs_qMES)
