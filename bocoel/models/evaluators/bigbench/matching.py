@@ -6,7 +6,14 @@ from numpy.typing import NDArray
 
 from bocoel.models.evaluators import utils
 from bocoel.models.lms import LanguageModel
-from bocoel.models.scores import ExactMatch, NltkBleuScore, RougeScore, Score
+from bocoel.models.scores import (
+    ExactMatch,
+    NltkBleuScore,
+    RougeScore,
+    RougeScore2,
+    SacreBleuScore,
+    Score,
+)
 
 from .interfaces import BigBenchEvalutor
 
@@ -14,7 +21,11 @@ from .interfaces import BigBenchEvalutor
 class BigBenchMatchType(str, Enum):
     EXACT = "exact"
     NLTK_BLEU = "nltk-bleu"
+    SACRE_BLEU = "sacre-bleu"
     ROUGE = "rouge"
+    ROUGE_1 = "rouge-score-1"
+    ROUGE_2 = "rouge-score-2"
+    ROUGE_L = "rouge-score-L"
 
 
 class BigBenchQuestionAnswer(BigBenchEvalutor):
@@ -33,8 +44,16 @@ class BigBenchQuestionAnswer(BigBenchEvalutor):
                 self._score_fn = ExactMatch()
             case BigBenchMatchType.NLTK_BLEU:
                 self._score_fn = NltkBleuScore()
+            case BigBenchMatchType.SACRE_BLEU:
+                self._score_fn = SacreBleuScore()
             case BigBenchMatchType.ROUGE:
                 self._score_fn = RougeScore()
+            case BigBenchMatchType.ROUGE_L:
+                self._score_fn = RougeScore2("rougeL")
+            case BigBenchMatchType.ROUGE_1:
+                self._score_fn = RougeScore2("rouge1")
+            case BigBenchMatchType.ROUGE_2:
+                self._score_fn = RougeScore2("rouge2")
 
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel

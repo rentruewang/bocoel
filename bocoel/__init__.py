@@ -9,6 +9,7 @@ from .core import (
 )
 from .corpora import (
     ComposedCorpus,
+    ConcatStorage,
     Corpus,
     DataFrameStorage,
     DatasetsStorage,

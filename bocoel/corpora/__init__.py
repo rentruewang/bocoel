@@ -9,4 +9,4 @@ from .indices import (
     SearchResult,
     WhiteningIndex,
 )
-from .storages import DataFrameStorage, DatasetsStorage, Storage
+from .storages import ConcatStorage, DataFrameStorage, DatasetsStorage, Storage

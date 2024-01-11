@@ -11,3 +11,22 @@ class NltkBleuScore(Score):
         return bleu_score.sentence_bleu(
             references=[ref.split() for ref in references], hypothesis=target.split()
         )
+
+
+class SacreBleuScore(Score):
+    def __init__(self) -> None:
+        # Optional dependency.
+        from sacrebleu import BLEU
+
+        self._bleu = BLEU(
+            smooth_method="exp",
+            smooth_value=0.0,
+            force=False,
+            lowercase=False,
+            tokenize="intl",
+        )
+
+    def __call__(self, target: str, references: Sequence[str]) -> float:
+        return self._bleu.corpus_score(
+            references=[[ref] for ref in references], hypotheses=[target]
+        )

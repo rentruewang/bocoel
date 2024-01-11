@@ -6,4 +6,11 @@ from .evaluators import (
     Evaluator,
 )
 from .lms import HuggingfaceLM, LanguageModel
-from .scores import MultiChoiceAccuracy, NltkBleuScore, OneHotChoiceAccuracy, RougeScore
+from .scores import (
+    MultiChoiceAccuracy,
+    NltkBleuScore,
+    OneHotChoiceAccuracy,
+    RougeScore,
+    RougeScore2,
+    SacreBleuScore,
+)
