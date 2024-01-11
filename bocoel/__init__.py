@@ -16,7 +16,10 @@ from .corpora import (
     WhiteningIndex,
 )
 from .models import (
+    BigBenchChoiceType,
+    BigBenchMatchType,
     BigBenchMultipleChoice,
+    BigBenchQuestionAnswer,
     Evaluator,
     HuggingfaceLM,
     LanguageModel,

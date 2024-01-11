@@ -1,7 +1,9 @@
 from collections.abc import Sequence
 
+from .interfaces import Score
 
-class NltkBleuScore:
+
+class NltkBleuScore(Score):
     def __call__(self, target: str, references: Sequence[str]) -> float:
         # Optional dependency.
         from nltk.translate import bleu_score

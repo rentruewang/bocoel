@@ -1,58 +1,48 @@
-import abc
-import typing
 from collections.abc import Mapping, Sequence
 from enum import Enum
-from typing import Any, Protocol
+from typing import Any
 
 from numpy.typing import NDArray
 
 from bocoel.models.evaluators import utils
-from bocoel.models.evaluators.interfaces import Evaluator
 from bocoel.models.lms import LanguageModel
-from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy
+from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Score
 
 from . import prompts
+from .interfaces import BigBenchEvalutor
 
 
-@typing.runtime_checkable
-class MultiChoiceScore(Protocol):
-    @abc.abstractmethod
-    def __call__(self, target: Any, references: Sequence[Any]) -> float:
-        ...
-
-
-class MultipleChoiceType(str, Enum):
+class BigBenchChoiceType(str, Enum):
     ONE_HOT = "one-hot"
     MULTIPLE_CHOICE = "multi-choice"
 
 
-class BigBenchMultipleChoice(Evaluator):
+class BigBenchMultipleChoice(BigBenchEvalutor):
     def __init__(
         self,
         inputs: str = "inputs",
         multiple_choice_targets: str = "multiple_choice_targets",
         multiple_choice_scores: str = "multiple_choice_scores",
-        choice_type: MultipleChoiceType = MultipleChoiceType.ONE_HOT,
+        choice_type: BigBenchChoiceType = BigBenchChoiceType.ONE_HOT,
     ) -> None:
         self._inputs = inputs
         self._multiple_choice_targets = multiple_choice_targets
         self._multiple_choice_scores = multiple_choice_scores
 
-        self._score_fn: MultiChoiceScore
+        self._score_fn: Score
         match choice_type:
-            case MultipleChoiceType.ONE_HOT:
+            case BigBenchChoiceType.ONE_HOT:
                 self._score_fn = OneHotChoiceAccuracy()
-            case MultipleChoiceType.MULTIPLE_CHOICE:
+            case BigBenchChoiceType.MULTIPLE_CHOICE:
                 self._score_fn = MultiChoiceAccuracy()
-        assert isinstance(self._score_fn, MultiChoiceScore)
 
     def evaluate(
-        self, collated: Mapping[str, Any], lm: LanguageModel
+        self, data: Mapping[str, Any], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
         # Get data.
-        inputs = collated[self._inputs]
-        multiple_choice_targets = collated[self._multiple_choice_targets]
-        multiple_choice_scores = collated[self._multiple_choice_scores]
+        inputs = data[self._inputs]
+        multiple_choice_targets = data[self._multiple_choice_targets]
+        multiple_choice_scores = data[self._multiple_choice_scores]
 
         # Check data.
         if not all(isinstance(ipt, str) for ipt in inputs):

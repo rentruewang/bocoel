@@ -1,7 +1,9 @@
 from collections.abc import Sequence
 
+from .interfaces import Score
 
-class RougeScore:
+
+class RougeScore(Score):
     def __init__(self) -> None:
         # Optional dependency.
         from rouge import Rouge
