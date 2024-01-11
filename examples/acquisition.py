@@ -10,7 +10,7 @@ from bocoel.core.optim.ax.acquisition import MaxEntropy
 K = "K"
 
 
-def main(acqf: str):
+def main(acqf: str) -> None:
     if acqf == "qMaxValueEntropy":
         botorch_acqf_class = qMaxValueEntropy
     elif acqf == "MaxEntropy":
