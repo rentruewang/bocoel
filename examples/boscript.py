@@ -7,6 +7,7 @@ from rich import print
 from tqdm import tqdm
 
 from bocoel import (
+    AcquisitionFunc,
     AxServiceOptimizer,
     BigBenchMultipleChoice,
     ComposedCorpus,
@@ -21,10 +22,12 @@ from bocoel import (
 
 def main(
     *,
-    ds_path: str = "lukaemon/bbh",
-    ds_name: str,
-    ds_key: str = "input",
-    ds_target: str = "target",
+    ds_path: str = "bigbench",
+    ds_name: str = "abstract_narrative_understanding",
+    ds_split: str = "default",
+    inputs: str = "inputs",
+    multiple_choice_targets: str = "multiple_choice_targets",
+    multiple_choice_scores: str = "multiple_choice_scores",
     sbert_model: str = "all-mpnet-base-v2",
     llm_model: str = "distilgpt2",
     batch_size: int = 16,
@@ -37,14 +40,14 @@ def main(
 ) -> None:
     # The corpus part
     dataset_dict = datasets.load_dataset(path=ds_path, name=ds_name)
-    dataset = dataset_dict["test"]
+    dataset = dataset_dict[ds_split]
 
     dataset_storage = DatasetsStorage(dataset)
     embedder = SBertEmbedder(model_name=sbert_model, device=device)
     corpus = ComposedCorpus.index_storage(
         storage=dataset_storage,
         embedder=embedder,
-        key=ds_key,
+        key=inputs,
         index_backend=WhiteningIndex,
         distance=Distance.INNER_PRODUCT,
         remains=reduced_dim,
@@ -58,7 +61,11 @@ def main(
     lm = HuggingfaceLM(
         model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
     )
-    evaluator = BigBenchMultipleChoice()
+    evaluator = BigBenchMultipleChoice(
+        inputs=inputs,
+        multiple_choice_targets=multiple_choice_targets,
+        multiple_choice_scores=multiple_choice_scores,
+    )
 
     # ------------------------
     # The optimizer part.
@@ -79,7 +86,9 @@ def main(
         corpus=corpus,
         lm=lm,
         evaluator=evaluator,
-        steps=steps,
+        sobol_steps=sobol_steps,
+        device=device,
+        acqf=AcquisitionFunc.MAX_VALUE_ENTROPY,
     )
 
     for i in tqdm(range(optimizer_steps)):

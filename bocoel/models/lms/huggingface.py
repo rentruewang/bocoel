@@ -65,7 +65,7 @@ class HuggingfaceLM(LanguageModel):
         inputs = inputs.to(self.device)
 
         outputs = self._model.generate(**inputs, max_length=self.max_len)
-        outputs = self._tokenizer.batch_decode(outputs)
+        outputs = self._tokenizer.batch_decode(outputs, skip_special_tokens=True)
         return outputs
 
     def to(self, device: Device) -> Self:

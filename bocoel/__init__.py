@@ -1,5 +1,12 @@
 from .bocoel import bocoel
-from .core import AxServiceOptimizer, KMeansOptimizer, Optimizer, State
+from .core import (
+    AcquisitionFunc,
+    AxServiceOptimizer,
+    KMeansOptimizer,
+    Optimizer,
+    State,
+    Task,
+)
 from .corpora import (
     ComposedCorpus,
     Corpus,

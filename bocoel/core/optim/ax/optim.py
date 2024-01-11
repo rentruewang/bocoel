@@ -1,28 +1,30 @@
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 from enum import Enum
-from typing import Any
+from typing import Any, TypeAlias
 
 import numpy as np
+from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
+from torch import device
 from typing_extensions import Self
 
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State
-from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Index, SearchResult
 
-from . import renderers, types, utils
+from . import types
+from .acquisition import AcquisitionFunc
 from .types import AxServiceParameter
-from .utils import GenStepDict
 
 _KEY = "entropy"
+Device: TypeAlias = str | device
 
 
 class Task(str, Enum):
+    EXPLORE = "explore"
     MINIMIZE = "minimize"
     MAXIMIZE = "maximize"
-    ENTROPY_SEARCH = "entropy_search"
 
 
 class AxServiceOptimizer(Optimizer):
@@ -35,39 +37,37 @@ class AxServiceOptimizer(Optimizer):
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], float],
-        steps: Sequence[GenStepDict | GenerationStep],
-        task: Task = Task.ENTROPY_SEARCH,
+        sobol_steps: int,
+        device: Device,
+        acqf: str | AcquisitionFunc = AcquisitionFunc.MAX_ENTROPY,
+        task: Task = Task.EXPLORE,
     ) -> None:
-        gen_steps = [utils.generation_step(step) for step in steps]
-        gen_strat = GenerationStrategy(steps=gen_steps)
-
-        self._ax_client = AxClient(generation_strategy=gen_strat)
-
-        # FIXME: Don't allow this hack in the future.
-        # Minimize = None means explore only.
+        self._device = device
+        self._acqf = AcquisitionFunc(acqf)
         self._task = task
-        assert self._task is Task.ENTROPY_SEARCH
 
+        self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
         self._create_experiment(index)
-        self._remaining_steps = RemainingSteps(self._terminate_step(gen_steps))
 
         self._index = index
         self._evaluate_fn = evaluate_fn
 
     @property
     def terminate(self) -> bool:
-        return self._remaining_steps.done
+        return False
 
     def step(self) -> State:
-        self._remaining_steps.step()
-
         # FIXME: Currently only supports 1 item evaluation (in the form of float).
         parameters, trial_index = self._ax_client.get_next_trial()
 
         state = self._evaluate(parameters)
 
-        # FIXME: Also write an acquisition function for ES.
-        self._ax_client.complete_trial(trial_index, raw_data={_KEY: 0})
+        if self._task == Task.EXPLORE:
+            reported_value = 0.0
+        else:
+            reported_value = float(state.score)
+
+        self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
         return state
 
     def _create_experiment(self, index: Index) -> None:
@@ -104,27 +104,17 @@ class AxServiceOptimizer(Optimizer):
         else:
             return -1
 
-    def render(self, kind: str, **kwargs: Any) -> None:
-        """
-        See https://ax.dev/tutorials/visualizations.html for details.
-        """
-
-        func: Callable
-
-        match kind:
-            case "interactive":
-                func = renderers.render_interactive
-            case "static":
-                func = renderers.render_static
-            case "tradeoff":
-                func = renderers.render_tradeoff
-            case "cross_validate" | "cv":
-                func = renderers.render_cross_validate
-            case "slice":
-                func = renderers.render_slice
-            case "tile":
-                func = renderers.render_tile
-            case _:
-                raise ValueError("Not supported")
-
-        func(ax_client=self._ax_client, metric_name=_KEY, **kwargs)
+    def _gen_strat(self, sobol_steps: int) -> GenerationStrategy:
+        return GenerationStrategy(
+            [
+                GenerationStep(model=Models.SOBOL, num_trials=sobol_steps),
+                GenerationStep(
+                    model=Models.BOTORCH_MODULAR,
+                    num_trials=-1,
+                    model_kwargs={
+                        "torch_device": self._device,
+                        "botorch_acqf_class": self._acqf.botorch_acqf_class,
+                    },
+                ),
+            ]
+        )

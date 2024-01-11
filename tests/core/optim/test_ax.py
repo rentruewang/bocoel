@@ -15,7 +15,7 @@ def test_init_optimizer(device: str) -> None:
     lm = lm_factories.lm(device=device)
     evaluator = eval_factories.bleu()
 
-    _ = factories.ax_optim(corpus, lm, evaluator)
+    _ = factories.ax_optim(corpus, lm, evaluator, device=device)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
@@ -23,6 +23,6 @@ def test_optimize(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
     evaluator = eval_factories.bleu()
-    optimizer = factories.ax_optim(corpus, lm, evaluator)
+    optimizer = factories.ax_optim(corpus, lm, evaluator, device=device)
 
     bocoel.bocoel(optimizer=optimizer, iterations=10)
