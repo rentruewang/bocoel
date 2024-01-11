@@ -1,6 +1,5 @@
 import pytest
 
-import bocoel
 from tests import utils
 from tests.corpora import factories as corpus_factories
 from tests.models.lms import factories as lm_factories

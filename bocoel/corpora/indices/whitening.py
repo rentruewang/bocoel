@@ -1,5 +1,3 @@
-from collections.abc import Mapping
-from types import MappingProxyType
 from typing import Any
 
 import numpy as np
@@ -22,8 +20,8 @@ class WhiteningIndex(Index):
         embeddings: NDArray,
         distance: str | Distance,
         remains: int,
-        backend: type[Index],
-        backend_kwargs: Mapping[str, Any] = MappingProxyType({}),
+        whitening_backend: type[Index],
+        **backend_kwargs: Any,
     ) -> None:
         # Remains might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
@@ -34,7 +32,7 @@ class WhiteningIndex(Index):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._index = backend.from_embeddings(
+        self._index = whitening_backend.from_embeddings(
             embeddings=white, distance=distance, **backend_kwargs
         )
         assert remains == self._index.dims

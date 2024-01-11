@@ -71,18 +71,11 @@ class AxServiceOptimizer(Optimizer):
         return state
 
     def _create_experiment(self, index: Index) -> None:
-        task_objectives = {
-            Task.MINIMIZE: ObjectiveProperties(minimize=True),
-            Task.MAXIMIZE: ObjectiveProperties(minimize=False),
-        }
-
-        if (obj := task_objectives.get(self._task)) is None:
-            objectives = None
-        else:
-            objectives = {_KEY: obj}
-
         self._ax_client.create_experiment(
-            parameters=types.parameter_configs(index), objectives=objectives
+            parameters=types.parameter_configs(index),
+            objectives={
+                _KEY: ObjectiveProperties(minimize=self._task == Task.MINIMIZE)
+            },
         )
 
     def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:

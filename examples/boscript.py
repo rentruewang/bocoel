@@ -45,15 +45,11 @@ def main(
         storage=dataset_storage,
         embedder=embedder,
         key=ds_key,
-        klass=WhiteningIndex,
-        index_kwargs={
-            "distance": Distance.INNER_PRODUCT,
-            "remains": reduced_dim,
-            "backend": HnswlibIndex,
-            "backend_kwargs": {
-                "threads": index_threads,
-            },
-        },
+        index_backend=WhiteningIndex,
+        distance=Distance.INNER_PRODUCT,
+        remains=reduced_dim,
+        whitening_backend=HnswlibIndex,
+        threads=index_threads,
     )
 
     # ------------------------

@@ -1,5 +1,4 @@
 from bocoel import BigBenchMatchType, BigBenchQuestionAnswer, Evaluator
-from tests.models.lms import factories as lm_factories
 
 
 def bleu() -> Evaluator:

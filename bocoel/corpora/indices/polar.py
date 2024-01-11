@@ -1,6 +1,5 @@
 from collections.abc import Sequence
-from types import MappingProxyType
-from typing import Any, Mapping
+from typing import Any
 
 import numpy as np
 from numpy.typing import NDArray
@@ -20,10 +19,10 @@ class PolarIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
-        backend: type[Index],
-        backend_kwargs: Mapping[str, Any] = MappingProxyType({}),
+        polar_backend: type[Index],
+        **backend_kwargs: Any,
     ) -> None:
-        self._index = backend.from_embeddings(
+        self._index = polar_backend.from_embeddings(
             embeddings=embeddings, distance=Distance(distance), **backend_kwargs
         )
 

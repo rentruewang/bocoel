@@ -25,11 +25,11 @@ def hnswlib_kwargs() -> dict[str, Any]:
 
 
 def whiten_kwargs() -> dict[str, Any]:
-    return {"remains": 3, "backend": HnswlibIndex, "backend_kwargs": hnswlib_kwargs()}
+    return {"remains": 3, "whitening_backend": HnswlibIndex, **hnswlib_kwargs()}
 
 
 def polar_kwargs() -> dict[str, Any]:
-    return {"backend": WhiteningIndex, "backend_kwargs": whiten_kwargs()}
+    return {"polar_backend": WhiteningIndex, **whiten_kwargs()}
 
 
 def whiten_index(embeddings: NDArray) -> Index:
