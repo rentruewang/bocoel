@@ -13,10 +13,6 @@ from bocoel import (
 def ax_optim(
     corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, device: str
 ) -> Optimizer:
-    steps = [
-        {"model": "sobol", "num_trials": 5},
-        {"model": "modular", "num_trials": -1},
-    ]
     return AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
@@ -24,7 +20,7 @@ def ax_optim(
         sobol_steps=5,
         device=device,
         acqf=AcquisitionFunc.UPPER_CONFIDENCE_BOUND,
-        Task=Task.MAXIMIZE,
+        task=Task.MAXIMIZE,
     )
 
 
