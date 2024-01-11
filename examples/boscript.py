@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 from bocoel import (
     AxServiceOptimizer,
-    BleuScore,
+    BigBenchMultipleChoice,
     ComposedCorpus,
     DatasetsStorage,
     Distance,
@@ -62,7 +62,7 @@ def main(
     lm = HuggingfaceLM(
         model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
     )
-    score = BleuScore(problem=ds_key, answers=ds_target, lm=lm)
+    evaluator = BigBenchMultipleChoice()
 
     # ------------------------
     # The optimizer part.
@@ -81,7 +81,8 @@ def main(
 
     optim = AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
-        score=score,
+        lm=lm,
+        evaluator=evaluator,
         steps=steps,
     )
 

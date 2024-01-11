@@ -48,7 +48,7 @@ class HuggingfaceLM(LanguageModel):
 
         self.to(device)
 
-    def generate(self, prompts: Sequence[str]) -> Sequence[str]:
+    def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         if not isinstance(prompts, list):
             prompts = list(prompts)
 

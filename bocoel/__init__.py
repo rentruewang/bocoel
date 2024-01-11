@@ -16,14 +16,12 @@ from .corpora import (
     WhiteningIndex,
 )
 from .models import (
-    BleuScore,
-    CorpusEvaluator,
+    BigBenchMultipleChoice,
     Evaluator,
     HuggingfaceLM,
     LanguageModel,
-    LanguageModelScore,
-    Score,
-    ScoredEvaluator,
-    collate,
-    evaluate_on_corpus,
+    MultiChoiceAccuracy,
+    NltkBleuScore,
+    OneHotChoiceAccuracy,
+    RougeScore,
 )

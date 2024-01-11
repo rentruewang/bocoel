@@ -4,9 +4,8 @@ from typing import Any, Protocol
 
 from typing_extensions import Self
 
-from bocoel.core import utils
 from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Evaluator, Score
+from bocoel.models import Evaluator, LanguageModel
 
 from .states import State
 
@@ -43,11 +42,12 @@ class Optimizer(Protocol):
         ...
 
     @classmethod
-    def evaluate_corpus(cls, corpus: Corpus, score: Score, **kwargs: Any) -> Self:
-        fn = utils.evaluate_corpus_from_score(corpus=corpus, score=score)
-        return cls.from_index(index=corpus.index, evaluate_fn=fn, **kwargs)
+    def evaluate_corpus(
+        cls, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, **kwargs: Any
+    ) -> Self:
+        def evaluate_fn(sr: SearchResult) -> float:
+            return evaluator.on_corpus(
+                corpus=corpus, lm=lm, indices=[sr.indices.item()]
+            )[0]
 
-    @classmethod
-    def from_evaluator(cls, evaluator: Evaluator, **kwargs: Any) -> Self:
-        fn = utils.evaluate_with_evaluator(evaluator)
-        return cls.from_index(index=evaluator.index, evaluate_fn=fn, **kwargs)
+        return cls.from_index(index=corpus.index, evaluate_fn=evaluate_fn, **kwargs)

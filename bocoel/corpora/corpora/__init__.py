@@ -1,2 +1,2 @@
-from .default import ComposedCorpus
+from .composed import ComposedCorpus
 from .interfaces import Corpus

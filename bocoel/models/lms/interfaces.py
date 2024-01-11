@@ -5,7 +5,7 @@ from typing import Protocol
 
 class LanguageModel(Protocol):
     @abc.abstractmethod
-    def generate(self, prompts: Sequence[str]) -> Sequence[str]:
+    def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         """
         Generate a sequence of responses given prompts.
 

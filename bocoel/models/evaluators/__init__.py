@@ -1,2 +1,2 @@
-from .interfaces import CorpusEvaluator, Evaluator
-from .scored import ScoredEvaluator
+from .bigbench import BigBenchMultipleChoice, MultipleChoiceType
+from .interfaces import Evaluator

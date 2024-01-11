@@ -23,4 +23,5 @@ jobs:
 
       - name: 🏃 mypy
         run: mypy . --disable-error-code=import-untyped --disable-error-code=import-not-found
+        working-directory: bocoel
 

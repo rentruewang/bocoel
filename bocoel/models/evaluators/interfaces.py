@@ -1,26 +1,32 @@
 import abc
-from collections.abc import Sequence
-from typing import Protocol
+from collections.abc import Mapping, Sequence
+from typing import Any, Protocol
 
 from numpy.typing import NDArray
 
-from bocoel.corpora import Corpus, Index
+from bocoel.corpora import Corpus, Storage
+from bocoel.models.lms import LanguageModel
+
+from . import utils
 
 
 class Evaluator(Protocol):
-    @property
     @abc.abstractmethod
-    def index(self) -> Index:
+    def evaluate(
+        self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
+    ) -> Sequence[float] | NDArray:
         ...
 
-    @abc.abstractmethod
-    def evaluate(self, indices: Sequence[int] | NDArray) -> Sequence[float] | NDArray:
-        ...
+    def on_storage(
+        self, storage: Storage, lm: LanguageModel, indices: Sequence[int] | NDArray
+    ) -> Sequence[float] | NDArray:
+        items = [storage[idx] for idx in indices]
 
+        collated = utils.collate(items)
 
-class CorpusEvaluator(Evaluator, Protocol):
-    _corpus: Corpus
+        return self.evaluate(data=collated, lm=lm)
 
-    @property
-    def index(self) -> Index:
-        return self._corpus.index
+    def on_corpus(
+        self, corpus: Corpus, lm: LanguageModel, indices: Sequence[int] | NDArray
+    ) -> Sequence[float] | NDArray:
+        return self.on_storage(storage=corpus.storage, lm=lm, indices=indices)
