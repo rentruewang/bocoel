@@ -62,12 +62,16 @@ class AxServiceOptimizer(Optimizer):
 
         state = self._evaluate(parameters)
 
+        evaluation = state.evaluation
+
         if self._task == Task.EXPLORE:
             reported_value = 0.0
         else:
-            reported_value = float(state.score)
+            # Average of all the retrieved neighbors if k != 1.
+            reported_value = np.average(evaluation)
 
         self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
+
         return state
 
     def _create_experiment(self, index: Index) -> None:
@@ -78,13 +82,13 @@ class AxServiceOptimizer(Optimizer):
             },
         )
 
-    def _evaluate(self, parameters: dict[str, float]) -> State:
+    def _evaluate(self, parameters: dict[str, float], k: int = 1) -> State:
         index_dims = self._index.dims
         names = params.name_list(index_dims)
-        query = np.array([[parameters[name] for name in names]])
+        query = [[parameters[name] for name in names]]
 
         return optim_utils.evaluate_index(
-            query=query, index=self._index, evaluate_fn=self._evaluate_fn
+            query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
         )
 
     @classmethod

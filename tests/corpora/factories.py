@@ -1,8 +1,8 @@
 from bocoel import (
     ComposedCorpus,
     Corpus,
-    DataFrameStorage,
     Distance,
+    PandasStorage,
     SBertEmbedder,
     WhiteningIndex,
 )
@@ -12,7 +12,7 @@ from .storages import factories as storage_factories
 
 
 def corpus(device: str) -> Corpus:
-    storage = DataFrameStorage(storage_factories.df())
+    storage = PandasStorage(storage_factories.df())
     embedder = SBertEmbedder(device=device)
     return ComposedCorpus.index_storage(
         storage=storage,

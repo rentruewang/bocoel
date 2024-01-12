@@ -2,7 +2,8 @@ import abc
 from collections.abc import Mapping, Sequence
 from typing import Any, Protocol
 
-from numpy.typing import NDArray
+import numpy as np
+from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
 from bocoel.models.lms import LanguageModel
@@ -11,6 +12,11 @@ from . import utils
 
 
 class Evaluator(Protocol):
+    """
+    Evaluators are the adaptors between scores, langauge models, and the corpus.
+    It is designed to handle running a particular score on a particular corpus / dataset.
+    """
+
     @abc.abstractmethod
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
@@ -18,15 +24,21 @@ class Evaluator(Protocol):
         ...
 
     def on_storage(
-        self, storage: Storage, lm: LanguageModel, indices: Sequence[int] | NDArray
-    ) -> Sequence[float] | NDArray:
+        self, storage: Storage, lm: LanguageModel, indices: ArrayLike
+    ) -> NDArray:
+        indices = np.array(indices)
+
+        indices_shape = indices.shape
+        indices = indices.flatten()
+
         items = [storage[idx] for idx in indices]
 
         collated = utils.collate(items)
 
-        return self.evaluate(data=collated, lm=lm)
+        result = np.array(self.evaluate(data=collated, lm=lm))
+        return result.reshape(indices_shape)
 
     def on_corpus(
-        self, corpus: Corpus, lm: LanguageModel, indices: Sequence[int] | NDArray
-    ) -> Sequence[float] | NDArray:
+        self, corpus: Corpus, lm: LanguageModel, indices: ArrayLike
+    ) -> NDArray:
         return self.on_storage(storage=corpus.storage, lm=lm, indices=indices)

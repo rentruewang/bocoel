@@ -1,7 +1,7 @@
 from collections.abc import Callable, Sequence
 
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 from typing_extensions import Self
 
 from bocoel.core.optim.interfaces import State
@@ -31,12 +31,13 @@ class RemainingSteps:
 
 def evaluate_index(
     *,
-    query: NDArray,
+    query: ArrayLike,
     index: Index,
     evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
     k: int = 1,
 ) -> State:
+    query = np.array(query)
     result = index.search(query, k=k)
     evaluation = np.array(evaluate_fn(result))
 
-    return State(result=result, score=evaluation)
+    return State(result=result, evaluation=evaluation)

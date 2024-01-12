@@ -9,7 +9,7 @@ from typing_extensions import Self
 from bocoel.corpora.storages.interfaces import Storage
 
 
-class DataFrameStorage(Storage):
+class PandasStorage(Storage):
     def __init__(self, df: DataFrame) -> None:
         self._df = df
 

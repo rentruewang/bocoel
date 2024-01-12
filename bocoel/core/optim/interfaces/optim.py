@@ -50,9 +50,8 @@ class Optimizer(Protocol):
         cls, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, **kwargs: Any
     ) -> Self:
         def evaluate_fn(sr: SearchResult) -> Sequence[float] | NDArray:
-            # FIXME: Using squeeze as a temporary solution since k=1.
             return evaluator.on_corpus(
                 corpus=corpus, lm=lm, indices=sr.indices.squeeze(-1)
-            )
+            ).mean(axis=-1)
 
         return cls.from_index(index=corpus.index, evaluate_fn=evaluate_fn, **kwargs)

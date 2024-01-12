@@ -1,0 +1,38 @@
+name: Publish
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+jobs:
+  pypi-publish:
+    name: ⬆️ Upload release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/bocoel/
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+      - name: 🔔 Check out
+        uses: actions/checkout@v3
+
+      - name: 🏗️ python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: ⬇️ Python PDM
+        uses: pdm-project/setup-pdm@v3
+
+      - name: ⬇️ Python Dependencies
+        run: pdm install -G:all
+
+      - name: 🚂 Activate environment
+        run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
+
+      - name: 🚧 Building distributions.
+        run: pdm build
+
+    - name: 🍺 Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1

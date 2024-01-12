@@ -1,7 +1,7 @@
 from datasets import Dataset
 from pandas import DataFrame
 
-from bocoel import DataFrameStorage, DatasetsStorage, Storage
+from bocoel import DatasetsStorage, PandasStorage, Storage
 
 
 def df() -> DataFrame:
@@ -28,7 +28,7 @@ def df() -> DataFrame:
 
 
 def df_storage() -> Storage:
-    return DataFrameStorage(df=df())
+    return PandasStorage(df=df())
 
 
 def dataset() -> Dataset:

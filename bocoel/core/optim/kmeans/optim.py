@@ -53,7 +53,7 @@ class KMeansOptimizer(Optimizer):
         centers = self._model.cluster_centers_
 
         return optim_utils.evaluate_index(
-            query=centers, index=self._index, evaluate_fn=self._evaluate_fn
+            query=centers, index=self._index, evaluate_fn=self._evaluate_fn, k=1
         )
 
     @classmethod
