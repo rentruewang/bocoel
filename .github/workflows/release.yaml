@@ -3,7 +3,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   pypi-publish:
     name: ⬆️ Upload release to PyPI
@@ -12,7 +12,7 @@ jobs:
       name: pypi
       url: https://pypi.org/p/bocoel/
     permissions:
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - name: 🔔 Check out
         uses: actions/checkout@v3
@@ -34,5 +34,5 @@ jobs:
       - name: 🚧 Building distributions.
         run: pdm build
 
-    - name: 🍺 Publish package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      - name: 🍺 Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

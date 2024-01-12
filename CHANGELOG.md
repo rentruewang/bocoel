@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.0.1] - 2024-01-11
 
-- Index now support batch size != 1 and k != 1.
+### Added
+
 - Auto release to PyPI.
+
+### Changed 
+
+- Index now support batch size != 1 and k != 1.
 
 ## [v0.0.0] - 2024-01-10
 

@@ -28,14 +28,15 @@ class Evaluator(Protocol):
     ) -> NDArray:
         indices = np.array(indices)
 
+        # Reshape the indices into 1D to evaluate.
         indices_shape = indices.shape
-        indices = indices.flatten()
+        indices = indices.ravel()
 
         items = [storage[idx] for idx in indices]
-
         collated = utils.collate(items)
-
         result = np.array(self.evaluate(data=collated, lm=lm))
+
+        # Reshape back.
         return result.reshape(indices_shape)
 
     def on_corpus(
