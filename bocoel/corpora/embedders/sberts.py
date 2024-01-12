@@ -23,7 +23,11 @@ class SBertEmbedder(Embedder):
 
         self._sbert = SentenceTransformer(model_name, device=device)
 
-        self.batch_size = batch_size
+        self._batch_size = batch_size
+
+    @property
+    def batch_size(self) -> int:
+        return self._batch_size
 
     @property
     def dims(self) -> int:

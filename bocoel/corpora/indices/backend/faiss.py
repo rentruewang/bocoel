@@ -32,16 +32,22 @@ class FaissIndex(Index):
         distance: str | Distance,
         index_string: str,
         cuda: bool = False,
+        batch_size: int = 64,
     ) -> None:
         utils.validate_embeddings(embeddings)
         embeddings = utils.normalize(embeddings)
         self._emb = embeddings
 
+        self._batch_size = batch_size
         self._dist = Distance(distance)
         self._bounds = utils.boundaries(embeddings)
         assert self._bounds.shape[1] == 2
 
         self._init_index(index_string=index_string, cuda=cuda)
+
+    @property
+    def batch_size(self) -> int:
+        return self._batch_size
 
     @property
     def embeddings(self) -> NDArray | IndexedArray:
@@ -69,12 +75,15 @@ class FaissIndex(Index):
         # Using Any as type hint to prevent errors coming up in add / search.
         # Faiss is not type check ready yet.
         # https://github.com/facebookresearch/faiss/issues/2891
-        self._index: Any = _faiss().index_factory(self.dims, index_string, metric)
-        self._index.train(self._emb)
-        self._index.add(self._emb)
+
+        index: Any = _faiss().index_factory(self.dims, index_string, metric)
+        index.train(self._emb)
+        index.add(self._emb)
 
         if cuda:
-            self._index = _faiss().index_cpu_to_all_gpus(self._index)
+            index = _faiss().index_cpu_to_all_gpus(index)
+
+        self._index = index
 
     @classmethod
     def from_embeddings(

@@ -14,16 +14,7 @@ class HuggingfaceLM(LanguageModel):
     The Huggingface implementation of LanguageModel.
     This is a wrapper around the Huggingface library,
     which would try to pull the model from the huggingface hub.
-    """
 
-    max_len: int
-    """
-    Maximum length of the generated text.
-    """
-
-    batch_size: int
-    """
-    Batch size for generating text.
     Since huggingface's tokenizer needs padding to the left to work,
     padding doesn't guarentee the same positional embeddings, and thus, results.
     If sameness with generating one by one is desired, batch size should be 1.
@@ -43,8 +34,8 @@ class HuggingfaceLM(LanguageModel):
         self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._model.pad_token = self._tokenizer.pad_token
 
+        self._batch_size = batch_size
         self.max_len = max_len
-        self.batch_size = batch_size
 
         self.to(device)
 
@@ -76,3 +67,7 @@ class HuggingfaceLM(LanguageModel):
     @property
     def device(self) -> Device:
         return self._device
+
+    @property
+    def batch_size(self) -> int:
+        return self._batch_size

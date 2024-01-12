@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed 
 
 - Index now support batch size != 1 and k != 1.
+- Batch size mandatary for Index, Embedders, and LanguageModel.
 
 ## [v0.0.0] - 2024-01-10
 

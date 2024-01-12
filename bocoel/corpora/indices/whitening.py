@@ -43,6 +43,10 @@ class WhiteningIndex(Index):
         assert remains == self._index.dims
 
     @property
+    def batch_size(self) -> int:
+        return self._index.batch_size
+
+    @property
     def embeddings(self) -> NDArray | IndexedArray:
         return self._index.embeddings
 

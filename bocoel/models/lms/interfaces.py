@@ -2,8 +2,10 @@ import abc
 from collections.abc import Sequence
 from typing import Protocol
 
+from bocoel.common import Batched
 
-class LanguageModel(Protocol):
+
+class LanguageModel(Batched, Protocol):
     @abc.abstractmethod
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         """
@@ -24,3 +26,8 @@ class LanguageModel(Protocol):
         """
 
         ...
+
+    max_len: int
+    """
+    Maximum length of the generated text.
+    """

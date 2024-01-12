@@ -40,6 +40,10 @@ class PolarIndex(Index):
         return self._index._search(spatial, k=k)
 
     @property
+    def batch_size(self) -> int:
+        return self._index.batch_size
+
+    @property
     def embeddings(self) -> NDArray | IndexedArray:
         # Doesn't need to return the polar version of the embeddings
         # because this is just used for looking up encoded embeddings.

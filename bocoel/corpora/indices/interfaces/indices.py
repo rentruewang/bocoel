@@ -5,6 +5,8 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from typing_extensions import Self
 
+from bocoel.common import Batched
+
 from .distances import Distance
 from .results import InternalSearchResult, SearchResult
 
@@ -19,7 +21,7 @@ class IndexedArray(Protocol):
         ...
 
 
-class Index(Protocol):
+class Index(Batched, Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
     """
@@ -42,18 +44,22 @@ class Index(Protocol):
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
-        result = self._search(query, k=k)
-        vectors = self.embeddings[result.indices]
+        results: list[InternalSearchResult] = []
+        for idx in range(0, len(query), self.batch_size):
+            query_batch = query[idx : idx + self.batch_size]
+            result = self._search(query_batch, k=k)
+            results.append(result)
+
+        indices = np.concatenate([res.indices for res in results], axis=0)
+        distances = np.concatenate([res.distances for res in results], axis=0)
+        vectors = self.embeddings[indices]
 
         return SearchResult(
-            query=query,
-            vectors=vectors,
-            distances=result.distances,
-            indices=result.indices,
+            query=query, vectors=vectors, distances=distances, indices=indices
         )
 
     def in_range(self, query: NDArray) -> bool:
-        return all(query >= self.lower) and all(query <= self.upper)
+        return all(query >= self.lower[None, :] & query <= self.upper[None, :])
 
     @property
     def embeddings(self) -> NDArray | IndexedArray:

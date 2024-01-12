@@ -22,7 +22,11 @@ class HnswlibIndex(Index):
     """
 
     def __init__(
-        self, embeddings: NDArray, distance: str | Distance, threads: int = -1
+        self,
+        embeddings: NDArray,
+        distance: str | Distance,
+        threads: int = -1,
+        batch_size: int = 64,
     ) -> None:
         utils.validate_embeddings(embeddings)
         embeddings = utils.normalize(embeddings)
@@ -31,6 +35,7 @@ class HnswlibIndex(Index):
 
         # Would raise ValueError if not a valid distance.
         self._dist = Distance(distance)
+        self._batch_size = batch_size
 
         self._bounds = utils.boundaries(embeddings)
         assert self._bounds.shape[1] == 2
@@ -39,6 +44,10 @@ class HnswlibIndex(Index):
         self.threads = threads
 
         self._init_index()
+
+    @property
+    def batch_size(self) -> int:
+        return self._batch_size
 
     @property
     def embeddings(self) -> NDArray | IndexedArray:

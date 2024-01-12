@@ -4,8 +4,10 @@ from typing import Protocol
 
 from numpy.typing import NDArray
 
+from bocoel.common import Batched
 
-class Embedder(Protocol):
+
+class Embedder(Batched, Protocol):
     """
     Embedders are responsible for encoding text into vectors.
     Embedders in this project are considered volatile because it requires CPU time,
