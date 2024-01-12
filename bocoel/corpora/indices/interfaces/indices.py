@@ -1,11 +1,22 @@
 import abc
 from typing import Any, Protocol
 
-from numpy.typing import NDArray
+import numpy as np
+from numpy.typing import ArrayLike, NDArray
 from typing_extensions import Self
 
 from .distances import Distance
 from .results import InternalSearchResult, SearchResult
+
+
+class IndexedArray(Protocol):
+    @abc.abstractmethod
+    def __len__(self) -> int:
+        ...
+
+    @abc.abstractmethod
+    def __getitem__(self, key: int | NDArray, /) -> NDArray:
+        ...
 
 
 class Index(Protocol):
@@ -13,24 +24,20 @@ class Index(Protocol):
     Index is responsible for fast retrieval given a vector query.
     """
 
-    def search(self, query: NDArray, k: int = 1) -> SearchResult:
+    def search(self, query: ArrayLike, k: int = 1) -> SearchResult:
         """
         Calls the search function and performs some checks.
         """
 
-        if (ndim := query.ndim) != 1:
+        query = np.array(query)
+
+        if (ndim := query.ndim) != 2:
             raise ValueError(
-                f"Expected query to be a 1D vector, got a vector of dim {ndim}."
+                f"Expected query to be a 2D vector, got a vector of dim {ndim}."
             )
 
-        if (dim := query.shape[0]) != self.dims:
+        if (dim := query.shape[1]) != self.dims:
             raise ValueError(f"Expected query to have dimension {self.dims}, got {dim}")
-
-        # TODO: Investigate if this hurts performance.
-        # if not self.in_range(query):
-        #     raise ValueError(
-        #         "Query is out of bounds. Call index.lower and index.upper for the boundary."
-        #     )
 
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
@@ -49,11 +56,9 @@ class Index(Protocol):
         return all(query >= self.lower) and all(query <= self.upper)
 
     @property
-    def embeddings(self) -> NDArray:
+    def embeddings(self) -> NDArray | IndexedArray:
         """
         The embeddings used by the index.
-
-        TODO: Move away from NDArray in the future due to scalability concerns.
         """
 
         ...

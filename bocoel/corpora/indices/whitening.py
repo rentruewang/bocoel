@@ -6,7 +6,12 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
+from bocoel.corpora.indices.interfaces import (
+    Distance,
+    Index,
+    IndexedArray,
+    InternalSearchResult,
+)
 
 
 class WhiteningIndex(Index):
@@ -38,7 +43,7 @@ class WhiteningIndex(Index):
         assert remains == self._index.dims
 
     @property
-    def embeddings(self) -> NDArray:
+    def embeddings(self) -> NDArray | IndexedArray:
         return self._index.embeddings
 
     @property

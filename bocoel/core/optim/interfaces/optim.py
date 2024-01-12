@@ -1,7 +1,8 @@
 import abc
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any, Protocol
 
+from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora import Corpus, Index, SearchResult
@@ -37,7 +38,10 @@ class Optimizer(Protocol):
     @classmethod
     @abc.abstractmethod
     def from_index(
-        cls, index: Index, evaluate_fn: Callable[[SearchResult], float], **kwargs: Any
+        cls,
+        index: Index,
+        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+        **kwargs: Any,
     ) -> Self:
         ...
 
@@ -45,9 +49,10 @@ class Optimizer(Protocol):
     def evaluate_corpus(
         cls, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, **kwargs: Any
     ) -> Self:
-        def evaluate_fn(sr: SearchResult) -> float:
+        def evaluate_fn(sr: SearchResult) -> Sequence[float] | NDArray:
+            # FIXME: Using squeeze as a temporary solution since k=1.
             return evaluator.on_corpus(
-                corpus=corpus, lm=lm, indices=[sr.indices.item()]
-            )[0]
+                corpus=corpus, lm=lm, indices=sr.indices.squeeze(-1)
+            )
 
         return cls.from_index(index=corpus.index, evaluate_fn=evaluate_fn, **kwargs)

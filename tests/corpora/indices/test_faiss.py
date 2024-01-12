@@ -49,10 +49,12 @@ def test_faiss_search_match(
 ) -> None:
     idx = index(index_string, device)
 
-    query = embeddings_fix[0]
-    query = utils.normalize(query)
+    query = [embeddings_fix[0]]
+    normalized = utils.normalize(query)
 
-    result = idx.search(query)
+    assert normalized.ndim == 2, normalized.shape
+
+    result = idx.search(normalized)
     assert np.isclose(result.distances, 1), {
         "results": result,
         "embeddings": embeddings_fix,
@@ -74,11 +76,13 @@ def test_faiss_search_mismatch(
 ) -> None:
     index_fix = index(index_string, device)
 
-    e0 = embeddings_fix[0]
-    query = embeddings_fix[0] + embeddings_fix[1] / 2
-    query = utils.normalize(query)
+    e0 = [embeddings_fix[0]]
+    query = [embeddings_fix[0] + embeddings_fix[1] / 2]
+    normalized = utils.normalize(query)
 
-    result = index_fix.search(query)
+    assert normalized.ndim == 2, normalized.shape
+
+    result = index_fix.search(normalized)
     assert np.allclose(result.vectors, e0), {
         "results": result,
         "embeddings": embeddings_fix,

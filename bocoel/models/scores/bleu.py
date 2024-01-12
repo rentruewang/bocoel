@@ -29,4 +29,4 @@ class SacreBleuScore(Score):
     def __call__(self, target: str, references: Sequence[str]) -> float:
         return self._bleu.corpus_score(
             references=[[ref] for ref in references], hypotheses=[target]
-        )
+        ).score

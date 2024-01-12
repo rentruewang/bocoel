@@ -27,6 +27,24 @@ class BigBenchMatchType(str, Enum):
     ROUGE_2 = "rouge-score-2"
     ROUGE_L = "rouge-score-L"
 
+    @property
+    def score(self) -> Score:
+        match self:
+            case BigBenchMatchType.EXACT:
+                return ExactMatch()
+            case BigBenchMatchType.NLTK_BLEU:
+                return NltkBleuScore()
+            case BigBenchMatchType.SACRE_BLEU:
+                return SacreBleuScore()
+            case BigBenchMatchType.ROUGE:
+                return RougeScore()
+            case BigBenchMatchType.ROUGE_L:
+                return RougeScore2("rougeL")
+            case BigBenchMatchType.ROUGE_1:
+                return RougeScore2("rouge1")
+            case BigBenchMatchType.ROUGE_2:
+                return RougeScore2("rouge2")
+
 
 class BigBenchQuestionAnswer(BigBenchEvalutor):
     def __init__(
@@ -38,22 +56,7 @@ class BigBenchQuestionAnswer(BigBenchEvalutor):
         self._inputs = inputs
         self._targets = targets
 
-        self._score_fn: Score
-        match matching_type:
-            case BigBenchMatchType.EXACT:
-                self._score_fn = ExactMatch()
-            case BigBenchMatchType.NLTK_BLEU:
-                self._score_fn = NltkBleuScore()
-            case BigBenchMatchType.SACRE_BLEU:
-                self._score_fn = SacreBleuScore()
-            case BigBenchMatchType.ROUGE:
-                self._score_fn = RougeScore()
-            case BigBenchMatchType.ROUGE_L:
-                self._score_fn = RougeScore2("rougeL")
-            case BigBenchMatchType.ROUGE_1:
-                self._score_fn = RougeScore2("rouge1")
-            case BigBenchMatchType.ROUGE_2:
-                self._score_fn = RougeScore2("rouge2")
+        self._score_fn = matching_type.score
 
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel

@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from enum import Enum
 from typing import Any, TypeAlias
 
@@ -6,6 +6,7 @@ import numpy as np
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
+from numpy.typing import NDArray
 from torch import device
 from typing_extensions import Self
 
@@ -13,9 +14,8 @@ from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State
 from bocoel.corpora import Index, SearchResult
 
-from . import types
+from . import params
 from .acquisition import AcquisitionFunc
-from .types import AxServiceParameter
 
 _KEY = "entropy"
 Device: TypeAlias = str | device
@@ -36,7 +36,7 @@ class AxServiceOptimizer(Optimizer):
     def __init__(
         self,
         index: Index,
-        evaluate_fn: Callable[[SearchResult], float],
+        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         sobol_steps: int,
         device: Device,
         acqf: str | AcquisitionFunc = AcquisitionFunc.MAX_ENTROPY,
@@ -72,16 +72,16 @@ class AxServiceOptimizer(Optimizer):
 
     def _create_experiment(self, index: Index) -> None:
         self._ax_client.create_experiment(
-            parameters=types.parameter_configs(index),
+            parameters=params.configs(index),
             objectives={
                 _KEY: ObjectiveProperties(minimize=self._task == Task.MINIMIZE)
             },
         )
 
-    def _evaluate(self, parameters: dict[str, AxServiceParameter]) -> State:
+    def _evaluate(self, parameters: dict[str, float]) -> State:
         index_dims = self._index.dims
-        names = types.parameter_name_list(index_dims)
-        query = np.array([parameters[name] for name in names])
+        names = params.name_list(index_dims)
+        query = np.array([[parameters[name] for name in names]])
 
         return optim_utils.evaluate_index(
             query=query, index=self._index, evaluate_fn=self._evaluate_fn
@@ -91,7 +91,7 @@ class AxServiceOptimizer(Optimizer):
     def from_index(
         cls,
         index: Index,
-        evaluate_fn: Callable[[SearchResult], float],
+        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         **kwargs: Any,
     ) -> Self:
         return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)

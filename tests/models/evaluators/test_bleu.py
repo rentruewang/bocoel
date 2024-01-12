@@ -9,7 +9,7 @@ from . import factories
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_bleu_eval(device: str) -> None:
-    bleu_eval = factories.bleu()
+    bleu_eval = factories.sacre_bleu()
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
 

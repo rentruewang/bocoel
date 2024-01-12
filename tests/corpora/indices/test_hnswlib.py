@@ -33,10 +33,12 @@ def test_init_hnswlib(index_fix: Index, embeddings_fix: NDArray) -> None:
 
 
 def test_hnswlib_search_match(index_fix: Index, embeddings_fix: NDArray) -> None:
-    query = embeddings_fix[0]
-    query = utils.normalize(query)
+    query = [embeddings_fix[0]]
+    normalized = utils.normalize(query)
 
-    result = index_fix.search(query)
+    assert normalized.ndim == 2, normalized.shape
+
+    result = index_fix.search(normalized)
     # See https://github.com/nmslib/hnswlib#supported-distances
     assert np.isclose(result.distances, 1 - 1), {
         "results": result,
@@ -53,11 +55,13 @@ def test_hnswlib_search_match(index_fix: Index, embeddings_fix: NDArray) -> None
 
 
 def test_hnswlib_search_mismatch(index_fix: Index, embeddings_fix: NDArray) -> None:
-    e0 = embeddings_fix[0]
-    query = embeddings_fix[0] + embeddings_fix[1] / 2
-    query = utils.normalize(query)
+    e0 = [embeddings_fix[0]]
+    query = [embeddings_fix[0] + embeddings_fix[1] / 2]
+    normalized = utils.normalize(query)
 
-    result = index_fix.search(query)
+    assert normalized.ndim == 2, normalized.shape
+
+    result = index_fix.search(normalized)
     assert np.allclose(result.vectors, e0), {
         "results": result,
         "embeddings": embeddings_fix,

@@ -14,22 +14,22 @@ class AxServiceParameter(TypedDict):
 
 
 # FIXME: Currently using Any to silence typing warnings.
-def parameter_configs(index: Index) -> list[dict[str, Any]]:
-    return [param_name_dict(index, i) for i in range(index.dims)]
+def configs(index: Index) -> list[dict[str, Any]]:
+    return [name_dict(index, i) for i in range(index.dims)]
 
 
-def param_name_dict(index: Index, i: int) -> dict[str, Any]:
+def name_dict(index: Index, i: int) -> dict[str, Any]:
     return {
-        "name": param_name(i),
+        "name": name(i),
         "type": "range",
         "bounds": index.bounds[i].tolist(),
         "value_type": "float",
     }
 
 
-def parameter_name_list(total: int) -> list[str]:
-    return [param_name(i) for i in range(total)]
+def name_list(total: int) -> list[str]:
+    return [name(i) for i in range(total)]
 
 
-def param_name(number: int) -> str:
+def name(number: int) -> str:
     return f"x{number}"

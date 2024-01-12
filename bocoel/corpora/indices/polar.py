@@ -1,11 +1,18 @@
 from collections.abc import Sequence
 from typing import Any
 
+import numba
 import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
+from bocoel.corpora.indices.interfaces import (
+    Distance,
+    Index,
+    IndexedArray,
+    InternalSearchResult,
+)
+from bocoel.corpora.indices.utils import Indexer
 
 
 class PolarIndex(Index):
@@ -28,15 +35,15 @@ class PolarIndex(Index):
 
     def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
         # Ignores the length of the query. Only direction is preserved.
-        spatial = self.polar_to_spatial(1, query)
+        spatial = polar_to_spatial(1, query)
 
         return self._index._search(spatial, k=k)
 
     @property
-    def embeddings(self) -> NDArray:
+    def embeddings(self) -> NDArray | IndexedArray:
         # Doesn't need to return the polar version of the embeddings
         # because this is just used for looking up encoded embeddings.
-        return self._index.embeddings
+        return Indexer(self._index.embeddings, mapping=spatial_to_polar)
 
     @property
     def distance(self) -> Distance:
@@ -57,32 +64,38 @@ class PolarIndex(Index):
     ) -> Self:
         return cls(embeddings=embeddings, distance=distance, **kwargs)
 
-    @staticmethod
-    def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
-        """
-        Convert an N-sphere coordinates to cartesian coordinates.
-        See wikipedia linked in the class documentation for details.
-        """
 
-        # Add 1 dimension to the front because spherical coordinate's first dimension is r.
-        sin = np.concatenate([[1], np.sin(theta)])
-        sin = np.cumprod(sin)
-        cos = np.concatenate([np.cos(theta), [1]])
-        return sin * cos * r
+@numba.jit(nopython=True)
+def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
+    """
+    Convert an N-sphere coordinates to cartesian coordinates.
+    See wikipedia linked in the class documentation for details.
+    """
 
-    @staticmethod
-    def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
-        """
-        Convert cartesian coordinates to N-sphere coordinates.
-        See wikipedia linked in the class documentation for details.
-        """
+    theta = np.array(theta)
 
-        # Since the function requires a lot of sum of squares, cache it.
-        x_2 = np.array(x[1:]) ** 2
+    # Add 1 dimension to the front because spherical coordinate's first dimension is r.
+    sin = np.concatenate([[1], np.sin(theta)])
+    sin = np.cumprod(sin)
+    cos = np.concatenate([np.cos(theta), [1]])
+    return sin * cos * r
 
-        r: float = np.sqrt(x_2.sum()).item()
-        cumsum_back = np.cumsum(x_2[::-1])[::-1]
 
-        theta = np.arctan2(np.sqrt(cumsum_back), x[1:])
+@numba.jit(nopython=True)
+def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
+    """
+    Convert cartesian coordinates to N-sphere coordinates.
+    See wikipedia linked in the class documentation for details.
+    """
 
-        return r, theta
+    x = np.array(x)
+
+    # Since the function requires a lot of sum of squares, cache it.
+    x_2 = np.array(x[1:]) ** 2
+
+    r: float = np.sqrt(x_2.sum()).item()
+    cumsum_back = np.cumsum(x_2[::-1])[::-1]
+
+    theta = np.arctan2(np.sqrt(cumsum_back), x[1:])
+
+    return r, theta

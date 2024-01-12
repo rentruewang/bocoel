@@ -16,6 +16,14 @@ class BigBenchChoiceType(str, Enum):
     ONE_HOT = "one-hot"
     MULTIPLE_CHOICE = "multi-choice"
 
+    @property
+    def score(self) -> Score:
+        match self:
+            case BigBenchChoiceType.ONE_HOT:
+                return OneHotChoiceAccuracy()
+            case BigBenchChoiceType.MULTIPLE_CHOICE:
+                return MultiChoiceAccuracy()
+
 
 class BigBenchMultipleChoice(BigBenchEvalutor):
     def __init__(
@@ -29,12 +37,7 @@ class BigBenchMultipleChoice(BigBenchEvalutor):
         self._multiple_choice_targets = multiple_choice_targets
         self._multiple_choice_scores = multiple_choice_scores
 
-        self._score_fn: Score
-        match choice_type:
-            case BigBenchChoiceType.ONE_HOT:
-                self._score_fn = OneHotChoiceAccuracy()
-            case BigBenchChoiceType.MULTIPLE_CHOICE:
-                self._score_fn = MultiChoiceAccuracy()
+        self._score_fn = choice_type.score
 
     def evaluate(
         self, data: Mapping[str, Any], lm: LanguageModel

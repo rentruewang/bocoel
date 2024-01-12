@@ -13,6 +13,7 @@ dependencies = [
     "fire>=0.5.0",
     "linear-operator>=0.5.1",
     "nltk>=3.8.1",
+    "numba>=0.58.1",
     "numpy>=1.26.3",
     "pandas>=2.1.4",
     "pyyaml>=6.0.1",

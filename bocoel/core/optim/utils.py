@@ -1,6 +1,8 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 
+import numpy as np
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 from bocoel.core.optim.interfaces import State
 from bocoel.corpora import Index, SearchResult
@@ -22,11 +24,19 @@ class RemainingSteps:
         # This would never be true if renaming steps if < 0 at first.
         return self._count == 0
 
+    @classmethod
+    def infinite(cls) -> Self:
+        return cls(count=-1)
 
-# TODO: Result is a singleton since k = 1. Support k != 1 in the future.
+
 def evaluate_index(
-    *, query: NDArray, index: Index, evaluate_fn: Callable[[SearchResult], float]
+    *,
+    query: NDArray,
+    index: Index,
+    evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+    k: int = 1,
 ) -> State:
-    result = index.search(query, k=1)
-    evaluation = evaluate_fn(result)
+    result = index.search(query, k=k)
+    evaluation = np.array(evaluate_fn(result))
+
     return State(result=result, score=evaluation)

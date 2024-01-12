@@ -5,7 +5,12 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import Distance, Index, InternalSearchResult
+from bocoel.corpora.indices.interfaces import (
+    Distance,
+    Index,
+    IndexedArray,
+    InternalSearchResult,
+)
 
 
 @functools.cache
@@ -39,7 +44,7 @@ class FaissIndex(Index):
         self._init_index(index_string=index_string, cuda=cuda)
 
     @property
-    def embeddings(self) -> NDArray:
+    def embeddings(self) -> NDArray | IndexedArray:
         return self._emb
 
     @property
@@ -55,11 +60,7 @@ class FaissIndex(Index):
         return self._bounds
 
     def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
-        distances, indices = self._index.search(query[None, :], k)
-
-        distances = distances.squeeze(axis=0)
-        indices = indices.squeeze(axis=0)
-
+        distances, indices = self._index.search(query, k)
         return InternalSearchResult(distances=distances, indices=indices)
 
     def _init_index(self, index_string: str, cuda: bool) -> None:

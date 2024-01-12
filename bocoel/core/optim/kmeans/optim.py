@@ -1,12 +1,12 @@
 import typing
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any, Literal, TypedDict
 
+from numpy.typing import NDArray
 from typing_extensions import NotRequired, Self
 
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State
-from bocoel.core.optim.utils import RemainingSteps
 from bocoel.corpora import Index, SearchResult
 
 
@@ -30,7 +30,7 @@ class KMeansOptimizer(Optimizer):
     def __init__(
         self,
         index: Index,
-        evaluate_fn: Callable[[SearchResult], float],
+        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         **model_kwargs: KmeansOptions,
     ) -> None:
         # Optional dependencies.
@@ -41,26 +41,26 @@ class KMeansOptimizer(Optimizer):
         self._model = KMeans(**typing.cast(Any, model_kwargs))
         self._model.fit(index.embeddings)
         validation.check_is_fitted(self._model)
-        self._remaining_steps = RemainingSteps(len(self._model.cluster_centers_))
 
         self._index = index
         self._evaluate_fn = evaluate_fn
 
     @property
     def terminate(self) -> bool:
-        return self._remaining_steps.done
+        return True
 
     def step(self) -> State:
-        self._remaining_steps.step()
-        idx = self._remaining_steps.count
-        center = self._model.cluster_centers_[idx]
+        centers = self._model.cluster_centers_
 
         return optim_utils.evaluate_index(
-            query=center, index=self._index, evaluate_fn=self._evaluate_fn
+            query=centers, index=self._index, evaluate_fn=self._evaluate_fn
         )
 
     @classmethod
     def from_index(
-        cls, index: Index, evaluate_fn: Callable[[SearchResult], float], **kwargs: Any
+        cls,
+        index: Index,
+        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+        **kwargs: Any,
     ) -> Self:
         return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
