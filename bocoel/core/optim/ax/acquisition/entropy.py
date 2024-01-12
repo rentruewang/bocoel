@@ -27,5 +27,5 @@ class Entropy(qMaxValueEntropy):
         return ig
 
 
-__ACQF_CONSTRUCTOR = input_constructors.acqf_input_constructor(Entropy)
-__ACQF_CONSTRUCTOR(input_constructors.construct_inputs_qMES)
+__ACQF_REGISTER_ENTROPY = input_constructors.acqf_input_constructor(Entropy)
+__ACQF_REGISTER_ENTROPY(input_constructors.construct_inputs_qMES)
