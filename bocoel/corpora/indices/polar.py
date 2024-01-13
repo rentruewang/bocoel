@@ -10,7 +10,7 @@ from bocoel.corpora.indices.interfaces import (
     Distance,
     Index,
     IndexedArray,
-    InternalSearchResult,
+    InternalResult,
 )
 from bocoel.corpora.indices.utils import Indexer
 
@@ -33,7 +33,7 @@ class PolarIndex(Index):
             embeddings=embeddings, distance=Distance(distance), **backend_kwargs
         )
 
-    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         # Ignores the length of the query. Only direction is preserved.
         spatial = polar_to_spatial(1, query)
 

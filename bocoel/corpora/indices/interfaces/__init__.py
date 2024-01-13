@@ -1,3 +1,3 @@
 from .distances import Distance
 from .indices import Index, IndexedArray
-from .results import InternalSearchResult, SearchResult
+from .results import InternalResult, SearchResult

@@ -25,7 +25,7 @@ class SearchResult(NamedTuple):
     """
 
 
-class InternalSearchResult(NamedTuple):
+class InternalResult(NamedTuple):
     distances: NDArray
     """
     Calculated distance.

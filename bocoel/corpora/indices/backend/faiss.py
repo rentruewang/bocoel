@@ -9,7 +9,7 @@ from bocoel.corpora.indices.interfaces import (
     Distance,
     Index,
     IndexedArray,
-    InternalSearchResult,
+    InternalResult,
 )
 
 
@@ -65,9 +65,9 @@ class FaissIndex(Index):
     def bounds(self) -> NDArray:
         return self._bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         distances, indices = self._index.search(query, k)
-        return InternalSearchResult(distances=distances, indices=indices)
+        return InternalResult(distances=distances, indices=indices)
 
     def _init_index(self, index_string: str, cuda: bool) -> None:
         metric = self._faiss_metric(self.distance)

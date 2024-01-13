@@ -8,7 +8,7 @@ from bocoel.corpora.indices.interfaces import (
     Distance,
     Index,
     IndexedArray,
-    InternalSearchResult,
+    InternalResult,
 )
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
@@ -65,9 +65,9 @@ class HnswlibIndex(Index):
     def bounds(self) -> NDArray:
         return self._bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         indices, distances = self._index.knn_query(query, k=k, num_threads=self.threads)
-        return InternalSearchResult(indices=indices, distances=distances)
+        return InternalResult(indices=indices, distances=distances)
 
     def _init_index(self) -> None:
         # Optional dependency.

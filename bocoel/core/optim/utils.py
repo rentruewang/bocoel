@@ -1,6 +1,5 @@
 from collections.abc import Callable, Sequence
 
-import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from typing_extensions import Self
 
@@ -61,15 +60,12 @@ def evaluate_index(
     A sequence of states.
     """
 
-    query = np.array(query)
-    result = index.search(query, k=k)
-    evaluation = evaluate_fn(result)
-
-    assert query is result.query
+    sr = index.search(query, k=k)
+    evaluation = evaluate_fn(sr)
 
     return [
         State(query=q, vectors=v, distances=d, indices=i, evaluation=e)
         for q, v, d, i, e in zip(
-            result.query, result.vectors, result.distances, result.indices, evaluation
+            sr.query, sr.vectors, sr.distances, sr.indices, evaluation
         )
     ]

@@ -10,7 +10,7 @@ from bocoel.corpora.indices.interfaces import (
     Distance,
     Index,
     IndexedArray,
-    InternalSearchResult,
+    InternalResult,
 )
 
 
@@ -62,7 +62,7 @@ class WhiteningIndex(Index):
     def bounds(self) -> NDArray:
         return self._index.bounds
 
-    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         return self._index._search(query, k=k)
 
     @classmethod

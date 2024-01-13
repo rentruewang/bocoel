@@ -8,7 +8,7 @@ from typing_extensions import Self
 from bocoel.common import Batched
 
 from .distances import Distance
-from .results import InternalSearchResult, SearchResult
+from .results import InternalResult, SearchResult
 
 
 class IndexedArray(Protocol):
@@ -44,7 +44,7 @@ class Index(Batched, Protocol):
         if k < 1:
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
-        results: list[InternalSearchResult] = []
+        results: list[InternalResult] = []
         for idx in range(0, len(query), self.batch):
             query_batch = query[idx : idx + self.batch]
             result = self._search(query_batch, k=k)
@@ -103,7 +103,7 @@ class Index(Batched, Protocol):
         ...
 
     @abc.abstractmethod
-    def _search(self, query: NDArray, k: int = 1) -> InternalSearchResult:
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         """
         Search the index with a given query.
 
