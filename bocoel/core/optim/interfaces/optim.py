@@ -50,8 +50,10 @@ class Optimizer(Protocol):
         cls, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, **kwargs: Any
     ) -> Self:
         def evaluate_fn(sr: SearchResult) -> Sequence[float] | NDArray:
-            return evaluator.on_corpus(
-                corpus=corpus, lm=lm, indices=sr.indices.squeeze(-1)
-            ).mean(axis=-1)
+            evaluated = evaluator.on_corpus(corpus=corpus, lm=lm, indices=sr.indices)
+            assert (
+                evaluated.ndim == 2
+            ), f"Evaluated should have the dimensions [batch, k]. Got {evaluated.shape}"
+            return evaluated.mean(axis=-1)
 
         return cls.from_index(index=corpus.index, evaluate_fn=evaluate_fn, **kwargs)
