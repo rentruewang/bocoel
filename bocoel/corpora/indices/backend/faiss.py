@@ -46,7 +46,7 @@ class FaissIndex(Index):
         self._init_index(index_string=index_string, cuda=cuda)
 
     @property
-    def batch_size(self) -> int:
+    def batch(self) -> int:
         return self._batch_size
 
     @property

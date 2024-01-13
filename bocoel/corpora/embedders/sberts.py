@@ -26,7 +26,7 @@ class SBertEmbedder(Embedder):
         self._batch_size = batch_size
 
     @property
-    def batch_size(self) -> int:
+    def batch(self) -> int:
         return self._batch_size
 
     @property
@@ -43,8 +43,8 @@ class SBertEmbedder(Embedder):
 
         result = np.concatenate(
             [
-                self._encode_one(text[idx : idx + self.batch_size])
-                for idx in range(0, len(text), self.batch_size)
+                self._encode_one(text[idx : idx + self.batch])
+                for idx in range(0, len(text), self.batch)
             ]
         )
 

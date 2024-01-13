@@ -49,7 +49,7 @@ class KMeansOptimizer(Optimizer):
     def terminate(self) -> bool:
         return True
 
-    def step(self) -> State:
+    def step(self) -> Sequence[State]:
         centers = self._model.cluster_centers_
 
         return optim_utils.evaluate_index(

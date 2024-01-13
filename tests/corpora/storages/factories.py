@@ -28,7 +28,7 @@ def df() -> DataFrame:
 
 
 def df_storage() -> Storage:
-    return PandasStorage(df=df())
+    return PandasStorage(df())
 
 
 def dataset() -> Dataset:
@@ -36,4 +36,4 @@ def dataset() -> Dataset:
 
 
 def datasets_storage() -> Storage:
-    return DatasetsStorage(dataset=dataset())
+    return DatasetsStorage(dataset())

@@ -45,8 +45,8 @@ class HuggingfaceLM(LanguageModel):
 
         return sum(
             (
-                self.generate_batch(prompts[idx : idx + self.batch_size])
-                for idx in range(0, len(prompts), self.batch_size)
+                self.generate_batch(prompts[idx : idx + self.batch])
+                for idx in range(0, len(prompts), self.batch)
             ),
             start=[],
         )
@@ -69,5 +69,5 @@ class HuggingfaceLM(LanguageModel):
         return self._device
 
     @property
-    def batch_size(self) -> int:
+    def batch(self) -> int:
         return self._batch_size

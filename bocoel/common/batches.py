@@ -1,9 +1,11 @@
+import abc
 from typing import Protocol
 
 
 class Batched(Protocol):
     @property
-    def batch_size(self) -> int:
+    @abc.abstractmethod
+    def batch(self) -> int:
         """
         The batch size used for processing.
         """

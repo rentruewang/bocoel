@@ -45,8 +45,8 @@ class Index(Batched, Protocol):
             raise ValueError(f"Expected k to be at least 1, got {k}")
 
         results: list[InternalSearchResult] = []
-        for idx in range(0, len(query), self.batch_size):
-            query_batch = query[idx : idx + self.batch_size]
+        for idx in range(0, len(query), self.batch):
+            query_batch = query[idx : idx + self.batch]
             result = self._search(query_batch, k=k)
             results.append(result)
 

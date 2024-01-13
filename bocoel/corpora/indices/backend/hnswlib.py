@@ -46,7 +46,7 @@ class HnswlibIndex(Index):
         self._init_index()
 
     @property
-    def batch_size(self) -> int:
+    def batch(self) -> int:
         return self._batch_size
 
     @property

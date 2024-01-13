@@ -6,22 +6,22 @@ from numpy.typing import NDArray
 class SearchResult(NamedTuple):
     query: NDArray
     """
-    Query vector. Should have shape (batch, dims).
+    Query vector. Should have shape [batch, dims].
     """
 
     vectors: NDArray
     """
-    Nearest neighbors. Should have shape (batch, k, dims).
+    Nearest neighbors. Should have shape [batch, k, dims].
     """
 
     distances: NDArray
     """
-    Calculated distance. Should have shape (batch, k).
+    Calculated distance. Should have shape [batch, k].
     """
 
     indices: NDArray
     """
-    Index in the original embeddings. Must be integers. Should have shape (batch, k).
+    Index in the original embeddings. Must be integers. Should have shape [batch, k].
     """
 
 

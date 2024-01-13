@@ -2,32 +2,33 @@ from typing import NamedTuple
 
 from numpy.typing import NDArray
 
-from bocoel.corpora import SearchResult
-
 
 class State(NamedTuple):
-    result: SearchResult
     """
-    The search result.
-    """
-
-    evaluation: NDArray
-    """
-    The evalution outcome.
+    State tracks a single query during evaluation.
     """
 
-    @property
-    def query(self) -> NDArray:
-        return self.result.query
+    query: NDArray
+    """
+    The query vector. Must be of shape [dims].
+    """
 
-    @property
-    def vectors(self) -> NDArray:
-        return self.result.vectors
+    vectors: NDArray
+    """
+    Nearest neighbors. Must be of shape [k, dims].
+    """
 
-    @property
-    def distances(self) -> NDArray:
-        return self.result.distances
+    distances: NDArray
+    """
+    Calculated distance. Must be of shape [k].
+    """
 
-    @property
-    def indices(self) -> NDArray:
-        return self.result.indices
+    indices: NDArray
+    """
+    Index in the original embeddings. Must be integers. Must be of shape [k].
+    """
+
+    evaluation: float
+    """
+    The evalution outcome. Average of the scores of the retrieved vectors.
+    """

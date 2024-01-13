@@ -40,8 +40,8 @@ class PolarIndex(Index):
         return self._index._search(spatial, k=k)
 
     @property
-    def batch_size(self) -> int:
-        return self._index.batch_size
+    def batch(self) -> int:
+        return self._index.batch
 
     @property
     def embeddings(self) -> NDArray | IndexedArray:

@@ -35,9 +35,41 @@ def evaluate_index(
     index: Index,
     evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
     k: int = 1,
-) -> State:
+) -> Sequence[State]:
+    """
+    Evaluates indices on a batch of queries.
+
+    Parameters
+    ----------
+
+    `query : ArrayLike`
+    The query to evaluate on. Should be a batch of queries.
+
+    `index : Index`
+    The index to evaluate on.
+
+    `evaluate_fn : Callable[[SearchResult], Sequence[float] | NDArray]`
+    The function to evaluate the index with.
+    Takes in a search result and returns a sequence of scores.
+
+    `k : int`
+    Nearest neighbors to retrieve.
+
+    Returns
+    -------
+
+    A sequence of states.
+    """
+
     query = np.array(query)
     result = index.search(query, k=k)
-    evaluation = np.array(evaluate_fn(result))
+    evaluation = evaluate_fn(result)
 
-    return State(result=result, evaluation=evaluation)
+    assert query is result.query
+
+    return [
+        State(query=q, vectors=v, distances=d, indices=i, evaluation=e)
+        for q, v, d, i, e in zip(
+            result.query, result.vectors, result.distances, result.indices, evaluation
+        )
+    ]

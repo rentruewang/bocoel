@@ -59,7 +59,7 @@ def main(
         dataset = dataset_dict[ds_split]
         dataset_list.append(DatasetsStorage(dataset))
 
-    storage = ConcatStorage(dataset_list)
+    storage = ConcatStorage.join(dataset_list)
 
     embedder = SBertEmbedder(model_name=sbert_model, device=device)
     corpus = ComposedCorpus.index_storage(

@@ -17,13 +17,12 @@ def bocoel(optimizer: Optimizer, iterations: int) -> list[State]:
     The list of state changes given by the optimizer.
     """
 
-    states = []
+    states: list[State] = []
 
     for _ in range(iterations):
         if optimizer.terminate:
             break
 
-        state = optimizer.step()
-        states.append(state)
+        states.extend(optimizer.step())
 
     return states

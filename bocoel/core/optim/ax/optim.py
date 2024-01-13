@@ -38,7 +38,8 @@ class AxServiceOptimizer(Optimizer):
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         sobol_steps: int,
-        device: Device,
+        device: Device = "cpu",
+        workers: int = 1,
         acqf: str | AcquisitionFunc = AcquisitionFunc.MAX_ENTROPY,
         task: Task = Task.EXPLORE,
     ) -> None:
@@ -51,28 +52,24 @@ class AxServiceOptimizer(Optimizer):
 
         self._index = index
         self._evaluate_fn = evaluate_fn
+        self._workers = workers
+        self._terminate = False
 
     @property
     def terminate(self) -> bool:
-        return False
+        return self._terminate
 
-    def step(self) -> State:
-        # FIXME: Currently only supports 1 item evaluation (in the form of float).
-        parameters, trial_index = self._ax_client.get_next_trial()
+    def step(self) -> Sequence[State]:
+        idx_param, done = self._ax_client.get_next_trials(self._workers)
 
-        state = self._evaluate(parameters)
+        if done:
+            self._terminate = True
 
-        evaluation = state.evaluation
+        result_states = []
+        for trial_index, parameters in idx_param.items():
+            result_states.append(self._eval_trial(trial_index, parameters))
 
-        if self._task == Task.EXPLORE:
-            reported_value = 0.0
-        else:
-            # Average of all the retrieved neighbors if k != 1.
-            reported_value = np.average(evaluation)
-
-        self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
-
-        return state
+        return result_states
 
     def _create_experiment(self, index: Index) -> None:
         self._ax_client.create_experiment(
@@ -82,14 +79,31 @@ class AxServiceOptimizer(Optimizer):
             },
         )
 
-    def _evaluate(self, parameters: dict[str, float], k: int = 1) -> State:
+    def _eval_trial(self, trial_index: int, parameters: dict[str, float]) -> State:
+        state = self._eval_params(parameters)
+
+        evaluation = state.evaluation
+
+        if self._task == Task.EXPLORE:
+            reported_value = 0.0
+        else:
+            # Average of all the retrieved neighbors if k != 1.
+            # No need to average ovre batch size as currently batch = 1.
+            reported_value = np.average(evaluation).item()
+
+        self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
+
+        return state
+
+    def _eval_params(self, parameters: dict[str, float], k: int = 1) -> State:
         index_dims = self._index.dims
         names = params.name_list(index_dims)
         query = [[parameters[name] for name in names]]
 
-        return optim_utils.evaluate_index(
+        (result,) = optim_utils.evaluate_index(
             query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
         )
+        return result
 
     @classmethod
     def from_index(

@@ -23,9 +23,9 @@ class Optimizer(Protocol):
         ...
 
     @abc.abstractmethod
-    def step(self) -> State:
+    def step(self) -> Sequence[State]:
         """
-        Performs a single step of optimization.
+        Performs a few steps of optimization.
 
         Returns
         -------
