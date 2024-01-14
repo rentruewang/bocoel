@@ -39,7 +39,7 @@ class FaissIndex(Index):
         self._emb = embeddings
 
         self._batch_size = batch_size
-        self._dist = Distance(distance)
+        self._dist = Distance.lookup(distance)
         self._bounds = utils.boundaries(embeddings)
         assert self._bounds.shape[1] == 2
 
@@ -92,7 +92,7 @@ class FaissIndex(Index):
         return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
-    def _faiss_metric(distance: str | Distance) -> Any:
+    def _faiss_metric(distance: Distance) -> Any:
         match distance:
             case Distance.L2:
                 return _faiss().METRIC_L2

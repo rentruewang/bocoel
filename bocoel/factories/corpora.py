@@ -1,14 +1,14 @@
-from enum import Enum
 from typing import Any
 
 from bocoel import ComposedCorpus, Corpus, Embedder, Storage
+from bocoel.common import StrEnum
 
 from . import indices
 from .indices import IndexName
 
 
-class CorpusName(str, Enum):
-    COMPOSED = "composed"
+class CorpusName(StrEnum):
+    COMPOSED = "COMPOSED"
 
 
 def corpus_factory(
@@ -20,7 +20,7 @@ def corpus_factory(
     index_name: str | IndexName,
     **index_kwargs: Any,
 ) -> Corpus:
-    if name is not CorpusName.COMPOSED:
+    if CorpusName.lookup(name) is not CorpusName.COMPOSED:
         raise ValueError(f"Unknown corpus name: {name}")
 
     return ComposedCorpus.index_storage(

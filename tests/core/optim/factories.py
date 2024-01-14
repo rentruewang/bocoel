@@ -19,7 +19,7 @@ def ax_optim(
         evaluator=evaluator,
         sobol_steps=5,
         device=device,
-        acqf=AcquisitionFunc.UPPER_CONFIDENCE_BOUND,
+        acqf=AcquisitionFunc.UCB,
         task=Task.MAXIMIZE,
         workers=workers,
     )

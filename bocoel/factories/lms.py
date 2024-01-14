@@ -1,10 +1,9 @@
-from enum import Enum
-
 from bocoel import HuggingfaceLM, LanguageModel
+from bocoel.common import StrEnum
 
 
-class LMName(str, Enum):
-    HUGGINGFACE = "huggingface"
+class LMName(StrEnum):
+    HUGGINGFACE = "HUGGINGFACE"
 
 
 def lm_factory(
@@ -16,7 +15,7 @@ def lm_factory(
     batch_size: int,
     device: str,
 ) -> LanguageModel:
-    if name is not LMName.HUGGINGFACE:
+    if LMName.lookup(name) is not LMName.HUGGINGFACE:
         raise ValueError(f"Unknown corpus name: {name}")
 
     return HuggingfaceLM(

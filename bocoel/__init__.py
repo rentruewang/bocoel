@@ -1,4 +1,5 @@
 from .bocoel import bocoel
+from .common import StrEnum
 from .core import (
     AcquisitionFunc,
     AxServiceOptimizer,

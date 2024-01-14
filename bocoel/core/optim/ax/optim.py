@@ -34,11 +34,11 @@ class AxServiceOptimizer(Optimizer):
         sobol_steps: int = 0,
         device: Device = "cpu",
         workers: int = 1,
-        acqf: str | AcquisitionFunc = AcquisitionFunc.MAX_ENTROPY,
+        acqf: str | AcquisitionFunc = AcquisitionFunc.ENTROPY,
         task: Task = Task.EXPLORE,
     ) -> None:
         self._device = device
-        self._acqf = AcquisitionFunc(acqf)
+        self._acqf = AcquisitionFunc.lookup(acqf)
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))

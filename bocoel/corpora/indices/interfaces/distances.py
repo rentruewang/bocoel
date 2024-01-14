@@ -1,6 +1,6 @@
-from enum import Enum
+from bocoel.common import StrEnum
 
 
-class Distance(str, Enum):
-    L2 = "l2"
-    INNER_PRODUCT = "ip"
+class Distance(StrEnum):
+    L2 = "L2"
+    INNER_PRODUCT = "IP"

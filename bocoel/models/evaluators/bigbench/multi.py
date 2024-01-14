@@ -1,9 +1,9 @@
 from collections.abc import Mapping, Sequence
-from enum import Enum
 from typing import Any
 
 from numpy.typing import NDArray
 
+from bocoel.common import StrEnum
 from bocoel.models.evaluators import utils
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Score
@@ -12,16 +12,16 @@ from . import prompts
 from .interfaces import BigBenchEvalutor
 
 
-class BigBenchChoiceType(str, Enum):
-    ONE_HOT = "one-hot"
-    MULTIPLE_CHOICE = "multi-choice"
+class BigBenchChoiceType(StrEnum):
+    SUM_OF_SCORES = "SUM_OF_SCORES"
+    LIST_OF_ANSWERS = "LIST_OF_ANSWERS"
 
     @property
     def score(self) -> Score:
         match self:
-            case BigBenchChoiceType.ONE_HOT:
+            case BigBenchChoiceType.SUM_OF_SCORES:
                 return OneHotChoiceAccuracy()
-            case BigBenchChoiceType.MULTIPLE_CHOICE:
+            case BigBenchChoiceType.LIST_OF_ANSWERS:
                 return MultiChoiceAccuracy()
 
 
@@ -31,13 +31,13 @@ class BigBenchMultipleChoice(BigBenchEvalutor):
         inputs: str = "inputs",
         multiple_choice_targets: str = "multiple_choice_targets",
         multiple_choice_scores: str = "multiple_choice_scores",
-        choice_type: BigBenchChoiceType = BigBenchChoiceType.ONE_HOT,
+        choice_type: str | BigBenchChoiceType = BigBenchChoiceType.SUM_OF_SCORES,
     ) -> None:
         self._inputs = inputs
         self._multiple_choice_targets = multiple_choice_targets
         self._multiple_choice_scores = multiple_choice_scores
 
-        self._score_fn = choice_type.score
+        self._score_fn = BigBenchChoiceType.lookup(choice_type).score
 
     def evaluate(
         self, data: Mapping[str, Any], lm: LanguageModel

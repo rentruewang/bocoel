@@ -1,9 +1,9 @@
 from collections.abc import Mapping, Sequence
-from enum import Enum
 from typing import Any
 
 from numpy.typing import NDArray
 
+from bocoel.common import StrEnum
 from bocoel.models.evaluators import utils
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores import (
@@ -18,14 +18,14 @@ from bocoel.models.scores import (
 from .interfaces import BigBenchEvalutor
 
 
-class BigBenchMatchType(str, Enum):
-    EXACT = "exact"
-    NLTK_BLEU = "nltk-bleu"
-    SACRE_BLEU = "sacre-bleu"
-    ROUGE = "rouge"
-    ROUGE_1 = "rouge-score-1"
-    ROUGE_2 = "rouge-score-2"
-    ROUGE_L = "rouge-score-L"
+class BigBenchMatchType(StrEnum):
+    EXACT = "EXACT"
+    NLTK_BLEU = "NLTK_BLEU"
+    SACRE_BLEU = "SACRE_BLEU"
+    ROUGE = "ROUGE"
+    ROUGE_1 = "ROUGE_1"
+    ROUGE_2 = "ROUGE-2"
+    ROUGE_L = "ROUGE_L"
 
     @property
     def score(self) -> Score:
@@ -51,12 +51,12 @@ class BigBenchQuestionAnswer(BigBenchEvalutor):
         self,
         inputs: str = "inputs",
         targets: str = "targets",
-        matching_type: BigBenchMatchType = BigBenchMatchType.EXACT,
+        matching_type: str | BigBenchMatchType = BigBenchMatchType.EXACT,
     ) -> None:
         self._inputs = inputs
         self._targets = targets
 
-        self._score_fn = matching_type.score
+        self._score_fn = BigBenchMatchType.lookup(matching_type).score
 
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel

@@ -34,7 +34,7 @@ class HnswlibIndex(Index):
         self._emb = embeddings
 
         # Would raise ValueError if not a valid distance.
-        self._dist = Distance(distance)
+        self._dist = Distance.lookup(distance)
         self._batch_size = batch_size
 
         self._bounds = utils.boundaries(embeddings)

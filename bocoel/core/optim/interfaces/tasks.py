@@ -1,7 +1,7 @@
-from enum import Enum
+from bocoel.common import StrEnum
 
 
-class Task(str, Enum):
-    EXPLORE = "explore"
-    MINIMIZE = "minimize"
-    MAXIMIZE = "maximize"
+class Task(StrEnum):
+    EXPLORE = "EXPLORE"
+    MINIMIZE = "MINIMIZE"
+    MAXIMIZE = "MAXIMIZE"

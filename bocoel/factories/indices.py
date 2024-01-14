@@ -1,17 +1,16 @@
-from enum import Enum
-
 from bocoel import FaissIndex, HnswlibIndex, Index, PolarIndex, WhiteningIndex
+from bocoel.common import StrEnum
 
 
-class IndexName(str, Enum):
-    FAISS = "faiss"
-    HNSWLIB = "hnswlib"
-    POLAR = "polar"
-    WHITENING = "whitening"
+class IndexName(StrEnum):
+    FAISS = "FAISS"
+    HNSWLIB = "HNSWLIB"
+    POLAR = "POLAR"
+    WHITENING = "WHITENING"
 
 
 def index_class_factory(name: str | IndexName, /) -> type[Index]:
-    name = IndexName(name)
+    name = IndexName.lookup(name)
 
     match name:
         case IndexName.FAISS:

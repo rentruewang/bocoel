@@ -30,7 +30,9 @@ class PolarIndex(Index):
         **backend_kwargs: Any,
     ) -> None:
         self._index = polar_backend.from_embeddings(
-            embeddings=embeddings, distance=Distance(distance), **backend_kwargs
+            embeddings=embeddings,
+            distance=distance,
+            **backend_kwargs,
         )
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:

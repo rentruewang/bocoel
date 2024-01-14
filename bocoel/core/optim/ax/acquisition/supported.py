@@ -1,5 +1,3 @@
-from enum import Enum
-
 from botorch.acquisition import (
     AcquisitionFunction,
     ExpectedImprovement,
@@ -9,29 +7,31 @@ from botorch.acquisition import (
     qUpperConfidenceBound,
 )
 
+from bocoel.common import StrEnum
+
 from .entropy import Entropy
 
 
-class AcquisitionFunc(str, Enum):
-    MAX_ENTROPY = "entropy"
-    MAX_VALUE_ENTROPY = "mes"
-    UPPER_CONFIDENCE_BOUND = "ucb"
-    Q_UPPER_CONFIDENCE_BOUND = "qucb"
-    EXPECTED_IMPROVEMENT = "ei"
-    Q_EXPECTED_IMPROVMENT = "qei"
+class AcquisitionFunc(StrEnum):
+    ENTROPY = "ENTROPY"
+    ME = "MAX_VALUE_ENTROPY"
+    UCB = "UPPER_CONFIDENCE_BOUND"
+    QUCB = "Q_UPPER_CONFIDENCE_BOUND"
+    EI = "EXPECTED_IMPROVEMENT"
+    QEI = "Q_EXPECTED_IMPROVEMENT"
 
     @property
     def botorch_acqf_class(self) -> type[AcquisitionFunction]:
         match self:
-            case AcquisitionFunc.MAX_ENTROPY:
+            case AcquisitionFunc.ENTROPY:
                 return Entropy
-            case AcquisitionFunc.MAX_VALUE_ENTROPY:
+            case AcquisitionFunc.ME:
                 return qMaxValueEntropy
-            case AcquisitionFunc.UPPER_CONFIDENCE_BOUND:
+            case AcquisitionFunc.UCB:
                 return UpperConfidenceBound
-            case AcquisitionFunc.Q_UPPER_CONFIDENCE_BOUND:
+            case AcquisitionFunc.QUCB:
                 return qUpperConfidenceBound
-            case AcquisitionFunc.EXPECTED_IMPROVEMENT:
+            case AcquisitionFunc.EI:
                 return ExpectedImprovement
-            case AcquisitionFunc.Q_EXPECTED_IMPROVMENT:
+            case AcquisitionFunc.QEI:
                 return qExpectedImprovement

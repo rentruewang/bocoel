@@ -44,6 +44,7 @@ def main(
     reduced_dim: int = 16,
     multiple_choice: bool,
     metric: str,
+    acqf: str = "ENTROPY",
 ) -> None:
     # The corpus part
     if ds_names == "all":
@@ -97,7 +98,7 @@ def main(
         evaluator=evaluator,
         sobol_steps=sobol_steps,
         device=device,
-        acqf=AcquisitionFunc.MAX_VALUE_ENTROPY,
+        acqf=AcquisitionFunc.lookup(acqf),
     )
 
     for i in tqdm(range(optimizer_steps)):

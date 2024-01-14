@@ -1,10 +1,9 @@
-from enum import Enum
-
 from bocoel import Embedder, SBertEmbedder
+from bocoel.common import StrEnum
 
 
-class EmbedderName(str, Enum):
-    SBERT = "sbert"
+class EmbedderName(StrEnum):
+    SBERT = "SBERT"
 
 
 def embedder_factory(
@@ -15,7 +14,7 @@ def embedder_factory(
     device: str,
     batch_size: int,
 ) -> Embedder:
-    if name is not EmbedderName.SBERT:
+    if EmbedderName.lookup(name) is not EmbedderName.SBERT:
         raise ValueError(f"Unknown embedder name: {name}")
 
     return SBertEmbedder(model_name=model_name, device=device, batch_size=batch_size)

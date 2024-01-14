@@ -34,7 +34,7 @@ class KMeansOptimizer(Optimizer):
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         **model_kwargs: KmeansOptions,
     ) -> None:
-        self._model = KMeans(model_kwargs)
+        self._model = KMeans(**model_kwargs)
         self._model.fit(index.embeddings)
         validation.check_is_fitted(self._model)
 
