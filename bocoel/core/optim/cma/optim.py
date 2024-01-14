@@ -1,27 +1,16 @@
 from collections.abc import Callable, Sequence
-from typing import Any, Literal, TypedDict
+from typing import Any
 
+from cma import CMAEvolutionStrategy
 from numpy.typing import NDArray
-from sklearn.cluster import KMeans
-from sklearn.utils import validation
-from typing_extensions import NotRequired, Self
+from typing_extensions import Self
 
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State, Task
 from bocoel.corpora import Index, SearchResult
 
 
-class KmeansOptions(TypedDict):
-    n_clusters: int
-    init: NotRequired[Literal["k-means++", "random"]]
-    n_init: NotRequired[int | Literal["auto"]]
-    tol: NotRequired[float]
-    verbose: NotRequired[int]
-    random_state: NotRequired[int]
-    algorithm: NotRequired[Literal["llyod", "elkan"]]
-
-
-class KMeansOptimizer(Optimizer):
+class PyCMAOptimizer(Optimizer):
     """
     The sklearn optimizer that uses clustering algorithms.
     See the following webpage for options
@@ -32,30 +21,33 @@ class KMeansOptimizer(Optimizer):
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **model_kwargs: KmeansOptions,
+        *,
+        samples: int,
     ) -> None:
-        self._model = KMeans(model_kwargs)
-        self._model.fit(index.embeddings)
-        validation.check_is_fitted(self._model)
-
         self._index = index
         self._evaluate_fn = evaluate_fn
 
+        self._es = CMAEvolutionStrategy(index.dims * [0], 0.5)
+        self._samples = samples
+
     @property
     def task(self) -> Task:
-        # Kmeans must be an exploration task.
-        return Task.EXPLORE
+        return Task.MINIMIZE
 
     @property
     def terminate(self) -> bool:
-        return True
+        return self._es.stop()
 
     def step(self) -> Sequence[State]:
-        centers = self._model.cluster_centers_
+        solutions = self._es.ask(self._samples)
 
-        return optim_utils.evaluate_index(
-            query=centers, index=self._index, evaluate_fn=self._evaluate_fn, k=1
+        result = optim_utils.evaluate_index(
+            query=solutions, index=self._index, evaluate_fn=self._evaluate_fn
         )
+
+        self._es.tell(solutions, [r.evaluation for r in result])
+
+        return result
 
     @classmethod
     def from_index(

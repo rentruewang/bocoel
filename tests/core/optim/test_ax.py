@@ -10,19 +10,23 @@ from . import factories
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
-def test_init_optimizer(device: str) -> None:
+@pytest.mark.parametrize("workers", [1, 2, 4])
+def test_init_optimizer(device: str, workers: int) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
     evaluator = eval_factories.sacre_bleu()
 
-    _ = factories.ax_optim(corpus, lm, evaluator, device=device)
+    _ = factories.ax_optim(corpus, lm, evaluator, device=device, workers=workers)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
-def test_optimize(device: str) -> None:
+@pytest.mark.parametrize("workers", [1, 2, 4])
+def test_optimize(device: str, workers: int) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
     evaluator = eval_factories.sacre_bleu()
-    optimizer = factories.ax_optim(corpus, lm, evaluator, device=device)
+    optimizer = factories.ax_optim(
+        corpus, lm, evaluator, device=device, workers=workers
+    )
 
     bocoel.bocoel(optimizer=optimizer, iterations=10)

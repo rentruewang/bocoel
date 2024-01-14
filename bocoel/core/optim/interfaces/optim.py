@@ -9,9 +9,15 @@ from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Evaluator, LanguageModel
 
 from .states import State
+from .tasks import Task
 
 
 class Optimizer(Protocol):
+    @property
+    @abc.abstractmethod
+    def task(self) -> Task:
+        ...
+
     @property
     @abc.abstractmethod
     def terminate(self) -> bool:

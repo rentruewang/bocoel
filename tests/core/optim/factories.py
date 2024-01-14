@@ -11,7 +11,7 @@ from bocoel import (
 
 
 def ax_optim(
-    corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, device: str
+    corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, device: str, workers: int
 ) -> Optimizer:
     return AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
@@ -21,10 +21,11 @@ def ax_optim(
         device=device,
         acqf=AcquisitionFunc.UPPER_CONFIDENCE_BOUND,
         task=Task.MAXIMIZE,
+        workers=workers,
     )
 
 
 def kmeans_optim(corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> Optimizer:
     return KMeansOptimizer.evaluate_corpus(
-        corpus=corpus, lm=lm, evaluator=evaluator, n_clusters=3
+        corpus=corpus, lm=lm, evaluator=evaluator, n_clusters=3, n_init="auto"
     )

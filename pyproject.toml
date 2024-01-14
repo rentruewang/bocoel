@@ -8,24 +8,14 @@ authors = [
 dependencies = [
     "ax-platform>=0.3.6",
     "botorch>=0.9.5",
-    "datasets>=2.16.1",
     "gpytorch>=1.11",
     "fire>=0.5.0",
-    "linear-operator>=0.5.1",
-    "nltk>=3.8.1",
     "numba>=0.58.1",
     "numpy>=1.26.3",
     "pandas>=2.1.4",
     "pyyaml>=6.0.1",
-    "rich>=13.7.0",
-    "rouge>=1.0.1",
-    "rouge-score>=0.1.2",
-    "sacrebleu>=2.4.0",
     "scikit-learn>=1.3.2",
-    "scipy>=1.11.4",
-    "sentence-transformers>=2.2.2",
     "torch>=2.1.2",
-    "transformers>=4.36.2",
     "typing-extensions>=4.9.0",
     "ujson>=5.9.0",
 ]
@@ -40,11 +30,25 @@ visual = [
     "hiplot>=0.1.33",
     "plotly>=5.18.0",
 ]
-faiss = [
-    "faiss-cpu>=1.7.4",
+transformers = [
+    "transformers>=4.36.2",
+    "sentence-transformers>=2.2.2",
 ]
-hnswlib = [
+datasets = [
+    "datasets>=2.16.1",
+]
+metrics = [
+    "rouge>=1.0.1",
+    "rouge-score>=0.1.2",
+    "nltk>=3.8.1",
+    "sacrebleu>=2.4.0",
+]
+index = [
+    "faiss-cpu>=1.7.4",
     "hnswlib>=0.8.0",
+]
+cma = [
+    "cma>=3.3.0",
 ]
 
 [build-system]
@@ -69,4 +73,8 @@ test = [
 ]
 type = [
     "mypy>=1.8.0",
+]
+pretty = [
+    "ipython>=8.20.0",
+    "rich>=13.7.0",
 ]

@@ -1,5 +1,4 @@
 from collections.abc import Callable, Sequence
-from enum import Enum
 from typing import Any, TypeAlias
 
 import numpy as np
@@ -11,7 +10,7 @@ from torch import device
 from typing_extensions import Self
 
 from bocoel.core.optim import utils as optim_utils
-from bocoel.core.optim.interfaces import Optimizer, State
+from bocoel.core.optim.interfaces import Optimizer, State, Task
 from bocoel.corpora import Index, SearchResult
 
 from . import params
@@ -19,12 +18,6 @@ from .acquisition import AcquisitionFunc
 
 _KEY = "entropy"
 Device: TypeAlias = str | device
-
-
-class Task(str, Enum):
-    EXPLORE = "explore"
-    MINIMIZE = "minimize"
-    MAXIMIZE = "maximize"
 
 
 class AxServiceOptimizer(Optimizer):
@@ -37,7 +30,8 @@ class AxServiceOptimizer(Optimizer):
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        sobol_steps: int,
+        *,
+        sobol_steps: int = 0,
         device: Device = "cpu",
         workers: int = 1,
         acqf: str | AcquisitionFunc = AcquisitionFunc.MAX_ENTROPY,
@@ -56,6 +50,10 @@ class AxServiceOptimizer(Optimizer):
         self._terminate = False
 
     @property
+    def task(self) -> Task:
+        return self._task
+
+    @property
     def terminate(self) -> bool:
         return self._terminate
 
@@ -68,7 +66,6 @@ class AxServiceOptimizer(Optimizer):
         result_states = []
         for trial_index, parameters in idx_param.items():
             result_states.append(self._eval_trial(trial_index, parameters))
-
         return result_states
 
     def _create_experiment(self, index: Index) -> None:
