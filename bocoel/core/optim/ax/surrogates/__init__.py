@@ -1,1 +1,1 @@
-from .supported import MLLOptions, SurrogateModel
+from .supported import SurrogateModel, SurrogateOptions

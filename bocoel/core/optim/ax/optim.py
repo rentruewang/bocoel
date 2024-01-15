@@ -5,7 +5,6 @@ import numpy as np
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
-from gpytorch.mlls.marginal_log_likelihood import MarginalLogLikelihood
 from numpy.typing import NDArray
 from torch import device
 from typing_extensions import Self
@@ -16,7 +15,7 @@ from bocoel.corpora import Index, SearchResult
 
 from . import params
 from .acquisition import AcquisitionFunc
-from .surrogates import MLLOptions, SurrogateModel
+from .surrogates import SurrogateModel, SurrogateOptions
 
 _KEY = "entropy"
 Device: TypeAlias = str | device
@@ -39,15 +38,11 @@ class AxServiceOptimizer(Optimizer):
         task: Task = Task.EXPLORE,
         acqf: str | AcquisitionFunc = AcquisitionFunc.AUTO,
         surrogate: str | SurrogateModel = SurrogateModel.AUTO,
-        mll_class: type[MarginalLogLikelihood] | None = None,
-        mll_options: MLLOptions | None = None,
+        surrogate_kwargs: SurrogateOptions | None = None,
     ) -> None:
         self._device = device
         self._acqf = AcquisitionFunc.lookup(acqf)
-        self._surrogate = SurrogateModel.lookup(surrogate).surrogate(
-            mll_class=mll_class,
-            mll_options=mll_options,
-        )
+        self._surrogate = SurrogateModel.lookup(surrogate).surrogate(surrogate_kwargs)
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
