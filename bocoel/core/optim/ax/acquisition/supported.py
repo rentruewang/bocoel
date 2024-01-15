@@ -14,18 +14,21 @@ from .entropy import Entropy
 
 class AcquisitionFunc(StrEnum):
     ENTROPY = "ENTROPY"
-    ME = "MAX_VALUE_ENTROPY"
+    MES = "MAX_VALUE_ENTROPY"
     UCB = "UPPER_CONFIDENCE_BOUND"
     QUCB = "Q_UPPER_CONFIDENCE_BOUND"
     EI = "EXPECTED_IMPROVEMENT"
     QEI = "Q_EXPECTED_IMPROVEMENT"
+    AUTO = "AUTO"
 
     @property
-    def botorch_acqf_class(self) -> type[AcquisitionFunction]:
+    def botorch_acqf_class(self) -> type[AcquisitionFunction] | None:
         match self:
+            case AcquisitionFunc.AUTO:
+                return None
             case AcquisitionFunc.ENTROPY:
                 return Entropy
-            case AcquisitionFunc.ME:
+            case AcquisitionFunc.MES:
                 return qMaxValueEntropy
             case AcquisitionFunc.UCB:
                 return UpperConfidenceBound

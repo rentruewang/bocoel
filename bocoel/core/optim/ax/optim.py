@@ -5,6 +5,7 @@ import numpy as np
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
+from gpytorch.mlls.marginal_log_likelihood import MarginalLogLikelihood
 from numpy.typing import NDArray
 from torch import device
 from typing_extensions import Self
@@ -15,6 +16,7 @@ from bocoel.corpora import Index, SearchResult
 
 from . import params
 from .acquisition import AcquisitionFunc
+from .surrogates import MLLOptions, SurrogateModel
 
 _KEY = "entropy"
 Device: TypeAlias = str | device
@@ -34,11 +36,18 @@ class AxServiceOptimizer(Optimizer):
         sobol_steps: int = 0,
         device: Device = "cpu",
         workers: int = 1,
-        acqf: str | AcquisitionFunc = AcquisitionFunc.ENTROPY,
         task: Task = Task.EXPLORE,
+        acqf: str | AcquisitionFunc = AcquisitionFunc.AUTO,
+        surrogate: str | SurrogateModel = SurrogateModel.AUTO,
+        mll_class: type[MarginalLogLikelihood] | None = None,
+        mll_options: MLLOptions | None = None,
     ) -> None:
         self._device = device
         self._acqf = AcquisitionFunc.lookup(acqf)
+        self._surrogate = SurrogateModel.lookup(surrogate).surrogate(
+            mll_class=mll_class,
+            mll_options=mll_options,
+        )
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
@@ -120,16 +129,21 @@ class AxServiceOptimizer(Optimizer):
             return -1
 
     def _gen_strat(self, sobol_steps: int) -> GenerationStrategy:
+        modular_kwargs: dict[str, Any] = {"torch_device": self._device}
+
+        if (bac := self._acqf.botorch_acqf_class) is not None:
+            modular_kwargs.update({"botorch_acqf_class": bac})
+
+        if self._surrogate is not None:
+            modular_kwargs.update({"surrogate": self._surrogate})
+
         return GenerationStrategy(
             [
                 GenerationStep(model=Models.SOBOL, num_trials=sobol_steps),
                 GenerationStep(
                     model=Models.BOTORCH_MODULAR,
                     num_trials=-1,
-                    model_kwargs={
-                        "torch_device": self._device,
-                        "botorch_acqf_class": self._acqf.botorch_acqf_class,
-                    },
+                    model_kwargs=modular_kwargs,
                 ),
             ]
         )
