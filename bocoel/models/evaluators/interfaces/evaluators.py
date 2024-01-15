@@ -6,9 +6,8 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
+from bocoel.models.evaluators import utils
 from bocoel.models.lms import LanguageModel
-
-from . import utils
 
 
 class Evaluator(Protocol):

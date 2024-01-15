@@ -4,4 +4,5 @@ from .bigbench import (
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
 )
-from .interfaces import Evaluator
+from .dicts import EvaluatorDict
+from .interfaces import Evaluator, EvaluatorBundle

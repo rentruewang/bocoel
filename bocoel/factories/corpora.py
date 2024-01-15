@@ -27,5 +27,5 @@ def corpus_factory(
         storage=storage,
         embedder=embedder,
         index_backend=indices.index_class_factory(index_name),
-        **index_kwargs,
+        **indices.index_set_backend(index_kwargs),
     )
