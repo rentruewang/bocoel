@@ -1,2 +1,2 @@
 from .batches import Batched
-from .enums import StrEnum
+from .enums import ItemNotFound, StrEnum

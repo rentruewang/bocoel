@@ -3,7 +3,7 @@ from typing import Any
 from bocoel import ComposedCorpus, Corpus, Embedder, Storage
 from bocoel.common import StrEnum
 
-from . import indices
+from . import common, indices
 from .indices import IndexName
 
 
@@ -23,9 +23,9 @@ def corpus_factory(
     if CorpusName.lookup(name) is not CorpusName.COMPOSED:
         raise ValueError(f"Unknown corpus name: {name}")
 
-    return ComposedCorpus.index_storage(
+    return common.correct_kwargs(ComposedCorpus.index_storage)(
         storage=storage,
         embedder=embedder,
         index_backend=indices.index_class_factory(index_name),
-        **indices.index_set_backend(index_kwargs),
+        **indices.index_set_backends(index_kwargs),
     )

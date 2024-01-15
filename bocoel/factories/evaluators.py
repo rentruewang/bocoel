@@ -3,6 +3,8 @@ from typing import Any
 from bocoel import BigBenchMultipleChoice, BigBenchQuestionAnswer, Evaluator
 from bocoel.common import StrEnum
 
+from . import common
+
 
 class EvalName(StrEnum):
     BIGBENCH_MC = "BIGBENCH_MULTIPLE_CHOICE"
@@ -14,6 +16,6 @@ def evaluator_factory(name: str | EvalName, /, **kwargs: Any) -> Evaluator:
 
     match name:
         case EvalName.BIGBENCH_MC:
-            return BigBenchMultipleChoice(**kwargs)
+            return common.correct_kwargs(BigBenchMultipleChoice)(**kwargs)
         case EvalName.BIGBENCH_QA:
-            return BigBenchQuestionAnswer(**kwargs)
+            return common.correct_kwargs(BigBenchQuestionAnswer)(**kwargs)

@@ -1,6 +1,8 @@
 from bocoel import HuggingfaceLM, LanguageModel
 from bocoel.common import StrEnum
 
+from . import common
+
 
 class LMName(StrEnum):
     HUGGINGFACE = "HUGGINGFACE"
@@ -18,6 +20,6 @@ def lm_factory(
     if LMName.lookup(name) is not LMName.HUGGINGFACE:
         raise ValueError(f"Unknown corpus name: {name}")
 
-    return HuggingfaceLM(
+    return common.correct_kwargs(HuggingfaceLM)(
         model_path=model_path, max_len=max_len, batch_size=batch_size, device=device
     )

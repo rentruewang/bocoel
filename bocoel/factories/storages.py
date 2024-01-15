@@ -4,12 +4,15 @@ from typing import Any
 from bocoel import ConcatStorage, DatasetsStorage, PandasStorage, Storage
 from bocoel.common import StrEnum
 
+from . import common
+
 
 class StorageName(StrEnum):
     PANDAS = "PANDAS"
     DATASETS = "DATASETS"
 
 
+@common.correct_kwargs
 def storage_factory(
     names: Sequence[str], /, configs: Sequence[Mapping[str, Any]]
 ) -> Storage:
@@ -29,6 +32,8 @@ def _storage_factory_single(
     storage = StorageName.lookup(storage)
     match storage:
         case StorageName.PANDAS:
-            return PandasStorage.from_jsonl_file(path)
+            return common.correct_kwargs(PandasStorage.from_jsonl_file)(path)
         case StorageName.DATASETS:
-            return DatasetsStorage.load(path=path, name=name, split=split)
+            return common.correct_kwargs(DatasetsStorage.load)(
+                path=path, name=name, split=split
+            )

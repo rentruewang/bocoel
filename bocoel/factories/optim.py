@@ -10,6 +10,8 @@ from bocoel import (
 )
 from bocoel.common import StrEnum
 
+from . import common
+
 
 class OptimizerName(StrEnum):
     AX_SERVICE = "AX_SERVICE"
@@ -19,6 +21,7 @@ class OptimizerName(StrEnum):
 def optimizer_factory(
     name: str | OptimizerName,
     /,
+    *,
     corpus: Corpus,
     lm: LanguageModel,
     evaluator: Evaluator,
@@ -28,11 +31,11 @@ def optimizer_factory(
 
     match name:
         case OptimizerName.AX_SERVICE:
-            return AxServiceOptimizer.evaluate_corpus(
+            return common.correct_kwargs(AxServiceOptimizer.evaluate_corpus)(
                 corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
             )
         case OptimizerName.KMEANS:
-            return KMeansOptimizer.evaluate_corpus(
+            return common.correct_kwargs(KMeansOptimizer.evaluate_corpus)(
                 corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
             )
         case _:
