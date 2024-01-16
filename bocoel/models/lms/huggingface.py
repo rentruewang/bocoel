@@ -1,6 +1,7 @@
 from collections.abc import Sequence
 from typing import TypeAlias
 
+import torch
 from torch import device
 from typing_extensions import Self
 
@@ -39,6 +40,7 @@ class HuggingfaceLM(LanguageModel):
 
         self.to(device)
 
+    @torch.no_grad()
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         if not isinstance(prompts, list):
             prompts = list(prompts)

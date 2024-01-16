@@ -8,11 +8,11 @@ from tests import utils
 def test_encoding(device: str) -> None:
     sentence_bert = SBertEmbedder(device=device)
 
-    single_sentence = "This is a sentence"
+    single_sentence = ["This is a sentence"]
     multiple_sentences = ["This is a sentence", "This is another sentence"]
 
     emb = sentence_bert.encode(single_sentence)
-    assert emb.shape == (sentence_bert.dims,), {
+    assert emb.shape == (sentence_bert.dims, 1), {
         "emb.shape": emb.shape,
         "sentence_bert": sentence_bert,
     }

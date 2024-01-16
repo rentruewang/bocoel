@@ -51,6 +51,9 @@ index = [
 cma = [
     "cma>=3.3.0",
 ]
+sklearn-extra = [
+    "scikit-learn-extra>=0.3.0",
+]
 
 [build-system]
 requires = ["hatchling"]

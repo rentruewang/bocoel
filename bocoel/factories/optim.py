@@ -4,9 +4,9 @@ from bocoel import (
     AxServiceOptimizer,
     Corpus,
     Evaluator,
-    KMeansOptimizer,
     LanguageModel,
     Optimizer,
+    ScikitLearnOptimizer,
 )
 from bocoel.common import StrEnum
 
@@ -35,7 +35,7 @@ def optimizer_factory(
                 corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
             )
         case OptimizerName.KMEANS:
-            return common.correct_kwargs(KMeansOptimizer.evaluate_corpus)(
+            return common.correct_kwargs(ScikitLearnOptimizer.evaluate_corpus)(
                 corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
             )
         case _:

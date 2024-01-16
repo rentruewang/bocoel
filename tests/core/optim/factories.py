@@ -4,6 +4,7 @@ from bocoel import (
     Corpus,
     Evaluator,
     KMeansOptimizer,
+    KMedoidsOptimizer,
     LanguageModel,
     Optimizer,
     Task,
@@ -27,5 +28,19 @@ def ax_optim(
 
 def kmeans_optim(corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> Optimizer:
     return KMeansOptimizer.evaluate_corpus(
-        corpus=corpus, lm=lm, evaluator=evaluator, n_clusters=3, n_init="auto"
+        corpus=corpus,
+        lm=lm,
+        evaluator=evaluator,
+        model_kwargs={"n_clusters": 3, "n_init": "auto"},
+    )
+
+
+def kmedoids_optim(
+    corpus: Corpus, lm: LanguageModel, evaluator: Evaluator
+) -> Optimizer:
+    return KMedoidsOptimizer.evaluate_corpus(
+        corpus=corpus,
+        lm=lm,
+        evaluator=evaluator,
+        model_kwargs={"n_clusters": 3},
     )

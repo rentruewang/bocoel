@@ -1,43 +1,38 @@
+import abc
+from abc import ABCMeta
 from collections.abc import Callable, Sequence
-from typing import Any, Literal, TypedDict
+from typing import Any, Protocol
 
 from numpy.typing import NDArray
-from sklearn.cluster import KMeans
-from sklearn.utils import validation
-from typing_extensions import NotRequired, Self
+from typing_extensions import Self
 
 from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State, Task
 from bocoel.corpora import Index, SearchResult
 
 
-class KmeansOptions(TypedDict):
-    n_clusters: int
-    init: NotRequired[Literal["k-means++", "random"]]
-    n_init: NotRequired[int | Literal["auto"]]
-    tol: NotRequired[float]
-    verbose: NotRequired[int]
-    random_state: NotRequired[int]
-    algorithm: NotRequired[Literal["llyod", "elkan"]]
+class ScikitLearnCluster(Protocol):
+    cluster_centers_: NDArray
+
+    @abc.abstractmethod
+    def fit(self, X: Any) -> None:
+        ...
 
 
-class KMeansOptimizer(Optimizer):
+class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
     """
     The sklearn optimizer that uses clustering algorithms.
     See the following webpage for options
     https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
     """
 
+    _model: ScikitLearnCluster
+
     def __init__(
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **model_kwargs: KmeansOptions,
     ) -> None:
-        self._model = KMeans(**model_kwargs)
-        self._model.fit(index.embeddings)
-        validation.check_is_fitted(self._model)
-
         self._index = index
         self._evaluate_fn = evaluate_fn
 

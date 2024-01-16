@@ -35,7 +35,7 @@ class SBertEmbedder(Embedder):
         assert isinstance(d, int)
         return d
 
-    def _encode(self, text: str | Sequence[str]) -> NDArray:
+    def _encode(self, text: Sequence[str]) -> NDArray:
         if isinstance(text, str):
             text = [text]
 
@@ -43,7 +43,7 @@ class SBertEmbedder(Embedder):
 
         result = np.concatenate(
             [
-                self._encode_one(text[idx : idx + self.batch])
+                self._encode_one_batch(text[idx : idx + self.batch])
                 for idx in range(0, len(text), self.batch)
             ]
         )
@@ -52,6 +52,6 @@ class SBertEmbedder(Embedder):
 
         return np.squeeze(result)
 
-    def _encode_one(self, text: list[str]) -> NDArray:
+    def _encode_one_batch(self, text: list[str]) -> NDArray:
         enc = self._sbert.encode(text, convert_to_numpy=True, show_progress_bar=False)
         return typing.cast(NDArray, enc)

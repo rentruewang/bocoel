@@ -4,7 +4,11 @@ from .core import (
     AcquisitionFunc,
     AxServiceOptimizer,
     KMeansOptimizer,
+    KMeansOptions,
+    KMedoidsOptimizer,
+    KMedoidsOptions,
     Optimizer,
+    ScikitLearnOptimizer,
     State,
     Task,
 )
