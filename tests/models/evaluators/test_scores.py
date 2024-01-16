@@ -1,14 +1,10 @@
-from numbers import Number
-
 import pytest
 
-from tests import utils
 from tests.corpora.storages import factories as storage_factories
 
 from . import factories
 
 
-@pytest.mark.parametrize("device", utils.torch_devices())
 @pytest.mark.parametrize(
     "score_name",
     [
@@ -23,7 +19,7 @@ from . import factories
         "exact_match",
     ],
 )
-def test_qa_score_on_text(score_name: str, device: str) -> None:
+def test_qa_score_on_text(score_name: str) -> None:
     sc = factories.score(score_name)
     df = storage_factories.df()
 

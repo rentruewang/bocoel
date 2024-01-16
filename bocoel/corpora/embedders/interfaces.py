@@ -2,9 +2,12 @@ import abc
 from collections.abc import Sequence
 from typing import Protocol
 
+import structlog
 from numpy.typing import NDArray
 
 from bocoel.common import Batched
+
+LOGGER = structlog.get_logger()
 
 
 class Embedder(Batched, Protocol):
@@ -14,7 +17,7 @@ class Embedder(Batched, Protocol):
     unless some database that encodes this functionality is found.
     """
 
-    def encode(self, text: Sequence[str]) -> NDArray:
+    def encode(self, text: Sequence[str], /) -> NDArray:
         """
         Calls the encode function and performs some checks.
         """
@@ -38,7 +41,7 @@ class Embedder(Batched, Protocol):
         ...
 
     @abc.abstractmethod
-    def _encode(self, text: Sequence[str]) -> NDArray:
+    def _encode(self, texts: Sequence[str], /) -> NDArray:
         """
         Implements the encode function.
 
