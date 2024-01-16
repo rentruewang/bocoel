@@ -132,19 +132,18 @@ def get_evaluator(
         )
 
 
-if __name__ == "__main__":
-    fire.Fire(main)
 _ALLOWED_METRIC_KEYS = [
-    "exact",
-    "nltk-bleu",
-    "sacre-bleu",
-    "rouge",
-    "rouge-score-1",
-    "rouge-score-2",
-    "rouge-score-L",
-    "one-hot",
-    "multi-choice",
+    "EXACT",
+    "NLTK_BLEU",
+    "SACRE_BLEU",
+    "ROUGE",
+    "ROUGE_1",
+    "ROUGE_2",
+    "ROUGE_L",
+    "SUM_OF_SCORES",
+    "LIST_OF_ANSWERS",
 ]
+
 _ALL_BIG_BENCH = """
 abstract_narrative_understanding anachronisms analogical_similarity analytic_entailment arithmetic ascii_word_recognition
 authorship_verification auto_categorization auto_debugging bbq_lite_json bridging_anaphora_resolution_barqa causal_judgment
@@ -173,3 +172,6 @@ social_iqa social_support sports_understanding strange_stories strategyqa suffic
 swahili_english_proverbs swedish_to_german_proverbs symbol_interpretation temporal_sequences tense timedial topical_chat
 tracking_shuffled_objects understanding_fables undo_permutation unit_conversion unit_interpretation unnatural_in_context_learning
 vitaminc_fact_verification what_is_the_tao which_wiki_edit winowhy word_sorting word_unscrambling""".strip().split()
+
+if __name__ == "__main__":
+    fire.Fire(main)

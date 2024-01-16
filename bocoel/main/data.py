@@ -6,25 +6,15 @@ import ujson as json
 import yaml
 
 
-def load(data: str | Path | Mapping[str, Any], /) -> Mapping[str, Any]:
+def load(data: str | Path | Mapping[str, Any] | None, /) -> Mapping[str, Any]:
+    if data is None:
+        return {}
+
     if isinstance(data, str):
         data = Path(data)
 
     if isinstance(data, Path):
         data = parse_file(data)
-
-    return data
-
-
-def load_with_default(
-    data: str | Path | Mapping[str, Any], /, default_path: str | Path
-) -> Mapping[str, Any]:
-    data = load(data)
-
-    CURRENT_DIR = Path(__file__).parent
-
-    if not data:
-        pass
 
     return data
 

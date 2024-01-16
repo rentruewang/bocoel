@@ -24,7 +24,7 @@ class BigBenchMatchType(StrEnum):
     SACRE_BLEU = "SACRE_BLEU"
     ROUGE = "ROUGE"
     ROUGE_1 = "ROUGE_1"
-    ROUGE_2 = "ROUGE-2"
+    ROUGE_2 = "ROUGE_2"
     ROUGE_L = "ROUGE_L"
 
     @property

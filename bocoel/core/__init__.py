@@ -1,3 +1,4 @@
+from .aggregators import Agg, MergeAgg, PathLength
 from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,
@@ -7,4 +8,3 @@ from .optim import (
     State,
     Task,
 )
-from .traces import ListTrace, Trace
