@@ -32,5 +32,5 @@ def test_qa_score_on_text(score_name: str, device: str) -> None:
 
     for q, a in zip(question, answer):
         results = sc(target=a, references=[q])
-        assert isinstance(results, Number)
-        assert 0 <= results <= 1
+        assert isinstance(results, (int, float))
+        assert 0.0 <= results <= 1.0

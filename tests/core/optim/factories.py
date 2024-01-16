@@ -1,5 +1,3 @@
-import functools
-
 from bocoel import (
     AcquisitionFunc,
     AxServiceOptimizer,
@@ -11,9 +9,10 @@ from bocoel import (
     Optimizer,
     Task,
 )
+from tests import utils
 
 
-@functools.cache
+@utils.cache
 def ax_optim(
     corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, device: str, workers: int
 ) -> Optimizer:
@@ -29,7 +28,7 @@ def ax_optim(
     )
 
 
-@functools.cache
+@utils.cache
 def kmeans_optim(corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> Optimizer:
     return KMeansOptimizer.evaluate_corpus(
         corpus=corpus,
@@ -39,7 +38,7 @@ def kmeans_optim(corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> Opt
     )
 
 
-@functools.cache
+@utils.cache
 def kmedoids_optim(
     corpus: Corpus, lm: LanguageModel, evaluator: Evaluator
 ) -> Optimizer:

@@ -1,49 +1,43 @@
-from bocoel import (
-    BigBenchEvalutor,
-    BigBenchMatchType,
-    BigBenchQuestionAnswer,
-    Evaluator,
-    Score,
-)
+from bocoel import BigBenchEvalutor, BigBenchMatchType, BigBenchQuestionAnswer, Score
 
 
-def sacre_bleu_eval() -> Evaluator:
+def sacre_bleu_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.SACRE_BLEU
     )
 
 
-def nltk_bleu_eval() -> Evaluator:
+def nltk_bleu_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.NLTK_BLEU
     )
 
 
-def exact_match_eval() -> Evaluator:
+def exact_match_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.EXACT
     )
 
 
-def rouge_1_eval() -> Evaluator:
+def rouge_1_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_1
     )
 
 
-def rouge_2_eval() -> Evaluator:
+def rouge_2_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_2
     )
 
 
-def rouge_l_eval() -> Evaluator:
+def rouge_l_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_L
     )
 
 
-def rouge_score_1_eval() -> Evaluator:
+def rouge_score_1_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",
@@ -51,7 +45,7 @@ def rouge_score_1_eval() -> Evaluator:
     )
 
 
-def rouge_score_2_eval() -> Evaluator:
+def rouge_score_2_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",
@@ -59,7 +53,7 @@ def rouge_score_2_eval() -> Evaluator:
     )
 
 
-def rouge_score_l_eval() -> Evaluator:
+def rouge_score_l_eval() -> BigBenchEvalutor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",

@@ -1,10 +1,21 @@
 import functools
 import warnings
+from collections.abc import Callable
+from typing import ParamSpec, TypeVar
 
 from torch import cuda
 
+P = ParamSpec("P")
+T = TypeVar("T")
 
-@functools.cache
+
+def cache(func: Callable[P, T]) -> Callable[P, T]:
+    # Ignore because of current functools bug.
+    # https://stackoverflow.com/questions/73517571/typevar-inference-broken-by-lru-cache-decorator
+    return functools.cache(func)  # type:ignore
+
+
+@cache
 def faiss():
     # Optional dependency. Faiss also spits out deprecation warnings.
     with warnings.catch_warnings():

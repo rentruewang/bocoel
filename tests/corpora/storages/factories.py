@@ -1,11 +1,11 @@
-import functools
-
 from datasets import Dataset
 from pandas import DataFrame
 
 from bocoel import DatasetsStorage, PandasStorage, Storage
+from tests import utils
 
 
+@utils.cache
 def df() -> DataFrame:
     return DataFrame.from_records(
         [
@@ -29,7 +29,7 @@ def df() -> DataFrame:
     )
 
 
-@functools.cache
+@utils.cache
 def df_storage() -> Storage:
     return PandasStorage(df())
 
@@ -38,6 +38,6 @@ def dataset() -> Dataset:
     return Dataset.from_pandas(df())
 
 
-@functools.cache
+@utils.cache
 def datasets_storage() -> Storage:
     return DatasetsStorage(dataset())
