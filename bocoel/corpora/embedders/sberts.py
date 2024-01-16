@@ -1,7 +1,6 @@
 import typing
 from collections.abc import Sequence
 
-import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.corpora.embedders.interfaces import Embedder
@@ -36,22 +35,14 @@ class SBertEmbedder(Embedder):
         return d
 
     def _encode(self, text: Sequence[str]) -> NDArray:
-        if isinstance(text, str):
-            text = [text]
-
         text = list(text)
 
-        result = np.concatenate(
-            [
-                self._encode_one_batch(text[idx : idx + self.batch])
-                for idx in range(0, len(text), self.batch)
-            ]
+        return typing.cast(
+            NDArray,
+            self._sbert.encode(
+                text,
+                batch_size=self._batch_size,
+                convert_to_numpy=True,
+                show_progress_bar=False,
+            ),
         )
-
-        assert len(result) == len(text)
-
-        return np.squeeze(result)
-
-    def _encode_one_batch(self, text: list[str]) -> NDArray:
-        enc = self._sbert.encode(text, convert_to_numpy=True, show_progress_bar=False)
-        return typing.cast(NDArray, enc)

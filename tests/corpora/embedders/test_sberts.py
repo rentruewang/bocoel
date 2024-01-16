@@ -12,7 +12,7 @@ def test_encoding(device: str) -> None:
     multiple_sentences = ["This is a sentence", "This is another sentence"]
 
     emb = sentence_bert.encode(single_sentence)
-    assert emb.shape == (sentence_bert.dims, 1), {
+    assert emb.shape == (1, sentence_bert.dims), {
         "emb.shape": emb.shape,
         "sentence_bert": sentence_bert,
     }
