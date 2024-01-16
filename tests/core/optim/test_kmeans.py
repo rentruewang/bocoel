@@ -13,7 +13,7 @@ from . import factories
 def test_init_optimizer(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu()
+    evaluator = eval_factories.sacre_bleu_eval()
 
     _ = factories.kmeans_optim(corpus, lm, evaluator)
 
@@ -22,7 +22,7 @@ def test_init_optimizer(device: str) -> None:
 def test_optimize(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu()
+    evaluator = eval_factories.sacre_bleu_eval()
     optimizer = factories.kmeans_optim(corpus, lm, evaluator)
 
     bocoel.bocoel(optimizer=optimizer, iterations=15)

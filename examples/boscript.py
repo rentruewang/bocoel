@@ -1,9 +1,10 @@
+import logging
 from collections.abc import Sequence
 from typing import Literal
 
 import datasets
 import fire
-from rich import print
+import structlog
 from tqdm import tqdm
 
 from bocoel import (
@@ -22,6 +23,12 @@ from bocoel import (
     SBertEmbedder,
     WhiteningIndex,
 )
+
+structlog.configure(
+    wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
+)
+
+LOGGER = structlog.get_logger()
 
 
 def main(
@@ -42,7 +49,6 @@ def main(
     index_threads: int = 8,
     optimizer_steps: int = 30,
     reduced_dim: int = 16,
-    multiple_choice: bool,
     metric: str,
     acqf: str = "ENTROPY",
 ) -> None:
@@ -53,16 +59,32 @@ def main(
     for dataset_id in ds_names:
         assert dataset_id in _ALL_BIG_BENCH
 
-    dataset_list: list[DatasetsStorage] = []
+    LOGGER.info("Loading datasets...", ds_list=ds_names)
 
+    dataset_list: list[DatasetsStorage] = []
     for dataset_to_load in ds_names:
-        dataset_dict = datasets.load_dataset(path=ds_path, name=dataset_to_load)
+        LOGGER.debug("Loading...", ds=dataset_to_load)
+        dataset_dict = datasets.load_dataset(
+            path=ds_path, name=dataset_to_load, trust_remote_code=True
+        )
         dataset = dataset_dict[ds_split]
         dataset_list.append(DatasetsStorage(dataset))
 
     storage = ConcatStorage.join(dataset_list)
 
+    LOGGER.info(
+        "Creating embedder with model on device",
+        model=sbert_model,
+        device=device,
+    )
     embedder = SBertEmbedder(model_name=sbert_model, device=device)
+
+    LOGGER.info(
+        "Creating corpus with storage and embedder on device",
+        storage=storage,
+        embedder=embedder,
+        device=device,
+    )
     corpus = ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,
@@ -77,21 +99,41 @@ def main(
     # ------------------------
     # The model part
 
+    LOGGER.info(
+        "Creating LM with model model on device", model=llm_model, device=device
+    )
     lm = HuggingfaceLM(
         model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
+    )
+
+    LOGGER.info(
+        "Creating evaluator with arguments",
+        inputs=inputs,
+        targets=targets,
+        multiple_choice_targets=multiple_choice_targets,
+        multiple_choice_scores=multiple_choice_scores,
+        metric=metric,
     )
     evaluator = get_evaluator(
         inputs=inputs,
         multiple_choice_targets=multiple_choice_targets,
         multiple_choice_scores=multiple_choice_scores,
         targets=targets,
-        multiple_choice=multiple_choice,
         metric=metric,
     )
 
     # ------------------------
     # The optimizer part.
 
+    LOGGER.info(
+        "Creating optimizer with arguments",
+        corpus=corpus,
+        lm=lm,
+        evaluator=evaluator,
+        sobol_steps=sobol_steps,
+        device=device,
+        acqf=acqf,
+    )
     optim = AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
@@ -103,7 +145,7 @@ def main(
 
     for i in tqdm(range(optimizer_steps)):
         state = optim.step()
-        print(f"iteration {i}:", state)
+        LOGGER.info("iteration {i}: {state}", i=i, state=state)
 
 
 def get_evaluator(
@@ -111,28 +153,30 @@ def get_evaluator(
     multiple_choice_targets: str,
     multiple_choice_scores: str,
     targets: str,
-    multiple_choice: bool,
     metric: str,
 ) -> BigBenchMultipleChoice | BigBenchQuestionAnswer:
-    if metric not in _ALLOWED_METRIC_KEYS:
-        raise ValueError(f"Metric must be one of {_ALLOWED_METRIC_KEYS}, got {metric}.")
+    if metric not in _QUESTION_ANSWER + _MULTIPLE_CHOICE:
+        raise ValueError(
+            f"Metric must be one of {_QUESTION_ANSWER + _MULTIPLE_CHOICE}, got {metric}."
+        )
 
+    multiple_choice = metric in _MULTIPLE_CHOICE
     if multiple_choice:
         return BigBenchMultipleChoice(
             inputs=inputs,
             multiple_choice_targets=multiple_choice_targets,
             multiple_choice_scores=multiple_choice_scores,
-            choice_type=BigBenchChoiceType(metric),
+            choice_type=BigBenchChoiceType.lookup(metric),
         )
     else:
         return BigBenchQuestionAnswer(
             inputs=inputs,
             targets=targets,
-            matching_type=BigBenchMatchType(metric),
+            matching_type=BigBenchMatchType.lookup(metric),
         )
 
 
-_ALLOWED_METRIC_KEYS = [
+_QUESTION_ANSWER = [
     "EXACT",
     "NLTK_BLEU",
     "SACRE_BLEU",
@@ -140,6 +184,8 @@ _ALLOWED_METRIC_KEYS = [
     "ROUGE_1",
     "ROUGE_2",
     "ROUGE_L",
+]
+_MULTIPLE_CHOICE = [
     "SUM_OF_SCORES",
     "LIST_OF_ANSWERS",
 ]

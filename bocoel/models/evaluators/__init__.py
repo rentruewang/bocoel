@@ -1,5 +1,6 @@
 from .bigbench import (
     BigBenchChoiceType,
+    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,

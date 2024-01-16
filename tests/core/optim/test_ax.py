@@ -14,7 +14,7 @@ from . import factories
 def test_init_optimizer(device: str, workers: int) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu()
+    evaluator = eval_factories.sacre_bleu_eval()
 
     _ = factories.ax_optim(corpus, lm, evaluator, device=device, workers=workers)
 
@@ -24,7 +24,7 @@ def test_init_optimizer(device: str, workers: int) -> None:
 def test_optimize(device: str, workers: int) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu()
+    evaluator = eval_factories.sacre_bleu_eval()
     optimizer = factories.ax_optim(
         corpus, lm, evaluator, device=device, workers=workers
     )

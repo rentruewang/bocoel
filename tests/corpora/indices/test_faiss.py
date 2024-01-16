@@ -1,17 +1,11 @@
 import numpy as np
 import pytest
-from numpy.typing import NDArray
 
 from bocoel import Distance, FaissIndex
 from bocoel.corpora.indices import utils
 from tests import utils as test_utils
 
 from . import factories
-
-
-@pytest.fixture
-def embeddings_fix() -> NDArray:
-    return factories.emb()
 
 
 def index(index_string: str, device: str) -> FaissIndex:
@@ -25,31 +19,32 @@ def index(index_string: str, device: str) -> FaissIndex:
     )
 
 
-def test_normalize(embeddings_fix: NDArray) -> None:
-    scaled = embeddings_fix * np.array([1, 2, 3, 4, 5])[None, :]
+def test_normalize() -> None:
+    embeddings = factories.emb()
+    scaled = embeddings * np.array([1, 2, 3, 4, 5])[None, :]
     normalized = utils.normalize(scaled)
-    assert np.allclose(normalized, embeddings_fix), {
+    assert np.allclose(normalized, embeddings), {
         "scaled": scaled,
         "normalized": normalized,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }
 
 
 @pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
-def test_init_faiss(index_string: str, device: str, embeddings_fix: NDArray) -> None:
+def test_init_faiss(index_string: str, device: str) -> None:
+    embeddings = factories.emb()
     search = index(index_string, device)
-    assert search.dims == embeddings_fix.shape[1]
+    assert search.dims == embeddings.shape[1]
 
 
 @pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
-def test_faiss_search_match(
-    index_string: str, device: str, embeddings_fix: NDArray
-) -> None:
+def test_faiss_search_match(index_string: str, device: str) -> None:
+    embeddings = factories.emb()
     idx = index(index_string, device)
 
-    query = [embeddings_fix[0]]
+    query = [embeddings[0]]
     normalized = utils.normalize(query)
 
     assert normalized.ndim == 2, normalized.shape
@@ -57,27 +52,26 @@ def test_faiss_search_match(
     result = idx.search(normalized)
     assert np.isclose(result.distances, 1), {
         "results": result,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }
     assert np.allclose(result.vectors, query), {
         "results": result,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }
     assert result.indices == 0, {
         "results": result,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }
 
 
 @pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
-def test_faiss_search_mismatch(
-    index_string: str, device: str, embeddings_fix: NDArray
-) -> None:
+def test_faiss_search_mismatch(index_string: str, device: str) -> None:
+    embeddings = factories.emb()
     index_fix = index(index_string, device)
 
-    e0 = [embeddings_fix[0]]
-    query = [embeddings_fix[0] + embeddings_fix[1] / 2]
+    e0 = [embeddings[0]]
+    query = [embeddings[0] + embeddings[1] / 2]
     normalized = utils.normalize(query)
 
     assert normalized.ndim == 2, normalized.shape
@@ -85,9 +79,9 @@ def test_faiss_search_mismatch(
     result = index_fix.search(normalized)
     assert np.allclose(result.vectors, e0), {
         "results": result,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }
     assert result.indices == 0, {
         "results": result,
-        "embeddings": embeddings_fix,
+        "embeddings": embeddings,
     }

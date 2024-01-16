@@ -1,5 +1,6 @@
 from .evaluators import (
     BigBenchChoiceType,
+    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
@@ -13,4 +14,5 @@ from .scores import (
     RougeScore,
     RougeScore2,
     SacreBleuScore,
+    Score,
 )

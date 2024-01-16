@@ -1,6 +1,7 @@
+import functools
 from typing import Any
 
-import numpy as np
+from numpy import random
 from numpy.typing import NDArray
 
 from bocoel import Distance, HnswlibIndex, Index, PolarIndex, WhiteningIndex
@@ -10,10 +11,12 @@ def index_factory() -> list[str]:
     return ["Flat", "HNSW32"]
 
 
+@functools.cache
 def emb() -> NDArray:
-    return np.eye(5)
+    return random.randn(7, 5)
 
 
+@functools.cache
 def hnsw_index(embeddings: NDArray) -> Index:
     return HnswlibIndex(embeddings=embeddings, distance=Distance.INNER_PRODUCT)
 
@@ -32,12 +35,14 @@ def polar_kwargs() -> dict[str, Any]:
     return {"polar_backend": WhiteningIndex, **whiten_kwargs()}
 
 
+@functools.cache
 def whiten_index(embeddings: NDArray) -> Index:
     return WhiteningIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **whiten_kwargs()
     )
 
 
+@functools.cache
 def polar_index(embeddings: NDArray) -> Index:
     return PolarIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **polar_kwargs()

@@ -43,6 +43,6 @@ class SBertEmbedder(Embedder):
                 text,
                 batch_size=self._batch_size,
                 convert_to_numpy=True,
-                show_progress_bar=False,
+                show_progress_bar=True,
             ),
         )

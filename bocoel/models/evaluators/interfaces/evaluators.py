@@ -31,7 +31,7 @@ class Evaluator(Protocol):
         indices_shape = indices.shape
         indices = indices.ravel()
 
-        items = [storage[idx] for idx in indices]
+        items = [storage[idx] for idx in indices.tolist()]
         collated = utils.collate(items)
         result = np.array(self.evaluate(data=collated, lm=lm))
 

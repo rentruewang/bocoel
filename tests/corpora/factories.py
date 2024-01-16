@@ -1,3 +1,5 @@
+import functools
+
 from bocoel import (
     ComposedCorpus,
     Corpus,
@@ -11,6 +13,7 @@ from .indices import factories
 from .storages import factories as storage_factories
 
 
+@functools.cache
 def corpus(device: str) -> Corpus:
     storage = PandasStorage(storage_factories.df())
     embedder = SBertEmbedder(device=device)

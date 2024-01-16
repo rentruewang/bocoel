@@ -1,5 +1,18 @@
-import faiss
+import functools
+import warnings
+
 from torch import cuda
+
+
+@functools.cache
+def faiss():
+    # Optional dependency. Faiss also spits out deprecation warnings.
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+        import faiss
+
+    return faiss
 
 
 def torch_devices() -> list[str]:
@@ -24,7 +37,7 @@ def faiss_devices() -> list[str]:
 
     device_list = ["cpu"]
 
-    if faiss.get_num_gpus() > 0:
+    if faiss().get_num_gpus() > 0:
         device_list.append("cuda")
 
     return device_list

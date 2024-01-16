@@ -30,6 +30,7 @@ from .corpora import (
 )
 from .models import (
     BigBenchChoiceType,
+    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
@@ -40,4 +41,7 @@ from .models import (
     NltkBleuScore,
     OneHotChoiceAccuracy,
     RougeScore,
+    RougeScore2,
+    SacreBleuScore,
+    Score,
 )

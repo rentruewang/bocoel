@@ -1,4 +1,5 @@
 import functools
+import warnings
 from typing import Any
 
 from numpy.typing import NDArray
@@ -15,8 +16,11 @@ from bocoel.corpora.indices.interfaces import (
 
 @functools.cache
 def _faiss():
-    # Optional dependency.
-    import faiss
+    # Optional dependency. Faiss also spits out deprecation warnings.
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+        import faiss
 
     return faiss
 

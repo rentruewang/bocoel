@@ -22,10 +22,12 @@ class BigBenchMatchType(StrEnum):
     EXACT = "EXACT"
     NLTK_BLEU = "NLTK_BLEU"
     SACRE_BLEU = "SACRE_BLEU"
-    ROUGE = "ROUGE"
     ROUGE_1 = "ROUGE_1"
     ROUGE_2 = "ROUGE_2"
     ROUGE_L = "ROUGE_L"
+    ROUGE_SCORE_1 = "ROUGE_SCORE_1"
+    ROUGE_SCORE_2 = "ROUGE_SCORE_2"
+    ROUGE_SCORE_L = "ROUGE_SCORE_L"
 
     @property
     def score(self) -> Score:
@@ -36,13 +38,17 @@ class BigBenchMatchType(StrEnum):
                 return NltkBleuScore()
             case BigBenchMatchType.SACRE_BLEU:
                 return SacreBleuScore()
-            case BigBenchMatchType.ROUGE:
-                return RougeScore()
             case BigBenchMatchType.ROUGE_L:
-                return RougeScore2("rougeL")
+                return RougeScore("rouge-l")
             case BigBenchMatchType.ROUGE_1:
-                return RougeScore2("rouge1")
+                return RougeScore("rouge-1")
             case BigBenchMatchType.ROUGE_2:
+                return RougeScore("rouge-2")
+            case BigBenchMatchType.ROUGE_SCORE_L:
+                return RougeScore2("rougeL")
+            case BigBenchMatchType.ROUGE_SCORE_1:
+                return RougeScore2("rouge1")
+            case BigBenchMatchType.ROUGE_SCORE_2:
                 return RougeScore2("rouge2")
 
 
@@ -75,7 +81,7 @@ class BigBenchQuestionAnswer(BigBenchEvalutor):
         return self._evaluate(inputs, targets, lm)
 
     def _evaluate(
-        self, inputs: Sequence[str], targets: Sequence[Sequence[str]], lm: LanguageModel
+        self, inputs: Sequence[str], targets: Sequence[str], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
         generated = lm.generate(inputs)
-        return [self._score_fn(g, t) for g, t in zip(generated, targets)]
+        return [self._score_fn(g, [t]) for g, t in zip(generated, targets)]

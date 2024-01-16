@@ -1,5 +1,5 @@
 from collections.abc import Callable, Sequence
-from typing import Any, TypeAlias
+from typing import Any
 
 import numpy as np
 from ax.modelbridge import Models
@@ -18,7 +18,7 @@ from .acquisition import AcquisitionFunc
 from .surrogates import SurrogateModel, SurrogateOptions
 
 _KEY = "entropy"
-Device: TypeAlias = str | device
+Device = str | device
 
 
 class AxServiceOptimizer(Optimizer):

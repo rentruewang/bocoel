@@ -1,3 +1,5 @@
+import functools
+
 from datasets import Dataset
 from pandas import DataFrame
 
@@ -27,6 +29,7 @@ def df() -> DataFrame:
     )
 
 
+@functools.cache
 def df_storage() -> Storage:
     return PandasStorage(df())
 
@@ -35,5 +38,6 @@ def dataset() -> Dataset:
     return Dataset.from_pandas(df())
 
 
+@functools.cache
 def datasets_storage() -> Storage:
     return DatasetsStorage(dataset())
