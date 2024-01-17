@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v0.0.1] - 2024-01-13
+## [v0.0.1] - 2024-01-18
 
 ### Added
 
@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Index now support batch size != 1 and k != 1.
 - Batch size mandatary for Index, Embedders, LanguageModel, and Optimizer.
+- Visualization change.
+- A few implementations for baselines, such as KMedoids, EvaluatorBundle, EnsembleEmbedder, HuggingfaceEmbedder.
 
 ## [v0.0.0] - 2024-01-10
 

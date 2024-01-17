@@ -13,7 +13,7 @@ from bocoel.core.optim import utils as optim_utils
 from bocoel.core.optim.interfaces import Optimizer, State, Task
 from bocoel.corpora import Index, SearchResult
 
-from . import params
+from . import params, utils
 from .acquisition import AcquisitionFunc
 from .surrogates import SurrogateModel, SurrogateOptions
 
@@ -40,6 +40,8 @@ class AxServiceOptimizer(Optimizer):
         surrogate: str | SurrogateModel = SurrogateModel.AUTO,
         surrogate_kwargs: SurrogateOptions | None = None,
     ) -> None:
+        utils.check_acquisition_task_combo(acqf=acqf, task=task)
+
         self._device = device
         self._acqf = AcquisitionFunc.lookup(acqf)
         self._surrogate = SurrogateModel.lookup(surrogate).surrogate(surrogate_kwargs)
