@@ -17,7 +17,7 @@ def check_acquisition_task_combo(acqf: AcquisitionFunc, task: Task) -> None:
             )
 
     # FIXME: Remove after fixed.
-    if acqf is AcquisitionFunc.MAX_VALUE_ENTROPY and task is Task.MINIMIZE:
+    if acqf is AcquisitionFunc.MES and task is Task.MINIMIZE:
         raise ValueError(
             f"Max value entropy acquisition for minimization doesn't currently work. "
             "See https://github.com/facebook/Ax/issues/2133"

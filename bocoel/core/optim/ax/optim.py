@@ -40,10 +40,13 @@ class AxServiceOptimizer(Optimizer):
         surrogate: str | SurrogateModel = SurrogateModel.AUTO,
         surrogate_kwargs: SurrogateOptions | None = None,
     ) -> None:
+        acqf = AcquisitionFunc.lookup(acqf)
+        task = Task.lookup(task)
+
         utils.check_acquisition_task_combo(acqf=acqf, task=task)
 
         self._device = device
-        self._acqf = AcquisitionFunc.lookup(acqf)
+        self._acqf = acqf
         self._surrogate = SurrogateModel.lookup(surrogate).surrogate(surrogate_kwargs)
         self._task = task
 
