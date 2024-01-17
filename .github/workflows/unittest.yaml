@@ -2,6 +2,7 @@ name: Unit Testing
 on: [push]
 jobs:
   unit-test:
+    name: 🧪 Unit Testing
     runs-on: ubuntu-latest
     steps:
       - name: 🔔 Check out

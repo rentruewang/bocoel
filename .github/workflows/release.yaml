@@ -30,27 +30,4 @@ jobs:
         run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
 
       - name: 🚧 Building distributions.
-        run: pdm build
-
-      - name: mint API token
-        id: mint-token
-        run: |
-          # retrieve the ambient OIDC token
-          resp=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=pypi")
-          oidc_token=$(jq '.value' <<< "${resp}")
-
-          # exchange the OIDC token for an API token
-          resp=$(curl -X POST https://pypi.org/_/oidc/mint-token -d "{\"token\": \"${oidc_token}\"}")
-          api_token=$(jq '.token' <<< "${resp}")
-
-          # mask the newly minted API token, so that we don't accidentally leak it
-          echo "::add-mask::${api_token}"
-
-          # see the next step in the workflow for an example of using this step output
-          echo "api-token=${api_token}" >> "${GITHUB_OUTPUT}"
-
-      - name: 🍺 Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ steps.mint-token.outputs.api-token }}
+        run: pdm publish

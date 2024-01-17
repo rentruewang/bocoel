@@ -2,6 +2,7 @@ name: Type Checking
 on: [push]
 jobs:
   type-check:
+    name: 👨‍⚕️ Type Checking
     runs-on: ubuntu-latest
     steps:
       - name: 🔔 Check out

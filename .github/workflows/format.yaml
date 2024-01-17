@@ -2,6 +2,7 @@ name: Formatting
 on: [push]
 jobs:
   format-all:
+    name: 📀 Formatting
     runs-on: ubuntu-latest
     steps:
       - name: 🔔 Check out
