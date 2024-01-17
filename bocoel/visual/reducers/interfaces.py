@@ -9,9 +9,7 @@ from pandas import DataFrame
 
 class Reducer(Protocol):
     size: float
-    # FIXME: Better abstraction in the future.
     scores: NDArray
-
     sample_size: Sequence[int]
     description: Sequence[str]
 

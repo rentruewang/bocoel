@@ -41,6 +41,15 @@ class Optimizer(Protocol):
 
         ...
 
+    @abc.abstractmethod
+    def render(self, **kwargs: Any) -> None:
+        """
+        Renders the optimizer's state.
+        Parameters are dependent on the underlying configurations.
+        """
+
+        ...
+
     @classmethod
     @abc.abstractmethod
     def from_index(

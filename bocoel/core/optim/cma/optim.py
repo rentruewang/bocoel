@@ -41,6 +41,9 @@ class PyCMAOptimizer(Optimizer):
     def terminate(self) -> bool:
         return self._es.stop()
 
+    def render(self, **kwargs: Any) -> None:
+        raise NotImplementedError
+
     def step(self) -> Sequence[State]:
         solutions = self._es.ask(self._samples)
 

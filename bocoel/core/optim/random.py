@@ -32,8 +32,8 @@ class RandomOptimizer(Optimizer):
         return True
 
     def step(self) -> Sequence[State]:
-        minimum = np.min(self._index.embeddings, axis=0)
-        maximum = np.max(self._index.embeddings, axis=0)
+        minimum = np.min(np.array(self._index.embeddings), axis=0)
+        maximum = np.max(np.array(self._index.embeddings), axis=0)
 
         samples = random.random([self._samples, self._index.dims])
         samples *= maximum - minimum

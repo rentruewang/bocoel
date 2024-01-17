@@ -72,6 +72,9 @@ class AxServiceOptimizer(Optimizer):
             result_states.append(self._eval_trial(trial_index, parameters))
         return result_states
 
+    def render(self, **kwargs: Any) -> None:
+        raise NotImplementedError
+
     def _create_experiment(self, index: Index) -> None:
         self._ax_client.create_experiment(
             parameters=params.configs(index),

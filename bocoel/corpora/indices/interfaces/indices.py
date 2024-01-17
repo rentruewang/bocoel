@@ -20,6 +20,9 @@ class IndexedArray(Protocol):
     def __getitem__(self, key: int | NDArray, /) -> NDArray:
         ...
 
+    def __array__(self) -> NDArray:
+        return np.array([self[idx] for idx in range(len(self))])
+
 
 class Index(Batched, Protocol):
     """

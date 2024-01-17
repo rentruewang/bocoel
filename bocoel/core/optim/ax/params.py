@@ -13,7 +13,7 @@ class AxServiceParameter(TypedDict):
     log_scale: NotRequired[bool]
 
 
-# FIXME: Currently using Any to silence typing warnings.
+# Currently using Any to silence typing warnings.
 def configs(index: Index) -> list[dict[str, Any]]:
     return [name_dict(index, i) for i in range(index.dims)]
 

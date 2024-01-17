@@ -52,6 +52,9 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
             query=centers, index=self._index, evaluate_fn=self._evaluate_fn, k=1
         )
 
+    def render(self, **kwargs: Any) -> None:
+        raise NotImplementedError
+
     @classmethod
     def from_index(
         cls,
