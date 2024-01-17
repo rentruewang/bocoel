@@ -2,7 +2,7 @@ from collections.abc import Callable, Sequence
 from typing import Any
 
 import numpy as np
-from cma import CMAEvolutionStrategy
+from numpy import random
 from numpy.typing import NDArray
 from typing_extensions import Self
 
@@ -11,51 +11,37 @@ from bocoel.core.optim.interfaces import Optimizer, State, Task
 from bocoel.corpora import Index, SearchResult
 
 
-class PyCMAOptimizer(Optimizer):
-    """
-    TODO: Documentation.
-
-    CMA-ES
-    """
-
+class RandomOptimizer(Optimizer):
     def __init__(
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         *,
         samples: int,
-        minimize: bool = True,
     ) -> None:
         self._index = index
         self._evaluate_fn = evaluate_fn
-
-        self._es = CMAEvolutionStrategy(index.dims * [0], 0.5)
         self._samples = samples
-        self._minimize = minimize
 
     @property
     def task(self) -> Task:
-        return Task.MINIMIZE if self._minimize else Task.MAXIMIZE
+        return Task.EXPLORE
 
     @property
     def terminate(self) -> bool:
-        return self._es.stop()
+        return True
 
     def step(self) -> Sequence[State]:
-        solutions = self._es.ask(self._samples)
+        minimum = np.min(self._index.embeddings, axis=0)
+        maximum = np.max(self._index.embeddings, axis=0)
 
-        result = optim_utils.evaluate_index(
-            query=solutions, index=self._index, evaluate_fn=self._evaluate_fn
+        samples = random.random([self._samples, self._index.dims])
+        samples *= maximum - minimum
+        samples += minimum
+
+        return optim_utils.evaluate_index(
+            query=samples, index=self._index, evaluate_fn=self._evaluate_fn
         )
-
-        evaluation = np.array([r.evaluation for r in result])
-
-        if not self._minimize:
-            evaluation = -evaluation
-
-        self._es.tell(solutions, evaluation)
-
-        return result
 
     @classmethod
     def from_index(
