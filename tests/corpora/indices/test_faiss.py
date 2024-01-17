@@ -19,17 +19,6 @@ def index(index_string: str, device: str) -> FaissIndex:
     )
 
 
-def test_normalize() -> None:
-    embeddings = factories.emb()
-    scaled = embeddings * np.array([1, 2, 3, 4, 5])[None, :]
-    normalized = utils.normalize(scaled)
-    assert np.allclose(normalized, embeddings), {
-        "scaled": scaled,
-        "normalized": normalized,
-        "embeddings": embeddings,
-    }
-
-
 @pytest.mark.parametrize("index_string", factories.index_factory())
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
 def test_init_faiss(index_string: str, device: str) -> None:

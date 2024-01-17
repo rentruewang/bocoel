@@ -4,6 +4,7 @@ from numpy import random
 from numpy.typing import NDArray
 
 from bocoel import Distance, HnswlibIndex, Index, PolarIndex, WhiteningIndex
+from bocoel.corpora.indices import utils as index_utils
 from tests import utils
 
 
@@ -13,10 +14,9 @@ def index_factory() -> list[str]:
 
 @utils.cache
 def emb() -> NDArray:
-    return random.randn(7, 5)
+    return index_utils.normalize(random.randn(7, 5))
 
 
-@utils.cache
 def hnsw_index(embeddings: NDArray) -> Index:
     return HnswlibIndex(embeddings=embeddings, distance=Distance.INNER_PRODUCT)
 
@@ -35,14 +35,12 @@ def polar_kwargs() -> dict[str, Any]:
     return {"polar_backend": WhiteningIndex, **whiten_kwargs()}
 
 
-@utils.cache
 def whiten_index(embeddings: NDArray) -> Index:
     return WhiteningIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **whiten_kwargs()
     )
 
 
-@utils.cache
 def polar_index(embeddings: NDArray) -> Index:
     return PolarIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **polar_kwargs()

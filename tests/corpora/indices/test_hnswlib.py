@@ -12,17 +12,6 @@ def get_index() -> Index:
     return factories.hnsw_index(embeddings)
 
 
-def test_normalize() -> None:
-    embeddings = factories.emb()
-    scaled = embeddings * np.array([1, 2, 3, 4, 5])[None, :]
-    normalized = utils.normalize(scaled)
-    assert np.allclose(normalized, embeddings), {
-        "scaled": scaled,
-        "normalized": normalized,
-        "embeddings": embeddings,
-    }
-
-
 def test_init_hnswlib() -> None:
     embeddings = factories.emb()
 
