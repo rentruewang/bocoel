@@ -1,9 +1,9 @@
+import itertools
 from collections.abc import Callable, Sequence
 from typing import Any
 
 import numpy as np
 import structlog
-from numpy import random
 from numpy.typing import NDArray
 from typing_extensions import Self
 
@@ -14,19 +14,22 @@ from bocoel.corpora import Index, SearchResult
 LOGGER = structlog.get_logger()
 
 
-class RandomOptimizer(Optimizer):
+class UniformOptimizer(Optimizer):
     def __init__(
         self,
         index: Index,
         evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
         *,
-        samples: int,
+        grids: Sequence[int],
     ) -> None:
-        LOGGER.info("Instantiating RandomOptimizer", samples=samples)
+        LOGGER.info("Instantiating UnfiromOptimizer", grids=grids)
 
         self._index = index
         self._evaluate_fn = evaluate_fn
-        self._samples = samples
+        self._grids = grids
+
+        if len(self._grids) != self._index.dims:
+            raise ValueError(f"Expected {self._index.dims} strides, got {self._grids}")
 
     @property
     def task(self) -> Task:
@@ -37,21 +40,23 @@ class RandomOptimizer(Optimizer):
         return True
 
     def step(self) -> Sequence[State]:
-        # Cache the embeddings to save possible computation.
-        embeddings = self._index.embeddings
-        minimum = np.min(embeddings, axis=0)
-        maximum = np.max(embeddings, axis=0)
-
-        samples = random.random([self._samples, self._index.dims])
-        samples *= maximum - minimum
-        samples += minimum
-
-        LOGGER.debug(
-            "Generated samples", samples=samples, minimum=minimum, maximum=maximum
-        )
-
+        samples = self._generate_queries()
         return optim_utils.evaluate_index(
             query=samples, index=self._index, evaluate_fn=self._evaluate_fn
+        )
+
+    def _generate_queries(self) -> NDArray:
+        lower = self._index.lower
+        upper = self._index.upper
+
+        box_size = upper - lower
+        step_size = box_size / self._grids
+
+        return np.array(
+            [
+                step_size * np.array(combo)
+                for combo in itertools.product(*[range(grid) for grid in self._grids])
+            ]
         )
 
     @classmethod

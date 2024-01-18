@@ -35,13 +35,13 @@ def polar_kwargs() -> dict[str, Any]:
     return {"polar_backend": WhiteningIndex, **whiten_kwargs()}
 
 
-def whiten_index(embeddings: NDArray) -> Index:
+def whiten_index(embeddings: NDArray, /) -> Index:
     return WhiteningIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **whiten_kwargs()
     )
 
 
-def polar_index(embeddings: NDArray) -> Index:
+def polar_index(embeddings: NDArray, /) -> Index:
     return PolarIndex(
         embeddings=embeddings, distance=Distance.INNER_PRODUCT, **polar_kwargs()
     )

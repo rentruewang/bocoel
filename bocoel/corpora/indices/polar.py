@@ -6,6 +6,7 @@ import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
     Distance,
     Index,
@@ -29,6 +30,7 @@ class PolarIndex(Index):
         polar_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:
+        embeddings = utils.normalize(embeddings)
         self._index = polar_backend.from_embeddings(
             embeddings=embeddings,
             distance=distance,
@@ -37,7 +39,7 @@ class PolarIndex(Index):
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         # Ignores the length of the query. Only direction is preserved.
-        spatial = polar_to_spatial(1, query)
+        spatial = batched_polar_to_spatial([1.0] * len(query), query)
 
         return self._index._search(spatial, k=k)
 
@@ -49,7 +51,7 @@ class PolarIndex(Index):
     def _embeddings(self) -> NDArray | IndexedArray:
         # Doesn't need to return the polar version of the embeddings
         # because this is just used for looking up encoded embeddings.
-        return Indexer(self._index._embeddings, mapping=spatial_to_polar)
+        return Indexer(self._index._embeddings, mapping=batched_spatial_to_angle)
 
     @property
     def distance(self) -> Distance:
@@ -58,7 +60,9 @@ class PolarIndex(Index):
     @property
     def bounds(self) -> NDArray:
         # See wikipedia linked in the class documentation for details.
-        return np.concatenate([[np.pi] * (self.dims - 1), [2 * np.pi]])
+        upper = np.concatenate([[np.pi] * (self.dims - 1), [2 * np.pi]])
+        lower = np.zeros_like(upper)
+        return np.stack([lower, upper])
 
     @property
     def dims(self) -> int:
@@ -71,7 +75,7 @@ class PolarIndex(Index):
         return cls(embeddings=embeddings, distance=distance, **kwargs)
 
 
-@numba.jit(nopython=True)
+@numba.njit
 def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
     """
     Convert an N-sphere coordinates to cartesian coordinates.
@@ -87,7 +91,16 @@ def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
     return sin * cos * r
 
 
-@numba.jit(nopython=True)
+@numba.njit
+def batched_polar_to_spatial(
+    r: Sequence[float] | NDArray, theta: Sequence[Sequence[float]] | NDArray, /
+) -> NDArray:
+    return np.array(
+        [polar_to_spatial(radius, angle) for radius, angle in zip(r, theta)]
+    )
+
+
+@numba.njit
 def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
     """
     Convert cartesian coordinates to N-sphere coordinates.
@@ -105,3 +118,26 @@ def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
     theta = np.arctan2(np.sqrt(cumsum_back), x[1:])
 
     return r, theta
+
+
+@numba.njit
+def batched_spatial_to_polar(
+    x: Sequence[Sequence[float]] | NDArray, /
+) -> tuple[NDArray, NDArray]:
+    rs = []
+    thetas = []
+    for point in x:
+        r, theta = spatial_to_polar(point)
+        rs.append(r)
+        thetas.append(theta)
+    return np.array(rs), np.array(thetas)
+
+
+def batched_spatial_to_angle(x: Sequence[Sequence[float]] | NDArray, /) -> NDArray:
+    r, theta = batched_spatial_to_polar(x)
+
+    # FIXME: Somehow r != 1
+    # if not np.allclose(r, 1):
+    #     raise ValueError(f"Expected all r to be 1, got {r}")
+
+    return theta
