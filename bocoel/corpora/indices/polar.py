@@ -46,10 +46,10 @@ class PolarIndex(Index):
         return self._index.batch
 
     @property
-    def embeddings(self) -> NDArray | IndexedArray:
+    def _embeddings(self) -> NDArray | IndexedArray:
         # Doesn't need to return the polar version of the embeddings
         # because this is just used for looking up encoded embeddings.
-        return Indexer(self._index.embeddings, mapping=spatial_to_polar)
+        return Indexer(self._index._embeddings, mapping=spatial_to_polar)
 
     @property
     def distance(self) -> Distance:

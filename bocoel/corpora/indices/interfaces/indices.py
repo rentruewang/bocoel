@@ -55,7 +55,7 @@ class Index(Batched, Protocol):
 
         indices = np.concatenate([res.indices for res in results], axis=0)
         distances = np.concatenate([res.distances for res in results], axis=0)
-        vectors = self.embeddings[indices]
+        vectors = self._embeddings[indices]
 
         return SearchResult(
             query=query, vectors=vectors, distances=distances, indices=indices
@@ -65,7 +65,11 @@ class Index(Batched, Protocol):
         return all(query >= self.lower[None, :] & query <= self.upper[None, :])
 
     @property
-    def embeddings(self) -> NDArray | IndexedArray:
+    def embeddings(self) -> NDArray:
+        return np.array(self._embeddings)
+
+    @property
+    def _embeddings(self) -> NDArray | IndexedArray:
         """
         The embeddings used by the index.
         """

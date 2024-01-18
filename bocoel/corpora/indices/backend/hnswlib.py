@@ -50,7 +50,7 @@ class HnswlibIndex(Index):
         return self._batch_size
 
     @property
-    def embeddings(self) -> NDArray | IndexedArray:
+    def _embeddings(self) -> NDArray | IndexedArray:
         return self._emb
 
     @property

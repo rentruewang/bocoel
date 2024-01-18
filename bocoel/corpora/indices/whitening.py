@@ -47,8 +47,8 @@ class WhiteningIndex(Index):
         return self._index.batch
 
     @property
-    def embeddings(self) -> NDArray | IndexedArray:
-        return self._index.embeddings
+    def _embeddings(self) -> NDArray | IndexedArray:
+        return self._index._embeddings
 
     @property
     def distance(self) -> Distance:

@@ -46,10 +46,10 @@ class Indexer(IndexedArray):
     def __len__(self) -> int:
         return len(self._emb)
 
-    def __getitem__(self, key: int | NDArray, /) -> NDArray:
-        if isinstance(key, int):
-            item = self._emb[key]
+    def __getitem__(self, index: int | NDArray, /) -> NDArray:
+        if isinstance(index, int):
+            item = self._emb[index]
             return self._mapping(item)
 
-        items = [self._emb[k] for k in key]
+        items = [self._emb[k] for k in index]
         return np.array([self._mapping(item) for item in items])
