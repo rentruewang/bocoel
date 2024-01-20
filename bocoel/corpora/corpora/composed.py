@@ -55,7 +55,10 @@ class ComposedCorpus(Corpus):
 
         embeddings = embedder.encode(storage.get(key))
         return cls.index_embeddings(
-            embeddings=embeddings, storage=storage, **index_kwargs
+            embeddings=embeddings,
+            storage=storage,
+            index_backend=index_backend,
+            **index_kwargs,
         )
 
     @classmethod

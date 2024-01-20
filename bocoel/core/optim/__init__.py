@@ -1,5 +1,5 @@
 from .ax import AcquisitionFunc, AxServiceOptimizer, AxServiceParameter, Task
-from .interfaces import Optimizer, State
+from .interfaces import Optimizer
 from .sklearn import (
     KMeansOptimizer,
     KMeansOptions,

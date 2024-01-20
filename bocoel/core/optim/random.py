@@ -7,8 +7,9 @@ from numpy import random
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.core.evals import State
 from bocoel.core.optim import utils as optim_utils
-from bocoel.core.optim.interfaces import Optimizer, State, Task
+from bocoel.core.optim.interfaces import Optimizer, Task
 from bocoel.corpora import Index, SearchResult
 
 LOGGER = structlog.get_logger()

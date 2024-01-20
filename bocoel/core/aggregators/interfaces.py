@@ -2,7 +2,7 @@ import abc
 from collections.abc import Mapping, Sequence
 from typing import Any, Protocol
 
-from bocoel.core.optim import State
+from bocoel.core.evals import State
 from bocoel.corpora import Corpus
 from bocoel.models import Adaptor, LanguageModel
 

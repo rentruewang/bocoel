@@ -4,7 +4,7 @@ import structlog
 from numpy.typing import ArrayLike, NDArray
 from typing_extensions import Self
 
-from bocoel.core.optim.interfaces import State
+from bocoel.core.evals import State
 from bocoel.corpora import Index, SearchResult
 
 LOGGER = structlog.get_logger()
@@ -62,6 +62,7 @@ def evaluate_index(
 
     A sequence of states.
     """
+
     LOGGER.debug("Evaluating indices", k=k, index=index)
 
     sr = index.search(query, k=k)

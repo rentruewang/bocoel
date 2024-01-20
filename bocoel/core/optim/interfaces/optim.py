@@ -5,10 +5,10 @@ from typing import Any, Protocol
 from numpy.typing import NDArray
 from typing_extensions import Self
 
+from bocoel.core.evals import State
 from bocoel.corpora import Corpus, Index, SearchResult
 from bocoel.models import Adaptor, LanguageModel
 
-from .states import State
 from .tasks import Task
 
 

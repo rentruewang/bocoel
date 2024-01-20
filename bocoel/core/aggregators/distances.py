@@ -1,10 +1,9 @@
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-import numba
 from scipy.spatial import distance
 
-from bocoel.core.optim import State
+from bocoel.core.evals import State
 from bocoel.corpora import Corpus
 from bocoel.models import Adaptor, LanguageModel
 
@@ -30,7 +29,6 @@ class PathLength(Agg):
         return {met: dist(states, met) for met in self._metrics}
 
 
-@numba.jit(nopython=True)
 def dist(states: Sequence[State], metric: ScipyMetric) -> float:
     total = 0
     for source, target in zip(states[:-1], states[1:]):
