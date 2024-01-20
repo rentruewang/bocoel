@@ -1,9 +1,9 @@
 from typing import Any
 
 from bocoel import (
+    Adaptor,
     AxServiceOptimizer,
     Corpus,
-    Evaluator,
     LanguageModel,
     Optimizer,
     ScikitLearnOptimizer,
@@ -24,7 +24,7 @@ def optimizer_factory(
     *,
     corpus: Corpus,
     lm: LanguageModel,
-    evaluator: Evaluator,
+    adaptor: Adaptor,
     **kwargs: Any,
 ) -> Optimizer:
     name = OptimizerName.lookup(name)
@@ -32,11 +32,11 @@ def optimizer_factory(
     match name:
         case OptimizerName.AX_SERVICE:
             return common.correct_kwargs(AxServiceOptimizer.evaluate_corpus)(
-                corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
+                corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
             )
         case OptimizerName.KMEANS:
             return common.correct_kwargs(ScikitLearnOptimizer.evaluate_corpus)(
-                corpus=corpus, lm=lm, evaluator=evaluator, **kwargs
+                corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
             )
         case _:
             raise ValueError(f"Unknown optimizer name: {name}")

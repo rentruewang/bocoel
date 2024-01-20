@@ -1,21 +1,21 @@
 from typing import Any
 
-from bocoel import BigBenchMultipleChoice, BigBenchQuestionAnswer, Evaluator
+from bocoel import Adaptor, BigBenchMultipleChoice, BigBenchQuestionAnswer
 from bocoel.common import StrEnum
 
 from . import common
 
 
-class EvalName(StrEnum):
+class AdaptorName(StrEnum):
     BIGBENCH_MC = "BIGBENCH_MULTIPLE_CHOICE"
     BIGBENCH_QA = "BIGBENCH_QUESTION_ANSWER"
 
 
-def evaluator_factory(name: str | EvalName, /, **kwargs: Any) -> Evaluator:
-    name = EvalName.lookup(name)
+def adaptor_factory(name: str | AdaptorName, /, **kwargs: Any) -> Adaptor:
+    name = AdaptorName.lookup(name)
 
     match name:
-        case EvalName.BIGBENCH_MC:
+        case AdaptorName.BIGBENCH_MC:
             return common.correct_kwargs(BigBenchMultipleChoice)(**kwargs)
-        case EvalName.BIGBENCH_QA:
+        case AdaptorName.BIGBENCH_QA:
             return common.correct_kwargs(BigBenchQuestionAnswer)(**kwargs)

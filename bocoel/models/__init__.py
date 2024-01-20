@@ -1,10 +1,10 @@
-from .evaluators import (
+from .adaptors import (
+    Adaptor,
+    BigBenchAdaptor,
     BigBenchChoiceType,
-    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
-    Evaluator,
 )
 from .lms import HuggingfaceLM, LanguageModel
 from .scores import (

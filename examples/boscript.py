@@ -107,14 +107,14 @@ def main(
     )
 
     LOGGER.info(
-        "Creating evaluator with arguments",
+        "Creating adaptor with arguments",
         inputs=inputs,
         targets=targets,
         multiple_choice_targets=multiple_choice_targets,
         multiple_choice_scores=multiple_choice_scores,
         metric=metric,
     )
-    evaluator = get_evaluator(
+    adaptor = bigbench_adaptor(
         inputs=inputs,
         multiple_choice_targets=multiple_choice_targets,
         multiple_choice_scores=multiple_choice_scores,
@@ -129,7 +129,7 @@ def main(
         "Creating optimizer with arguments",
         corpus=corpus,
         lm=lm,
-        evaluator=evaluator,
+        adaptor=adaptor,
         sobol_steps=sobol_steps,
         device=device,
         acqf=acqf,
@@ -137,7 +137,7 @@ def main(
     optim = AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
-        evaluator=evaluator,
+        adaptor=adaptor,
         sobol_steps=sobol_steps,
         device=device,
         acqf=AcquisitionFunc.lookup(acqf),
@@ -148,7 +148,7 @@ def main(
         LOGGER.info("iteration {i}: {state}", i=i, state=state)
 
 
-def get_evaluator(
+def bigbench_adaptor(
     inputs: str,
     multiple_choice_targets: str,
     multiple_choice_scores: str,

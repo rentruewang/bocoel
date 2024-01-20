@@ -4,12 +4,12 @@ from typing import Any
 from numpy.typing import NDArray
 
 from bocoel.common import StrEnum
-from bocoel.models.evaluators import utils
+from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Score
 
 from . import prompts
-from .interfaces import BigBenchEvalutor
+from .interfaces import BigBenchAdaptor
 
 
 class BigBenchChoiceType(StrEnum):
@@ -25,7 +25,7 @@ class BigBenchChoiceType(StrEnum):
                 return MultiChoiceAccuracy()
 
 
-class BigBenchMultipleChoice(BigBenchEvalutor):
+class BigBenchMultipleChoice(BigBenchAdaptor):
     def __init__(
         self,
         inputs: str = "inputs",

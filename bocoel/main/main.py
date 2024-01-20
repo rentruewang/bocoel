@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from bocoel.factories import (
+    AdaptorName,
     CorpusName,
     EmbedderName,
-    EvalName,
     IndexName,
     LMName,
     OptimizerName,
@@ -22,8 +22,8 @@ def main(
     storage_name: str | StorageName = StorageName.DATASETS,
     storage_kwargs: str | Path | None = None,
     corpus_name: str | CorpusName = CorpusName.COMPOSED,
-    evaluator_name: str | EvalName = EvalName.BIGBENCH_MC,
-    evaluator_kwargs: str | Path | None = None,
+    adaptor_name: str | AdaptorName = AdaptorName.BIGBENCH_MC,
+    adaptor_kwargs: str | Path | None = None,
     lm_name: str | LMName = LMName.HUGGINGFACE,
     lm_kwargs: str | Path | None = None,
     optimizer_name: str | OptimizerName = OptimizerName.AX_SERVICE,
@@ -35,7 +35,7 @@ def main(
     loaded_embedder_kwargs = data.load(embedder_kwargs) or {}
     loaded_index_kwargs = data.load(index_kwargs) or {}
     loaded_storage_kwargs = data.load(storage_kwargs) or {}
-    loaded_evaluator_kwargs = data.load(evaluator_kwargs) or {}
+    loaded_adaptor_kwargs = data.load(adaptor_kwargs) or {}
     loaded_lm_kwargs = data.load(lm_kwargs) or {}
     loaded_optimizer_kwargs = data.load(optimizer_kwargs) or {}
 
@@ -47,8 +47,8 @@ def main(
         storage_name=storage_name,
         storage_kwargs=loaded_storage_kwargs,
         corpus_name=corpus_name,
-        evaluator_name=evaluator_name,
-        evaluator_kwargs=loaded_evaluator_kwargs,
+        adaptor_name=adaptor_name,
+        adaptor_kwargs=loaded_adaptor_kwargs,
         lm_name=lm_name,
         lm_kwargs=loaded_lm_kwargs,
         optimizer_name=optimizer_name,

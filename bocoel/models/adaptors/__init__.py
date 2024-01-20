@@ -1,9 +1,9 @@
 from .bigbench import (
+    BigBenchAdaptor,
     BigBenchChoiceType,
-    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
 )
-from .dicts import EvaluatorDict
-from .interfaces import Evaluator, EvaluatorBundle
+from .dicts import AdaptorMapping
+from .interfaces import Adaptor, AdaptorBundle

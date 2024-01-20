@@ -1,8 +1,8 @@
 from bocoel import (
     AcquisitionFunc,
+    Adaptor,
     AxServiceOptimizer,
     Corpus,
-    Evaluator,
     KMeansOptimizer,
     KMedoidsOptimizer,
     LanguageModel,
@@ -14,12 +14,12 @@ from tests import utils
 
 @utils.cache
 def ax_optim(
-    corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, device: str, workers: int
+    corpus: Corpus, lm: LanguageModel, adaptor: Adaptor, device: str, workers: int
 ) -> Optimizer:
     return AxServiceOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
-        evaluator=evaluator,
+        adaptor=adaptor,
         sobol_steps=5,
         device=device,
         acqf=AcquisitionFunc.UCB,
@@ -29,22 +29,20 @@ def ax_optim(
 
 
 @utils.cache
-def kmeans_optim(corpus: Corpus, lm: LanguageModel, evaluator: Evaluator) -> Optimizer:
+def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
     return KMeansOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
-        evaluator=evaluator,
+        adaptor=adaptor,
         model_kwargs={"n_clusters": 3, "n_init": "auto"},
     )
 
 
 @utils.cache
-def kmedoids_optim(
-    corpus: Corpus, lm: LanguageModel, evaluator: Evaluator
-) -> Optimizer:
+def kmedoids_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
     return KMedoidsOptimizer.evaluate_corpus(
         corpus=corpus,
         lm=lm,
-        evaluator=evaluator,
+        adaptor=adaptor,
         model_kwargs={"n_clusters": 3},
     )

@@ -9,7 +9,7 @@ from . import factories
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 @pytest.mark.parametrize(
-    "evaluator_name",
+    "adaptor_name",
     [
         "sacre_bleu",
         "nltk_bleu",
@@ -22,10 +22,10 @@ from . import factories
         "exact_match",
     ],
 )
-def test_evaluator_on_corpus(evaluator_name: str, device: str) -> None:
+def test_adaptor_on_corpus(adaptor_name: str, device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    ev = factories.evaluator(evaluator_name)
+    ev = factories.bigbench_adaptor(adaptor_name)
 
     results = ev.on_corpus(corpus=corpus, lm=lm, indices=[0, 1])
     assert len(results) == 2

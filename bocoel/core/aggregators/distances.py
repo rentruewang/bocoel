@@ -6,7 +6,7 @@ from scipy.spatial import distance
 
 from bocoel.core.optim import State
 from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Adaptor, LanguageModel
 
 from .interfaces import Agg
 
@@ -21,11 +21,11 @@ class PathLength(Agg):
         self,
         *,
         corpus: Corpus,
-        evaluator: Evaluator,
+        adaptor: Adaptor,
         lm: LanguageModel,
         states: Sequence[State],
     ) -> Mapping[str, Any]:
-        del corpus, evaluator, lm
+        del corpus, adaptor, lm
 
         return {met: dist(states, met) for met in self._metrics}
 

@@ -54,7 +54,7 @@ class UniformOptimizer(Optimizer):
 
         return np.array(
             [
-                step_size * np.array(combo)
+                step_size * (np.array(combo) + 0.5)
                 for combo in itertools.product(*[range(grid) for grid in self._grids])
             ]
         )

@@ -7,7 +7,7 @@ from numpy.typing import NDArray
 from bocoel.models.lms import LanguageModel
 
 
-class EvaluatorBundle(Protocol):
+class AdaptorBundle(Protocol):
     @abc.abstractmethod
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel

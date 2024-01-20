@@ -11,12 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Auto release to PyPI.
 
+### Added
+
+- A few implementations for baselines.
+
 ### Changed 
 
 - Index now support batch size != 1 and k != 1.
 - Batch size mandatary for Index, Embedders, LanguageModel, and Optimizer.
 - Visualization change.
-- A few implementations for baselines, such as KMedoids, EvaluatorBundle, EnsembleEmbedder, HuggingfaceEmbedder.
 
 ## [v0.0.0] - 2024-01-10
 
@@ -28,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Corpus - Composed
 - LanguageModel - Huggingface
 - Scores - BLEU (NLTK, SacreBLEU), Rouge (Rouge, RougeScore), Exact
-- Evaluators - BigBench
+- Adaptor - BigBench
 - Optimizer - Ax / BoTorch, KMeans
 
 [v0.0.1]: https://github.com/rentruewang/bocoel/compare/v0.0.0...v0.0.1

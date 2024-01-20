@@ -1,43 +1,43 @@
-from bocoel import BigBenchEvalutor, BigBenchMatchType, BigBenchQuestionAnswer, Score
+from bocoel import BigBenchAdaptor, BigBenchMatchType, BigBenchQuestionAnswer, Score
 
 
-def sacre_bleu_eval() -> BigBenchEvalutor:
+def sacre_bleu_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.SACRE_BLEU
     )
 
 
-def nltk_bleu_eval() -> BigBenchEvalutor:
+def nltk_bleu_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.NLTK_BLEU
     )
 
 
-def exact_match_eval() -> BigBenchEvalutor:
+def exact_match_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.EXACT
     )
 
 
-def rouge_1_eval() -> BigBenchEvalutor:
+def rouge_1_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_1
     )
 
 
-def rouge_2_eval() -> BigBenchEvalutor:
+def rouge_2_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_2
     )
 
 
-def rouge_l_eval() -> BigBenchEvalutor:
+def rouge_l_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_L
     )
 
 
-def rouge_score_1_eval() -> BigBenchEvalutor:
+def rouge_score_1_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",
@@ -45,7 +45,7 @@ def rouge_score_1_eval() -> BigBenchEvalutor:
     )
 
 
-def rouge_score_2_eval() -> BigBenchEvalutor:
+def rouge_score_2_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",
@@ -53,7 +53,7 @@ def rouge_score_2_eval() -> BigBenchEvalutor:
     )
 
 
-def rouge_score_l_eval() -> BigBenchEvalutor:
+def rouge_score_l_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
         inputs="question",
         targets="answer",
@@ -61,7 +61,7 @@ def rouge_score_l_eval() -> BigBenchEvalutor:
     )
 
 
-def evaluator(name: str) -> BigBenchEvalutor:
+def bigbench_adaptor(name: str) -> BigBenchAdaptor:
     match name:
         case "sacre_bleu":
             return sacre_bleu_eval()
@@ -82,8 +82,8 @@ def evaluator(name: str) -> BigBenchEvalutor:
         case "exact_match":
             return exact_match_eval()
         case _:
-            raise ValueError(f"Unknown evaluator: {name}")
+            raise ValueError(f"Unknown adaptor: {name}")
 
 
 def score(name: str) -> Score:
-    return evaluator(name)._score_fn
+    return bigbench_adaptor(name)._score_fn

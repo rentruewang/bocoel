@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora import Corpus, Index, SearchResult
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Adaptor, LanguageModel
 
 from .states import State
 from .tasks import Task
@@ -62,10 +62,10 @@ class Optimizer(Protocol):
 
     @classmethod
     def evaluate_corpus(
-        cls, corpus: Corpus, lm: LanguageModel, evaluator: Evaluator, **kwargs: Any
+        cls, corpus: Corpus, lm: LanguageModel, adaptor: Adaptor, **kwargs: Any
     ) -> Self:
         def evaluate_fn(sr: SearchResult) -> Sequence[float] | NDArray:
-            evaluated = evaluator.on_corpus(corpus=corpus, lm=lm, indices=sr.indices)
+            evaluated = adaptor.on_corpus(corpus=corpus, lm=lm, indices=sr.indices)
             assert (
                 evaluated.ndim == 2
             ), f"Evaluated should have the dimensions [batch, k]. Got {evaluated.shape}"

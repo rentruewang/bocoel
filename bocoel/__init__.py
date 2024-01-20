@@ -29,12 +29,12 @@ from .corpora import (
     WhiteningIndex,
 )
 from .models import (
+    Adaptor,
+    BigBenchAdaptor,
     BigBenchChoiceType,
-    BigBenchEvalutor,
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
-    Evaluator,
     HuggingfaceLM,
     LanguageModel,
     MultiChoiceAccuracy,

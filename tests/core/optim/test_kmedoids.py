@@ -3,7 +3,7 @@ import pytest
 import bocoel
 from tests import utils
 from tests.corpora import factories as corpus_factories
-from tests.models.evaluators import factories as eval_factories
+from tests.models.adaptors import factories as adaptor_factories
 from tests.models.lms import factories as lm_factories
 
 from . import factories
@@ -13,16 +13,16 @@ from . import factories
 def test_init_optimizer(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu_eval()
+    adaptor = adaptor_factories.sacre_bleu_eval()
 
-    _ = factories.kmedoids_optim(corpus, lm, evaluator)
+    _ = factories.kmedoids_optim(corpus, lm, adaptor)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_optimize(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
     lm = lm_factories.lm(device=device)
-    evaluator = eval_factories.sacre_bleu_eval()
-    optimizer = factories.kmedoids_optim(corpus, lm, evaluator)
+    adaptor = adaptor_factories.sacre_bleu_eval()
+    optimizer = factories.kmedoids_optim(corpus, lm, adaptor)
 
     bocoel.bocoel(optimizer=optimizer, iterations=15)

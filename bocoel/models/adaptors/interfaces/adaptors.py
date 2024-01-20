@@ -6,13 +6,13 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
-from bocoel.models.evaluators import utils
+from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
 
 
-class Evaluator(Protocol):
+class Adaptor(Protocol):
     """
-    Evaluators are the adaptors between scores, langauge models, and the corpus.
+    Adaptors are the glue between scores, langauge models, and the corpus.
     It is designed to handle running a particular score on a particular corpus / dataset.
     """
 

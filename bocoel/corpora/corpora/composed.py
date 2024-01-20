@@ -1,6 +1,7 @@
 import dataclasses as dcls
 from typing import Any
 
+from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.corpora.interfaces import Corpus
@@ -53,5 +54,17 @@ class ComposedCorpus(Corpus):
         """
 
         embeddings = embedder.encode(storage.get(key))
+        return cls.index_embeddings(
+            embeddings=embeddings, storage=storage, **index_kwargs
+        )
+
+    @classmethod
+    def index_embeddings(
+        cls,
+        storage: Storage,
+        embeddings: NDArray,
+        index_backend: type[Index],
+        **index_kwargs: Any,
+    ) -> Self:
         index = index_backend.from_embeddings(embeddings, **index_kwargs)
         return cls(index=index, storage=storage)

@@ -4,9 +4,9 @@ from typing import Any
 import bocoel
 from bocoel import factories
 from bocoel.factories import (
+    AdaptorName,
     CorpusName,
     EmbedderName,
-    EvalName,
     IndexName,
     LMName,
     OptimizerName,
@@ -22,8 +22,8 @@ def with_kwargs(
     storage_name: str | StorageName,
     storage_kwargs: Mapping[str, Any],
     corpus_name: str | CorpusName,
-    evaluator_name: str | EvalName,
-    evaluator_kwargs: Mapping[str, Any],
+    adaptor_name: str | AdaptorName,
+    adaptor_kwargs: Mapping[str, Any],
     lm_name: str | LMName,
     lm_kwargs: Mapping[str, Any],
     optimizer_name: str | OptimizerName,
@@ -40,8 +40,8 @@ def with_kwargs(
         **index_kwargs,
     )
     lm = factories.lm_factory(lm_name, **lm_kwargs)
-    evaluator = factories.evaluator_factory(evaluator_name, **evaluator_kwargs)
+    adaptor = factories.adaptor_factory(adaptor_name, **adaptor_kwargs)
     optim = factories.optimizer_factory(
-        optimizer_name, corpus=corpus, lm=lm, evaluator=evaluator, **optimizer_kwargs
+        optimizer_name, corpus=corpus, lm=lm, adaptor=adaptor, **optimizer_kwargs
     )
     bocoel.bocoel(optimizer=optim, iterations=iterations)

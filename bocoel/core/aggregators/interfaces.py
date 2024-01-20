@@ -4,7 +4,7 @@ from typing import Any, Protocol
 
 from bocoel.core.optim import State
 from bocoel.corpora import Corpus
-from bocoel.models import Evaluator, LanguageModel
+from bocoel.models import Adaptor, LanguageModel
 
 
 class Agg(Protocol):
@@ -13,7 +13,7 @@ class Agg(Protocol):
         self,
         *,
         corpus: Corpus,
-        evaluator: Evaluator,
+        adaptor: Adaptor,
         lm: LanguageModel,
         states: Sequence[State],
     ) -> Mapping[str, Any]:

@@ -1,7 +1,6 @@
 from collections.abc import Sequence
 from typing import Any
 
-import numba
 import numpy as np
 from numpy.typing import NDArray
 from typing_extensions import Self
@@ -75,7 +74,6 @@ class PolarIndex(Index):
         return cls(embeddings=embeddings, distance=distance, **kwargs)
 
 
-@numba.njit
 def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
     """
     Convert an N-sphere coordinates to cartesian coordinates.
@@ -91,7 +89,6 @@ def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:
     return sin * cos * r
 
 
-@numba.njit
 def batched_polar_to_spatial(
     r: Sequence[float] | NDArray, theta: Sequence[Sequence[float]] | NDArray, /
 ) -> NDArray:
@@ -100,7 +97,7 @@ def batched_polar_to_spatial(
     )
 
 
-@numba.njit
+# TODO: Adapt this to support batches for more efficient computation.
 def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
     """
     Convert cartesian coordinates to N-sphere coordinates.
@@ -120,7 +117,6 @@ def spatial_to_polar(x: Sequence[float] | NDArray, /) -> tuple[float, NDArray]:
     return r, theta
 
 
-@numba.njit
 def batched_spatial_to_polar(
     x: Sequence[Sequence[float]] | NDArray, /
 ) -> tuple[NDArray, NDArray]:
