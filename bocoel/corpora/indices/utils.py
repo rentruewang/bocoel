@@ -1,10 +1,10 @@
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 
 import numpy as np
 from numpy import linalg
 from numpy.typing import ArrayLike, NDArray
 
-from .interfaces import IndexedArray
+from .interfaces import IndexedArray, SearchResult, SearchResultBatch
 
 
 def validate_embeddings(
@@ -53,3 +53,19 @@ class Indexer(IndexedArray):
 
         items = [self._emb[k] for k in index]
         return np.array([self._mapping(item) for item in items])
+
+
+def split_search_result_batch(srb: SearchResultBatch, /) -> list[SearchResult]:
+    return [
+        SearchResult(query=q, vectors=v, distances=d, indices=i)
+        for q, v, d, i in zip(srb.query, srb.vectors, srb.distances, srb.indices)
+    ]
+
+
+def join_search_results(srs: Iterable[SearchResult], /) -> SearchResultBatch:
+    return SearchResultBatch(
+        query=np.stack([sr.query for sr in srs]),
+        vectors=np.stack([sr.vectors for sr in srs]),
+        distances=np.stack([sr.distances for sr in srs]),
+        indices=np.stack([sr.indices for sr in srs]),
+    )

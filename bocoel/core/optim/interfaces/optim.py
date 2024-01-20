@@ -1,12 +1,13 @@
 import abc
-from collections.abc import Callable, Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any, Protocol
 
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.core.evals import State
-from bocoel.corpora import Corpus, Index, SearchResult
+from bocoel.core.optim import evals
+from bocoel.core.optim.evals import QueryEvaluator, ResultEvaluator
+from bocoel.corpora import Corpus, SearchResultBatch, StatefulIndex
 from bocoel.models import Adaptor, LanguageModel
 
 from .tasks import Task
@@ -29,7 +30,7 @@ class Optimizer(Protocol):
         ...
 
     @abc.abstractmethod
-    def step(self) -> Sequence[State]:
+    def step(self) -> Mapping[int, float]:
         """
         Performs a few steps of optimization.
 
@@ -52,23 +53,30 @@ class Optimizer(Protocol):
 
     @classmethod
     @abc.abstractmethod
-    def from_index(
-        cls,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **kwargs: Any,
-    ) -> Self:
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
         ...
+
+    @classmethod
+    @abc.abstractmethod
+    def from_index(
+        cls, index: StatefulIndex, evaluate_fn: ResultEvaluator, **kwargs: Any
+    ) -> Self:
+        query_eval = evals.query_eval_func(index, evaluate_fn)
+        return cls.from_stateful_eval(query_eval, **kwargs)
 
     @classmethod
     def evaluate_corpus(
         cls, corpus: Corpus, lm: LanguageModel, adaptor: Adaptor, **kwargs: Any
     ) -> Self:
-        def evaluate_fn(sr: SearchResult) -> Sequence[float] | NDArray:
+        def evaluate_fn(sr: SearchResultBatch, /) -> Sequence[float] | NDArray:
             evaluated = adaptor.on_corpus(corpus=corpus, lm=lm, indices=sr.indices)
             assert (
                 evaluated.ndim == 2
             ), f"Evaluated should have the dimensions [batch, k]. Got {evaluated.shape}"
             return evaluated.mean(axis=-1)
 
-        return cls.from_index(index=corpus.index, evaluate_fn=evaluate_fn, **kwargs)
+        return cls.from_index(
+            index=corpus.index,
+            evaluate_fn=evals.stateful_eval_func(evaluate_fn),
+            **kwargs,
+        )

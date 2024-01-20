@@ -1,15 +1,12 @@
-from collections.abc import Callable, Sequence
+from collections.abc import Mapping
 from typing import Any
 
 import numpy as np
 from cma import CMAEvolutionStrategy
-from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.core.evals import State
-from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Index, SearchResult
 
 
 class PyCMAOptimizer(Optimizer):
@@ -21,16 +18,15 @@ class PyCMAOptimizer(Optimizer):
 
     def __init__(
         self,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+        query_eval: QueryEvaluator,
         *,
+        dims: int,
         samples: int,
         minimize: bool = True,
     ) -> None:
-        self._index = index
-        self._evaluate_fn = evaluate_fn
+        self._query_eval = query_eval
 
-        self._es = CMAEvolutionStrategy(index.dims * [0], 0.5)
+        self._es = CMAEvolutionStrategy(dims * [0], 0.5)
         self._samples = samples
         self._minimize = minimize
 
@@ -45,14 +41,13 @@ class PyCMAOptimizer(Optimizer):
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
-    def step(self) -> Sequence[State]:
-        solutions = self._es.ask(self._samples)
+    def step(self) -> Mapping[int, float]:
+        solutions = np.array(self._es.ask(self._samples))
 
-        result = optim_utils.evaluate_index(
-            query=solutions, index=self._index, evaluate_fn=self._evaluate_fn
-        )
+        result = self._query_eval(solutions)
 
-        evaluation = np.array([r.evaluation for r in result])
+        # This works because result keeps the ordering.
+        evaluation = np.array(list(result.values()))
 
         if not self._minimize:
             evaluation = -evaluation
@@ -62,10 +57,5 @@ class PyCMAOptimizer(Optimizer):
         return result
 
     @classmethod
-    def from_index(
-        cls,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **kwargs: Any,
-    ) -> Self:
-        return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)

@@ -1,27 +1,49 @@
+import dataclasses as dcls
 from typing import NamedTuple
 
 from numpy.typing import NDArray
 
 
-class SearchResult(NamedTuple):
+@dcls.dataclass(frozen=True)
+class _SearchResult:
     query: NDArray
     """
-    Query vector. Should have shape [batch, dims].
+    Query vector.
+    If batched, should have shape [batch, dims].
+    Or else, should have shape [dims].
     """
 
     vectors: NDArray
     """
-    Nearest neighbors. Should have shape [batch, k, dims].
+    Nearest neighbors.
+    If batched, should have shape [batch, k, dims].
+    Or else, should have shape [k, dims].
     """
 
     distances: NDArray
     """
-    Calculated distance. Should have shape [batch, k].
+    Calculated distance.
+    If batched, should have shape [batch, k].
+    Or else, should have shape [k].
     """
 
     indices: NDArray
     """
-    Index in the original embeddings. Must be integers. Should have shape [batch, k].
+    Index in the original embeddings. Must be integers.
+    If batched, should have shape [batch, k].
+    Or else, should have shape [k].
+    """
+
+
+class SearchResultBatch(_SearchResult):
+    """
+    A batched version of search result.
+    """
+
+
+class SearchResult(_SearchResult):
+    """
+    A non-batched version of search result.
     """
 
 

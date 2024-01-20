@@ -1,11 +1,10 @@
-from collections.abc import Callable, Sequence
 from typing import Literal, TypedDict
 
 from numpy.typing import NDArray
 from sklearn.utils import validation
 from typing_extensions import NotRequired
 
-from bocoel.corpora import Index, SearchResult
+from bocoel.core.optim.evals import QueryEvaluator
 
 from .optim import ScikitLearnOptimizer
 
@@ -22,15 +21,15 @@ class KMedoidsOptions(TypedDict):
 class KMedoidsOptimizer(ScikitLearnOptimizer):
     def __init__(
         self,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+        query_eval: QueryEvaluator,
+        embeddings: NDArray,
         model_kwargs: KMedoidsOptions,
     ) -> None:
         # Optional dependency.
         from sklearn_extra.cluster import KMedoids
 
-        super().__init__(index=index, evaluate_fn=evaluate_fn)
+        super().__init__(query_eval=query_eval)
 
         self._model = KMedoids(**model_kwargs)
-        self._model.fit(index.embeddings)
+        self._model.fit(embeddings)
         validation.check_is_fitted(self._model)

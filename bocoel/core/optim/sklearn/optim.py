@@ -1,15 +1,13 @@
 import abc
 from abc import ABCMeta
-from collections.abc import Callable, Sequence
+from collections.abc import Mapping
 from typing import Any, Protocol
 
 from numpy.typing import NDArray
 from typing_extensions import Self
 
-from bocoel.core.evals import State
-from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Index, SearchResult
 
 
 class ScikitLearnCluster(Protocol):
@@ -29,13 +27,8 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
 
     _model: ScikitLearnCluster
 
-    def __init__(
-        self,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-    ) -> None:
-        self._index = index
-        self._evaluate_fn = evaluate_fn
+    def __init__(self, query_eval: QueryEvaluator) -> None:
+        self._query_eval = query_eval
 
     @property
     def task(self) -> Task:
@@ -46,21 +39,14 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
     def terminate(self) -> bool:
         return True
 
-    def step(self) -> Sequence[State]:
+    def step(self) -> Mapping[int, float]:
         centers = self._model.cluster_centers_
 
-        return optim_utils.evaluate_index(
-            query=centers, index=self._index, evaluate_fn=self._evaluate_fn, k=1
-        )
+        return self._query_eval(centers)
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
     @classmethod
-    def from_index(
-        cls,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **kwargs: Any,
-    ) -> Self:
-        return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)

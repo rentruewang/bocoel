@@ -7,6 +7,8 @@ from .indices import (
     Index,
     PolarIndex,
     SearchResult,
+    SearchResultBatch,
+    StatefulIndex,
     WhiteningIndex,
 )
 from .storages import ConcatStorage, DatasetsStorage, PandasStorage, Storage

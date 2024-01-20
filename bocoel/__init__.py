@@ -9,7 +9,6 @@ from .core import (
     KMedoidsOptions,
     Optimizer,
     ScikitLearnOptimizer,
-    State,
     Task,
 )
 from .corpora import (

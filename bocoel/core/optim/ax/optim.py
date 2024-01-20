@@ -1,7 +1,6 @@
-from collections.abc import Callable, Sequence
+from collections.abc import Mapping
 from typing import Any
 
-import numpy as np
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
@@ -9,10 +8,8 @@ from numpy.typing import NDArray
 from torch import device
 from typing_extensions import Self
 
-from bocoel.core.evals import State
-from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Index, SearchResult
 
 from . import params, utils
 from .acquisition import AcquisitionFunc
@@ -30,8 +27,8 @@ class AxServiceOptimizer(Optimizer):
 
     def __init__(
         self,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
+        query_eval: QueryEvaluator,
+        bounds: NDArray,
         *,
         sobol_steps: int = 0,
         device: Device = "cpu",
@@ -52,10 +49,9 @@ class AxServiceOptimizer(Optimizer):
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
-        self._create_experiment(index)
+        self._create_experiment(bounds)
 
-        self._index = index
-        self._evaluate_fn = evaluate_fn
+        self._query_eval = query_eval
         self._workers = workers
         self._terminate = False
 
@@ -67,62 +63,59 @@ class AxServiceOptimizer(Optimizer):
     def terminate(self) -> bool:
         return self._terminate
 
-    def step(self) -> Sequence[State]:
-        idx_param, done = self._ax_client.get_next_trials(self._workers)
+    def step(self) -> Mapping[int, float]:
+        raise NotImplementedError
 
-        if done:
-            self._terminate = True
+        # idx_param, done = self._ax_client.get_next_trials(self._workers)
 
-        result_states = []
-        for trial_index, parameters in idx_param.items():
-            result_states.append(self._eval_trial(trial_index, parameters))
-        return result_states
+        # if done:
+        #     self._terminate = True
+
+        # result_states = []
+        # for trial_index, parameters in idx_param.items():
+        #     result_states.append(self._eval_trial(trial_index, parameters))
+        # return result_states
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
-    def _create_experiment(self, index: Index) -> None:
+    def _create_experiment(self, bounds: NDArray) -> None:
         self._ax_client.create_experiment(
-            parameters=params.configs(index),
+            parameters=params.configs(bounds),
             objectives={
                 _KEY: ObjectiveProperties(minimize=self._task == Task.MINIMIZE)
             },
         )
 
-    def _eval_trial(self, trial_index: int, parameters: dict[str, float]) -> State:
-        state = self._eval_params(parameters)
+    # def _eval_trial(self, trial_index: int, parameters: dict[str, float]) -> State:
+    #     state = self._eval_params(parameters)
 
-        evaluation = state.evaluation
+    #     evaluation = state.evaluation
 
-        if self._task == Task.EXPLORE:
-            reported_value = 0.0
-        else:
-            # Average of all the retrieved neighbors if k != 1.
-            # No need to average ovre batch size as currently batch = 1.
-            reported_value = np.average(evaluation).item()
+    #     if self._task == Task.EXPLORE:
+    #         reported_value = 0.0
+    #     else:
+    #         # Average of all the retrieved neighbors if k != 1.
+    #         # No need to average ovre batch size as currently batch = 1.
+    #         reported_value = np.average(evaluation).item()
 
-        self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
+    #     self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
 
-        return state
+    #     return state
 
-    def _eval_params(self, parameters: dict[str, float], k: int = 1) -> State:
-        index_dims = self._index.dims
-        names = params.name_list(index_dims)
-        query = [[parameters[name] for name in names]]
+    # def _eval_params(self, parameters: dict[str, float], k: int = 1) -> State:
+    #     index_dims = self._index.dims
+    #     names = params.name_list(index_dims)
+    #     query = [[parameters[name] for name in names]]
 
-        (result,) = optim_utils.evaluate_index(
-            query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
-        )
-        return result
+    #     (result,) = optim_utils.evaluate_index(
+    #         query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
+    #     )
+    #     return result
 
     @classmethod
-    def from_index(
-        cls,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **kwargs: Any,
-    ) -> Self:
-        return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)
 
     @staticmethod
     def _terminate_step(steps: list[GenerationStep]) -> int:

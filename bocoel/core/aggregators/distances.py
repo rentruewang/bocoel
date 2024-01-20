@@ -3,8 +3,7 @@ from typing import Any, Literal
 
 from scipy.spatial import distance
 
-from bocoel.core.evals import State
-from bocoel.corpora import Corpus
+from bocoel.corpora import Corpus, SearchResult
 from bocoel.models import Adaptor, LanguageModel
 
 from .interfaces import Agg
@@ -17,20 +16,14 @@ class PathLength(Agg):
         self._metrics = metrics
 
     def agg(
-        self,
-        *,
-        corpus: Corpus,
-        adaptor: Adaptor,
-        lm: LanguageModel,
-        states: Sequence[State],
+        self, *, corpus: Corpus, adaptor: Adaptor, lm: LanguageModel
     ) -> Mapping[str, Any]:
-        del corpus, adaptor, lm
+        search_results = corpus.index.history
+        return {met: dist(search_results, met) for met in self._metrics}
 
-        return {met: dist(states, met) for met in self._metrics}
 
-
-def dist(states: Sequence[State], metric: ScipyMetric) -> float:
+def dist(states: Sequence[SearchResult], metric: ScipyMetric) -> float:
     total = 0
     for source, target in zip(states[:-1], states[1:]):
-        total += distance.cdist(source, target, metric=metric)
+        total += distance.cdist(source.query, target.query, metric=metric)
     return total

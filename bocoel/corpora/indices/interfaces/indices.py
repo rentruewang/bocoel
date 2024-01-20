@@ -8,7 +8,7 @@ from typing_extensions import Self
 from bocoel.common import Batched
 
 from .distances import Distance
-from .results import InternalResult, SearchResult
+from .results import InternalResult, SearchResultBatch
 
 
 class IndexedArray(Protocol):
@@ -29,7 +29,7 @@ class Index(Batched, Protocol):
     Index is responsible for fast retrieval given a vector query.
     """
 
-    def search(self, query: ArrayLike, k: int = 1) -> SearchResult:
+    def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
         Calls the search function and performs some checks.
         """
@@ -57,7 +57,7 @@ class Index(Batched, Protocol):
         distances = np.concatenate([res.distances for res in results], axis=0)
         vectors = self._embeddings[indices]
 
-        return SearchResult(
+        return SearchResultBatch(
             query=query, vectors=vectors, distances=distances, indices=indices
         )
 

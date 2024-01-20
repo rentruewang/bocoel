@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from bocoel.corpora.indices import Index
+from bocoel.corpora.indices import StatefulIndex
 from bocoel.corpora.storages import Storage
 
 
@@ -23,7 +23,7 @@ class Corpus(Protocol):
     Can be viewed as a dataframe of texts.
     """
 
-    index: Index
+    index: StatefulIndex
     """
     Index searches one particular column in the storage into vectors.
     """

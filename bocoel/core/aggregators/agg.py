@@ -1,7 +1,6 @@
 from collections.abc import Mapping, Sequence
 from typing import Any
 
-from bocoel.core.evals import State
 from bocoel.corpora import Corpus
 from bocoel.models import Adaptor, LanguageModel
 
@@ -18,7 +17,6 @@ class MergeAgg(Agg):
         corpus: Corpus,
         adaptor: Adaptor,
         lm: LanguageModel,
-        states: Sequence[State],
     ) -> Mapping[str, Any]:
         items: list[tuple[str, Agg]]
         if isinstance(self._aggs, Sequence):
@@ -34,7 +32,6 @@ class MergeAgg(Agg):
                     corpus=corpus,
                     adaptor=adaptor,
                     lm=lm,
-                    states=states,
                     prefix=prefix,
                 )
             )
@@ -42,14 +39,9 @@ class MergeAgg(Agg):
 
 
 def _aggregate(
-    agg: Agg,
-    corpus: Corpus,
-    adaptor: Adaptor,
-    lm: LanguageModel,
-    states: Sequence[State],
-    prefix: str = "",
+    agg: Agg, corpus: Corpus, adaptor: Adaptor, lm: LanguageModel, prefix: str = ""
 ) -> Mapping[str, Any]:
-    aggregated = agg.agg(corpus=corpus, adaptor=adaptor, lm=lm, states=states)
+    aggregated = agg.agg(corpus=corpus, adaptor=adaptor, lm=lm)
 
     if not prefix:
         return aggregated

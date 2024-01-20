@@ -1,32 +1,23 @@
-from collections.abc import Callable, Sequence
-from typing import Any
+from collections.abc import Mapping
 
-import numpy as np
 import structlog
 from numpy import random
 from numpy.typing import NDArray
-from typing_extensions import Self
 
-from bocoel.core.evals import State
-from bocoel.core.optim import utils as optim_utils
+from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Index, SearchResult
 
 LOGGER = structlog.get_logger()
 
 
 class RandomOptimizer(Optimizer):
     def __init__(
-        self,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        *,
-        samples: int,
+        self, query_eval: QueryEvaluator, bounds: NDArray, *, samples: int
     ) -> None:
         LOGGER.info("Instantiating RandomOptimizer", samples=samples)
 
-        self._index = index
-        self._evaluate_fn = evaluate_fn
+        self._query_eval = query_eval
+        self._bounds = bounds
         self._samples = samples
 
     @property
@@ -37,29 +28,15 @@ class RandomOptimizer(Optimizer):
     def terminate(self) -> bool:
         return True
 
-    def step(self) -> Sequence[State]:
+    def step(self) -> Mapping[int, float]:
         # Cache the embeddings to save possible computation.
-        embeddings = self._index.embeddings
-        minimum = np.min(embeddings, axis=0)
-        maximum = np.max(embeddings, axis=0)
+        lower = self._bounds[:, 0]
+        upper = self._bounds[:, 1]
 
-        samples = random.random([self._samples, self._index.dims])
-        samples *= maximum - minimum
-        samples += minimum
+        samples = random.random([self._samples, len(self._bounds)])
+        samples *= upper - lower
+        samples += lower
 
-        LOGGER.debug(
-            "Generated samples", samples=samples, minimum=minimum, maximum=maximum
-        )
+        LOGGER.debug("Generated samples", samples=samples, minimum=lower, maximum=upper)
 
-        return optim_utils.evaluate_index(
-            query=samples, index=self._index, evaluate_fn=self._evaluate_fn
-        )
-
-    @classmethod
-    def from_index(
-        cls,
-        index: Index,
-        evaluate_fn: Callable[[SearchResult], Sequence[float] | NDArray],
-        **kwargs: Any,
-    ) -> Self:
-        return cls(index=index, evaluate_fn=evaluate_fn, **kwargs)
+        return self._query_eval(samples)
