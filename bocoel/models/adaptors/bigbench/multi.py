@@ -1,6 +1,8 @@
 from collections.abc import Mapping, Sequence
+from numbers import Number
 from typing import Any
 
+import structlog
 from numpy.typing import NDArray
 
 from bocoel.common import StrEnum
@@ -10,6 +12,8 @@ from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Scor
 
 from . import prompts
 from .interfaces import BigBenchAdaptor
+
+LOGGER = structlog.get_logger()
 
 
 class BigBenchChoiceType(StrEnum):
@@ -47,14 +51,21 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         multiple_choice_targets = data[self._multiple_choice_targets]
         multiple_choice_scores = data[self._multiple_choice_scores]
 
+        LOGGER.debug(
+            "Evaluating",
+            inputs=inputs,
+            multiple_choice_targets=multiple_choice_targets,
+            multiple_choice_scores=multiple_choice_scores,
+        )
+
         # Check data.
         if not all(isinstance(ipt, str) for ipt in inputs):
             raise ValueError("Inputs must be strings.")
 
-        if not all(utils.list_of(mct, int) for mct in multiple_choice_targets):
+        if not all(utils.list_of(mct, str) for mct in multiple_choice_targets):
             raise ValueError("Multiple choice targets must be sequences.")
 
-        if not all(utils.list_of(mcs, float) for mcs in multiple_choice_scores):
+        if not all(utils.list_of(mcs, Number) for mcs in multiple_choice_scores):
             raise ValueError("Multiple choice scores must be floats.")
 
         return self._evaluate(
@@ -77,7 +88,10 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         ]
 
         generated = lm.generate(prmpt)
+
         gen_int = [utils.parse_int(item) for item in generated]
+
+        LOGGER.debug("Generated prompts", generated=generated, gen_int=gen_int)
 
         return [
             self._score_fn(target=g, references=s)
