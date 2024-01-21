@@ -8,7 +8,14 @@ import structlog
 from numpy import random
 from numpy.typing import ArrayLike
 
-from bocoel import AcquisitionFunc, AxServiceOptimizer, Boundary, RandomOptimizer, Task
+from bocoel import (
+    AcquisitionFunc,
+    AxServiceOptimizer,
+    Boundary,
+    Optimizer,
+    RandomOptimizer,
+    Task,
+)
 
 structlog.configure(
     wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
@@ -73,7 +80,7 @@ def explore(
 
 
 def main(
-    task: Literal["MININUM", "MAXIMUM"],
+    task: Literal["MININUM", "MAXIMUM", "EXPLORE"],
     iters: int,
     acqf: str,
     mean: float = 0,
@@ -96,8 +103,9 @@ def main(
         average = -np.sum(result, axis=1)
 
         assert average.shape == (len(query),)
-        return dict(enumerate(average))
+        return OrderedDict(enumerate(average))
 
+    optimizer: Optimizer
     if acqf.upper() == "RANDOM":
         optimizer = RandomOptimizer(
             query_eval=query_eval,
