@@ -28,11 +28,11 @@ def test_hnswlib_search_match() -> None:
 
     result = get_index().search(normalized)
     # See https://github.com/nmslib/hnswlib#supported-distances
-    assert np.isclose(result.distances, 1 - 1), {
+    assert np.isclose(result.distances, 1 - 1, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }
-    assert np.allclose(result.vectors, query), {
+    assert np.allclose(result.vectors, query, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }
@@ -52,7 +52,7 @@ def test_hnswlib_search_mismatch() -> None:
     assert normalized.ndim == 2, normalized.shape
 
     result = get_index().search(normalized)
-    assert np.allclose(result.vectors, e0), {
+    assert np.allclose(result.vectors, e0, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }

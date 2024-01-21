@@ -89,9 +89,9 @@ class AxServiceOptimizer(Optimizer):
         query = [[parameters[name] for name in names]]
         [[_, value]] = self._query_eval(query).items()
 
-        # Exploration with a maximization entropy setting means maximizing y=0.
-        if self._task is Task.EXPLORE:
-            value = 0
+        # # Exploration with a maximization entropy setting means maximizing y=0.
+        # if self._task is Task.EXPLORE:
+        #     value = 0
 
         self._ax_client.complete_trial(tidx, raw_data={_KEY: value})
 

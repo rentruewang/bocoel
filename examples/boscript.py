@@ -26,7 +26,7 @@ from bocoel import (
 )
 
 structlog.configure(
-    wrapper_class=structlog.make_filtering_bound_logger(logging.DEBUG),
+    wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
 )
 
 LOGGER = structlog.get_logger()

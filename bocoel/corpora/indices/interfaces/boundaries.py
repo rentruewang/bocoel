@@ -1,6 +1,8 @@
 import dataclasses as dcls
 
+import numpy as np
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 
 @dcls.dataclass(frozen=True)
@@ -10,6 +12,9 @@ class Boundary:
     def __post_init__(self) -> None:
         if self.bounds.ndim != 2:
             raise ValueError(f"Expected 2D bounds, got {self.bounds.ndim}D")
+
+        if self.bounds.shape[1] != 2:
+            raise ValueError(f"Expected 2 columns, got {self.bounds.shape[1]}")
 
         if (self.lower > self.upper).any():
             raise ValueError("Expected lower <= upper")
@@ -31,3 +36,7 @@ class Boundary:
     @property
     def upper(self) -> NDArray:
         return self.bounds[:, 1]
+
+    @classmethod
+    def fixed(cls, lower: float, upper: float, dims: int) -> Self:
+        return cls(bounds=np.array([[lower, upper]] * dims))

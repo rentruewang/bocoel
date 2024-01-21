@@ -1,4 +1,5 @@
 from collections.abc import Mapping
+from typing import Any
 
 import structlog
 from numpy import random
@@ -39,3 +40,6 @@ class RandomOptimizer(Optimizer):
         LOGGER.debug("Generated samples", samples=samples, minimum=lower, maximum=upper)
 
         return self._query_eval(samples)
+
+    def render(self, **kwargs: Any) -> None:
+        raise NotImplementedError

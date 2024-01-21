@@ -1,5 +1,6 @@
 import itertools
 from collections.abc import Mapping, Sequence
+from typing import Any
 
 import numpy as np
 import structlog
@@ -52,3 +53,6 @@ class UniformOptimizer(Optimizer):
                 for combo in itertools.product(*[range(grid) for grid in self._grids])
             ]
         )
+
+    def render(self, **kwargs: Any) -> None:
+        raise NotImplementedError

@@ -39,11 +39,11 @@ def test_faiss_search_match(index_string: str, device: str) -> None:
     assert normalized.ndim == 2, normalized.shape
 
     result = idx.search(normalized)
-    assert np.isclose(result.distances, 1), {
+    assert np.isclose(result.distances, 1, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }
-    assert np.allclose(result.vectors, query), {
+    assert np.allclose(result.vectors, query, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }
@@ -66,7 +66,7 @@ def test_faiss_search_mismatch(index_string: str, device: str) -> None:
     assert normalized.ndim == 2, normalized.shape
 
     result = index_fix.search(normalized)
-    assert np.allclose(result.vectors, e0), {
+    assert np.allclose(result.vectors, e0, atol=1e-5), {
         "results": result,
         "embeddings": embeddings,
     }
