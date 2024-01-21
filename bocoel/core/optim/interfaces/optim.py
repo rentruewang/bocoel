@@ -1,14 +1,6 @@
 import abc
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from typing import Any, Protocol
-
-from numpy.typing import NDArray
-from typing_extensions import Self
-
-from bocoel.core.optim import evals
-from bocoel.core.optim.evals import QueryEvaluator, ResultEvaluator
-from bocoel.corpora import Boundary, Corpus, SearchResultBatch, StatefulIndex
-from bocoel.models import Adaptor, LanguageModel
 
 from .tasks import Task
 

@@ -7,7 +7,13 @@ from .optim import (
     KMedoidsOptimizer,
     KMedoidsOptions,
     Optimizer,
+    QueryEvaluator,
     RemainingSteps,
     ScikitLearnOptimizer,
+    SearchEvaluator,
     Task,
+    evaluate_corpus,
+    evaluate_index,
+    query_eval_func,
+    search_eval_func,
 )

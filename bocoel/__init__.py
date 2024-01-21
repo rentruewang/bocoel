@@ -8,8 +8,14 @@ from .core import (
     KMedoidsOptimizer,
     KMedoidsOptions,
     Optimizer,
+    QueryEvaluator,
     ScikitLearnOptimizer,
+    SearchEvaluator,
     Task,
+    evaluate_corpus,
+    evaluate_index,
+    query_eval_func,
+    search_eval_func,
 )
 from .corpora import (
     Boundary,

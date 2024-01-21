@@ -7,6 +7,7 @@ import fire
 import structlog
 from tqdm import tqdm
 
+import bocoel
 from bocoel import (
     AcquisitionFunc,
     AxServiceOptimizer,
@@ -134,7 +135,8 @@ def main(
         device=device,
         acqf=acqf,
     )
-    optim = AxServiceOptimizer.evaluate_corpus(
+    optim = bocoel.evaluate_corpus(
+        AxServiceOptimizer,
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,

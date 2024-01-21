@@ -4,9 +4,7 @@ from typing import Any
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
-from numpy.typing import NDArray
 from torch import device
-from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task

@@ -1,11 +1,9 @@
 import itertools
 from collections.abc import Mapping, Sequence
-from typing import Any
 
 import numpy as np
 import structlog
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task

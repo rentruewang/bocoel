@@ -2,7 +2,6 @@ from collections.abc import Mapping
 
 import structlog
 from numpy import random
-from numpy.typing import NDArray
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task

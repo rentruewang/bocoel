@@ -4,7 +4,6 @@ from collections.abc import Mapping
 from typing import Any, Protocol
 
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task

@@ -1,6 +1,5 @@
 from typing import Any, TypedDict
 
-from numpy.typing import NDArray
 from typing_extensions import NotRequired
 
 from bocoel.corpora import Boundary

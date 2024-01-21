@@ -3,7 +3,6 @@ from typing import Any
 
 import numpy as np
 from cma import CMAEvolutionStrategy
-from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task

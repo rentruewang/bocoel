@@ -8,6 +8,7 @@ from bocoel import (
     LanguageModel,
     Optimizer,
     Task,
+    core,
 )
 from tests import utils
 
@@ -16,7 +17,8 @@ from tests import utils
 def ax_optim(
     corpus: Corpus, lm: LanguageModel, adaptor: Adaptor, device: str, workers: int
 ) -> Optimizer:
-    return AxServiceOptimizer.evaluate_corpus(
+    return core.evaluate_corpus(
+        AxServiceOptimizer,
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,
@@ -30,7 +32,8 @@ def ax_optim(
 
 @utils.cache
 def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
-    return KMeansOptimizer.evaluate_corpus(
+    return core.evaluate_corpus(
+        KMeansOptimizer,
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,
@@ -40,7 +43,8 @@ def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimiz
 
 @utils.cache
 def kmedoids_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
-    return KMedoidsOptimizer.evaluate_corpus(
+    return core.evaluate_corpus(
+        KMedoidsOptimizer,
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,

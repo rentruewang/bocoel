@@ -1,9 +1,9 @@
-from typing import Any, Literal, TypedDict
+from typing import Literal, TypedDict
 
 from numpy.typing import NDArray
 from sklearn.cluster import KMeans
 from sklearn.utils import validation
-from typing_extensions import NotRequired, Self
+from typing_extensions import NotRequired
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.corpora import Boundary

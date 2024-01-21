@@ -3,7 +3,6 @@ import warnings
 from typing import Any
 
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (

@@ -1,8 +1,6 @@
 from collections.abc import Mapping, Sequence
-from typing import Any
 
 from numpy.typing import ArrayLike, NDArray
-from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
@@ -12,7 +10,7 @@ from bocoel.corpora.indices.interfaces import (
     IndexedArray,
     SearchResult,
 )
-from bocoel.corpora.indices.interfaces.results import InternalResult, SearchResultBatch
+from bocoel.corpora.indices.interfaces.results import InternalResult
 
 
 class StatefulIndex(Index):
