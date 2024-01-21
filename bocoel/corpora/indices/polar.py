@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
+    Boundary,
     Distance,
     Index,
     IndexedArray,
@@ -30,7 +31,7 @@ class PolarIndex(Index):
         **backend_kwargs: Any,
     ) -> None:
         embeddings = utils.normalize(embeddings)
-        self._index = polar_backend.from_embeddings(
+        self._index = polar_backend(
             embeddings=embeddings,
             distance=distance,
             **backend_kwargs,
@@ -57,21 +58,15 @@ class PolarIndex(Index):
         return self._index.distance
 
     @property
-    def bounds(self) -> NDArray:
+    def boundary(self) -> Boundary:
         # See wikipedia linked in the class documentation for details.
         upper = np.concatenate([[np.pi] * (self.dims - 1), [2 * np.pi]])
         lower = np.zeros_like(upper)
-        return np.stack([lower, upper])
+        return Boundary(np.stack([lower, upper]))
 
     @property
     def dims(self) -> int:
         return self._index.dims - 1
-
-    @classmethod
-    def from_embeddings(
-        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
-    ) -> Self:
-        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
 
 def polar_to_spatial(r: float, theta: Sequence[float] | NDArray, /) -> NDArray:

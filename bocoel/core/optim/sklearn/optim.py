@@ -8,6 +8,7 @@ from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.corpora import Boundary
 
 
 class ScikitLearnCluster(Protocol):
@@ -27,8 +28,9 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
 
     _model: ScikitLearnCluster
 
-    def __init__(self, query_eval: QueryEvaluator) -> None:
+    def __init__(self, query_eval: QueryEvaluator, boundary: Boundary) -> None:
         self._query_eval = query_eval
+        self._boundary = boundary
 
     @property
     def task(self) -> Task:
@@ -46,7 +48,3 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
-
-    @classmethod
-    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
-        return cls(query_eval=evaluate_fn, **kwargs)

@@ -1,6 +1,7 @@
 from .corpora import ComposedCorpus, Corpus
 from .embedders import Embedder, SBertEmbedder
 from .indices import (
+    Boundary,
     Distance,
     FaissIndex,
     HnswlibIndex,

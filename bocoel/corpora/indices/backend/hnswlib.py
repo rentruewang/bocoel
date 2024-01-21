@@ -5,6 +5,7 @@ from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
+    Boundary,
     Distance,
     Index,
     IndexedArray,
@@ -37,8 +38,7 @@ class HnswlibIndex(Index):
         self._dist = Distance.lookup(distance)
         self._batch_size = batch_size
 
-        self._bounds = utils.boundaries(embeddings)
-        assert self._bounds.shape[1] == 2
+        self._boundary = utils.boundaries(embeddings)
 
         # A public attribute because this can be changed at anytime.
         self.threads = threads
@@ -62,8 +62,8 @@ class HnswlibIndex(Index):
         return self._emb.shape[1]
 
     @property
-    def bounds(self) -> NDArray:
-        return self._bounds
+    def boundary(self) -> Boundary:
+        return self._boundary
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         indices, distances = self._index.knn_query(query, k=k, num_threads=self.threads)
@@ -77,12 +77,6 @@ class HnswlibIndex(Index):
         self._index = _HnswlibIndex(space=space, dim=self.dims)
         self._index.init_index(max_elements=len(self._emb))
         self._index.add_items(self._emb, num_threads=self.threads)
-
-    @classmethod
-    def from_embeddings(
-        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
-    ) -> Self:
-        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
     def _hnswlib_space(distance: Distance) -> _HnswlibDist:

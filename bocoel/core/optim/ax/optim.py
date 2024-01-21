@@ -10,6 +10,7 @@ from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.corpora import Boundary
 
 from . import params, utils
 from .acquisition import AcquisitionFunc
@@ -28,7 +29,7 @@ class AxServiceOptimizer(Optimizer):
     def __init__(
         self,
         query_eval: QueryEvaluator,
-        bounds: NDArray,
+        boundary: Boundary,
         *,
         sobol_steps: int = 0,
         device: Device = "cpu",
@@ -49,7 +50,7 @@ class AxServiceOptimizer(Optimizer):
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
-        self._create_experiment(bounds)
+        self._create_experiment(boundary)
 
         self._query_eval = query_eval
         self._workers = workers
@@ -79,9 +80,9 @@ class AxServiceOptimizer(Optimizer):
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
-    def _create_experiment(self, bounds: NDArray) -> None:
+    def _create_experiment(self, boundary: Boundary) -> None:
         self._ax_client.create_experiment(
-            parameters=params.configs(bounds),
+            parameters=params.configs(boundary),
             objectives={
                 _KEY: ObjectiveProperties(minimize=self._task == Task.MINIMIZE)
             },
@@ -113,18 +114,6 @@ class AxServiceOptimizer(Optimizer):
     #     )
     #     return result
 
-    @classmethod
-    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
-        return cls(query_eval=evaluate_fn, **kwargs)
-
-    @staticmethod
-    def _terminate_step(steps: list[GenerationStep]) -> int:
-        trials = [step.num_trials for step in steps]
-        if all(t >= 0 for t in trials):
-            return sum(trials)
-        else:
-            return -1
-
     def _gen_strat(self, sobol_steps: int) -> GenerationStrategy:
         modular_kwargs: dict[str, Any] = {"torch_device": self._device}
 
@@ -144,3 +133,11 @@ class AxServiceOptimizer(Optimizer):
                 ),
             ]
         )
+
+    @staticmethod
+    def _terminate_step(steps: list[GenerationStep]) -> int:
+        trials = [step.num_trials for step in steps]
+        if all(t >= 0 for t in trials):
+            return sum(trials)
+        else:
+            return -1

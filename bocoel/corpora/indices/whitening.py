@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
+    Boundary,
     Distance,
     Index,
     IndexedArray,
@@ -37,7 +38,7 @@ class WhiteningIndex(Index):
             "whitened": white.shape,
             "remains": remains,
         }
-        self._index = whitening_backend.from_embeddings(
+        self._index = whitening_backend(
             embeddings=white, distance=distance, **backend_kwargs
         )
         assert remains == self._index.dims
@@ -59,17 +60,11 @@ class WhiteningIndex(Index):
         return self._index.dims
 
     @property
-    def bounds(self) -> NDArray:
-        return self._index.bounds
+    def boundary(self) -> Boundary:
+        return self._index.boundary
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         return self._index._search(query, k=k)
-
-    @classmethod
-    def from_embeddings(
-        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
-    ) -> Self:
-        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
     def whiten(embeddings: NDArray, k: int) -> NDArray:

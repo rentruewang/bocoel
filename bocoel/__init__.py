@@ -12,6 +12,7 @@ from .core import (
     Task,
 )
 from .corpora import (
+    Boundary,
     ComposedCorpus,
     ConcatStorage,
     Corpus,

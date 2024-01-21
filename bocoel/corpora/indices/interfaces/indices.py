@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 from bocoel.common import Batched
 
+from .boundaries import Boundary
 from .distances import Distance
 from .results import InternalResult, SearchResultBatch
 
@@ -28,6 +29,10 @@ class Index(Batched, Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
     """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        # Included s.t. constructors of Index can be used.
+        ...
 
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
@@ -69,6 +74,7 @@ class Index(Batched, Protocol):
         return np.array(self._embeddings)
 
     @property
+    @abc.abstractmethod
     def _embeddings(self) -> NDArray | IndexedArray:
         """
         The embeddings used by the index.
@@ -78,33 +84,18 @@ class Index(Batched, Protocol):
 
     @property
     @abc.abstractmethod
+    def boundary(self) -> Boundary:
+        """
+        The boundary of the input.
+        """
+
+        ...
+
+    @property
+    @abc.abstractmethod
     def distance(self) -> Distance:
         """
         The distance metric used by the index.
-        """
-
-        ...
-
-    @property
-    @abc.abstractmethod
-    def bounds(self) -> NDArray:
-        """
-        The bounds of the input.
-
-        Returns
-        -------
-
-        An ndarray of shape [dims, 2] where the first column is the lower bound,
-        and the second column is the upper bound.
-        """
-
-        ...
-
-    @property
-    @abc.abstractmethod
-    def dims(self) -> int:
-        """
-        The number of dimensions that the query vector should be.
         """
 
         ...
@@ -132,34 +123,18 @@ class Index(Batched, Protocol):
 
         ...
 
-    @classmethod
-    @abc.abstractmethod
-    def from_embeddings(
-        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
-    ) -> Self:
+    @property
+    def dims(self) -> int:
         """
-        Constructs a seasrcher from a set of embeddings.
-
-        Parameters
-        ----------
-
-        `embeddings: NDArray`
-        The embeddings to construct the index from.
-
-        `distance: str | Distance`
-        The distance to use. Can be a string or a Distance enum.
-
-        Returns
-        -------
-        A index.
+        The number of dimensions that the query vector should be.
         """
 
-        ...
+        return self.boundary.dims
 
     @property
     def lower(self) -> NDArray:
-        return self.bounds[:, 0]
+        return self.boundary.lower
 
     @property
     def upper(self) -> NDArray:
-        return self.bounds[:, 1]
+        return self.boundary.upper

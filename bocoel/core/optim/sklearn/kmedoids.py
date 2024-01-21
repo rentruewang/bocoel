@@ -1,10 +1,11 @@
-from typing import Literal, TypedDict
+from typing import Any, Literal, TypedDict
 
 from numpy.typing import NDArray
 from sklearn.utils import validation
-from typing_extensions import NotRequired
+from typing_extensions import NotRequired, Self
 
 from bocoel.core.optim.evals import QueryEvaluator
+from bocoel.corpora import Boundary
 
 from .optim import ScikitLearnOptimizer
 
@@ -22,13 +23,15 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
     def __init__(
         self,
         query_eval: QueryEvaluator,
+        boundary: Boundary,
+        *,
         embeddings: NDArray,
         model_kwargs: KMedoidsOptions,
     ) -> None:
         # Optional dependency.
         from sklearn_extra.cluster import KMedoids
 
-        super().__init__(query_eval=query_eval)
+        super().__init__(query_eval=query_eval, boundary=boundary)
 
         self._model = KMedoids(**model_kwargs)
         self._model.fit(embeddings)

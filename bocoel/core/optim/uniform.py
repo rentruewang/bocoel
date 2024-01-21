@@ -9,23 +9,25 @@ from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.corpora import Boundary
 
 LOGGER = structlog.get_logger()
 
 
 class UniformOptimizer(Optimizer):
     def __init__(
-        self, query_eval: QueryEvaluator, bounds: NDArray, *, grids: Sequence[int]
+        self, query_eval: QueryEvaluator, boundary: Boundary, *, grids: Sequence[int]
     ) -> None:
         LOGGER.info("Instantiating UnfiromOptimizer", grids=grids)
 
         self._query_eval = query_eval
-        # FIXME: Use better abstractions.
-        self._bounds = bounds
+        self._boundary = boundary
         self._grids = grids
 
-        if len(self._grids) != len(self._bounds):
-            raise ValueError(f"Expected {len(self._bounds)} strides, got {self._grids}")
+        if len(self._grids) != self._boundary.dims:
+            raise ValueError(
+                f"Expected {self._boundary.dims} strides, got {self._grids}"
+            )
 
     @property
     def task(self) -> Task:
@@ -40,8 +42,8 @@ class UniformOptimizer(Optimizer):
         return self._query_eval(samples)
 
     def _generate_queries(self) -> NDArray:
-        lower = self._bounds[:, 0]
-        upper = self._bounds[:, 1]
+        lower = self._boundary.lower
+        upper = self._boundary.upper
 
         box_size = upper - lower
         step_size = box_size / self._grids
@@ -52,7 +54,3 @@ class UniformOptimizer(Optimizer):
                 for combo in itertools.product(*[range(grid) for grid in self._grids])
             ]
         )
-
-    @classmethod
-    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
-        return cls(query_eval=evaluate_fn, **kwargs)

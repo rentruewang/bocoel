@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import (
+    Boundary,
     Distance,
     Index,
     IndexedArray,
@@ -44,8 +45,7 @@ class FaissIndex(Index):
 
         self._batch_size = batch_size
         self._dist = Distance.lookup(distance)
-        self._bounds = utils.boundaries(embeddings)
-        assert self._bounds.shape[1] == 2
+        self._boundary = utils.boundaries(embeddings)
 
         self._init_index(index_string=index_string, cuda=cuda)
 
@@ -66,8 +66,8 @@ class FaissIndex(Index):
         return self._emb.shape[1]
 
     @property
-    def bounds(self) -> NDArray:
-        return self._bounds
+    def boundary(self) -> Boundary:
+        return self._boundary
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         distances, indices = self._index.search(query, k)
@@ -88,12 +88,6 @@ class FaissIndex(Index):
             index = _faiss().index_cpu_to_all_gpus(index)
 
         self._index = index
-
-    @classmethod
-    def from_embeddings(
-        cls, embeddings: NDArray, distance: str | Distance, **kwargs: Any
-    ) -> Self:
-        return cls(embeddings=embeddings, distance=distance, **kwargs)
 
     @staticmethod
     def _faiss_metric(distance: Distance) -> Any:

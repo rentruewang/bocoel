@@ -1,12 +1,21 @@
 from collections.abc import Mapping, Sequence
+from typing import Any
 
-from numpy.typing import ArrayLike
+from numpy.typing import ArrayLike, NDArray
+from typing_extensions import Self
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import Index, SearchResult
+from bocoel.corpora.indices.interfaces import (
+    Boundary,
+    Distance,
+    Index,
+    IndexedArray,
+    SearchResult,
+)
+from bocoel.corpora.indices.interfaces.results import InternalResult, SearchResultBatch
 
 
-class StatefulIndex:
+class StatefulIndex(Index):
     def __init__(self, index: Index) -> None:
         self._index = index
         self._clear_history()
@@ -17,10 +26,26 @@ class StatefulIndex:
     def __getitem__(self, key: int, /) -> SearchResult:
         return self._history[key]
 
+    def _search(self, query: NDArray, k: int = 1) -> InternalResult:
+        # This search method doesn't track states.
+        return self._index._search(query=query, k=k)
+
+    @property
+    def batch(self) -> int:
+        return self._index.batch
+
+    @property
+    def _embeddings(self) -> NDArray | IndexedArray:
+        return self._index._embeddings
+
+    @property
+    def distance(self) -> Distance:
+        return self._index.distance
+
     def stateful_search(
         self, query: ArrayLike, k: int = 1
     ) -> Mapping[int, SearchResult]:
-        result = self._index.search(query=query, k=k)
+        result = self.search(query=query, k=k)
         prev_len = len(self._history)
         splitted = utils.split_search_result_batch(result)
         self._history.extend(splitted)
@@ -41,3 +66,7 @@ class StatefulIndex:
 
     def _clear_history(self) -> None:
         self._history: list[SearchResult] = []
+
+    @property
+    def boundary(self) -> Boundary:
+        return self._index.boundary
