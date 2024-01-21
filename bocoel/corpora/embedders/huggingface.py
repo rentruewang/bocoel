@@ -29,18 +29,14 @@ class HuggingfaceEmbedder(Embedder):
         self._transform = transform
 
     @property
-    def batch(self) -> int:
-        return self._batch_size
-
-    @property
     def dims(self) -> int:
         return self._model.config[_OUTPUT_KEY]
 
     @torch.no_grad()
     def _encode(self, texts: Sequence[str], /) -> NDArray:
         results = []
-        for idx in range(0, len(texts), self.batch):
-            batch = texts[idx : idx + self.batch]
+        for idx in range(0, len(texts), self._batch_size):
+            batch = texts[idx : idx + self._batch_size]
             encoded = self._encode_batch(batch)
             results.append(encoded)
         return np.concatenate(results, axis=0)

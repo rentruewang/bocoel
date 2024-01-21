@@ -25,14 +25,20 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
         query_eval: QueryEvaluator,
         boundary: Boundary,
         *,
+        batch_size: int,
         embeddings: NDArray,
         model_kwargs: KMedoidsOptions,
     ) -> None:
         # Optional dependency.
         from sklearn_extra.cluster import KMedoids
 
-        super().__init__(query_eval=query_eval, boundary=boundary)
+        model = KMedoids(**model_kwargs)
+        model.fit(embeddings)
+        validation.check_is_fitted(model)
 
-        self._model = KMedoids(**model_kwargs)
-        self._model.fit(embeddings)
-        validation.check_is_fitted(self._model)
+        super().__init__(
+            query_eval=query_eval,
+            boundary=boundary,
+            model=model,
+            batch_size=batch_size,
+        )

@@ -58,11 +58,10 @@ class AxServiceOptimizer(Optimizer):
     def task(self) -> Task:
         return self._task
 
-    @property
-    def terminate(self) -> bool:
-        return self._terminate
-
     def step(self) -> Mapping[int, float]:
+        if self._terminate:
+            raise StopIteration
+
         idx_param, done = self._ax_client.get_next_trials(self._workers)
 
         if done:

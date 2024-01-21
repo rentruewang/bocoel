@@ -111,6 +111,7 @@ def main(
             query_eval=query_eval,
             boundary=Boundary.fixed(lower=mean - std, upper=mean + std, dims=dims),
             samples=iters,
+            batch_size=64,
         )
 
     else:
@@ -130,16 +131,19 @@ def main(
     count = 0
 
     for i in range(iters):
-        output = optimizer.step()
+        try:
+            output = optimizer.step()
 
-        count += len(output)
-        total += sum(output.values())
-        min_out = min(min_out, min(output.values()))
-        max_out = max(max_out, max(output.values()))
+            count += len(output)
+            total += sum(output.values())
+            min_out = min(min_out, min(output.values()))
+            max_out = max(max_out, max(output.values()))
 
-        LOGGER.info("Iteration", i=i, min=min_out, max=max_out, average=total / count)
+            LOGGER.info(
+                "Iteration", i=i, min=min_out, max=max_out, average=total / count
+            )
 
-        if optimizer.terminate:
+        except StopIteration:
             LOGGER.info("Terminated")
             break
 

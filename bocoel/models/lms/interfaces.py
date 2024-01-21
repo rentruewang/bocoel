@@ -2,10 +2,8 @@ import abc
 from collections.abc import Sequence
 from typing import Protocol
 
-from bocoel.common import Batched
 
-
-class LanguageModel(Batched, Protocol):
+class LanguageModel(Protocol):
     @abc.abstractmethod
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         """

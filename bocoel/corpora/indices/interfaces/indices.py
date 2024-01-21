@@ -4,8 +4,6 @@ from typing import Any, Protocol
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
-from bocoel.common import Batched
-
 from .boundaries import Boundary
 from .distances import Distance
 from .results import InternalResult, SearchResultBatch
@@ -24,7 +22,7 @@ class IndexedArray(Protocol):
         return np.array([self[idx] for idx in range(len(self))])
 
 
-class Index(Batched, Protocol):
+class Index(Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
     """
@@ -79,6 +77,11 @@ class Index(Batched, Protocol):
         The embeddings used by the index.
         """
 
+        ...
+
+    @property
+    @abc.abstractmethod
+    def batch(self) -> int:
         ...
 
     @property

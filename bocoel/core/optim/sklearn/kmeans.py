@@ -27,12 +27,17 @@ class KMeansOptimizer(ScikitLearnOptimizer):
         query_eval: QueryEvaluator,
         boundary: Boundary,
         *,
+        batch_size: int,
         embeddings: NDArray,
         model_kwargs: KMeansOptions,
     ) -> None:
-        super().__init__(query_eval=query_eval, boundary=boundary)
+        model = KMeans(**model_kwargs)
+        model.fit(embeddings)
+        validation.check_is_fitted(model)
 
-        self._model = KMeans(**model_kwargs)
-
-        self._model.fit(embeddings)
-        validation.check_is_fitted(self._model)
+        super().__init__(
+            query_eval=query_eval,
+            boundary=boundary,
+            model=model,
+            batch_size=batch_size,
+        )

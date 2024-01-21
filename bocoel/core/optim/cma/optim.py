@@ -36,14 +36,13 @@ class PyCMAOptimizer(Optimizer):
     def task(self) -> Task:
         return Task.MINIMIZE if self._minimize else Task.MAXIMIZE
 
-    @property
-    def terminate(self) -> bool:
-        return self._es.stop()
-
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
     def step(self) -> Mapping[int, float]:
+        if self._es.stop():
+            raise StopIteration
+
         solutions = np.array(self._es.ask(self._samples))
 
         result = self._query_eval(solutions)
