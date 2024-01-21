@@ -37,6 +37,7 @@ def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimiz
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,
+        embeddings=corpus.index.embeddings,
         model_kwargs={"n_clusters": 3, "n_init": "auto"},
     )
 
@@ -48,5 +49,6 @@ def kmedoids_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optim
         corpus=corpus,
         lm=lm,
         adaptor=adaptor,
+        embeddings=corpus.index.embeddings,
         model_kwargs={"n_clusters": 3},
     )

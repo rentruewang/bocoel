@@ -63,17 +63,15 @@ class AxServiceOptimizer(Optimizer):
         return self._terminate
 
     def step(self) -> Mapping[int, float]:
-        raise NotImplementedError
+        idx_param, done = self._ax_client.get_next_trials(self._workers)
 
-        # idx_param, done = self._ax_client.get_next_trials(self._workers)
+        if done:
+            self._terminate = True
 
-        # if done:
-        #     self._terminate = True
-
-        # result_states = []
-        # for trial_index, parameters in idx_param.items():
-        #     result_states.append(self._eval_trial(trial_index, parameters))
-        # return result_states
+        return {
+            tidx: self._eval_one_query(tidx, parameters)
+            for tidx, parameters in idx_param.items()
+        }
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
@@ -86,31 +84,18 @@ class AxServiceOptimizer(Optimizer):
             },
         )
 
-    # def _eval_trial(self, trial_index: int, parameters: dict[str, float]) -> State:
-    #     state = self._eval_params(parameters)
+    def _eval_one_query(self, tidx: int, parameters: dict[str, float]) -> float:
+        names = params.name_list(len(parameters))
+        query = [[parameters[name] for name in names]]
+        [[_, value]] = self._query_eval(query).items()
 
-    #     evaluation = state.evaluation
+        # Exploration with a maximization entropy setting means maximizing y=0.
+        if self._task is Task.EXPLORE:
+            value = 0
 
-    #     if self._task == Task.EXPLORE:
-    #         reported_value = 0.0
-    #     else:
-    #         # Average of all the retrieved neighbors if k != 1.
-    #         # No need to average ovre batch size as currently batch = 1.
-    #         reported_value = np.average(evaluation).item()
+        self._ax_client.complete_trial(tidx, raw_data={_KEY: value})
 
-    #     self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
-
-    #     return state
-
-    # def _eval_params(self, parameters: dict[str, float], k: int = 1) -> State:
-    #     index_dims = self._index.dims
-    #     names = params.name_list(index_dims)
-    #     query = [[parameters[name] for name in names]]
-
-    #     (result,) = optim_utils.evaluate_index(
-    #         query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
-    #     )
-    #     return result
+        return value
 
     def _gen_strat(self, sobol_steps: int) -> GenerationStrategy:
         modular_kwargs: dict[str, Any] = {"torch_device": self._device}
