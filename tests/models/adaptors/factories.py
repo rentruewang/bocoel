@@ -3,37 +3,49 @@ from bocoel import BigBenchAdaptor, BigBenchMatchType, BigBenchQuestionAnswer, S
 
 def sacre_bleu_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.SACRE_BLEU
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.SACRE_BLEU,
     )
 
 
 def nltk_bleu_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.NLTK_BLEU
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.NLTK_BLEU,
     )
 
 
 def exact_match_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.EXACT
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.EXACT,
     )
 
 
 def rouge_1_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_1
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.ROUGE_1,
     )
 
 
 def rouge_2_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_2
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.ROUGE_2,
     )
 
 
 def rouge_l_eval() -> BigBenchAdaptor:
     return BigBenchQuestionAnswer(
-        inputs="question", targets="answer", matching_type=BigBenchMatchType.ROUGE_L
+        inputs="question",
+        targets="answer",
+        matching_type=BigBenchMatchType.ROUGE_L,
     )
 
 

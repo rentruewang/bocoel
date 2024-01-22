@@ -1,5 +1,6 @@
 from typing import Any
 
+import numpy as np
 from numpy import random
 from numpy.typing import NDArray
 
@@ -14,7 +15,7 @@ def index_factory() -> list[str]:
 
 @utils.cache
 def emb() -> NDArray:
-    return index_utils.normalize(random.randn(7, 5))
+    return index_utils.normalize(random.randn(7, 5) + np.arange(7)[:, None])
 
 
 def hnsw_index(embeddings: NDArray) -> Index:
@@ -22,9 +23,7 @@ def hnsw_index(embeddings: NDArray) -> Index:
 
 
 def hnswlib_kwargs() -> dict[str, Any]:
-    return {
-        "threads": -1,
-    }
+    return {"threads": -1}
 
 
 def whiten_kwargs() -> dict[str, Any]:

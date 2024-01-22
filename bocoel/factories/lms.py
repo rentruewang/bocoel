@@ -13,7 +13,6 @@ def lm_factory(
     /,
     *,
     model_path: str,
-    max_len: int,
     batch_size: int,
     device: str,
 ) -> LanguageModel:
@@ -21,5 +20,5 @@ def lm_factory(
         raise ValueError(f"Unknown corpus name: {name}")
 
     return common.correct_kwargs(HuggingfaceLM)(
-        model_path=model_path, max_len=max_len, batch_size=batch_size, device=device
+        model_path=model_path, batch_size=batch_size, device=device
     )

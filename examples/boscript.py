@@ -44,7 +44,6 @@ def main(
     sbert_model: str = "all-mpnet-base-v2",
     llm_model: str = "distilgpt2",
     batch_size: int = 16,
-    max_len: int = 512,
     device: str = "cpu",
     sobol_steps: int = 20,
     index_threads: int = 8,
@@ -63,7 +62,7 @@ def main(
     LOGGER.info("Loading datasets...", ds_list=ds_names)
 
     dataset_list: list[DatasetsStorage] = []
-    for dataset_to_load in ds_names:
+    for dataset_to_load in tqdm(ds_names):
         LOGGER.debug("Loading...", ds=dataset_to_load)
         dataset_dict = datasets.load_dataset(
             path=ds_path, name=dataset_to_load, trust_remote_code=True
@@ -74,14 +73,16 @@ def main(
     storage = ConcatStorage.join(dataset_list)
 
     LOGGER.info(
-        "Creating embedder with model on device",
+        "Creating embedder",
         model=sbert_model,
         device=device,
     )
-    embedder = SBertEmbedder(model_name=sbert_model, device=device)
+    embedder = SBertEmbedder(
+        model_name=sbert_model, device=device, batch_size=batch_size
+    )
 
     LOGGER.info(
-        "Creating corpus with storage and embedder on device",
+        "Creating corpus with storage and embedder",
         storage=storage,
         embedder=embedder,
         device=device,
@@ -100,12 +101,8 @@ def main(
     # ------------------------
     # The model part
 
-    LOGGER.info(
-        "Creating LM with model model on device", model=llm_model, device=device
-    )
-    lm = HuggingfaceLM(
-        model_path=llm_model, device=device, batch_size=batch_size, max_len=max_len
-    )
+    LOGGER.info("Creating LM with model", model=llm_model, device=device)
+    lm = HuggingfaceLM(model_path=llm_model, device=device, batch_size=batch_size)
 
     LOGGER.info(
         "Creating adaptor with arguments",

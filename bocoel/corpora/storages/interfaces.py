@@ -36,3 +36,6 @@ class Storage(Protocol):
         """
 
         ...
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__} ({len(self)}) {self.keys()}"

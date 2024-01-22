@@ -14,7 +14,7 @@ from . import params, utils
 from .acquisition import AcquisitionFunc
 from .surrogates import SurrogateModel, SurrogateOptions
 
-_KEY = "entropy"
+_KEY = "EVAL"
 Device = str | device
 
 
