@@ -59,12 +59,12 @@ class SearchResultBatch(_SearchResult):
                 f"Indices should be batched. Got shape {self.indices.shape}."
             )
 
-        batches = set(
+        batches = {
             self.query.shape[0],
             self.vectors.shape[0],
             self.distances.shape[0],
             self.indices.shape[0],
-        )
+        }
 
         if len(batches) != 1:
             raise ValueError(
@@ -73,10 +73,10 @@ class SearchResultBatch(_SearchResult):
                 f"{len(self.distances)}, {len(self.indices)}."
             )
 
-        dims = set(
+        dims = {
             self.query.shape[1],
             self.vectors.shape[2],
-        )
+        }
 
         if len(dims) != 1:
             raise ValueError(
@@ -84,11 +84,11 @@ class SearchResultBatch(_SearchResult):
                 f"Got {self.query.shape[1]}, {self.vectors.shape[2]}."
             )
 
-        ks = set(
+        ks = {
             self.vectors.shape[1],
             self.distances.shape[1],
             self.indices.shape[1],
-        )
+        }
 
         if len(ks) != 1:
             raise ValueError(
@@ -124,10 +124,10 @@ class SearchResult(_SearchResult):
                 f"Indices should not be batched. Got shape {self.indices.shape}."
             )
 
-        dims = set(
+        dims = {
             self.query.shape[0],
             self.vectors.shape[1],
-        )
+        }
 
         if len(dims) != 1:
             raise ValueError(
@@ -135,11 +135,11 @@ class SearchResult(_SearchResult):
                 f"Got {self.query.shape[0]}, {self.vectors.shape[1]}."
             )
 
-        ks = set(
+        ks = {
             self.vectors.shape[0],
             self.distances.shape[0],
             self.indices.shape[0],
-        )
+        }
 
         if len(ks) != 1:
             raise ValueError(
