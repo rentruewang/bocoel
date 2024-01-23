@@ -35,6 +35,7 @@ class _SearchResult:
     """
 
 
+@dcls.dataclass(frozen=True)
 class SearchResultBatch(_SearchResult):
     """
     A batched version of search result.
@@ -98,6 +99,7 @@ class SearchResultBatch(_SearchResult):
             )
 
 
+@dcls.dataclass(frozen=True)
 class SearchResult(_SearchResult):
     """
     A non-batched version of search result.

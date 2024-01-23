@@ -18,5 +18,4 @@ def test_polar_bounds() -> None:
     upper = idx.upper
     rand = random.random(size=[NUM_QUERIES, idx.dims])
     queries = rand * (upper - lower) + lower
-
     idx.search(queries, k=K)
