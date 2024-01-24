@@ -11,7 +11,6 @@ docs_dir: mkdocs
 edit_uri: ""
 repo_name: rentruewang/bocoel
 plugins:
-  - info
   - search
   - social
   - mkdocstrings
