@@ -3,7 +3,7 @@ from bocoel import (
     Corpus,
     Distance,
     PandasStorage,
-    SBertEmbedder,
+    SbertEmbedder,
     WhiteningIndex,
 )
 from tests import utils
@@ -15,7 +15,7 @@ from .storages import factories as storage_factories
 @utils.cache
 def corpus(device: str) -> Corpus:
     storage = PandasStorage(storage_factories.df())
-    embedder = SBertEmbedder(device=device)
+    embedder = SbertEmbedder(device=device)
     return ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,

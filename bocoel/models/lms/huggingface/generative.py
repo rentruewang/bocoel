@@ -29,3 +29,12 @@ class HuggingfaceLogitsLM(HuggingfaceCausalLM):
         result = logits[:, -1, encoded]
 
         return result.cpu().numpy()
+
+    def _encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
+        result: list[int] = sum(
+            [self._tokenizer.encode(tok, add_special_tokens=False) for tok in tokens],
+            [],
+        )
+        if len(result) != len(tokens):
+            raise ValueError(f"Tokens must be words. Got {tokens}.")
+        return result

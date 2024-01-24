@@ -14,7 +14,11 @@ class HuggingfaceClassifierLM(HuggingfaceCausalLM):
         self, model_path: str, batch_size: int, device: Device, choices: int = 2
     ) -> None:
         super().__init__(model_path, batch_size, device)
-        self._cls = AutoModelForSequenceClassification.from_pretrained(model_path)
+
+        classifier = AutoModelForSequenceClassification.from_pretrained(model_path)
+        self._classifier = classifier.to(device)
+        self._classifier.config.pad_token_id = self._tokenizer.pad_token_id
+
         self._choices = choices
 
     @torch.no_grad()
@@ -23,6 +27,6 @@ class HuggingfaceClassifierLM(HuggingfaceCausalLM):
             raise ValueError(f"choices must be {self._choices}. Got {choices}.")
 
         tokenized = self._tokenize(prompts)
-        output = self._cls(**tokenized)
+        output = self._classifier(**tokenized)
 
-        return output.cpu().numpy()
+        return output.logits.cpu().numpy()

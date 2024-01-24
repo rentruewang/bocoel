@@ -1,12 +1,12 @@
 import pytest
 
-from bocoel import SBertEmbedder
+from bocoel import SbertEmbedder
 from tests import utils
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_encoding(device: str) -> None:
-    sentence_bert = SBertEmbedder(device=device)
+    sentence_bert = SbertEmbedder(device=device)
 
     single_sentence = ["This is a sentence"]
     multiple_sentences = ["This is a sentence", "This is another sentence"]

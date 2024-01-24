@@ -7,7 +7,7 @@ from numpy.typing import NDArray
 from bocoel.corpora.embedders.interfaces import Embedder
 
 
-class SBertEmbedder(Embedder):
+class SbertEmbedder(Embedder):
     """
     Sentence-BERT embedder. Uses the sentence_transformers library.
     """

@@ -21,7 +21,7 @@ from bocoel import (
     Distance,
     HnswlibIndex,
     HuggingfaceLogitsLM,
-    SBertEmbedder,
+    SbertEmbedder,
     WhiteningIndex,
 )
 
@@ -77,7 +77,7 @@ def main(
         model=sbert_model,
         device=device,
     )
-    embedder = SBertEmbedder(
+    embedder = SbertEmbedder(
         model_name=sbert_model, device=device, batch_size=batch_size
     )
 

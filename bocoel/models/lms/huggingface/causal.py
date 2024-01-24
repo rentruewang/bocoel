@@ -29,8 +29,12 @@ class HuggingfaceCausalLM(LanguageModel, metaclass=ABCMeta):
         self._tokenizer = AutoTokenizer.from_pretrained(
             model_path, padding_side="left", truncation_side="left"
         )
-        self._tokenizer.pad_token = self._tokenizer.eos_token
+        if (eos := self._tokenizer.eos_token) is not None:
+            self._tokenizer.pad_token = eos
+        else:
+            self._tokenizer.add_special_tokens({"pad_token": "[PAD]"})
 
+        # Model used for generation
         self._model = AutoModelForCausalLM.from_pretrained(model_path)
         self._model.pad_token = self._tokenizer.pad_token
 
@@ -49,12 +53,6 @@ class HuggingfaceCausalLM(LanguageModel, metaclass=ABCMeta):
         self._device = device
         self._model = self._model.to(device)
         return self
-
-    def _encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
-        result: list[int] = sum([self._tokenizer.encode(tok) for tok in tokens], [])
-        if len(result) != len(tokens):
-            raise ValueError(f"Tokens must be words. Got {tokens}.")
-        return result
 
     def _tokenize(self, prompts: Sequence[str], /):
         if not isinstance(prompts, list):

@@ -33,7 +33,7 @@ from .corpora import (
     Index,
     PandasStorage,
     PolarIndex,
-    SBertEmbedder,
+    SbertEmbedder,
     Storage,
     WhiteningIndex,
 )

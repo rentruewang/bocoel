@@ -1,4 +1,4 @@
-from bocoel import Embedder, SBertEmbedder
+from bocoel import Embedder, SbertEmbedder
 from bocoel.common import StrEnum
 
 from . import common
@@ -19,6 +19,6 @@ def embedder_factory(
     if EmbedderName.lookup(name) is not EmbedderName.SBERT:
         raise ValueError(f"Unknown embedder name: {name}")
 
-    return common.correct_kwargs(SBertEmbedder)(
+    return common.correct_kwargs(SbertEmbedder)(
         model_name=model_name, device=device, batch_size=batch_size
     )

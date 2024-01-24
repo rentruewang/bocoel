@@ -12,7 +12,7 @@ from . import factories
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_init_optimizer(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    lm = lm_factories.lm(device=device)
+    lm = lm_factories.logits_lm(device=device)
     adaptor = adaptor_factories.sacre_bleu_eval()
 
     _ = factories.kmeans_optim(corpus, lm, adaptor)
@@ -21,7 +21,7 @@ def test_init_optimizer(device: str) -> None:
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_optimize(device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    lm = lm_factories.lm(device=device)
+    lm = lm_factories.logits_lm(device=device)
     adaptor = adaptor_factories.sacre_bleu_eval()
     optimizer = factories.kmeans_optim(corpus, lm, adaptor)
 
