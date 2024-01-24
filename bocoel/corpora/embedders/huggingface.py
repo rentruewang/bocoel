@@ -51,10 +51,4 @@ class HuggingfaceEmbedder(Embedder):
         output = self._model(**encoded)
 
         transformed = self._transform(output).cpu().numpy()
-
-        if transformed.shape[-1] != self.dims:
-            raise ValueError(
-                f"Expected output of shape (n, {self.dims}), got {transformed.shape}"
-            )
-
         return transformed
