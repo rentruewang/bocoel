@@ -1,3 +1,1 @@
-# BoCoEL
-
-### Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models
+mkdocs/README.md

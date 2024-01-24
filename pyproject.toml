@@ -84,5 +84,9 @@ pretty = [
 ]
 website = [
     "mkdocs>=1.5.3",
-    "mkdocs-material>=9.5.4",
+    "mkdocs-material[imaging]>=9.5.5",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.2",
+    "mkdocs-git-revision-date-plugin>=0.3.2",
+    "mkdocstrings>=0.24.0",
+    "mkdocs-git-committers-plugin-2>=2.2.3",
 ]
