@@ -41,4 +41,4 @@ class Sst2QuestionAnswer(Adaptor):
             raise ValueError("labels must be in range [0, choices)")
 
         classified = lm.classify(sentences, choices=self.choices)
-        return [float(c == l) for c, l in zip(classified, labels)]
+        return [float(c == l) for c, l in zip(classified.argmax(-1), labels)]
