@@ -29,6 +29,7 @@ from .corpora import (
     Embedder,
     FaissIndex,
     HnswlibIndex,
+    HuggingfaceEmbedder,
     Index,
     PandasStorage,
     PolarIndex,

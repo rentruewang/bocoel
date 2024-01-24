@@ -9,8 +9,6 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from bocoel.corpora.embedders.interfaces import Embedder
 
-_OUTPUT_KEY = "type_vocab_size"
-
 
 class HuggingfaceEmbedder(Embedder):
     def __init__(
@@ -30,7 +28,8 @@ class HuggingfaceEmbedder(Embedder):
 
     @property
     def dims(self) -> int:
-        return self._model.config[_OUTPUT_KEY]
+        # FIXME: Figure out if all the sequence classification has logits shape 2.
+        return 2
 
     @torch.no_grad()
     def _encode(self, texts: Sequence[str], /) -> NDArray:
@@ -43,6 +42,19 @@ class HuggingfaceEmbedder(Embedder):
 
     @torch.no_grad()
     def _encode_batch(self, texts: Sequence[str]) -> NDArray:
-        encoded = self._tokenizer(texts).to(self._device)
+        encoded = self._tokenizer(
+            texts,
+            return_tensors="pt",
+            padding=True,
+            max_length=self._tokenizer.model_max_length,
+        ).to(self._device)
         output = self._model(**encoded)
-        return self._transform(output).cpu().numpy()
+
+        transformed = self._transform(output).cpu().numpy()
+
+        if transformed.shape[-1] != self.dims:
+            raise ValueError(
+                f"Expected output of shape (n, {self.dims}), got {transformed.shape}"
+            )
+
+        return transformed
