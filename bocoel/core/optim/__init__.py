@@ -1,7 +1,6 @@
 from .ax import AcquisitionFunc, AxServiceOptimizer, AxServiceParameter, Task
-from .evals import evaluate_corpus, evaluate_index, query_eval_func, search_eval_func
-from .interfaces import Optimizer, QueryEvaluator, SearchEvaluator, Task
-from .random import RandomOptimizer
+from .evals import QueryEvaluator, ResultEvaluator
+from .interfaces import Optimizer
 from .sklearn import (
     KMeansOptimizer,
     KMeansOptions,
@@ -9,5 +8,4 @@ from .sklearn import (
     KMedoidsOptions,
     ScikitLearnOptimizer,
 )
-from .uniform import UniformOptimizer
 from .utils import RemainingSteps

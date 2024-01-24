@@ -4,17 +4,18 @@ from typing import Any
 from ax.modelbridge import Models
 from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrategy
 from ax.service.ax_client import AxClient, ObjectiveProperties
+from numpy.typing import NDArray
 from torch import device
+from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Boundary
 
 from . import params, utils
 from .acquisition import AcquisitionFunc
 from .surrogates import SurrogateModel, SurrogateOptions
 
-_KEY = "EVAL"
+_KEY = "entropy"
 Device = str | device
 
 
@@ -27,7 +28,7 @@ class AxServiceOptimizer(Optimizer):
     def __init__(
         self,
         query_eval: QueryEvaluator,
-        boundary: Boundary,
+        bounds: NDArray,
         *,
         sobol_steps: int = 0,
         device: Device = "cpu",
@@ -48,7 +49,7 @@ class AxServiceOptimizer(Optimizer):
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
-        self._create_experiment(boundary)
+        self._create_experiment(bounds)
 
         self._query_eval = query_eval
         self._workers = workers
@@ -58,43 +59,71 @@ class AxServiceOptimizer(Optimizer):
     def task(self) -> Task:
         return self._task
 
+    @property
+    def terminate(self) -> bool:
+        return self._terminate
+
     def step(self) -> Mapping[int, float]:
-        if self._terminate:
-            raise StopIteration
+        raise NotImplementedError
 
-        idx_param, done = self._ax_client.get_next_trials(self._workers)
+        # idx_param, done = self._ax_client.get_next_trials(self._workers)
 
-        if done:
-            self._terminate = True
+        # if done:
+        #     self._terminate = True
 
-        return {
-            tidx: self._eval_one_query(tidx, parameters)
-            for tidx, parameters in idx_param.items()
-        }
+        # result_states = []
+        # for trial_index, parameters in idx_param.items():
+        #     result_states.append(self._eval_trial(trial_index, parameters))
+        # return result_states
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
-    def _create_experiment(self, boundary: Boundary) -> None:
+    def _create_experiment(self, bounds: NDArray) -> None:
         self._ax_client.create_experiment(
-            parameters=params.configs(boundary),
+            parameters=params.configs(bounds),
             objectives={
                 _KEY: ObjectiveProperties(minimize=self._task == Task.MINIMIZE)
             },
         )
 
-    def _eval_one_query(self, tidx: int, parameters: dict[str, float]) -> float:
-        names = params.name_list(len(parameters))
-        query = [[parameters[name] for name in names]]
-        [[_, value]] = self._query_eval(query).items()
+    # def _eval_trial(self, trial_index: int, parameters: dict[str, float]) -> State:
+    #     state = self._eval_params(parameters)
 
-        # # Exploration with a maximization entropy setting means maximizing y=0.
-        # if self._task is Task.EXPLORE:
-        #     value = 0
+    #     evaluation = state.evaluation
 
-        self._ax_client.complete_trial(tidx, raw_data={_KEY: value})
+    #     if self._task == Task.EXPLORE:
+    #         reported_value = 0.0
+    #     else:
+    #         # Average of all the retrieved neighbors if k != 1.
+    #         # No need to average ovre batch size as currently batch = 1.
+    #         reported_value = np.average(evaluation).item()
 
-        return value
+    #     self._ax_client.complete_trial(trial_index, raw_data={_KEY: reported_value})
+
+    #     return state
+
+    # def _eval_params(self, parameters: dict[str, float], k: int = 1) -> State:
+    #     index_dims = self._index.dims
+    #     names = params.name_list(index_dims)
+    #     query = [[parameters[name] for name in names]]
+
+    #     (result,) = optim_utils.evaluate_index(
+    #         query=query, index=self._index, evaluate_fn=self._evaluate_fn, k=k
+    #     )
+    #     return result
+
+    @classmethod
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)
+
+    @staticmethod
+    def _terminate_step(steps: list[GenerationStep]) -> int:
+        trials = [step.num_trials for step in steps]
+        if all(t >= 0 for t in trials):
+            return sum(trials)
+        else:
+            return -1
 
     def _gen_strat(self, sobol_steps: int) -> GenerationStrategy:
         modular_kwargs: dict[str, Any] = {"torch_device": self._device}
@@ -115,11 +144,3 @@ class AxServiceOptimizer(Optimizer):
                 ),
             ]
         )
-
-    @staticmethod
-    def _terminate_step(steps: list[GenerationStep]) -> int:
-        trials = [step.num_trials for step in steps]
-        if all(t >= 0 for t in trials):
-            return sum(trials)
-        else:
-            return -1

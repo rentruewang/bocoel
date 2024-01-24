@@ -1,8 +1,7 @@
 from typing import Any, TypedDict
 
+from numpy.typing import NDArray
 from typing_extensions import NotRequired
-
-from bocoel.corpora import Boundary
 
 
 class AxServiceParameter(TypedDict):
@@ -14,15 +13,15 @@ class AxServiceParameter(TypedDict):
 
 
 # Currently using Any to silence typing warnings.
-def configs(boundary: Boundary) -> list[dict[str, Any]]:
-    return [name_dict(boundary, i) for i in range(boundary.dims)]
+def configs(bounds: NDArray) -> list[dict[str, Any]]:
+    return [name_dict(bounds, i) for i in range(len(bounds))]
 
 
-def name_dict(boundary: Boundary, i: int) -> dict[str, Any]:
+def name_dict(bounds: NDArray, i: int) -> dict[str, Any]:
     return {
         "name": name(i),
         "type": "range",
-        "bounds": boundary[i].tolist(),
+        "bounds": bounds[i].tolist(),
         "value_type": "float",
     }
 

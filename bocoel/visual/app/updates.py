@@ -50,7 +50,7 @@ def table(slider_value: float, df: DataFrame) -> DataTable:
     df = df[df["sample_size"] <= slider_value]
     df = df[["scores", "Description"]]
     df["scores"] = df["scores"].apply(lambda x: round(x, 3))
-    df = df.tail(10)
+    #df = df.tail(10)
 
     table = DataTable(
         id="table",
@@ -63,6 +63,16 @@ def table(slider_value: float, df: DataFrame) -> DataTable:
             {"if": {"column_id": "scores"}, "width": "15%"},
             {"if": {"column_id": "Description"}, "width": "85%"},
         ],
+        page_action='none',
+        style_table={'height': '300px', 'overflowY': 'auto'},
+        fixed_rows={'headers': True},
+        style_data_conditional=[                
+                {
+                    "if": {"state": "selected"},              # 'active' | 'selected'
+                    "backgroundColor": "rgba(0, 231, 233, 0.8)",
+                    "border": "1px solid blue",
+                },
+            ]
     )
     return table
 
@@ -84,7 +94,7 @@ def two_d(slider_value: float, df: DataFrame) -> Figure:
             x=df["x"], y=df["y"], mode="markers", name="markers", text=df["Description"]
         )
     )
-    fig.update_layout(title="Prompt Embedding 2D Mapping", template=constants.TEMPLATE)
+    fig.update_layout(title="On 2D Plane", template=constants.TEMPLATE)
     return fig
 
 
@@ -163,7 +173,7 @@ def y_splines(slider_value: float, df: DataFrame) -> Figure:
 
 
 @utils.copy_inputs
-def three_d(slider_value: float, ci: float, df: DataFrame) -> Figure:
+def three_d(slider_value: float, ci: float, df: DataFrame, count, name:str) -> Figure:
     if not ci:
         ci = 0.95
     ci = float(ci)
@@ -211,10 +221,12 @@ def three_d(slider_value: float, ci: float, df: DataFrame) -> Figure:
         ]
     )
     fig.update_layout(
-        title="Optimization Surface",
+        title="Optimization Surface "+name,
         autosize=True,
-        width=800,
-        height=500,
+        # 1400*600 as default one figure_size
+
+        width=600,
+        height=450,
         margin=dict(l=65, r=50, b=65, t=90),
     )
 

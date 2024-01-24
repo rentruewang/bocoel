@@ -3,10 +3,10 @@ from typing import Any
 
 import numpy as np
 from cma import CMAEvolutionStrategy
+from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.corpora import Boundary
 
 
 class PyCMAOptimizer(Optimizer):
@@ -19,7 +19,6 @@ class PyCMAOptimizer(Optimizer):
     def __init__(
         self,
         query_eval: QueryEvaluator,
-        boundary: Boundary,
         *,
         dims: int,
         samples: int,
@@ -30,19 +29,19 @@ class PyCMAOptimizer(Optimizer):
         self._es = CMAEvolutionStrategy(dims * [0], 0.5)
         self._samples = samples
         self._minimize = minimize
-        self._boundary = boundary
 
     @property
     def task(self) -> Task:
         return Task.MINIMIZE if self._minimize else Task.MAXIMIZE
 
+    @property
+    def terminate(self) -> bool:
+        return self._es.stop()
+
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
 
     def step(self) -> Mapping[int, float]:
-        if self._es.stop():
-            raise StopIteration
-
         solutions = np.array(self._es.ask(self._samples))
 
         result = self._query_eval(solutions)
@@ -56,3 +55,7 @@ class PyCMAOptimizer(Optimizer):
         self._es.tell(solutions, evaluation)
 
         return result
+
+    @classmethod
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)

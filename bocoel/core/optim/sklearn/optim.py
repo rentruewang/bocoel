@@ -4,11 +4,10 @@ from collections.abc import Mapping
 from typing import Any, Protocol
 
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.core.optim.interfaces import Optimizer, Task
-from bocoel.core.optim.utils import BatchedGenerator
-from bocoel.corpora import Boundary
 
 
 class ScikitLearnCluster(Protocol):
@@ -26,26 +25,28 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
     https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
     """
 
-    def __init__(
-        self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
-        model: ScikitLearnCluster,
-        batch_size: int,
-    ) -> None:
-        self._query_eval = query_eval
-        self._boundary = boundary
+    _model: ScikitLearnCluster
 
-        self._generator = iter(BatchedGenerator(model.cluster_centers_, batch_size))
+    def __init__(self, query_eval: QueryEvaluator) -> None:
+        self._query_eval = query_eval
 
     @property
     def task(self) -> Task:
         # Kmeans must be an exploration task.
         return Task.EXPLORE
 
+    @property
+    def terminate(self) -> bool:
+        return True
+
     def step(self) -> Mapping[int, float]:
-        centers = next(self._generator)
+        centers = self._model.cluster_centers_
+
         return self._query_eval(centers)
 
     def render(self, **kwargs: Any) -> None:
         raise NotImplementedError
+
+    @classmethod
+    def from_stateful_eval(cls, evaluate_fn: QueryEvaluator, /, **kwargs: Any) -> Self:
+        return cls(query_eval=evaluate_fn, **kwargs)

@@ -1,6 +1,6 @@
 from dash.dash_table import DataTable
-from dash.dcc import Graph, Slider
-from dash.html import H1, H2, H3, B, Div, Img, P
+from dash.dcc import Graph, Slider, Dropdown
+from dash.html import H1, H2, H3, B, Div, Img, P, Ul, Li
 
 from . import constants
 
@@ -14,11 +14,18 @@ def description_card():
         children=[
             Div(
                 id="intro",
-                children="Explore Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models.",
+                children=[P("Explore Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models. \
+                            Bayesian optimization is a sequential design strategy for global optimization of black-box functions that does not assume any functional forms.\
+                             It is usually employed to optimize expensive-to-evaluate functions."),
+                        H3("Members"),
+                        Ul([Li(author) for author in constants.AUTHORS]),
+                ],
                 style={
                     "background-color": constants.BLOCK_COLOR,
                     "color": constants.FONT_COLOR,
                     "margin": "10px 5px",
+                    'width': '25%', 
+                   'display': 'inline-block'
                 },
             ),
             Div(
@@ -41,17 +48,20 @@ def description_card():
                         id="CI",
                     ),
                     Div(
-                        [P(id="data_card_1"), Graph(id="data_card_2")],
+                        [P(id="data-card-1"), Graph(id="data-card-2")],
                     ),
                 ],
                 style={
                     "background-color": constants.BLOCK_COLOR,
                     "color": constants.FONT_COLOR,
                     "margin": "5px 10px",
+                   'width': '25%', 
+                   'display': 'inline-block'
                 },
             ),
+            generate_table(),
         ],
-        style={"width": "50%"},
+        style={'display': 'flex'},
     )
 
 
@@ -69,11 +79,12 @@ def generate_table():
     return Div(
         id="table",
         children=[
-            H3("Prompt table"),
-            P(id="table_out"),
+            H3("Prompts 2D Mapping",style={"color": constants.FONT_COLOR}),
+            P(id="table-content"),
             DataTable(
-                id="table",
+                id="prompt-table",
             ),
+            Graph(id="2D-plane"),
         ],
         style={"width": "40%", "display": "inline-block"},
     )
@@ -82,10 +93,17 @@ def generate_table():
 def generate_3D():
     return Div(
         id="3D-plot",
-        children=[Graph(id="3D-plane")],
-        style={"width": "60%", "display": "inline-block"},
+        children=[
+            #Div(children=[Graph(id="3D-plane")]),
+            Div([],
+                id='3D-plane',
+                #style={"width": "25%", "display": "flex"}
+                ),
+        ],
+        style={"width": "100%", "display": "flex"},
     )
 
+    
 
 # Unused
 def generate_splines():
@@ -130,9 +148,9 @@ def layout():
             ),
             # Upper column
             Div(
-                id="left-column",
-                className="three columns",
-                children=[description_card(), generate_table()],
+                id="upper-column",
+                className="two columns",
+                children=[description_card()],
                 style={
                     "display": "flex",
                     "gap": "20px",
@@ -148,15 +166,49 @@ def layout():
                 )
             ),
             Div(
-                id="right-column",
-                className="eight columns",
+                id="lower-column",
+                className="two columns",
                 children=[
                     Div(
-                        children=[generate_2D()] + [generate_3D()],
-                        style={
+                        children= [
+                            Div(
+                                children=[Dropdown(
+                                        ["GPT-3","BERT"],
+                                        ['GPT-3'],
+                                        id="LLM-dropdown",
+                                        multi=True,
+                                         style={
+                                        "background-color": constants.BLOCK_COLOR,
+                                        "color": constants.FONT_COLOR,
+                                        'width':'90%', 
+                                        'margin':'0 auto'
+                                         }
+                                    ),
+                                    Dropdown(
+                                        ["Corpus-1","Corpus-2"],
+                                        ["Corpus-1"],
+                                        id="Corpus-dropdown",
+                                        multi=True,
+                                         style={
+                                        "background-color": constants.BLOCK_COLOR,
+                                        "color": constants.FONT_COLOR,
+                                        'width':'90%', 
+                                        'margin':'0 auto'
+                                         }
+                                    )]
+                            ),
+                            Div(
+                            children=[generate_3D()],
+                            style={
                             "display": "flex",
                             "gap": "20px",
                             "align-items": "flex-top",
+                            "width": "100%",
+                            }
+                            )
+                        ],
+                        style={
+                            "gap": "20px",
                             "width": "100%",
                         },
                     ),

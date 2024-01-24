@@ -4,7 +4,7 @@ import numpy as np
 from numpy import linalg
 from numpy.typing import ArrayLike, NDArray
 
-from .interfaces import Boundary, IndexedArray, SearchResult, SearchResultBatch
+from .interfaces import IndexedArray, SearchResult, SearchResultBatch
 
 
 def validate_embeddings(
@@ -27,11 +27,11 @@ def normalize(embeddings: ArrayLike, /, p: int = 2) -> NDArray:
     return embeddings / norm
 
 
-def boundaries(embeddings: NDArray, /) -> Boundary:
+def boundaries(embeddings: NDArray, /) -> NDArray:
     if embeddings.ndim != 2:
         raise ValueError(f"Expected embeddings to be 2D, got {embeddings.ndim}D")
 
-    return Boundary(np.stack([embeddings.min(axis=0), embeddings.max(axis=0)]).T)
+    return np.stack([embeddings.min(axis=0), embeddings.max(axis=0)]).T
 
 
 class Indexer(IndexedArray):

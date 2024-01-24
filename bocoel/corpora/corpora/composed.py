@@ -69,5 +69,5 @@ class ComposedCorpus(Corpus):
         index_backend: type[Index],
         **index_kwargs: Any,
     ) -> Self:
-        index = index_backend(embeddings, **index_kwargs)
+        index = index_backend.from_embeddings(embeddings, **index_kwargs)
         return cls(index=StatefulIndex(index), storage=storage)

@@ -4,11 +4,9 @@ from bocoel import (
     Adaptor,
     AxServiceOptimizer,
     Corpus,
-    KMeansOptimizer,
-    KMedoidsOptimizer,
     LanguageModel,
     Optimizer,
-    core,
+    ScikitLearnOptimizer,
 )
 from bocoel.common import StrEnum
 
@@ -18,7 +16,6 @@ from . import common
 class OptimizerName(StrEnum):
     AX_SERVICE = "AX_SERVICE"
     KMEANS = "KMEANS"
-    KMEDOIDS = "KMEDOIDS"
 
 
 def optimizer_factory(
@@ -34,16 +31,12 @@ def optimizer_factory(
 
     match name:
         case OptimizerName.AX_SERVICE:
-            return common.correct_kwargs(core.evaluate_corpus)(
-                AxServiceOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
+            return common.correct_kwargs(AxServiceOptimizer.evaluate_corpus)(
+                corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
             )
         case OptimizerName.KMEANS:
-            return common.correct_kwargs(core.evaluate_corpus)(
-                KMeansOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
-            )
-        case OptimizerName.KMEDOIDS:
-            return common.correct_kwargs(core.evaluate_corpus)(
-                KMedoidsOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
+            return common.correct_kwargs(ScikitLearnOptimizer.evaluate_corpus)(
+                corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
             )
         case _:
             raise ValueError(f"Unknown optimizer name: {name}")

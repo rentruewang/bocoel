@@ -5,10 +5,12 @@ from typing import Protocol
 import structlog
 from numpy.typing import NDArray
 
+from bocoel.common import Batched
+
 LOGGER = structlog.get_logger()
 
 
-class Embedder(Protocol):
+class Embedder(Batched, Protocol):
     """
     Embedders are responsible for encoding text into vectors.
     Embedders in this project are considered volatile because it requires CPU time,

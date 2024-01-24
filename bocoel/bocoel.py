@@ -20,9 +20,9 @@ def bocoel(optimizer: Optimizer, iterations: int) -> dict[int, float]:
     states: dict[int, float] = {}
 
     for _ in range(iterations):
-        try:
-            states.update(optimizer.step())
-        except StopIteration:
+        if optimizer.terminate:
             break
+
+        states.update(optimizer.step())
 
     return states
