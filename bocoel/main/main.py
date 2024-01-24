@@ -24,7 +24,7 @@ def main(
     corpus_name: str | CorpusName = CorpusName.COMPOSED,
     adaptor_name: str | AdaptorName = AdaptorName.BIGBENCH_MC,
     adaptor_kwargs: str | Path | None = None,
-    lm_name: str | LMName = LMName.HUGGINGFACE,
+    lm_name: str | LMName = LMName.LOGITS,
     lm_kwargs: str | Path | None = None,
     optimizer_name: str | OptimizerName = OptimizerName.AX_SERVICE,
     optimizer_kwargs: str | Path | None = None,

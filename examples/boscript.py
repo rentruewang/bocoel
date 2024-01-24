@@ -20,7 +20,7 @@ from bocoel import (
     DatasetsStorage,
     Distance,
     HnswlibIndex,
-    HuggingfaceLM,
+    HuggingfaceLogitsLM,
     SBertEmbedder,
     WhiteningIndex,
 )
@@ -102,7 +102,7 @@ def main(
     # The model part
 
     LOGGER.info("Creating LM with model", model=llm_model, device=device)
-    lm = HuggingfaceLM(model_path=llm_model, device=device, batch_size=batch_size)
+    lm = HuggingfaceLogitsLM(model_path=llm_model, device=device, batch_size=batch_size)
 
     LOGGER.info(
         "Creating adaptor with arguments",

@@ -1,7 +1,7 @@
+from abc import ABCMeta
 from collections.abc import Sequence
 
 import torch
-from numpy.typing import NDArray
 from torch import device
 from typing_extensions import Self
 
@@ -10,7 +10,7 @@ from bocoel.models.lms.interfaces import LanguageModel
 Device = str | device
 
 
-class HuggingfaceLM(LanguageModel):
+class HuggingfaceCausalLM(LanguageModel, metaclass=ABCMeta):
     """
     The Huggingface implementation of LanguageModel.
     This is a wrapper around the Huggingface library,
@@ -45,23 +45,16 @@ class HuggingfaceLM(LanguageModel):
             results.extend(self._generate_batch(prompts[idx : idx + self._batch_size]))
         return results
 
-    @torch.no_grad()
-    def logits(self, prompts: Sequence[str]) -> NDArray:
-        tokenized = self._tokenize(prompts)
-        output = self._model(**tokenized)
-        logits = output.logits
-        return logits.cpu().numpy()
-
-    def encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
-        result: list[int] = sum([self._tokenizer.encode(tok) for tok in tokens], [])
-        if len(result) != len(tokens):
-            raise ValueError(f"Tokens must be words. Got {tokens}.")
-        return result
-
     def to(self, device: Device) -> Self:
         self._device = device
         self._model = self._model.to(device)
         return self
+
+    def _encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
+        result: list[int] = sum([self._tokenizer.encode(tok) for tok in tokens], [])
+        if len(result) != len(tokens):
+            raise ValueError(f"Tokens must be words. Got {tokens}.")
+        return result
 
     def _tokenize(self, prompts: Sequence[str], /):
         if not isinstance(prompts, list):

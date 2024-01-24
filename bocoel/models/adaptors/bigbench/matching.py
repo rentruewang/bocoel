@@ -62,8 +62,8 @@ class BigBenchQuestionAnswer(BigBenchAdaptor):
         targets: str = "targets",
         matching_type: str | BigBenchMatchType = BigBenchMatchType.EXACT,
     ) -> None:
-        self._inputs = inputs
-        self._targets = targets
+        self.inputs = inputs
+        self.targets = targets
 
         self._score_fn = BigBenchMatchType.lookup(matching_type).score
 
@@ -71,8 +71,8 @@ class BigBenchQuestionAnswer(BigBenchAdaptor):
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
         # Get data.
-        inputs = data[self._inputs]
-        targets = data[self._targets]
+        inputs = data[self.inputs]
+        targets = data[self.targets]
 
         LOGGER.debug("Evaluating", inputs=inputs, targets=targets, lm=lm)
 

@@ -44,7 +44,9 @@ from .models import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
-    HuggingfaceLM,
+    HuggingfaceCausalLM,
+    HuggingfaceClassifierLM,
+    HuggingfaceLogitsLM,
     LanguageModel,
     MultiChoiceAccuracy,
     NltkBleuScore,
@@ -53,4 +55,5 @@ from .models import (
     RougeScore2,
     SacreBleuScore,
     Score,
+    Sst2QuestionAnswer,
 )

@@ -28,8 +28,7 @@ class LanguageModel(Protocol):
 
         ...
 
-    @abc.abstractmethod
-    def logits(self, prompts: Sequence[str], /) -> NDArray:
+    def classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
         """
         Generate logits given prompts.
 
@@ -37,33 +36,43 @@ class LanguageModel(Protocol):
         ----------
 
         `prompts: Sequence[str]`
-        The prompts to generate responses from.
+        The prompts to generate logits from.
 
         Returns
         -------
 
-        A batch of logits.
-        This has the shape [batch, sequence length, num_tokens].
+        A list of logits
+        Each logit has the same length given by each prompt's choices.
         """
 
-        ...
+        classified = self._classify(prompts, choices=choices)
+
+        if classified.shape != (len(prompts), choices):
+            raise ValueError(
+                f"Expected logits to have shape {(len(prompts), choices)}, "
+                f"but got {classified.shape}"
+            )
+
+        return classified
 
     @abc.abstractmethod
-    def encode_tokens(self, tokens: Sequence[str], /) -> Sequence[int]:
+    def _classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
         """
-        Encode tokens into integers.
+        Generate logits given prompts.
 
         Parameters
         ----------
 
-        `tokens: Sequence[str]`
-        The tokens to encode.
-        Every token must be a word and only correspond to an integer.
+        `prompts: Sequence[str]`
+        The prompts to generate logits from.
+
+        `choices: int`
+        Number of choices for this batch of prompts.
 
         Returns
         -------
 
-        A sequence of integers.
+        A list of logits. Must have the shaep [batch_size, choices].
         """
 
         ...

@@ -5,8 +5,14 @@ from .adaptors import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
+    Sst2QuestionAnswer,
 )
-from .lms import HuggingfaceLM, LanguageModel
+from .lms import (
+    HuggingfaceCausalLM,
+    HuggingfaceClassifierLM,
+    HuggingfaceLogitsLM,
+    LanguageModel,
+)
 from .scores import (
     MultiChoiceAccuracy,
     NltkBleuScore,

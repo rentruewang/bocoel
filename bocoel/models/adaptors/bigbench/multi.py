@@ -36,9 +36,9 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         multiple_choice_scores: str = "multiple_choice_scores",
         choice_type: str | BigBenchChoiceType = BigBenchChoiceType.SUM_OF_SCORES,
     ) -> None:
-        self._inputs = inputs
-        self._multiple_choice_targets = multiple_choice_targets
-        self._multiple_choice_scores = multiple_choice_scores
+        self.inputs = inputs
+        self.multiple_choice_targets = multiple_choice_targets
+        self.multiple_choice_scores = multiple_choice_scores
 
         self._score_fn = BigBenchChoiceType.lookup(choice_type).score
 
@@ -46,9 +46,9 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         self, data: Mapping[str, Any], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
         # Get data.
-        inputs = data[self._inputs]
-        multiple_choice_targets = data[self._multiple_choice_targets]
-        multiple_choice_scores = data[self._multiple_choice_scores]
+        inputs = data[self.inputs]
+        multiple_choice_targets = data[self.multiple_choice_targets]
+        multiple_choice_scores = data[self.multiple_choice_scores]
 
         LOGGER.debug(
             "Evaluating",
@@ -88,30 +88,22 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
 
         # Get the maximum number of choices.
         # Usually every question should have the same number of choices (5).
-        max_choices = max(len(mcs) for mcs in multiple_choice_scores)
-        min_choices = min(len(mcs) for mcs in multiple_choice_scores)
+        choices = [len(mcs) for mcs in multiple_choice_scores]
 
-        if max_choices == 0:
+        if min(choices) == 0:
             raise ValueError(
                 "Multiple choice scores must not be empty. "
                 f"Got {multiple_choice_scores}"
             )
 
-        if max_choices != min_choices:
+        if len(set(choices)) != 1:
             raise ValueError(
                 "Batched multiple choice scores only supports the same number of choices. "
-                f"Got number of choices from {min_choices} to {max_choices}."
+                f"Got number of choices from {min(choices)} to {max(choices)}."
             )
 
-        tokens = [str(i) for i in range(1, max_choices + 1)]
-        encoded_tokens = lm.encode_tokens(tokens)
-
-        # Logits has the shape [batch_size, vocab_size]
-        # because lm.logits has the shape [batch_size, seq_len, vocab_size]
-        logits = lm.logits(prompts)[:, -1, :]
-
-        # Selected has shape [batch_size, num_choices].
-        selected = logits[:, encoded_tokens]
+        (choice,) = choices
+        selected = lm.classify(prompts, choices=choice)
 
         # Chosen has shape [batch_size].
         # Although choices start from 1, chosen is the index of the choice.
