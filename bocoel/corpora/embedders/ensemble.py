@@ -15,4 +15,4 @@ class EnsembleEmbedder(Embedder):
         return sum(emb.dims for emb in self._embedders)
 
     def _encode(self, texts: Sequence[str], /) -> NDArray:
-        return np.concatenate([emb._encode(texts) for emb in self._embedders], axis=0)
+        return np.concatenate([emb._encode(texts) for emb in self._embedders], axis=-1)
