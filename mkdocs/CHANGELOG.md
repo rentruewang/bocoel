@@ -9,9 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.0.3] - 2024-01-24
 
-- Optimizers uses a generator like interface.
+### Added
+
 - Website added.
 - LanguageModels support prediction via logits.
+
+### Changed
+
+- Optimizers uses a generator like interface.
 
 ## [v0.0.2] - 2024-01-20
 
