@@ -9,7 +9,7 @@ theme:
     - navigation.tabs
 docs_dir: mkdocs
 edit_uri: ""
-site_url: bocoel.pages.dev
+site_url: https://bocoel.pages.dev
 repo_name: rentruewang/bocoel
 plugins:
   - search
