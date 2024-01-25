@@ -1,6 +1,8 @@
 site_name: Bayesian Optimization as a Coverage Tool for LLM
 theme:
   name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
   icon:
     repo: material/github
   features:
@@ -11,6 +13,7 @@ docs_dir: mkdocs
 edit_uri: ""
 site_url: https://bocoel.pages.dev
 repo_name: rentruewang/bocoel
+repo_url: https://github.com/rentruewang/bocoel
 plugins:
   - search
   - social
@@ -21,5 +24,10 @@ plugins:
       repository: rentruewang/bocoel
       branch: main
 nav:
-  - README: README.md
-  - Changelog: CHANGELOG.md
+  - Home:
+    - README: README.md
+  - Contributing:
+    - CONTRIBUTING.md
+    - CODE_OF_CONDUCT.md
+  - Reference:
+    - CHANGELOG.md

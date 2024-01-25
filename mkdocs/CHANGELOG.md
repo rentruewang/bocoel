@@ -25,9 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Auto release to PyPI.
-
-### Added
-
 - A few implementations for baselines.
 
 ### Changed 
