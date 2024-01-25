@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+## [v0.0.3] - 2024-01-24
 
 - Optimizers uses a generator like interface.
+- Website added.
+- LanguageModels support prediction via logits.
 
 ## [v0.0.2] - 2024-01-20
 
@@ -47,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adaptor - BigBench
 - Optimizer - Ax / BoTorch, KMeans
 
+[v0.0.3]: https://github.com/rentruewang/bocoel/compare/v0.0.2...v0.0.3
 [v0.0.2]: https://github.com/rentruewang/bocoel/compare/v0.0.1...v0.0.2
 [v0.0.1]: https://github.com/rentruewang/bocoel/compare/v0.0.0...v0.0.1
 [v0.0.0]: https://github.com/rentruewang/bocoel/compare/v0.0.0
