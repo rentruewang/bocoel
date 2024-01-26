@@ -23,7 +23,7 @@ class Sst2QuestionAnswer(Adaptor):
         idx: str = "idx",
         sentence: str = "sentence",
         label: str = "label",
-        choices: int = 2,
+        choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
         self.idx = idx
         self.sentence = sentence

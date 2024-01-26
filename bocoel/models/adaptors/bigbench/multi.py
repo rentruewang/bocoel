@@ -103,7 +103,7 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
             )
 
         (choice,) = choices
-        selected = lm.classify(prompts, choices=choice)
+        selected = lm.classify(prompts, choices=[str(i) for i in range(1, choice + 1)])
 
         # Chosen has shape [batch_size].
         # Although choices start from 1, chosen is the index of the choice.

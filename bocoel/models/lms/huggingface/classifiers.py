@@ -11,7 +11,7 @@ from .bases import HuggingfaceBaseLM
 
 class HuggingfaceClassifierLM(HuggingfaceBaseLM):
     def __init__(
-        self, model_path: str, batch_size: int, device: Device, choices: int = 2
+        self, model_path: str, batch_size: int, device: Device, choices: Sequence[str]
     ) -> None:
         super().__init__(model_path, batch_size, device)
 
@@ -22,8 +22,8 @@ class HuggingfaceClassifierLM(HuggingfaceBaseLM):
         self._choices = choices
 
     @torch.no_grad()
-    def _classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
-        if choices != self._choices:
+    def _classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
+        if tuple(choices) != tuple(self._choices):
             raise ValueError(f"choices must be {self._choices}. Got {choices}.")
 
         tokenized = self._tokenize(prompts)

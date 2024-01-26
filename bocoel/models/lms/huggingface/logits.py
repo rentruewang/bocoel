@@ -19,12 +19,11 @@ class HuggingfaceLogitsLM(HuggingfaceBaseLM):
         super().__init__(model_path, batch_size, device)
 
     @torch.no_grad()
-    def _classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
+    def _classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
         tokenized = self._tokenize(prompts)
 
         # Encode tokens and select the logits at the given output.
-        tokens = [str(i) for i in range(1, choices + 1)]
-        encoded = self._encode_tokens(tokens)
+        encoded = self._encode_tokens(choices)
 
         output = self._model(**tokenized)
 
@@ -37,10 +36,15 @@ class HuggingfaceLogitsLM(HuggingfaceBaseLM):
         return result.cpu().numpy()
 
     def _encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
-        result: list[int] = sum(
-            [self._tokenizer.encode(tok, add_special_tokens=False) for tok in tokens],
-            [],
-        )
+        result: list[int] = []
+        for tok in tokens:
+            result.extend(self._tokenizer.encode(tok, add_special_tokens=False))
+
         if len(result) != len(tokens):
-            raise ValueError(f"Tokens must be words. Got {tokens}.")
+            decoded = self._tokenizer.decode(self._tokenizer.encode(tokens))
+            raise ValueError(
+                "Tokens must be words. Each token must be converted to 1 id."
+                f"Got {tokens}, encoded into {decoded}."
+            )
+
         return result

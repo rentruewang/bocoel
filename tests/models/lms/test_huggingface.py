@@ -33,7 +33,7 @@ def test_lm_classify(
     llm = lm_function(device)
     prompts = ["Hello, my name is", "I am a", "I like to eat"]
 
-    logits = llm.classify(prompts, choices=2)
+    logits = llm.classify(prompts, choices=["negative", "positive"])
     assert len(logits) == len(prompts), {
         "logits": logits,
         "prompts": prompts,

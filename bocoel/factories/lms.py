@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from bocoel import HuggingfaceClassifierLM, HuggingfaceLogitsLM, LanguageModel
 from bocoel.common import StrEnum
 
@@ -16,6 +18,7 @@ def lm_factory(
     model_path: str,
     batch_size: int,
     device: str,
+    choices: Sequence[str],
 ) -> LanguageModel:
     match LMName.lookup(name):
         case LMName.LOGITS:
@@ -24,7 +27,10 @@ def lm_factory(
             )
         case LMName.CLASSIFIER:
             return common.correct_kwargs(HuggingfaceClassifierLM)(
-                model_path=model_path, batch_size=batch_size, device=device
+                model_path=model_path,
+                batch_size=batch_size,
+                device=device,
+                choices=choices,
             )
         case _:
             raise ValueError(f"Unknown LM name {name}")

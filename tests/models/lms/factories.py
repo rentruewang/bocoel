@@ -12,5 +12,8 @@ def logits_lm(device: str) -> LanguageModel:
 @utils.cache
 def classifier_lm(device: str) -> LanguageModel:
     return HuggingfaceClassifierLM(
-        model_path="bert-base-uncased", device=device, batch_size=4
+        model_path="bert-base-uncased",
+        device=device,
+        batch_size=4,
+        choices=["negative", "positive"],
     )

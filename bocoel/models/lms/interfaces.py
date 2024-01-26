@@ -31,7 +31,7 @@ class LanguageModel(Protocol):
 
         ...
 
-    def classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
+    def classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
         """
         Generate logits given prompts.
 
@@ -40,6 +40,9 @@ class LanguageModel(Protocol):
 
         `prompts: Sequence[str]`
         The prompts to generate logits from.
+
+        `choices: Sequence[str]`
+        The choices for this batch of prompts.
 
         Returns
         -------
@@ -50,16 +53,16 @@ class LanguageModel(Protocol):
 
         classified = self._classify(prompts, choices=choices)
 
-        if classified.shape != (len(prompts), choices):
+        if classified.shape != (len(prompts), len(choices)):
             raise ValueError(
-                f"Expected logits to have shape {(len(prompts), choices)}, "
+                f"Expected logits to have shape {(len(prompts), len(choices))}, "
                 f"but got {classified.shape}"
             )
 
         return classified
 
     @abc.abstractmethod
-    def _classify(self, prompts: Sequence[str], /, choices: int) -> NDArray:
+    def _classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
         """
         Generate logits given prompts.
 
@@ -69,7 +72,7 @@ class LanguageModel(Protocol):
         `prompts: Sequence[str]`
         The prompts to generate logits from.
 
-        `choices: int`
+        `choices: Sequence[str]`
         Number of choices for this batch of prompts.
 
         Returns

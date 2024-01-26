@@ -1,4 +1,3 @@
-from .aggregators import Agg, MergeAgg, PathLength
 from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,

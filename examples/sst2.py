@@ -5,6 +5,7 @@ import datasets
 import fire
 import numpy as np
 import structlog
+from torch import cuda
 from tqdm import tqdm
 
 import bocoel
@@ -20,7 +21,11 @@ from bocoel import (
     HuggingfaceClassifierLM,
     HuggingfaceEmbedder,
     HuggingfaceLogitsLM,
+    KMeansOptimizer,
+    KMedoidsOptimizer,
+    Optimizer,
     Sst2QuestionAnswer,
+    Task,
 )
 
 structlog.configure(
@@ -45,7 +50,10 @@ def main(
     index_threads: int = 8,
     optimizer_steps: int = 30,
     acqf: str = "ENTROPY",
+    task: str = "EXPLORE",
     classification: Literal["logits", "classifier"] = "classifier",
+    optimizer: Literal["ax", "kmeans", "kmedoids"] = "ax",
+    n_clusters: int = 30,
 ) -> None:
     # The corpus part
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
@@ -63,17 +71,27 @@ def main(
     # )
 
     embedders = []
-    for model in [  # "textattack/bert-base-uncased-SST-2",
-        #   "textattack/roberta-base-SST-2",
-        #   "textattack/albert-base-v2-SST-2",
-        #   "textattack/xlnet-large-cased-SST-2",
-        #   "textattack/xlnet-base-cased-SST-2",
-        #   "textattack/facebook-bart-large-SST-2",
-        #   "textattack/distilbert-base-uncased-SST-2",
-        "textattack/distilbert-base-cased-SST-2"
-    ]:
+
+    cuda_available = cuda.is_available()
+    device_count = cuda.device_count()
+    for i, model in enumerate(
+        [  # "textattack/bert-base-uncased-SST-2",
+            #   "textattack/roberta-base-SST-2",
+            #   "textattack/albert-base-v2-SST-2",
+            #   "textattack/xlnet-large-cased-SST-2",
+            #   "textattack/xlnet-base-cased-SST-2",
+            #   "textattack/facebook-bart-large-SST-2",
+            #   "textattack/distilbert-base-uncased-SST-2",
+            "textattack/distilbert-base-cased-SST-2"
+        ]
+    ):
+        # Auto cast devices
+        if cuda_available:
+            hf_device = f"cuda:{i%device_count}"
+        else:
+            hf_device = "cpu"
         embedders.append(
-            HuggingfaceEmbedder(path=model, device=device, batch_size=batch_size)
+            HuggingfaceEmbedder(path=model, device=hf_device, batch_size=batch_size)
         )
     embedder = EnsembleEmbedder(embedders)
 
@@ -89,7 +107,6 @@ def main(
         key=sentence,
         index_backend=HnswlibIndex,
         distance=Distance.INNER_PRODUCT,
-        # whitening_backend=HnswlibIndex,
         threads=index_threads,
     )
 
@@ -97,18 +114,24 @@ def main(
     # The model part
 
     lm_cls: type[HuggingfaceBaseLM]
-    if classification == "classifier":
-        lm_cls = HuggingfaceClassifierLM
-    elif classification == "logits":
-        lm_cls = HuggingfaceLogitsLM
-    else:
-        raise ValueError
-    LOGGER.info("Creating LM with model", model=llm_model, device=device)
+    hf_kwargs = {}
+    match classification:
+        case "classifier":
+            lm_cls = HuggingfaceClassifierLM
+            hf_kwargs.update({"choices": ["negative", "positive"]})
+        case "logits":
+            lm_cls = HuggingfaceLogitsLM
+        case _:
+            raise ValueError(f"Unknown classification {classification}")
+
+    LOGGER.info(
+        "Creating LM with model",
+        lm_cls=lm_cls,
+        model=llm_model,
+        device=device,
+        **hf_kwargs,
+    )
     lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size)
-    # LOGGER.info("Creating LM with model", model=llm_model, device=device)
-    # lm = HuggingfaceClassifierLM(
-    #     model_path=llm_model, device=device, batch_size=batch_size
-    # )
 
     LOGGER.info(
         "Creating adaptor with arguments", inputs=idx, sentence=sentence, label=label
@@ -127,23 +150,49 @@ def main(
         device=device,
         acqf=acqf,
     )
-    optim = bocoel.evaluate_corpus(
-        AxServiceOptimizer,
-        corpus=corpus,
-        lm=lm,
-        adaptor=adaptor,
-        sobol_steps=sobol_steps,
-        device=device,
-        acqf=AcquisitionFunc.lookup(acqf),
-    )
 
-    scores = []
+    optim: Optimizer
+    match optimizer:
+        case "ax":
+            optim = bocoel.evaluate_corpus(
+                AxServiceOptimizer,
+                corpus=corpus,
+                lm=lm,
+                adaptor=adaptor,
+                sobol_steps=sobol_steps,
+                device=device,
+                task=Task.lookup(task),
+                acqf=AcquisitionFunc.lookup(acqf),
+            )
+        case "kmeans":
+            optim = bocoel.evaluate_corpus(
+                KMeansOptimizer,
+                corpus=corpus,
+                lm=lm,
+                adaptor=adaptor,
+                batch_size=batch_size,
+                embeddings=corpus.index.embeddings,
+                model_kwargs={"n_clusters": n_clusters, "n_init": "auto"},
+            )
+        case "kmedoids":
+            optim = bocoel.evaluate_corpus(
+                KMedoidsOptimizer,
+                corpus=corpus,
+                lm=lm,
+                adaptor=adaptor,
+                batch_size=batch_size,
+                embeddings=corpus.index.embeddings,
+                model_kwargs={"n_clusters": n_clusters},
+            )
+
+    scores: list[float] = []
     for i in tqdm(range(optimizer_steps)):
         state = optim.step()
         LOGGER.info("iteration {i}: {state}", i=i, state=state)
         scores.append(state[i])
 
-    print(np.average(scores))
+    # Performs aggregation here.
+    print("average:", np.average(scores))
 
 
 if __name__ == "__main__":
