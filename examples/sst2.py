@@ -11,11 +11,13 @@ from tqdm import tqdm
 import bocoel
 from bocoel import (
     AcquisitionFunc,
+    Adaptor,
     AxServiceOptimizer,
     ComposedCorpus,
     DatasetsStorage,
     Distance,
     EnsembleEmbedder,
+    GlueAdaptor,
     HnswlibIndex,
     HuggingfaceBaseLM,
     HuggingfaceClassifierLM,
@@ -37,7 +39,15 @@ LOGGER = structlog.get_logger()
 
 def main(
     *,
-    ds_path: str = "SST2",
+    ds_path: Literal[
+        "SST2",
+        "SetFit/mnli",
+        "SetFit/mrpc",
+        "SetFit/qnli",
+        "SetFit/rte",
+        "SetFit/qqp",
+        "SetFit/sst2",
+    ] = "SST2",
     ds_split: Literal["train", "validation", "test"] = "train",
     idx: str = "idx",
     sentence: str = "sentence",
@@ -136,7 +146,11 @@ def main(
     LOGGER.info(
         "Creating adaptor with arguments", inputs=idx, sentence=sentence, label=label
     )
-    adaptor = Sst2QuestionAnswer(idx=idx, sentence=sentence, label=label)
+    adaptor: Adaptor
+    if "setfit" in ds_path.lower():
+        adaptor = GlueAdaptor(num_texts=1 if ds_path == "SetFit/sst2" else 2)
+    elif ds_path == "SST2":
+        adaptor = Sst2QuestionAnswer(idx=idx, sentence=sentence, label=label)
 
     # ------------------------
     # The optimizer part.

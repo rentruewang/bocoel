@@ -43,7 +43,7 @@ class SearchResultBatch(_SearchResult):
 
     def __post_init__(self) -> None:
         if self.query.ndim != 2:
-            raise ValueError(f"Query should be batched. Got shape {self.query.shape}.")
+            raise ValueError(f"Query should be batched. Got shape {self.query.shape}")
 
         if self.vectors.ndim != 3:
             raise ValueError(

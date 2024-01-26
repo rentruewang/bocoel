@@ -59,13 +59,13 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
 
         # Check data.
         if not all(isinstance(ipt, str) for ipt in inputs):
-            raise ValueError("Inputs must be strings.")
+            raise ValueError("Inputs must be strings")
 
         if not all(utils.list_of(mct, str) for mct in multiple_choice_targets):
-            raise ValueError("Multiple choice targets must be sequences.")
+            raise ValueError("Multiple choice targets must be sequences")
 
         if not all(utils.list_of(mcs, Number) for mcs in multiple_choice_scores):
-            raise ValueError("Multiple choice scores must be floats.")
+            raise ValueError("Multiple choice scores must be floats")
 
         return self._evaluate_batch(
             inputs=inputs,

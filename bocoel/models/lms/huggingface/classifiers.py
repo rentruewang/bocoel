@@ -24,7 +24,7 @@ class HuggingfaceClassifierLM(HuggingfaceBaseLM):
     @torch.no_grad()
     def _classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
         if tuple(choices) != tuple(self._choices):
-            raise ValueError(f"choices must be {self._choices}. Got {choices}.")
+            raise ValueError(f"choices must be {self._choices}. Got {choices}")
 
         tokenized = self._tokenize(prompts)
         output = self._classifier(**tokenized)

@@ -33,6 +33,8 @@ class HuggingfaceBaseLM(LanguageModel, metaclass=ABCMeta):
             self._tokenizer.pad_token = eos
         else:
             self._tokenizer.add_special_tokens({"pad_token": "[PAD]"})
+        if self._tokenizer.sep_token is None:
+            self._tokenizer.add_special_tokens({"sep_token": "[SEP]"})
 
         # Model used for generation
         self._model = AutoModelForCausalLM.from_pretrained(model_path)

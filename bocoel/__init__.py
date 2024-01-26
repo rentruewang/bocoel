@@ -46,6 +46,7 @@ from .models import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
+    GlueAdaptor,
     HuggingfaceBaseLM,
     HuggingfaceClassifierLM,
     HuggingfaceLogitsLM,

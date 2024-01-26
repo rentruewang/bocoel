@@ -78,10 +78,10 @@ class BigBenchQuestionAnswer(BigBenchAdaptor):
 
         # Check data.
         if not all(isinstance(ipt, str) for ipt in inputs):
-            raise ValueError("Inputs must be strings.")
+            raise ValueError("Inputs must be strings")
 
         if not all(utils.list_of(tgt, str) for tgt in targets):
-            raise ValueError("Targets must be strings.")
+            raise ValueError("Targets must be strings")
 
         return self._evaluate(inputs, targets, lm)
 

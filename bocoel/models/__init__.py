@@ -5,6 +5,7 @@ from .adaptors import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
+    GlueAdaptor,
     Sst2QuestionAnswer,
 )
 from .lms import (
