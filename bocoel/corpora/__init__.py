@@ -1,5 +1,5 @@
 from .corpora import ComposedCorpus, Corpus
-from .embedders import Embedder, HuggingfaceEmbedder, SbertEmbedder
+from .embedders import Embedder, EnsembleEmbedder, HuggingfaceEmbedder, SbertEmbedder
 from .indices import (
     Boundary,
     Distance,

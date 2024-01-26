@@ -27,6 +27,7 @@ from .corpora import (
     DatasetsStorage,
     Distance,
     Embedder,
+    EnsembleEmbedder,
     FaissIndex,
     HnswlibIndex,
     HuggingfaceEmbedder,

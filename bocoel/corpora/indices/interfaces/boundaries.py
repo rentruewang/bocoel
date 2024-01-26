@@ -8,6 +8,11 @@ from typing_extensions import Self
 @dcls.dataclass(frozen=True)
 class Boundary:
     bounds: NDArray
+    """
+    The boundary arrays of the corpus.
+    Must be of shape (dims, 2), where dims is the number of dimensions.
+    The first column is the lower bound, the second column is the upper bound.
+    """
 
     def __post_init__(self) -> None:
         if self.bounds.ndim != 2:

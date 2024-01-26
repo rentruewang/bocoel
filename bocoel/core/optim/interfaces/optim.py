@@ -2,11 +2,16 @@ import abc
 from collections.abc import Mapping
 from typing import Any, Protocol
 
+from bocoel.core.optim.evals import QueryEvaluator
+from bocoel.corpora import Boundary
+
 from .tasks import Task
 
 
 class Optimizer(Protocol):
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(
+        self, query_eval: QueryEvaluator, boundary: Boundary, **kwargs: Any
+    ) -> None:
         # Included s.t. constructors of Index can be used.
         ...
 

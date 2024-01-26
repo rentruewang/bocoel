@@ -9,6 +9,18 @@ theme:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
 docs_dir: mkdocs
 edit_uri: ""
 site_url: https://bocoel.pages.dev
@@ -17,7 +29,24 @@ repo_url: https://github.com/rentruewang/bocoel
 plugins:
   - search
   - social
-  - mkdocstrings
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_root_heading: true
+            inherited_members: true
+            # show_if_no_docstring: true
+            members_order: source
+            show_submodules: true
+            docstring_style: 
+            merge_init_into_class: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+            separate_signature: true
+
   - git-revision-date
   - git-revision-date-localized
   - git-committers:
@@ -26,8 +55,23 @@ plugins:
 nav:
   - Home:
     - README: README.md
-  - Contributing:
-    - CONTRIBUTING.md
-    - CODE_OF_CONDUCT.md
   - Reference:
+    - references/overview.md
+    - references/storages.md
+    - references/indices.md
+    - references/embedders.md
+    - references/corpora.md
+    - references/scores.md
+    - references/adaptors.md
+    - references/lms.md
+    - references/optimizers.md
     - CHANGELOG.md
+  - Contributing:
+    - Contributing: CONTRIBUTING.md
+    - Code of Conduct: CODE_OF_CONDUCT.md
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
