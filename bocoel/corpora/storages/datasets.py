@@ -9,6 +9,12 @@ from bocoel.corpora.storages.interfaces import Storage
 
 
 class DatasetsStorage(Storage):
+    """
+    Storage for datasets from HuggingFace Datasets library.
+    Datasets are loaded on disk, so they might be slow(er) to load,
+    but are more memory efficient.
+    """
+
     def __init__(self, dataset: Dataset, /) -> None:
         self._dataset = dataset
 

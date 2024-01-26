@@ -45,7 +45,7 @@ from .models import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
-    HuggingfaceCausalLM,
+    HuggingfaceBaseLM,
     HuggingfaceClassifierLM,
     HuggingfaceLogitsLM,
     LanguageModel,

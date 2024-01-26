@@ -1,3 +1,3 @@
-from .causal import HuggingfaceCausalLM
+from .bases import HuggingfaceBaseLM
 from .classifiers import HuggingfaceClassifierLM
-from .generative import HuggingfaceLogitsLM
+from .logits import HuggingfaceLogitsLM

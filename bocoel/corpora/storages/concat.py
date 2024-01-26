@@ -9,8 +9,14 @@ from bocoel.corpora.storages.interfaces import Storage
 LOGGER = structlog.get_logger()
 
 
-# TODO: Add tests.
 class ConcatStorage(Storage):
+    """
+    Storage that concatenates multiple storages together.
+    Concatenation is done on the first dimension.
+    The resulting storage is read-only and has length
+    equal to the sum of the lengths of the storages.
+    """
+
     def __init__(self, storages: Sequence[Storage], /) -> None:
         if len(storages) < 1:
             raise ValueError("At least one storage is required")

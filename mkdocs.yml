@@ -1,4 +1,4 @@
-site_name: Bayesian Optimization as a Coverage Tool for LLM
+site_name: Bayesian Optimization as a Coverage Tool for Evaluating LLM
 theme:
   name: material
   logo: assets/logo.svg
@@ -8,7 +8,7 @@ theme:
   features:
     - navigation.instant
     - navigation.instant.progress
-    - navigation.tabs
+    # - navigation.tabs
   palette: 
     # Palette toggle for light mode
     - scheme: default
@@ -29,15 +29,17 @@ repo_url: https://github.com/rentruewang/bocoel
 plugins:
   - search
   - social
+  - tags
   - mkdocstrings:
       handlers:
         python:
           options:
-            show_source: false
+            show_source: true
             show_symbol_type_heading: true
             show_symbol_type_toc: true
             show_root_heading: true
             inherited_members: true
+            filters: null
             # show_if_no_docstring: true
             members_order: source
             show_submodules: true
@@ -46,12 +48,14 @@ plugins:
             show_signature_annotations: true
             signature_crossrefs: true
             separate_signature: true
-
   - git-revision-date
   - git-revision-date-localized
-  - git-committers:
-      repository: rentruewang/bocoel
-      branch: main
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rentruewang
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/bocoel/
 nav:
   - Home:
     - README: README.md

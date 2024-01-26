@@ -7,10 +7,15 @@ from typing_extensions import Self
 
 @dcls.dataclass(frozen=True)
 class Boundary:
+    """
+    The boundary of embeddings in a corpus.
+    The boundary is defined as a hyperrectangle in the embedding space.
+    """
+
     bounds: NDArray
     """
     The boundary arrays of the corpus.
-    Must be of shape (dims, 2), where dims is the number of dimensions.
+    Must be of shape `[dims, 2]`, where dims is the number of dimensions.
     The first column is the lower bound, the second column is the upper bound.
     """
 
@@ -32,16 +37,44 @@ class Boundary:
 
     @property
     def dims(self) -> int:
+        "The number of dimensions."
         return self.bounds.shape[0]
 
     @property
     def lower(self) -> NDArray:
+        "The lower bounds. Must be of shape `[dims]`."
         return self.bounds[:, 0]
 
     @property
     def upper(self) -> NDArray:
+        "The upper bounds. Must be of shape `[dims]`."
         return self.bounds[:, 1]
 
     @classmethod
     def fixed(cls, lower: float, upper: float, dims: int) -> Self:
+        """
+        Create a boundary with fixed bounds.
+        If `lower > upper`, a `ValueError` would be raised.
+
+        Parameters
+        ----------
+
+        `lower: float`
+        The lower bound.
+
+        `upper: float`
+        The upper bound.
+
+        `dims: int`
+        The number of dimensions.
+
+        Returns
+        -------
+
+        A `Boundary` instance.
+        """
+
+        if lower > upper:
+            raise ValueError("Expected lower <= upper")
+
         return cls(bounds=np.array([[lower, upper]] * dims))

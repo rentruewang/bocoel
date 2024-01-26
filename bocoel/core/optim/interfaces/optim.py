@@ -1,10 +1,11 @@
 import abc
+import typing
 from collections.abc import Mapping
 from typing import Any, Protocol
 
-from bocoel.core.optim.evals import QueryEvaluator
 from bocoel.corpora import Boundary
 
+from .evals import QueryEvaluator
 from .tasks import Task
 
 

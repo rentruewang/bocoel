@@ -4,12 +4,12 @@ import torch
 from numpy.typing import NDArray
 from transformers import AutoModelForSequenceClassification
 
-from bocoel.models.lms.huggingface.causal import Device
+from bocoel.models.lms.huggingface.bases import Device
 
-from .causal import HuggingfaceCausalLM
+from .bases import HuggingfaceBaseLM
 
 
-class HuggingfaceClassifierLM(HuggingfaceCausalLM):
+class HuggingfaceClassifierLM(HuggingfaceBaseLM):
     def __init__(
         self, model_path: str, batch_size: int, device: Device, choices: int = 2
     ) -> None:

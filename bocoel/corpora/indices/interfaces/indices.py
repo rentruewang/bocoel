@@ -34,6 +34,20 @@ class Index(Protocol):
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
         Calls the search function and performs some checks.
+
+        Parameters
+        ----------
+
+        `query: ArrayLike`
+        The query vector. Must be of shape `[batch, dims]`.
+
+        `k: int`
+        The number of nearest neighbors to return.
+
+        Returns
+        -------
+
+        A `SearchResultBatch` instance. See `SearchResultBatch` for details.
         """
 
         query = np.array(query)

@@ -10,7 +10,7 @@ from bocoel.models.lms.interfaces import LanguageModel
 Device = str | device
 
 
-class HuggingfaceCausalLM(LanguageModel, metaclass=ABCMeta):
+class HuggingfaceBaseLM(LanguageModel, metaclass=ABCMeta):
     """
     The Huggingface implementation of LanguageModel.
     This is a wrapper around the Huggingface library,
@@ -55,6 +55,11 @@ class HuggingfaceCausalLM(LanguageModel, metaclass=ABCMeta):
         return self
 
     def _tokenize(self, prompts: Sequence[str], /):
+        """
+        Tokenize, pad, truncate, cast to device, and yield the encoded results.
+        Returning `BatchEncoding` but not marked in the type hint
+        due to optional dependency.
+        """
         if not isinstance(prompts, list):
             prompts = list(prompts)
 

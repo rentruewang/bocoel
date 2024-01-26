@@ -8,7 +8,7 @@ from .adaptors import (
     Sst2QuestionAnswer,
 )
 from .lms import (
-    HuggingfaceCausalLM,
+    HuggingfaceBaseLM,
     HuggingfaceClassifierLM,
     HuggingfaceLogitsLM,
     LanguageModel,

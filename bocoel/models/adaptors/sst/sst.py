@@ -8,6 +8,16 @@ from bocoel.models.lms import LanguageModel
 
 
 class Sst2QuestionAnswer(Adaptor):
+    """
+    The adaptor for the SST-2 dataset.
+    This adaptor assumes that the dataset has the following columns:
+    - `idx`: The index of the entry.
+    - `sentence`: The sentence to classify.
+    - `label`: The label of the sentence.
+
+    Each entry in the dataset must be a single sentence.
+    """
+
     def __init__(
         self,
         idx: str = "idx",

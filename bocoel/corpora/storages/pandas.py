@@ -10,6 +10,12 @@ from bocoel.corpora.storages.interfaces import Storage
 
 
 class PandasStorage(Storage):
+    """
+    Storage for pandas DataFrame.
+    Since pandas DataFrames are in-memory, this storage is fast,
+    but might be memory inefficient and require a lot of RAM.
+    """
+
     def __init__(self, df: DataFrame, /) -> None:
         self._df = df
 
@@ -27,6 +33,21 @@ class PandasStorage(Storage):
 
     @classmethod
     def from_jsonl_file(cls, path: str | Path, /) -> Self:
+        """
+        Load data from a JSONL file.
+
+        Parameters
+        ----------
+
+        `path: str | Path`
+        Path to the JSONL file.
+
+        Returns
+        -------
+
+        A `PandasStorage` instance.
+        """
+
         path = Path(path)
 
         if not path.exists():
@@ -43,5 +64,20 @@ class PandasStorage(Storage):
 
     @classmethod
     def from_jsonl(cls, data: Sequence[Mapping[str, str]], /) -> Self:
+        """
+        Load data from a JSONL object.
+
+        Parameters
+        ----------
+
+        `data: Sequence[Mapping[str, str]]`
+        Data to load.
+
+        Returns
+        -------
+
+        A `PandasStorage` instance.
+        """
+
         df = DataFrame.from_records(data)
         return cls(df)

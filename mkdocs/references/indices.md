@@ -1,9 +1,14 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> indices
+# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Indices
 
-::: bocoel.Boundary
-::: bocoel.Distance
 ::: bocoel.Index
 ::: bocoel.HnswlibIndex
 ::: bocoel.FaissIndex
 ::: bocoel.WhiteningIndex
 ::: bocoel.PolarIndex
+
+::: bocoel.Boundary
+::: bocoel.Distance
+
+::: bocoel.corpora.indices.interfaces.results._SearchResult
+::: bocoel.corpora.SearchResultBatch
+::: bocoel.corpora.SearchResult

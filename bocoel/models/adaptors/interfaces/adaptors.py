@@ -3,11 +3,14 @@ from collections.abc import Mapping, Sequence
 from typing import Any, Protocol
 
 import numpy as np
+import structlog
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
 from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
+
+LOGGER = structlog.get_logger()
 
 
 class Adaptor(Protocol):
@@ -20,12 +23,56 @@ class Adaptor(Protocol):
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
+        """
+        Evaluate a particular set of entries with a language model.
+        Returns a list of scores, one for each entry, in the same order.
+
+        Parameters
+        ----------
+
+        `data: Mapping[str, Sequence[Any]]`
+        A mapping from column names to the data in that column.
+
+        `lm: LanguageModel`
+        The language model to use for evaluation.
+
+        Returns
+        -------
+
+        The scores for each entry. Scores must be floating point numbers.
+        """
+
         ...
 
     def on_storage(
         self, storage: Storage, lm: LanguageModel, indices: ArrayLike
     ) -> NDArray:
-        indices = np.array(indices)
+        """
+        Evaluate a particular set of indices on a storage.
+        Given indices and a storage,
+        this method will extract the corresponding entries from the storage,
+        and evaluate them with `Adaptor.evaluate`.
+
+        Parameters
+        ----------
+
+        `storage: Storage`
+        The storage to extract entries from.
+
+        `lm: LanguageModel`
+        The language model to use for evaluation.
+
+        `indices: ArrayLike`
+        The indices to extract from the storage.
+
+        Returns
+        -------
+
+        The scores for each entry. Scores must be floating point numbers.
+        The shape of the returned array must be the same as the shape of `indices`.
+        """
+
+        indices = np.array(indices).astype("i")
 
         # Reshape the indices into 1D to evaluate.
         indices_shape = indices.shape
@@ -41,4 +88,9 @@ class Adaptor(Protocol):
     def on_corpus(
         self, corpus: Corpus, lm: LanguageModel, indices: ArrayLike
     ) -> NDArray:
+        """
+        Evaluate a particular set of indices on a corpus.
+        A convenience wrapper around `Adaptor.on_storage`.
+        """
+
         return self.on_storage(storage=corpus.storage, lm=lm, indices=indices)

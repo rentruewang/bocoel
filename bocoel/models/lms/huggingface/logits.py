@@ -3,12 +3,18 @@ from collections.abc import Sequence
 import torch
 from numpy.typing import NDArray
 
-from bocoel.models.lms.huggingface.causal import Device
+from bocoel.models.lms.huggingface.bases import Device
 
-from .causal import HuggingfaceCausalLM
+from .bases import HuggingfaceBaseLM
 
 
-class HuggingfaceLogitsLM(HuggingfaceCausalLM):
+class HuggingfaceLogitsLM(HuggingfaceBaseLM):
+    """
+    The Huggingface implementation of LanguageModel that uses logits in classification.
+    This means that the model would use the logits of ['1', '2', '3', '4', '5'] as the output,
+    if `choices = 5`, for the current batch of inputs.
+    """
+
     def __init__(self, model_path: str, batch_size: int, device: Device) -> None:
         super().__init__(model_path, batch_size, device)
 
