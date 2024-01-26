@@ -14,6 +14,10 @@ from bocoel.corpora.indices.interfaces.results import InternalResult
 
 
 class StatefulIndex(Index):
+    """
+    An index that tracks states.
+    """
+
     def __init__(self, index: Index) -> None:
         self._index = index
         self._clear_history()
@@ -43,6 +47,27 @@ class StatefulIndex(Index):
     def stateful_search(
         self, query: ArrayLike, k: int = 1
     ) -> Mapping[int, SearchResult]:
+        """
+        Search while tracking states.
+
+        Parameters
+        ----------
+
+        `query: ArrayLike`
+        The query to search for.
+
+        `k: int = 1`
+        The number of nearest neighbors to return.
+
+        Returns
+        -------
+
+        `Mapping[int, SearchResult]`
+        A mapping from the index of the search result to the search result.
+        The index is used for retrieving the search result later.
+        Do so by indexing the `history` property of this object.
+        """
+
         result = self.search(query=query, k=k)
         prev_len = len(self._history)
         splitted = utils.split_search_result_batch(result)
@@ -60,6 +85,7 @@ class StatefulIndex(Index):
 
     @property
     def history(self) -> Sequence[SearchResult]:
+        "History for looking up the results of previous searches with index handles."
         return self._history
 
     def _clear_history(self) -> None:

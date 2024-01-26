@@ -3,6 +3,7 @@ from typing import Literal
 
 import datasets
 import fire
+import numpy as np
 import structlog
 from tqdm import tqdm
 
@@ -13,9 +14,12 @@ from bocoel import (
     ComposedCorpus,
     DatasetsStorage,
     Distance,
+    EnsembleEmbedder,
     HnswlibIndex,
+    HuggingfaceBaseLM,
     HuggingfaceClassifierLM,
-    SbertEmbedder,
+    HuggingfaceEmbedder,
+    HuggingfaceLogitsLM,
     Sst2QuestionAnswer,
 )
 
@@ -34,13 +38,14 @@ def main(
     sentence: str = "sentence",
     label: str = "label",
     sbert_model: str = "all-mpnet-base-v2",
-    llm_model: str = "distilgpt2",
+    llm_model: str = "textattack/roberta-base-SST-2",
     batch_size: int = 16,
     device: str = "cpu",
     sobol_steps: int = 20,
     index_threads: int = 8,
     optimizer_steps: int = 30,
     acqf: str = "ENTROPY",
+    classification: Literal["logits", "classifier"] = "classifier",
 ) -> None:
     # The corpus part
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
@@ -53,9 +58,24 @@ def main(
         model=sbert_model,
         device=device,
     )
-    embedder = SbertEmbedder(
-        model_name=sbert_model, device=device, batch_size=batch_size
-    )
+    # embedder = SbertEmbedder(
+    #     model_name=sbert_model, device=device, batch_size=batch_size
+    # )
+
+    embedders = []
+    for model in [  # "textattack/bert-base-uncased-SST-2",
+        #   "textattack/roberta-base-SST-2",
+        #   "textattack/albert-base-v2-SST-2",
+        #   "textattack/xlnet-large-cased-SST-2",
+        #   "textattack/xlnet-base-cased-SST-2",
+        #   "textattack/facebook-bart-large-SST-2",
+        #   "textattack/distilbert-base-uncased-SST-2",
+        "textattack/distilbert-base-cased-SST-2"
+    ]:
+        embedders.append(
+            HuggingfaceEmbedder(path=model, device=device, batch_size=batch_size)
+        )
+    embedder = EnsembleEmbedder(embedders)
 
     LOGGER.info(
         "Creating corpus with storage and embedder",
@@ -66,20 +86,29 @@ def main(
     corpus = ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,
-        key=idx,
+        key=sentence,
         index_backend=HnswlibIndex,
         distance=Distance.INNER_PRODUCT,
-        whitening_backend=HnswlibIndex,
+        # whitening_backend=HnswlibIndex,
         threads=index_threads,
     )
 
     # ------------------------
     # The model part
 
+    lm_cls: HuggingfaceBaseLM
+    if classification == "classifier":
+        lm_cls = HuggingfaceClassifierLM
+    elif classification == "logits":
+        lm_cls = HuggingfaceLogitsLM
+    else:
+        raise ValueError
     LOGGER.info("Creating LM with model", model=llm_model, device=device)
-    lm = HuggingfaceClassifierLM(
-        model_path=llm_model, device=device, batch_size=batch_size
-    )
+    lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size)
+    # LOGGER.info("Creating LM with model", model=llm_model, device=device)
+    # lm = HuggingfaceClassifierLM(
+    #     model_path=llm_model, device=device, batch_size=batch_size
+    # )
 
     LOGGER.info(
         "Creating adaptor with arguments", inputs=idx, sentence=sentence, label=label
@@ -108,9 +137,13 @@ def main(
         acqf=AcquisitionFunc.lookup(acqf),
     )
 
+    scores = []
     for i in tqdm(range(optimizer_steps)):
         state = optim.step()
         LOGGER.info("iteration {i}: {state}", i=i, state=state)
+        scores.append(state[i])
+
+    print(np.average(scores))
 
 
 if __name__ == "__main__":

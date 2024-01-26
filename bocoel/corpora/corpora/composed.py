@@ -69,5 +69,10 @@ class ComposedCorpus(Corpus):
         index_backend: type[Index],
         **index_kwargs: Any,
     ) -> Self:
+        """
+        Create the corpus with the given embeddings.
+        This can be used to save time by encoding once and caching embeddings.
+        """
+
         index = index_backend(embeddings, **index_kwargs)
         return cls(index=StatefulIndex(index), storage=storage)

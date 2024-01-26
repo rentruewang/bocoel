@@ -30,6 +30,8 @@ plugins:
   - search
   - social
   - tags
+  - minify:
+      minify_html: true
   - mkdocstrings:
       handlers:
         python:
@@ -42,12 +44,14 @@ plugins:
             filters: null
             # show_if_no_docstring: true
             members_order: source
-            show_submodules: true
             docstring_style: 
             merge_init_into_class: true
             show_signature_annotations: true
             signature_crossrefs: true
             separate_signature: true
+            summary: true
+            line_length: 80
+
   - git-revision-date
   - git-revision-date-localized
 extra:

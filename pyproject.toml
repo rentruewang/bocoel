@@ -89,4 +89,5 @@ website = [
     "mkdocs-git-revision-date-plugin>=0.3.2",
     "mkdocstrings[python]>=0.24.0",
     "mkdocs-git-committers-plugin-2>=2.2.3",
+    "mkdocs-minify-plugin>=0.7.2",
 ]

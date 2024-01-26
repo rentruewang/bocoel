@@ -35,6 +35,7 @@ from .corpora import (
     PandasStorage,
     PolarIndex,
     SbertEmbedder,
+    StatefulIndex,
     Storage,
     WhiteningIndex,
 )
