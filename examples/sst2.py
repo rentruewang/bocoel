@@ -96,7 +96,7 @@ def main(
     # ------------------------
     # The model part
 
-    lm_cls: HuggingfaceBaseLM
+    lm_cls: type[HuggingfaceBaseLM]
     if classification == "classifier":
         lm_cls = HuggingfaceClassifierLM
     elif classification == "logits":

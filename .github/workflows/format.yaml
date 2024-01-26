@@ -23,7 +23,10 @@ jobs:
         run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
 
       - name: 🏃 autoflake, isort, black
-        run: |
-          autoflake -cr $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --remove-all-unused-imports
-          isort --profile black --check .
-          black --check .
+        run: autoflake -cr $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --remove-all-unused-imports
+
+      - name: 🏃 isort
+        run: isort --profile black --check .
+
+      - name: 🏃 black
+        run: black --diff .
