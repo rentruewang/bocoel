@@ -1,5 +1,4 @@
 import abc
-import typing
 from collections.abc import Mapping
 from typing import Any, Protocol
 
