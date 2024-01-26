@@ -2,10 +2,10 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 
 import structlog
+import typeguard
 from numpy.typing import NDArray
 
 from bocoel.common import StrEnum
-from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores import (
     ExactMatch,
@@ -77,11 +77,8 @@ class BigBenchQuestionAnswer(BigBenchAdaptor):
         LOGGER.debug("Evaluating", inputs=inputs, targets=targets, lm=lm)
 
         # Check data.
-        if not all(isinstance(ipt, str) for ipt in inputs):
-            raise ValueError("Inputs must be strings")
-
-        if not all(utils.list_of(tgt, str) for tgt in targets):
-            raise ValueError("Targets must be strings")
+        typeguard.check_type("inputs", inputs, Sequence[str])
+        typeguard.check_type("targets", targets, Sequence[Sequence[str]])
 
         return self._evaluate(inputs, targets, lm)
 

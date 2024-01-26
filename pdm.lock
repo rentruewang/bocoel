@@ -5,7 +5,7 @@
 groups = ["default", "cma", "datasets", "format", "index", "metrics", "pretty", "sklearn-extra", "test", "transformers", "type", "visual", "website"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:da2f07dd629655f19ca81b8626409a73064b07ac2067cf8a2e81aa5df3062008"
+content_hash = "sha256:c2d7b016b7c48af8c430e77a99a0c4ca59007030475794e3c2b26c593a06d569"
 
 [[package]]
 name = "about-time"

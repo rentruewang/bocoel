@@ -1,6 +1,7 @@
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+import typeguard
 from numpy.typing import NDArray
 
 from bocoel.models.adaptors.interfaces import Adaptor
@@ -38,16 +39,11 @@ class Sst2QuestionAnswer(Adaptor):
         sentences = data[self.sentence]
         labels = data[self.label]
 
-        if not all(isinstance(i, int) for i in idx):
-            raise TypeError("idx must be a list of integers")
+        typeguard.check_type("idx", idx, Sequence[int])
+        typeguard.check_type("sentences", sentences, Sequence[str])
+        typeguard.check_type("labels", labels, Sequence[int])
 
-        if not all(isinstance(i, str) for i in sentences):
-            raise TypeError("sentences must be a list of strings")
-
-        if not all(isinstance(i, int) for i in labels):
-            raise TypeError("labels must be a list of numbers")
-
-        if not all(0 <= i < self.choices for i in labels):
+        if not all(0 <= i < len(self.choices) for i in labels):
             raise ValueError("labels must be in range [0, choices)")
 
         classified = lm.classify(sentences, choices=self.choices)

@@ -3,10 +3,10 @@ from numbers import Number
 from typing import Any
 
 import structlog
+import typeguard
 from numpy.typing import NDArray
 
 from bocoel.common import StrEnum
-from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
 from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Score
 
@@ -58,14 +58,9 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         )
 
         # Check data.
-        if not all(isinstance(ipt, str) for ipt in inputs):
-            raise ValueError("Inputs must be strings")
-
-        if not all(utils.list_of(mct, str) for mct in multiple_choice_targets):
-            raise ValueError("Multiple choice targets must be sequences")
-
-        if not all(utils.list_of(mcs, Number) for mcs in multiple_choice_scores):
-            raise ValueError("Multiple choice scores must be floats")
+        typeguard.check_type("inputs", inputs, Sequence[str])
+        typeguard.check_type("mct", multiple_choice_targets, Sequence[Sequence[str]])
+        typeguard.check_type("mcs", multiple_choice_scores, Sequence[Sequence[Number]])
 
         return self._evaluate_batch(
             inputs=inputs,

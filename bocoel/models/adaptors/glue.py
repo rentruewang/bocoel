@@ -1,6 +1,7 @@
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+import typeguard
 from numpy.typing import NDArray
 
 from bocoel.models.adaptors.interfaces import Adaptor
@@ -41,20 +42,11 @@ class GlueAdaptor(Adaptor):
         texts = [data[text] for text in self.texts]
         labels = data[self.label]
 
-        if not all(isinstance(i, int) for i in idx):
-            raise TypeError("idx must be a list of integers")
+        typeguard.check_type("idx", idx, Sequence[int])
+        typeguard.check_type("texts", texts, Sequence[Sequence[str]])
+        typeguard.check_type("labels", labels, Sequence[int])
 
-        for txt in texts:
-            if not all(isinstance(i, str) for i in txt):
-                raise TypeError("sentences must be a list of strings")
-
-        if len(set(len(txt) for txt in texts)) > 1:
-            raise ValueError("All texts must have the same length")
-
-        if not all(isinstance(i, int) for i in labels):
-            raise TypeError("labels must be a list of numbers")
-
-        if not all(0 <= i < self.choices for i in labels):
+        if not all(0 <= i < len(self.choices) for i in labels):
             raise ValueError("labels must be in range [0, choices)")
 
         sentences = [" [SEP] ".join(texts) for texts in zip(*texts)]
