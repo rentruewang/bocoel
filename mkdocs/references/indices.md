@@ -1,4 +1,4 @@
-# Index
+# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> indices
 
 ::: bocoel.Boundary
 ::: bocoel.Distance

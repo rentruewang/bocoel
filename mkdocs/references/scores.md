@@ -1,4 +1,4 @@
-# Scores
+# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Scores
 
 :::bocoel.Score
 :::bocoel.NltkBleuScore
