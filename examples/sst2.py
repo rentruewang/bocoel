@@ -63,7 +63,6 @@ def main(
     task: str = "EXPLORE",
     classification: Literal["logits", "classifier"] = "classifier",
     optimizer: Literal["ax", "kmeans", "kmedoids"] = "ax",
-    n_clusters: int = 30,
 ) -> None:
     # The corpus part
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
@@ -186,7 +185,7 @@ def main(
                 adaptor=adaptor,
                 batch_size=batch_size,
                 embeddings=corpus.index.embeddings,
-                model_kwargs={"n_clusters": n_clusters, "n_init": "auto"},
+                model_kwargs={"n_clusters": optimizer_steps, "n_init": "auto"},
             )
         case "kmedoids":
             optim = bocoel.evaluate_corpus(
@@ -196,14 +195,17 @@ def main(
                 adaptor=adaptor,
                 batch_size=batch_size,
                 embeddings=corpus.index.embeddings,
-                model_kwargs={"n_clusters": n_clusters},
+                model_kwargs={"n_clusters": optimizer_steps},
             )
 
     scores: list[float] = []
     for i in tqdm(range(optimizer_steps)):
-        state = optim.step()
-        LOGGER.info("iteration {i}: {state}", i=i, state=state)
-        scores.append(state[i])
+        try:
+            state = optim.step()
+            LOGGER.info("iteration {i}: {state}", i=i, state=state)
+            scores.append(state[i])
+        except StopIteration:
+            break
 
     # Performs aggregation here.
     print("average:", np.average(scores))
