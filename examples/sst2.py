@@ -141,7 +141,7 @@ def main(
         device=device,
         **hf_kwargs,
     )
-    lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size)
+    lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size, **hf_kwargs)
 
     LOGGER.info(
         "Creating adaptor with arguments", inputs=idx, sentence=sentence, label=label
