@@ -1,4 +1,5 @@
 import logging
+from collections.abc import Sequence
 from typing import Literal
 
 import datasets
@@ -59,6 +60,7 @@ def main(
     task: str = "EXPLORE",
     classification: Literal["logits", "classifier"] = "classifier",
     optimizer: Literal["ax", "kmeans", "kmedoids"] = "ax",
+    choices: Sequence[str] = ["negative", "positive"],
 ) -> None:
     # The corpus part
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
@@ -93,7 +95,7 @@ def main(
     match classification:
         case "classifier":
             lm_cls = HuggingfaceClassifierLM
-            hf_kwargs.update({"choices": ["negative", "positive"]})
+            hf_kwargs.update({"choices": choices})
         case "logits":
             lm_cls = HuggingfaceLogitsLM
         case _:
