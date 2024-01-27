@@ -27,21 +27,16 @@ class HuggingfaceEmbedder(Embedder):
         self._transform = transform
 
     @property
+    def batch(self) -> int:
+        return self._batch_size
+
+    @property
     def dims(self) -> int:
         # FIXME: Figure out if all the sequence classification has logits shape 2.
         return 2
 
     @torch.no_grad()
-    def _encode(self, texts: Sequence[str], /) -> NDArray:
-        results = []
-        for idx in range(0, len(texts), self._batch_size):
-            batch = texts[idx : idx + self._batch_size]
-            encoded = self._encode_batch(batch)
-            results.append(encoded)
-        return np.concatenate(results, axis=0)
-
-    @torch.no_grad()
-    def _encode_batch(self, texts: Sequence[str]) -> NDArray:
+    def _encode(self, texts: Sequence[str]) -> NDArray:
         encoded = self._tokenizer(
             texts,
             return_tensors="pt",

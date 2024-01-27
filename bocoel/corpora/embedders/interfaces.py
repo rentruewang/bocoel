@@ -1,9 +1,12 @@
 import abc
-from collections.abc import Sequence
-from typing import Protocol
+from collections.abc import Callable, Mapping, Sequence
+from typing import Any, Protocol
 
+import numpy as np
 import structlog
 from numpy.typing import NDArray
+
+from bocoel.corpora.storages import Storage
 
 LOGGER = structlog.get_logger()
 
@@ -14,6 +17,30 @@ class Embedder(Protocol):
     Embedders in this project are considered volatile because it requires CPU time,
     unless some database that encodes this functionality is found.
     """
+
+    def encode_storage(
+        self,
+        storage: Storage,
+        /,
+        transform: Callable[[Mapping[str, Sequence[Any]]], Sequence[str]],
+    ) -> NDArray:
+        results: list[NDArray] = []
+
+        for idx in range(0, len(storage), self.batch):
+            LOGGER.debug(
+                "Encoding storage",
+                storage=storage,
+                batch_size=self.batch,
+                idx=idx,
+                total=len(storage),
+            )
+
+            batch = storage[idx : idx + self.batch]
+            texts = transform(batch)
+            encoded = self.encode(texts)
+            results.append(encoded)
+
+        return np.concatenate(results, axis=0)
 
     def encode(self, text: Sequence[str], /) -> NDArray:
         """
@@ -28,6 +55,15 @@ class Embedder(Protocol):
             )
 
         return encoded
+
+    @property
+    @abc.abstractmethod
+    def batch(self) -> int:
+        """
+        The batch size to use when encoding.
+        """
+
+        ...
 
     @property
     @abc.abstractmethod

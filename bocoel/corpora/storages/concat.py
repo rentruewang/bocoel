@@ -3,6 +3,7 @@ from typing import Any
 
 import numpy as np
 import structlog
+from numpy.typing import NDArray
 
 from bocoel.corpora.storages.interfaces import Storage
 
@@ -27,7 +28,7 @@ class ConcatStorage(Storage):
 
         # Unpack the only key in `diff_keys`.
         (self._keys,) = diff_keys
-        self._storages = storages
+        self._storages = tuple(storages)
 
         LOGGER.info("Concat storage created", storages=storages, keys=diff_keys)
 
@@ -41,7 +42,7 @@ class ConcatStorage(Storage):
     def __len__(self) -> int:
         return self._length
 
-    def __getitem__(self, idx: int) -> Mapping[str, Any]:
+    def _getitem(self, idx: int) -> Mapping[str, Any]:
         if not -len(self) <= idx < len(self):
             raise IndexError(
                 f"Index {idx} is out of bounds. Storage length is {len(self)}"
@@ -60,14 +61,6 @@ class ConcatStorage(Storage):
         }
 
         return self._storages[found][sub_idx]
-
-    def get(self, key: str) -> Sequence[Any]:
-        results: list[Any] = []
-
-        for store in self._storages:
-            results.extend(store.get(key))
-
-        return results
 
     @classmethod
     def join(cls, storages: Iterable[Storage], /) -> Storage:

@@ -1,4 +1,5 @@
 import dataclasses as dcls
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
 from numpy.typing import NDArray
@@ -24,7 +25,8 @@ class ComposedCorpus(Corpus):
         cls,
         storage: Storage,
         embedder: Embedder,
-        key: str,
+        *keys: str,
+        concat: Callable[..., Any] = lambda x: x,
         index_backend: type[Index],
         **index_kwargs: Any,
     ) -> Self:
@@ -42,8 +44,11 @@ class ComposedCorpus(Corpus):
         Embedder is used to embed the texts into vectors.
         It should provide the number of dims for the index to look into.
 
-        `key: str`
-        The key to the column to search over.
+        `*keys: str`
+        The keys to the column to search over.
+
+        `concat: Callable[..., Any] | None = None`
+        Function to concatenate the columns.
 
         `index_backend: type[Index]`
         The index class to use.
@@ -53,7 +58,28 @@ class ComposedCorpus(Corpus):
         Additional keyword arguments to pass to the index class.
         """
 
-        embeddings = embedder.encode(storage.get(key))
+        def transform(x: Mapping[str, Sequence[Any]]) -> Sequence[str]:
+            data = [x[k] for k in keys]
+            return [concat(*datum) for datum in zip(*data)]
+
+        return cls.index_mapped(
+            storage=storage,
+            embedder=embedder,
+            transform=transform,
+            index_backend=index_backend,
+            **index_kwargs,
+        )
+
+    @classmethod
+    def index_mapped(
+        cls,
+        storage: Storage,
+        embedder: Embedder,
+        transform: Callable[[Mapping[str, Sequence[Any]]], Sequence[str]],
+        index_backend: type[Index],
+        **index_kwargs: Any,
+    ) -> Self:
+        embeddings = embedder.encode_storage(storage, transform=transform)
         return cls.index_embeddings(
             embeddings=embeddings,
             storage=storage,

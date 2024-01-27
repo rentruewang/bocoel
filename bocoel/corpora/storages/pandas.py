@@ -2,7 +2,9 @@ from collections.abc import Collection, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import ujson as json
+from numpy.typing import NDArray
 from pandas import DataFrame
 from typing_extensions import Self
 
@@ -25,11 +27,8 @@ class PandasStorage(Storage):
     def __len__(self) -> int:
         return len(self._df)
 
-    def __getitem__(self, idx: int) -> Mapping[str, Any]:
+    def _getitem(self, idx: int) -> Mapping[str, Any]:
         return self._df.iloc[idx].to_dict()
-
-    def get(self, key: str) -> Sequence[Any]:
-        return self._df[key].to_list()
 
     @classmethod
     def from_jsonl_file(cls, path: str | Path, /) -> Self:

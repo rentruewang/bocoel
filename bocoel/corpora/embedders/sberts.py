@@ -41,10 +41,5 @@ class SbertEmbedder(Embedder):
 
         return typing.cast(
             NDArray,
-            self._sbert.encode(
-                texts,
-                batch_size=self._batch_size,
-                convert_to_numpy=True,
-                show_progress_bar=True,
-            ),
+            self._sbert.encode(texts, batch_size=len(texts), convert_to_numpy=True),
         )

@@ -3,6 +3,7 @@ from typing import Any
 
 import datasets
 from datasets import Dataset, DatasetDict
+from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.storages.interfaces import Storage
@@ -24,14 +25,8 @@ class DatasetsStorage(Storage):
     def __len__(self) -> int:
         return len(self._dataset)
 
-    def __getitem__(self, idx: int) -> Mapping[str, Any]:
+    def _getitem(self, idx: int) -> Mapping[str, Any]:
         return self._dataset[idx]
-
-    def get(self, key: str) -> Sequence[Any]:
-        if not isinstance(key, str):
-            raise ValueError("Key should be a string")
-
-        return self._dataset[key]
 
     @classmethod
     def load(cls, path: str, name: str, split: str = "") -> Self:

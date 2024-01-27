@@ -203,7 +203,7 @@ def main(
         try:
             state = optim.step()
             LOGGER.info("iteration {i}: {state}", i=i, state=state)
-            scores.append(state[i])
+            scores.extend(state.values())
         except StopIteration:
             break
 
