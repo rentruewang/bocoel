@@ -49,6 +49,6 @@ class GlueAdaptor(Adaptor):
         if not all(0 <= i < len(self.choices) for i in labels):
             raise ValueError("labels must be in range [0, choices)")
 
-        sentences = [" [SEP] ".join(texts) for texts in zip(*texts)]
+        sentences = [" [SEP] ".join(txt) for txt in zip(*texts)]
         classified = lm.classify(sentences, choices=self.choices)
         return [float(c == l) for c, l in zip(classified.argmax(-1), labels)]
