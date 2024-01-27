@@ -1,5 +1,5 @@
 import dataclasses as dcls
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
 
 from numpy.typing import NDArray
@@ -25,9 +25,11 @@ class ComposedCorpus(Corpus):
         cls,
         storage: Storage,
         embedder: Embedder,
-        *keys: str,
-        concat: Callable[..., Any] = lambda x: x,
+        keys: Sequence[str],
         index_backend: type[Index],
+        concat: Callable[[Iterable[Any]], str] = lambda keys: " [SEP] ".join(
+            map(str, keys)
+        ),
         **index_kwargs: Any,
     ) -> Self:
         """
@@ -58,9 +60,9 @@ class ComposedCorpus(Corpus):
         Additional keyword arguments to pass to the index class.
         """
 
-        def transform(x: Mapping[str, Sequence[Any]]) -> Sequence[str]:
-            data = [x[k] for k in keys]
-            return [concat(*datum) for datum in zip(*data)]
+        def transform(mapping: Mapping[str, Sequence[Any]]) -> Sequence[str]:
+            data = [mapping[k] for k in keys]
+            return [concat(datum) for datum in zip(*data)]
 
         return cls.index_mapped(
             storage=storage,
@@ -79,6 +81,12 @@ class ComposedCorpus(Corpus):
         index_backend: type[Index],
         **index_kwargs: Any,
     ) -> Self:
+        """
+        Creates a corpus from the given storage, embedder, key and index class,
+        where storage entries would be mapped to strings,
+        using the specified batched transform function.
+        """
+
         embeddings = embedder.encode_storage(storage, transform=transform)
         return cls.index_embeddings(
             embeddings=embeddings,

@@ -1,8 +1,7 @@
 import typing
 from collections.abc import Sequence
 
-import torch
-from numpy.typing import NDArray
+from torch import Tensor
 
 from bocoel.corpora.embedders.interfaces import Embedder
 
@@ -35,11 +34,10 @@ class SbertEmbedder(Embedder):
         assert isinstance(d, int)
         return d
 
-    @torch.no_grad()
-    def _encode(self, texts: Sequence[str], /) -> NDArray:
+    def _encode(self, texts: Sequence[str]) -> Tensor:
         texts = list(texts)
 
         return typing.cast(
-            NDArray,
-            self._sbert.encode(texts, batch_size=len(texts), convert_to_numpy=True),
+            Tensor,
+            self._sbert.encode(texts, batch_size=len(texts), convert_to_tensor=True),
         )

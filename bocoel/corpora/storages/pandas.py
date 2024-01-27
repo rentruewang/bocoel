@@ -2,9 +2,7 @@ from collections.abc import Collection, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-import numpy as np
 import ujson as json
-from numpy.typing import NDArray
 from pandas import DataFrame
 from typing_extensions import Self
 

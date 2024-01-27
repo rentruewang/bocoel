@@ -4,7 +4,10 @@ from typing import Any, Protocol
 
 import numpy as np
 import structlog
+import torch
 from numpy.typing import NDArray
+from torch import Tensor
+from tqdm import tqdm
 
 from bocoel.corpora.storages import Storage
 
@@ -26,7 +29,7 @@ class Embedder(Protocol):
     ) -> NDArray:
         results: list[NDArray] = []
 
-        for idx in range(0, len(storage), self.batch):
+        for idx in tqdm(range(0, len(storage), self.batch)):
             LOGGER.debug(
                 "Encoding storage",
                 storage=storage,
@@ -47,14 +50,15 @@ class Embedder(Protocol):
         Calls the encode function and performs some checks.
         """
 
-        encoded = self._encode(text)
+        with torch.no_grad():
+            encoded = self._encode(text)
 
         if (dim := encoded.shape[-1]) != self.dims:
             raise ValueError(
                 f"Expected the encoded embeddings to have dimension {self.dims}, got {dim}"
             )
 
-        return encoded
+        return encoded.cpu().numpy()
 
     @property
     @abc.abstractmethod
@@ -75,7 +79,7 @@ class Embedder(Protocol):
         ...
 
     @abc.abstractmethod
-    def _encode(self, texts: Sequence[str], /) -> NDArray:
+    def _encode(self, texts: Sequence[str], /) -> Tensor:
         """
         Implements the encode function.
 
@@ -90,7 +94,7 @@ class Embedder(Protocol):
         Returns
         -------
 
-        A numpy array of shape [batch, dims]. If the input is a string, the shape would be [dims].
+        A tensor of shape [batch, dims]. If the input is a string, the shape would be [dims].
         """
 
         ...

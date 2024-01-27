@@ -7,7 +7,6 @@ import structlog
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
-from bocoel.models.adaptors import utils
 from bocoel.models.lms import LanguageModel
 
 LOGGER = structlog.get_logger()
@@ -78,9 +77,8 @@ class Adaptor(Protocol):
         indices_shape = indices.shape
         indices = indices.ravel()
 
-        items = [storage[idx] for idx in indices.tolist()]
-        collated = utils.collate(items)
-        result = np.array(self.evaluate(data=collated, lm=lm))
+        items = storage[indices.tolist()]
+        result = np.array(self.evaluate(data=items, lm=lm))
 
         # Reshape back.
         return result.reshape(indices_shape)

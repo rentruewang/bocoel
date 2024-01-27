@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Glue dataset.
-- Getting multiple keys from storages.
+- Support for embedding multiple columns in the storage.
+
+### Changed
+
+- Storage now supports retriving slices and list of indices.
 
 ## [v0.0.3] - 2024-01-24
 

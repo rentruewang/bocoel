@@ -90,7 +90,7 @@ def main(
     corpus = ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,
-        key=inputs,
+        keys=[inputs],
         index_backend=WhiteningIndex,
         distance=Distance.INNER_PRODUCT,
         remains=reduced_dim,

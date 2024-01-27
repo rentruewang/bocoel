@@ -19,7 +19,7 @@ def corpus(device: str) -> Corpus:
     return ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,
-        key="question",
+        keys=["question"],
         index_backend=WhiteningIndex,
         distance=Distance.INNER_PRODUCT,
         **factories.whiten_kwargs(),

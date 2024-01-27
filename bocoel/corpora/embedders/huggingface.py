@@ -1,9 +1,6 @@
 from collections.abc import Callable, Sequence
 from typing import Any
 
-import numpy as np
-import torch
-from numpy.typing import NDArray
 from torch import Tensor
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
@@ -35,8 +32,7 @@ class HuggingfaceEmbedder(Embedder):
         # FIXME: Figure out if all the sequence classification has logits shape 2.
         return 2
 
-    @torch.no_grad()
-    def _encode(self, texts: Sequence[str]) -> NDArray:
+    def _encode(self, texts: Sequence[str]) -> Tensor:
         encoded = self._tokenizer(
             texts,
             return_tensors="pt",
@@ -45,5 +41,5 @@ class HuggingfaceEmbedder(Embedder):
         ).to(self._device)
         output = self._model(**encoded)
 
-        transformed = self._transform(output).cpu().numpy()
+        transformed = self._transform(output)
         return transformed

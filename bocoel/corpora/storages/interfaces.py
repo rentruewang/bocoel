@@ -1,9 +1,8 @@
 import abc
-from collections.abc import Callable, Collection, Mapping, Sequence
+from collections.abc import Collection, Mapping, Sequence
 from typing import Any, Protocol
 
 import typeguard
-from numpy.typing import NDArray
 
 
 class Storage(Protocol):
@@ -46,37 +45,8 @@ class Storage(Protocol):
 
         ...
 
-    def map(
-        self,
-        idx: int | Sequence[int],
-        transform: Callable[
-            [Mapping[str, Sequence[Any]]], Mapping[str, Sequence[Any]]
-        ] = lambda x: x,
-    ) -> Mapping[str, Sequence[Any]]:
-        """
-        Convert the entire column by given key.
-
-        Parameters
-        ----------
-
-        `*key: str`
-        Column names to retrieve.
-
-        `concat: Callable[..., Any] | None = None`
-        Function to concatenate the columns.
-
-        Returns
-        -------
-
-        A sequence of values, corresponding to different keys.
-        If `concat` is specified, then the values are concatenated using the function.
-        """
-
-        data = self[idx]
-        return transform(data)
-
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__} ({len(self)}) {self.keys()}"
+        return f"{self.__class__.__name__}{list(self.keys())} ({len(self)})"
 
     @staticmethod
     def collate(mappings: Sequence[Mapping[str, Any]]) -> Mapping[str, Sequence[Any]]:

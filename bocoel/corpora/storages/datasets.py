@@ -1,9 +1,8 @@
-from collections.abc import Collection, Mapping, Sequence
+from collections.abc import Collection, Mapping
 from typing import Any
 
 import datasets
 from datasets import Dataset, DatasetDict
-from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.corpora.storages.interfaces import Storage

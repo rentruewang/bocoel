@@ -11,26 +11,34 @@ from bocoel.models.lms import LanguageModel
 class GlueAdaptor(Adaptor):
     """
     The adaptor for the glue dataset provided by setfit.
-    This adaptor assumes that the dataset has the following columns:
-    - `idx`: The index of the entry.
-    - `sentence`: The sentence to classify.
-    - `label`: The label of the sentence.
-
-    Each entry in the dataset must be a single sentence.
     """
 
     def __init__(
         self,
         idx: str = "idx",
-        text_base: str = "text",
-        num_texts: int = 1,
+        texts: str = "text",
         label: str = "label",
         choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
+        """
+        Parameters
+        ----------
+
+        `idx: str = "idx"`
+        The name of the column containing the indices.
+
+        `texts: str = "text"`
+        The name of the column containing the texts.
+        Specify multiple columsn with whitespace in between.
+        For example, "text1 text2" would be parsed to ["text1", "text2"].
+        If there is more than one column, the texts will be concatenated with [SEP].
+
+        `label: str = "label"`
+        The name of the column containing the labels.
+        """
+
         self.idx = idx
-        self.texts: list[str] = [
-            f"{text_base}{i}" if i > 1 else text_base for i in range(1, num_texts + 1)
-        ]
+        self.texts = texts.split()
         self.label = label
 
         self.choices = choices

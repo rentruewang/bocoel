@@ -3,7 +3,6 @@ from typing import Any
 
 import numpy as np
 import structlog
-from numpy.typing import NDArray
 
 from bocoel.corpora.storages.interfaces import Storage
 
