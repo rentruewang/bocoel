@@ -1,4 +1,5 @@
 import abc
+import typing
 from collections.abc import Collection, Mapping, Sequence
 from typing import Any, Protocol
 
@@ -23,9 +24,17 @@ class Storage(Protocol):
 
         ...
 
+    @typing.overload
+    def __getitem__(self, idx: int) -> Mapping[str, Any]:
+        ...
+
+    @typing.overload
+    def __getitem__(self, idx: slice) -> Mapping[str, Sequence[Any]]:
+        ...
+
     def __getitem__(
         self, idx: int | slice | Sequence[int]
-    ) -> Mapping[str, Sequence[Any]]:
+    ) -> Mapping[str, Any] | Mapping[str, Sequence[Any]]:
         if isinstance(idx, int):
             return self._getitem(idx)
         elif isinstance(idx, slice):

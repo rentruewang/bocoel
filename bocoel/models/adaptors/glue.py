@@ -15,7 +15,6 @@ class GlueAdaptor(Adaptor):
 
     def __init__(
         self,
-        idx: str = "idx",
         texts: str = "text",
         label: str = "label",
         choices: Sequence[str] = ("negative", "positive"),
@@ -37,7 +36,6 @@ class GlueAdaptor(Adaptor):
         The name of the column containing the labels.
         """
 
-        self.idx = idx
         self.texts = texts.split()
         self.label = label
 
@@ -46,11 +44,9 @@ class GlueAdaptor(Adaptor):
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
-        idx = data[self.idx]
         texts = [data[text] for text in self.texts]
         labels = data[self.label]
 
-        typeguard.check_type("idx", idx, Sequence[int])
         typeguard.check_type("texts", texts, Sequence[Sequence[str]])
         typeguard.check_type("labels", labels, Sequence[int])
 

@@ -37,7 +37,6 @@ class Embedder(Protocol):
                 idx=idx,
                 total=len(storage),
             )
-
             batch = storage[idx : idx + self.batch]
             texts = transform(batch)
             encoded = self.encode(texts)

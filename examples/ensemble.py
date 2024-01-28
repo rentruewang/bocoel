@@ -47,7 +47,6 @@ def main(
         "SetFit/qnli",
         "SetFit/rte",
         "SetFit/qqp",
-        "SetFit/sst2",
     ] = "SST2",
     ds_split: Literal["train", "validation", "test"] = "train",
     llm_model: str = "textattack/roberta-base-SST-2",
@@ -60,7 +59,7 @@ def main(
     task: str = "EXPLORE",
     classification: Literal["logits", "classifier"] = "classifier",
     optimizer: Literal["ax", "kmeans", "kmedoids"] = "ax",
-    choices: Sequence[str] = ["negative", "positive"],
+    choices: Sequence[str] = ("negative", "positive"),
 ) -> None:
     # The corpus part
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
@@ -68,7 +67,7 @@ def main(
     storage = DatasetsStorage(ds)
 
     embedder = ensemble_embedder(batch_size=batch_size)
-    idx, sentence, label = idx_sentence_label(ds_path)
+    sentence, label = sentence_label(ds_path)
 
     LOGGER.info(
         "Creating corpus with storage and embedder",
@@ -110,14 +109,12 @@ def main(
     )
     lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size, **hf_kwargs)
 
-    LOGGER.info(
-        "Creating adaptor with arguments", inputs=idx, sentence=sentence, label=label
-    )
+    LOGGER.info("Creating adaptor with arguments", sentence=sentence, label=label)
     adaptor: Adaptor
     if "setfit" in ds_path.lower():
-        adaptor = GlueAdaptor(idx, sentence, label)
+        adaptor = GlueAdaptor(sentence, label)
     elif ds_path == "SST2":
-        adaptor = Sst2QuestionAnswer(idx, sentence, label)
+        adaptor = Sst2QuestionAnswer(sentence, label)
     else:
         raise ValueError(f"Unknown dataset {ds_path}")
 
@@ -181,18 +178,16 @@ def main(
     print("average:", np.average(scores))
 
 
-def idx_sentence_label(ds_path: str) -> tuple[str, str, str]:
+def sentence_label(ds_path: str) -> tuple[str, str]:
     if "setfit" in ds_path.lower():
-        idx = "idx"
         sentence = "text" if ds_path == "SetFit/sst2" else "text1 text2"
         label = "label"
     elif ds_path == "SST2":
-        idx = "idx"
         sentence = "sentence"
         label = "label"
     else:
         raise ValueError(f"Unknown dataset {ds_path}")
-    return idx, sentence, label
+    return sentence, label
 
 
 def ensemble_embedder(batch_size: int):

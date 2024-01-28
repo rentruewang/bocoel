@@ -143,7 +143,10 @@ def main(
     )
 
     for i in tqdm(range(optimizer_steps)):
-        state = optim.step()
+        try:
+            state = optim.step()
+        except StopIteration:
+            break
         LOGGER.info("iteration {i}: {state}", i=i, state=state)
 
 

@@ -21,12 +21,10 @@ class Sst2QuestionAnswer(Adaptor):
 
     def __init__(
         self,
-        idx: str = "idx",
         sentence: str = "sentence",
         label: str = "label",
         choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
-        self.idx = idx
         self.sentence = sentence
         self.label = label
 
@@ -35,11 +33,9 @@ class Sst2QuestionAnswer(Adaptor):
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
     ) -> Sequence[float] | NDArray:
-        idx = data[self.idx]
         sentences = data[self.sentence]
         labels = data[self.label]
 
-        typeguard.check_type("idx", idx, Sequence[int])
         typeguard.check_type("sentences", sentences, Sequence[str])
         typeguard.check_type("labels", labels, Sequence[int])
 

@@ -27,9 +27,7 @@ class ComposedCorpus(Corpus):
         embedder: Embedder,
         keys: Sequence[str],
         index_backend: type[Index],
-        concat: Callable[[Iterable[Any]], str] = lambda keys: " [SEP] ".join(
-            map(str, keys)
-        ),
+        concat: Callable[[Iterable[Any]], str] = " [SEP] ".join,
         **index_kwargs: Any,
     ) -> Self:
         """
