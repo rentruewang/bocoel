@@ -1,5 +1,7 @@
+from importlib import metadata
+
 from .bocoel import bocoel
-from .common import StrEnum
+from .common import StrEnum, version
 from .core import (
     AcquisitionFunc,
     AxServiceOptimizer,
@@ -60,3 +62,5 @@ from .models import (
     Score,
     Sst2QuestionAnswer,
 )
+
+__version__ = version()

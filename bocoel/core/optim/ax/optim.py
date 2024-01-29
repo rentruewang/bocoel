@@ -72,9 +72,6 @@ class AxServiceOptimizer(Optimizer):
             for tidx, parameters in idx_param.items()
         }
 
-    def render(self, **kwargs: Any) -> None:
-        raise NotImplementedError
-
     def _create_experiment(self, boundary: Boundary) -> None:
         self._ax_client.create_experiment(
             parameters=params.configs(boundary),

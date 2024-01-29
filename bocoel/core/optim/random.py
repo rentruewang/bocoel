@@ -1,5 +1,4 @@
 from collections.abc import Generator, Mapping
-from typing import Any
 
 import structlog
 from numpy import random
@@ -39,9 +38,6 @@ class RandomOptimizer(Optimizer):
     def step(self) -> Mapping[int, float]:
         samples = next(self._generator)
         return self._query_eval(samples)
-
-    def render(self, **kwargs: Any) -> None:
-        raise NotImplementedError
 
     def _gen_random(self, samples: int, /) -> Generator[NDArray, None, None]:
         lower = self._boundary.lower

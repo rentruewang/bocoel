@@ -1,6 +1,5 @@
 import itertools
 from collections.abc import Generator, Mapping, Sequence
-from typing import Any
 
 import numpy as np
 import structlog
@@ -50,6 +49,3 @@ class UniformOptimizer(Optimizer):
 
         for combo in itertools.product(*[range(grid) for grid in grids]):
             yield step_size * (np.array(combo) + 0.5)
-
-    def render(self, **kwargs: Any) -> None:
-        raise NotImplementedError

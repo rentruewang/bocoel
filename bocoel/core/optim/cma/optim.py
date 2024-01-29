@@ -1,5 +1,4 @@
 from collections.abc import Mapping
-from typing import Any
 
 import numpy as np
 from cma import CMAEvolutionStrategy
@@ -35,9 +34,6 @@ class PyCMAOptimizer(Optimizer):
     @property
     def task(self) -> Task:
         return Task.MINIMIZE if self._minimize else Task.MAXIMIZE
-
-    def render(self, **kwargs: Any) -> None:
-        raise NotImplementedError
 
     def step(self) -> Mapping[int, float]:
         if self._es.stop():

@@ -46,6 +46,3 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
     def step(self) -> Mapping[int, float]:
         centers = next(self._generator)
         return self._query_eval(centers)
-
-    def render(self, **kwargs: Any) -> None:
-        raise NotImplementedError
