@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from packaging import version
-from packaging.version import Version
 from typing_extensions import Self
 
 from bocoel import common

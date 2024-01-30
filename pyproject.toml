@@ -91,4 +91,5 @@ website = [
     "mkdocstrings[python]>=0.24.0",
     "mkdocs-git-committers-plugin-2>=2.2.3",
     "mkdocs-minify-plugin>=0.7.2",
+    "pymdown-extensions>=10.7",
 ]

@@ -62,7 +62,7 @@ extra:
       link: https://pypi.org/project/bocoel/
 nav:
   - Home:
-    - README: README.md
+    - README: index.md
   - Reference:
     - references/overview.md
     - references/storages.md
@@ -83,3 +83,4 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.snippets
