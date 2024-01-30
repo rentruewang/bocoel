@@ -15,8 +15,7 @@ class ScikitLearnCluster(Protocol):
     cluster_centers_: NDArray
 
     @abc.abstractmethod
-    def fit(self, X: Any) -> None:
-        ...
+    def fit(self, X: Any) -> None: ...
 
 
 class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):

@@ -11,12 +11,10 @@ from .results import InternalResult, SearchResultBatch
 
 class IndexedArray(Protocol):
     @abc.abstractmethod
-    def __len__(self) -> int:
-        ...
+    def __len__(self) -> int: ...
 
     @abc.abstractmethod
-    def __getitem__(self, key: int | NDArray, /) -> NDArray:
-        ...
+    def __getitem__(self, key: int | NDArray, /) -> NDArray: ...
 
     def __array__(self) -> NDArray:
         return np.array([self[idx] for idx in range(len(self))])
@@ -95,8 +93,7 @@ class Index(Protocol):
 
     @property
     @abc.abstractmethod
-    def batch(self) -> int:
-        ...
+    def batch(self) -> int: ...
 
     @property
     @abc.abstractmethod

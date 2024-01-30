@@ -56,8 +56,7 @@ class Optimizer(Protocol):
 
     @property
     @abc.abstractmethod
-    def task(self) -> Task:
-        ...
+    def task(self) -> Task: ...
 
     @abc.abstractmethod
     def step(self) -> Mapping[int, float]:

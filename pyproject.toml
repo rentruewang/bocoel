@@ -67,7 +67,7 @@ distribution = "true"
 [tool.pdm.dev-dependencies]
 format = [
     "autoflake>=2.2.1",
-    "black>=23.12.1",
+    "black>=24.1.1",
     "isort>=5.13.2",
 ]
 test = [
@@ -91,5 +91,4 @@ website = [
     "mkdocstrings[python]>=0.24.0",
     "mkdocs-git-committers-plugin-2>=2.2.3",
     "mkdocs-minify-plugin>=0.7.2",
-    "pymdown-extensions>=10.7",
 ]

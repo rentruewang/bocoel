@@ -10,8 +10,7 @@ from bocoel.corpora import SearchResult
 
 class SearchEvaluator(Protocol):
     @abc.abstractmethod
-    def __call__(self, sr: Mapping[int, SearchResult], /) -> Mapping[int, float]:
-        ...
+    def __call__(self, sr: Mapping[int, SearchResult], /) -> Mapping[int, float]: ...
 
 
 class QueryEvaluator(Protocol):

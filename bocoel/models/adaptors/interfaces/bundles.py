@@ -11,5 +11,4 @@ class AdaptorBundle(Protocol):
     @abc.abstractmethod
     def evaluate(
         self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
-    ) -> Mapping[str, Sequence[float] | NDArray]:
-        ...
+    ) -> Mapping[str, Sequence[float] | NDArray]: ...

@@ -14,8 +14,7 @@ class Reducer(Protocol):
     description: Sequence[str]
 
     @abc.abstractmethod
-    def reduce_2d(self, X: NDArray) -> NDArray:
-        ...
+    def reduce_2d(self, X: NDArray) -> NDArray: ...
 
     def process(self, X: NDArray) -> DataFrame:
         df = DataFrame()

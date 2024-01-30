@@ -13,8 +13,7 @@ class Storage(Protocol):
     """
 
     @abc.abstractmethod
-    def keys(self) -> Collection[str]:
-        ...
+    def keys(self) -> Collection[str]: ...
 
     @abc.abstractmethod
     def __len__(self) -> int:
@@ -25,12 +24,10 @@ class Storage(Protocol):
         ...
 
     @typing.overload
-    def __getitem__(self, idx: int) -> Mapping[str, Any]:
-        ...
+    def __getitem__(self, idx: int) -> Mapping[str, Any]: ...
 
     @typing.overload
-    def __getitem__(self, idx: slice) -> Mapping[str, Sequence[Any]]:
-        ...
+    def __getitem__(self, idx: slice) -> Mapping[str, Sequence[Any]]: ...
 
     def __getitem__(
         self, idx: int | slice | Sequence[int]
