@@ -5,7 +5,7 @@ import typeguard
 from numpy.typing import NDArray
 
 from bocoel.models.adaptors.interfaces import Adaptor
-from bocoel.models.lms import LanguageModel
+from bocoel.models.lms import ClassifierModel
 
 
 class Sst2QuestionAnswer(Adaptor):
@@ -21,18 +21,18 @@ class Sst2QuestionAnswer(Adaptor):
 
     def __init__(
         self,
+        lm: ClassifierModel,
         sentence: str = "sentence",
         label: str = "label",
         choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
+        self.lm = lm
+
         self.sentence = sentence
         self.label = label
-
         self.choices = choices
 
-    def evaluate(
-        self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
-    ) -> Sequence[float] | NDArray:
+    def evaluate(self, data: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:
         sentences = data[self.sentence]
         labels = data[self.label]
 
@@ -42,5 +42,5 @@ class Sst2QuestionAnswer(Adaptor):
         if not all(0 <= i < len(self.choices) for i in labels):
             raise ValueError("labels must be in range [0, choices)")
 
-        classified = lm.classify(sentences, choices=self.choices)
+        classified = self.lm.classify(sentences)
         return [float(c == l) for c, l in zip(classified.argmax(-1), labels)]

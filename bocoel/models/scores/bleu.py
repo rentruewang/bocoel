@@ -1,10 +1,12 @@
-from collections.abc import Sequence
+import typeguard
 
 from .interfaces import Score
 
 
 class NltkBleuScore(Score):
-    def __call__(self, target: str, references: Sequence[str]) -> float:
+    def __call__(self, target: str, references: list[str]) -> float:
+        typeguard.check_type("references", references, list[str])
+
         # Optional dependency.
         from nltk.translate import bleu_score
         from nltk.translate.bleu_score import SmoothingFunction
@@ -29,10 +31,8 @@ class SacreBleuScore(Score):
             tokenize="intl",
         )
 
-    def __call__(self, target: str, references: Sequence[str]) -> float:
-        return (
-            self._bleu.corpus_score(
-                references=[[ref] for ref in references], hypotheses=[target]
-            ).score
-            / 100
-        )
+    def __call__(self, target: str, references: list[str]) -> float:
+        typeguard.check_type("references", references, list[str])
+
+        refs = [[ref] for ref in references]
+        return self._bleu.corpus_score(references=refs, hypotheses=[target]).score / 100

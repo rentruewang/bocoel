@@ -11,19 +11,19 @@ def df() -> DataFrame:
         [
             {
                 "question": "hello is anyone home?",
-                "answer": "no",
+                "answer": ["no"],
             },
             {
                 "question": "what's up?",
-                "answer": "not much",
+                "answer": ["not much"],
             },
             {
                 "question": "who is the most handsome man in the world?",
-                "answer": "it's you, renchu wang",
+                "answer": ["it's you, renchu wang"],
             },
             {
                 "question": "a vastly different question",
-                "answer": "a vastly different answer",
+                "answer": ["a vastly different answer"],
             },
         ]
     )

@@ -14,16 +14,16 @@ from bocoel import (
     AcquisitionFunc,
     Adaptor,
     AxServiceOptimizer,
+    ClassifierModel,
     ComposedCorpus,
     DatasetsStorage,
     Distance,
     EnsembleEmbedder,
     GlueAdaptor,
     HnswlibIndex,
-    HuggingfaceBaseLM,
-    HuggingfaceClassifierLM,
     HuggingfaceEmbedder,
     HuggingfaceLogitsLM,
+    HuggingfaceSequenceLM,
     KMeansOptimizer,
     KMedoidsOptimizer,
     Optimizer,
@@ -89,32 +89,33 @@ def main(
     # ------------------------
     # The model part
 
-    lm_cls: type[HuggingfaceBaseLM]
-    hf_kwargs = {}
+    lm: ClassifierModel
+    LOGGER.info("Creating LM with model", model=llm_model, device=device)
     match classification:
         case "classifier":
-            lm_cls = HuggingfaceClassifierLM
-            hf_kwargs.update({"choices": choices})
+            lm = HuggingfaceSequenceLM(
+                model_path=llm_model, device=device, choices=choices
+            )
         case "logits":
             lm_cls = HuggingfaceLogitsLM
+            lm = HuggingfaceLogitsLM(
+                model_path=llm_model,
+                batch_size=batch_size,
+                device=device,
+                choices=choices,
+            )
         case _:
             raise ValueError(f"Unknown classification {classification}")
 
-    LOGGER.info(
-        "Creating LM with model",
-        lm_cls=lm_cls,
-        model=llm_model,
-        device=device,
-        **hf_kwargs,
-    )
-    lm = lm_cls(model_path=llm_model, device=device, batch_size=batch_size, **hf_kwargs)
+    # ------------------------
+    # Adaptor part
 
     LOGGER.info("Creating adaptor with arguments", sentence=sentence, label=label)
     adaptor: Adaptor
-    if "setfit" in ds_path.lower():
-        adaptor = GlueAdaptor(sentence, label)
+    if "setfit/" in ds_path.lower():
+        adaptor = GlueAdaptor.task(ds_path.lower().lstrip("setfit"), lm)
     elif ds_path == "SST2":
-        adaptor = Sst2QuestionAnswer(sentence, label)
+        adaptor = Sst2QuestionAnswer(lm)
     else:
         raise ValueError(f"Unknown dataset {ds_path}")
 
@@ -137,7 +138,7 @@ def main(
             optim = bocoel.evaluate_corpus(
                 AxServiceOptimizer,
                 corpus=corpus,
-                lm=lm,
+                lm=lm.classify,
                 adaptor=adaptor,
                 sobol_steps=sobol_steps,
                 device=device,

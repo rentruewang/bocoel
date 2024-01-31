@@ -6,7 +6,6 @@ from bocoel import (
     Corpus,
     KMeansOptimizer,
     KMedoidsOptimizer,
-    LanguageModel,
     Optimizer,
     core,
 )
@@ -22,28 +21,22 @@ class OptimizerName(StrEnum):
 
 
 def optimizer_factory(
-    name: str | OptimizerName,
-    /,
-    *,
-    corpus: Corpus,
-    lm: LanguageModel,
-    adaptor: Adaptor,
-    **kwargs: Any,
+    name: str | OptimizerName, /, *, corpus: Corpus, adaptor: Adaptor, **kwargs: Any
 ) -> Optimizer:
     name = OptimizerName.lookup(name)
 
     match name:
         case OptimizerName.AX_SERVICE:
             return common.correct_kwargs(core.evaluate_corpus)(
-                AxServiceOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
+                AxServiceOptimizer, corpus=corpus, adaptor=adaptor, **kwargs
             )
         case OptimizerName.KMEANS:
             return common.correct_kwargs(core.evaluate_corpus)(
-                KMeansOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
+                KMeansOptimizer, corpus=corpus, adaptor=adaptor, **kwargs
             )
         case OptimizerName.KMEDOIDS:
             return common.correct_kwargs(core.evaluate_corpus)(
-                KMedoidsOptimizer, corpus=corpus, lm=lm, adaptor=adaptor, **kwargs
+                KMedoidsOptimizer, corpus=corpus, adaptor=adaptor, **kwargs
             )
         case _:
             raise ValueError(f"Unknown optimizer name: {name}")

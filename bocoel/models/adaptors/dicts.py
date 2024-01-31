@@ -4,7 +4,6 @@ from typing import Any
 from numpy.typing import NDArray
 
 from bocoel.models.adaptors.interfaces import Adaptor, AdaptorBundle
-from bocoel.models.lms import LanguageModel
 
 
 class AdaptorMapping(AdaptorBundle):
@@ -12,6 +11,6 @@ class AdaptorMapping(AdaptorBundle):
         self._adaptors = adaptors
 
     def evaluate(
-        self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
+        self, data: Mapping[str, Sequence[Any]]
     ) -> Mapping[str, Sequence[float] | NDArray]:
-        return {name: ev.evaluate(data, lm) for name, ev in self._adaptors.items()}
+        return {name: ev.evaluate(data) for name, ev in self._adaptors.items()}

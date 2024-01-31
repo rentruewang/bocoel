@@ -102,7 +102,12 @@ def main(
     # The model part
 
     LOGGER.info("Creating LM with model", model=llm_model, device=device)
-    lm = HuggingfaceLogitsLM(model_path=llm_model, device=device, batch_size=batch_size)
+    lm = HuggingfaceLogitsLM(
+        model_path=llm_model,
+        device=device,
+        batch_size=batch_size,
+        choices=[str(i) for i in range(1, 100 + 1)],
+    )
 
     LOGGER.info(
         "Creating adaptor with arguments",
@@ -113,6 +118,7 @@ def main(
         metric=metric,
     )
     adaptor = bigbench_adaptor(
+        lm=lm,
         inputs=inputs,
         multiple_choice_targets=multiple_choice_targets,
         multiple_choice_scores=multiple_choice_scores,
@@ -135,7 +141,6 @@ def main(
     optim = bocoel.evaluate_corpus(
         AxServiceOptimizer,
         corpus=corpus,
-        lm=lm,
         adaptor=adaptor,
         sobol_steps=sobol_steps,
         device=device,
@@ -151,6 +156,7 @@ def main(
 
 
 def bigbench_adaptor(
+    lm: HuggingfaceLogitsLM,
     inputs: str,
     multiple_choice_targets: str,
     multiple_choice_scores: str,
@@ -165,6 +171,7 @@ def bigbench_adaptor(
     multiple_choice = metric in _MULTIPLE_CHOICE
     if multiple_choice:
         return BigBenchMultipleChoice(
+            lm=lm,
             inputs=inputs,
             multiple_choice_targets=multiple_choice_targets,
             multiple_choice_scores=multiple_choice_scores,
@@ -172,6 +179,7 @@ def bigbench_adaptor(
         )
     else:
         return BigBenchQuestionAnswer(
+            lm=lm,
             inputs=inputs,
             targets=targets,
             matching_type=BigBenchMatchType.lookup(metric),

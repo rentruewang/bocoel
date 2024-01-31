@@ -8,7 +8,7 @@ from numpy.typing import ArrayLike, NDArray
 from bocoel.core.optim.interfaces import Optimizer, QueryEvaluator, SearchEvaluator
 from bocoel.corpora import Corpus, SearchResult, SearchResultBatch, StatefulIndex
 from bocoel.corpora.indices import utils
-from bocoel.models import Adaptor, LanguageModel
+from bocoel.models import Adaptor
 
 LOGGER = structlog.get_logger()
 
@@ -51,13 +51,12 @@ def evaluate_index(
 def evaluate_corpus(
     optim_class: type[Optimizer],
     corpus: Corpus,
-    lm: LanguageModel,
     adaptor: Adaptor,
     k: int = 1,
     **kwargs: Any,
 ) -> Optimizer:
     def evaluate_fn(sr: SearchResultBatch, /) -> Sequence[float] | NDArray:
-        evaluated = adaptor.on_corpus(corpus=corpus, lm=lm, indices=sr.indices)
+        evaluated = adaptor.on_corpus(corpus=corpus, indices=sr.indices)
         assert (
             evaluated.ndim == 2
         ), f"Evaluated should have the dimensions [batch, k]. Got {evaluated.shape}"

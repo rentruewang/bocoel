@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Glue dataset.
 - Support for embedding multiple columns in the storage.
+- Split language models abstractions into generative and classifiers.
 
 ### Changed
 

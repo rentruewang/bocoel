@@ -3,27 +3,37 @@ from collections.abc import Sequence
 import torch
 from numpy.typing import NDArray
 
-from bocoel.models.lms.huggingface.bases import Device
+from bocoel.models.lms.interfaces import ClassifierModel
 
-from .bases import HuggingfaceBaseLM
+from .generative import HuggingfaceGenerativeLM
 
 
-class HuggingfaceLogitsLM(HuggingfaceBaseLM):
+class HuggingfaceLogitsLM(HuggingfaceGenerativeLM, ClassifierModel):
     """
     The Huggingface implementation of LanguageModel that uses logits in classification.
     This means that the model would use the logits of ['1', '2', '3', '4', '5'] as the output,
     if `choices = 5`, for the current batch of inputs.
     """
 
-    def __init__(self, model_path: str, batch_size: int, device: Device) -> None:
-        super().__init__(model_path, batch_size, device)
+    def __init__(
+        self,
+        model_path: str,
+        batch_size: int,
+        device: str,
+        choices: Sequence[str],
+    ) -> None:
+        super().__init__(model_path, batch_size, device=device)
+
+        self._choices = choices
+        self._encoded_choices = self._encode_tokens(self._choices)
+
+    @property
+    def choices(self) -> Sequence[str]:
+        return self._choices
 
     @torch.no_grad()
-    def _classify(self, prompts: Sequence[str], /, choices: Sequence[str]) -> NDArray:
-        tokenized = self._tokenize(prompts)
-
-        # Encode tokens and select the logits at the given output.
-        encoded = self._encode_tokens(choices)
+    def _classify(self, prompts: Sequence[str], /) -> NDArray:
+        tokenized = self._tokenizer(prompts)
 
         output = self._model(**tokenized)
 
@@ -31,19 +41,22 @@ class HuggingfaceLogitsLM(HuggingfaceBaseLM):
         logits = output.logits
 
         # Using encoded to select the logits at the last position.
-        result = logits[:, -1, encoded]
+        result = logits[:, -1, self._encoded_choices]
 
         return result.cpu().numpy()
 
     def _encode_tokens(self, tokens: Sequence[str]) -> Sequence[int]:
         result: list[int] = []
         for tok in tokens:
-            result.extend(self._tokenizer.encode(tok, add_special_tokens=False))
+            # Only adds the first token because we are only interested in the first token.
+            result.append(self._tokenizer.encode(tok, add_special_tokens=False)[0])
 
-        if len(result) != len(tokens):
+        assert len(result) == len(tokens)
+
+        if len(result) != len(set(result)):
             decoded = self._tokenizer.decode(self._tokenizer.encode(tokens))
             raise ValueError(
-                "Tokens must be words. Each token must be converted to 1 id."
+                "Each token must be converted to 1 unique id."
                 f"Got {tokens}, encoded into {decoded}."
             )
 

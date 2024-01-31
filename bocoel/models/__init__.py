@@ -9,12 +9,15 @@ from .adaptors import (
     Sst2QuestionAnswer,
 )
 from .lms import (
-    HuggingfaceBaseLM,
-    HuggingfaceClassifierLM,
+    ClassifierModel,
+    GenerativeModel,
+    HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
-    LanguageModel,
+    HuggingfaceSequenceLM,
+    HuggingfaceTokenizer,
 )
 from .scores import (
+    ExactMatch,
     MultiChoiceAccuracy,
     NltkBleuScore,
     OneHotChoiceAccuracy,

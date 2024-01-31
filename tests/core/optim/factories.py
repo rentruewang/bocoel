@@ -3,9 +3,9 @@ from bocoel import (
     Adaptor,
     AxServiceOptimizer,
     Corpus,
+    GenerativeModel,
     KMeansOptimizer,
     KMedoidsOptimizer,
-    LanguageModel,
     Optimizer,
     Task,
     core,
@@ -15,12 +15,11 @@ from tests import utils
 
 @utils.cache
 def ax_optim(
-    corpus: Corpus, lm: LanguageModel, adaptor: Adaptor, device: str, workers: int
+    corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor, device: str, workers: int
 ) -> Optimizer:
     return core.evaluate_corpus(
         AxServiceOptimizer,
         corpus=corpus,
-        lm=lm,
         adaptor=adaptor,
         sobol_steps=5,
         device=device,
@@ -31,11 +30,10 @@ def ax_optim(
 
 
 @utils.cache
-def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
+def kmeans_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optimizer:
     return core.evaluate_corpus(
         KMeansOptimizer,
         corpus=corpus,
-        lm=lm,
         adaptor=adaptor,
         batch_size=64,
         embeddings=corpus.index.embeddings,
@@ -44,11 +42,10 @@ def kmeans_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimiz
 
 
 @utils.cache
-def kmedoids_optim(corpus: Corpus, lm: LanguageModel, adaptor: Adaptor) -> Optimizer:
+def kmedoids_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optimizer:
     return core.evaluate_corpus(
         KMedoidsOptimizer,
         corpus=corpus,
-        lm=lm,
         adaptor=adaptor,
         batch_size=64,
         embeddings=corpus.index.embeddings,

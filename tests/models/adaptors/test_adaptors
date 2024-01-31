@@ -11,15 +11,15 @@ from . import factories
 @pytest.mark.parametrize(
     "adaptor_name",
     [
-        "sacre_bleu",
-        "nltk_bleu",
+        "sacre-bleu",
+        "nltk-bleu",
         "rouge-1",
         "rouge-2",
         "rouge-l",
         "rouge-score-1",
         "rouge-score-2",
         "rouge-score-l",
-        "exact_match",
+        "exact-match",
     ],
 )
 def test_adaptor_on_corpus(adaptor_name: str, device: str) -> None:

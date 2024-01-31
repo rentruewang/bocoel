@@ -42,6 +42,6 @@ def with_kwargs(
     lm = factories.lm_factory(lm_name, **lm_kwargs)
     adaptor = factories.adaptor_factory(adaptor_name, **adaptor_kwargs)
     optim = factories.optimizer_factory(
-        optimizer_name, corpus=corpus, lm=lm, adaptor=adaptor, **optimizer_kwargs
+        optimizer_name, corpus=corpus, adaptor=adaptor, **optimizer_kwargs
     )
     bocoel.bocoel(optimizer=optim, iterations=iterations)

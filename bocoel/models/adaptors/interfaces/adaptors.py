@@ -7,7 +7,6 @@ import structlog
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import Corpus, Storage
-from bocoel.models.lms import LanguageModel
 
 LOGGER = structlog.get_logger()
 
@@ -19,9 +18,7 @@ class Adaptor(Protocol):
     """
 
     @abc.abstractmethod
-    def evaluate(
-        self, data: Mapping[str, Sequence[Any]], lm: LanguageModel
-    ) -> Sequence[float] | NDArray:
+    def evaluate(self, data: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:
         """
         Evaluate a particular set of entries with a language model.
         Returns a list of scores, one for each entry, in the same order.
@@ -43,9 +40,7 @@ class Adaptor(Protocol):
 
         ...
 
-    def on_storage(
-        self, storage: Storage, lm: LanguageModel, indices: ArrayLike
-    ) -> NDArray:
+    def on_storage(self, storage: Storage, indices: ArrayLike) -> NDArray:
         """
         Evaluate a particular set of indices on a storage.
         Given indices and a storage,
@@ -78,17 +73,15 @@ class Adaptor(Protocol):
         indices = indices.ravel()
 
         items = storage[indices.tolist()]
-        result = np.array(self.evaluate(data=items, lm=lm))
+        result = np.array(self.evaluate(data=items))
 
         # Reshape back.
         return result.reshape(indices_shape)
 
-    def on_corpus(
-        self, corpus: Corpus, lm: LanguageModel, indices: ArrayLike
-    ) -> NDArray:
+    def on_corpus(self, corpus: Corpus, indices: ArrayLike) -> NDArray:
         """
         Evaluate a particular set of indices on a corpus.
         A convenience wrapper around `Adaptor.on_storage`.
         """
 
-        return self.on_storage(storage=corpus.storage, lm=lm, indices=indices)
+        return self.on_storage(storage=corpus.storage, indices=indices)

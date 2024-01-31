@@ -7,7 +7,7 @@ import typeguard
 from numpy.typing import NDArray
 
 from bocoel.common import StrEnum
-from bocoel.models.lms import LanguageModel
+from bocoel.models.lms import ClassifierModel
 from bocoel.models.scores import MultiChoiceAccuracy, OneHotChoiceAccuracy, Score
 
 from .interfaces import BigBenchAdaptor
@@ -31,20 +31,21 @@ class BigBenchChoiceType(StrEnum):
 class BigBenchMultipleChoice(BigBenchAdaptor):
     def __init__(
         self,
+        lm: ClassifierModel,
         inputs: str = "inputs",
         multiple_choice_targets: str = "multiple_choice_targets",
         multiple_choice_scores: str = "multiple_choice_scores",
         choice_type: str | BigBenchChoiceType = BigBenchChoiceType.SUM_OF_SCORES,
     ) -> None:
+        self.lm = lm
+
         self.inputs = inputs
         self.multiple_choice_targets = multiple_choice_targets
         self.multiple_choice_scores = multiple_choice_scores
 
         self._score_fn = BigBenchChoiceType.lookup(choice_type).score
 
-    def evaluate(
-        self, data: Mapping[str, Any], lm: LanguageModel
-    ) -> Sequence[float] | NDArray:
+    def evaluate(self, data: Mapping[str, Any]) -> Sequence[float] | NDArray:
         # Get data.
         inputs = data[self.inputs]
         multiple_choice_targets = data[self.multiple_choice_targets]
@@ -62,20 +63,6 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         typeguard.check_type("mct", multiple_choice_targets, Sequence[Sequence[str]])
         typeguard.check_type("mcs", multiple_choice_scores, Sequence[Sequence[Number]])
 
-        return self._evaluate_batch(
-            inputs=inputs,
-            multiple_choice_targets=multiple_choice_targets,
-            multiple_choice_scores=multiple_choice_scores,
-            lm=lm,
-        )
-
-    def _evaluate_batch(
-        self,
-        inputs: Sequence[str],
-        multiple_choice_targets: Sequence[Sequence[str]],
-        multiple_choice_scores: Sequence[Sequence[float]],
-        lm: LanguageModel,
-    ) -> Sequence[float] | NDArray:
         prompts = [
             self.numeric_choices(question=q, choices=c)
             for q, c in zip(inputs, multiple_choice_targets)
@@ -83,22 +70,22 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
 
         # Get the maximum number of choices.
         # Usually every question should have the same number of choices (5).
-        choices = [len(mcs) for mcs in multiple_choice_scores]
+        num_choices_per_question = [len(mcs) for mcs in multiple_choice_scores]
 
-        if min(choices) == 0:
+        if min(num_choices_per_question) == 0:
             raise ValueError(
                 "Multiple choice scores must not be empty. "
                 f"Got {multiple_choice_scores}"
             )
 
-        if len(set(choices)) != 1:
+        choices = [str(i) for i in range(1, max(num_choices_per_question) + 1)]
+        if any(choice not in self.lm.choices for choice in choices):
             raise ValueError(
-                "Batched multiple choice scores only supports the same number of choices. "
-                f"Got number of choices from {min(choices)} to {max(choices)}."
+                f"Choices {choices} are not in the language model's choices {self.lm.choices}"
             )
 
-        (choice,) = choices
-        selected = lm.classify(prompts, choices=[str(i) for i in range(1, choice + 1)])
+        # Apply classification on the prompts.
+        selected = self.lm.classify(prompts)
 
         # Chosen has shape [batch_size].
         # Although choices start from 1, chosen is the index of the choice.
