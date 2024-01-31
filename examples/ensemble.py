@@ -1,6 +1,6 @@
 import logging
 from collections.abc import Sequence
-from typing import Literal
+from typing import Any, Literal
 
 import datasets
 import fire
@@ -24,11 +24,14 @@ from bocoel import (
     HuggingfaceEmbedder,
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,
+    Index,
     KMeansOptimizer,
     KMedoidsOptimizer,
     Optimizer,
+    PolarIndex,
     Sst2QuestionAnswer,
     Task,
+    WhiteningIndex,
 )
 
 structlog.configure(
@@ -51,9 +54,11 @@ def main(
     ds_split: Literal["train", "validation", "test"] = "train",
     llm_model: str = "textattack/roberta-base-SST-2",
     batch_size: int = 16,
+    index_name: Literal["hnswlib", "polar", "whitening"] = "hnswlib",
     sobol_steps: int = 20,
     index_threads: int = 8,
     optimizer_steps: int = 30,
+    remains: int = 32,
     device: str = "cpu",
     acqf: str = "ENTROPY",
     task: str = "EXPLORE",
@@ -76,14 +81,20 @@ def main(
         device=device,
     )
 
+    index_backend, index_kwargs = index_backend_and_kwargs(
+        name=index_name,
+        index_threads=index_threads,
+        batch_size=batch_size,
+        remains=min(remains, embedder.dims),
+    )
     corpus = ComposedCorpus.index_storage(
         storage=storage,
         embedder=embedder,
         keys=sentence.split(),
-        index_backend=HnswlibIndex,
+        index_backend=index_backend,
         concat=" [SEP] ".join,
         distance=Distance.INNER_PRODUCT,
-        threads=index_threads,
+        **index_kwargs,
     )
 
     # ------------------------
@@ -218,6 +229,29 @@ def ensemble_embedder(batch_size: int):
             HuggingfaceEmbedder(path=model, device=hf_device, batch_size=batch_size)
         )
     return EnsembleEmbedder(embedders)
+
+
+def index_backend_and_kwargs(
+    name: str, index_threads: int, batch_size: int, remains: int
+) -> tuple[type[Index], dict[str, Any]]:
+    match name:
+        case "hnswlib":
+            return HnswlibIndex, {"threads": index_threads, "batch_size": batch_size}
+        case "polar":
+            return PolarIndex, {
+                "polar_backend": HnswlibIndex,
+                "threads": index_threads,
+                "batch_size": batch_size,
+            }
+        case "whitening":
+            return WhiteningIndex, {
+                "whitening_backend": HnswlibIndex,
+                "remains": remains,
+                "threads": index_threads,
+                "batch_size": batch_size,
+            }
+        case _:
+            raise ValueError(f"Unknown index backend {name}")
 
 
 if __name__ == "__main__":
