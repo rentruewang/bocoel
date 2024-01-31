@@ -61,7 +61,7 @@ class PolarIndex(Index):
         # See wikipedia linked in the class documentation for details.
         upper = np.concatenate([[np.pi] * (self.dims - 1), [2 * np.pi]])
         lower = np.zeros_like(upper)
-        return Boundary(np.stack([lower, upper]))
+        return Boundary(np.stack([lower, upper], axis=-1))
 
     @property
     def dims(self) -> int:

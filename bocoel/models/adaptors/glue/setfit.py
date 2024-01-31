@@ -1,12 +1,15 @@
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+import structlog
 import typeguard
 from numpy.typing import NDArray
 from typing_extensions import Self
 
 from bocoel.models.adaptors.interfaces import Adaptor
 from bocoel.models.lms import ClassifierModel
+
+LOGGER = structlog.get_logger()
 
 
 class GlueAdaptor(Adaptor):
@@ -70,16 +73,22 @@ class GlueAdaptor(Adaptor):
 
     @classmethod
     def task(cls, name: str, model: ClassifierModel) -> Self:
+        return cls(model, choices=cls.choices_per_task(name))
+
+    @staticmethod
+    def choices_per_task(name: str) -> Sequence[str]:
+        LOGGER.debug("Getting choices for task", task=name)
+
         match name:
             case "sst2":
-                return cls(model)
+                return ["negative", "positive"]
             case "mnli":
-                return cls(model, choices=["entailment", "neutral", "contradiction"])
+                return ["entailment", "neutral", "contradiction"]
             case "qqp":
-                return cls(model, choices=["not duplicate", "duplicate"])
+                return ["not duplicate", "duplicate"]
             case "rte":
-                return cls(model, choices=["entailment", "not entailment"])
+                return ["entailment", "not entailment"]
             case "mrpc":
-                return cls(model, choices=["not equivalent", "equivalent"])
+                return ["not equivalent", "equivalent"]
             case _:
                 raise ValueError(f"Unknown task name {name}")

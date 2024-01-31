@@ -50,15 +50,16 @@ def main(
         "SetFit/qnli",
         "SetFit/rte",
         "SetFit/qqp",
+        "SetFit/sst2",
     ] = "SST2",
     ds_split: Literal["train", "validation", "test"] = "train",
     llm_model: str = "textattack/roberta-base-SST-2",
     batch_size: int = 16,
     index_name: Literal["hnswlib", "polar", "whitening"] = "hnswlib",
-    sobol_steps: int = 20,
+    sobol_steps: int = 5,
     index_threads: int = 8,
-    optimizer_steps: int = 30,
-    remains: int = 32,
+    optimizer_steps: int = 60,
+    reduced: int = 32,
     device: str = "cpu",
     acqf: str = "ENTROPY",
     task: str = "EXPLORE",
@@ -85,7 +86,7 @@ def main(
         name=index_name,
         index_threads=index_threads,
         batch_size=batch_size,
-        remains=min(remains, embedder.dims),
+        reduced=min(reduced, embedder.dims),
     )
     corpus = ComposedCorpus.index_storage(
         storage=storage,
@@ -100,20 +101,25 @@ def main(
     # ------------------------
     # The model part
 
+    task_name = ds_path.lower().replace("setfit/", "")
+
     lm: ClassifierModel
-    LOGGER.info("Creating LM with model", model=llm_model, device=device)
+    LOGGER.info(
+        "Creating LM with model", model=llm_model, device=device, task=task_name
+    )
     match classification:
         case "classifier":
             lm = HuggingfaceSequenceLM(
-                model_path=llm_model, device=device, choices=choices
+                model_path=llm_model,
+                device=device,
+                choices=GlueAdaptor.choices_per_task(task_name),
             )
         case "logits":
-            lm_cls = HuggingfaceLogitsLM
             lm = HuggingfaceLogitsLM(
                 model_path=llm_model,
                 batch_size=batch_size,
                 device=device,
-                choices=choices,
+                choices=GlueAdaptor.choices_per_task(task_name),
             )
         case _:
             raise ValueError(f"Unknown classification {classification}")
@@ -124,7 +130,7 @@ def main(
     LOGGER.info("Creating adaptor with arguments", sentence=sentence, label=label)
     adaptor: Adaptor
     if "setfit/" in ds_path.lower():
-        adaptor = GlueAdaptor.task(ds_path.lower().lstrip("setfit"), lm)
+        adaptor = GlueAdaptor.task(task_name, lm)
     elif ds_path == "SST2":
         adaptor = Sst2QuestionAnswer(lm)
     else:
@@ -149,7 +155,6 @@ def main(
             optim = bocoel.evaluate_corpus(
                 AxServiceOptimizer,
                 corpus=corpus,
-                lm=lm.classify,
                 adaptor=adaptor,
                 sobol_steps=sobol_steps,
                 device=device,
@@ -160,7 +165,6 @@ def main(
             optim = bocoel.evaluate_corpus(
                 KMeansOptimizer,
                 corpus=corpus,
-                lm=lm,
                 adaptor=adaptor,
                 batch_size=batch_size,
                 embeddings=corpus.index.embeddings,
@@ -170,7 +174,6 @@ def main(
             optim = bocoel.evaluate_corpus(
                 KMedoidsOptimizer,
                 corpus=corpus,
-                lm=lm,
                 adaptor=adaptor,
                 batch_size=batch_size,
                 embeddings=corpus.index.embeddings,
@@ -232,7 +235,7 @@ def ensemble_embedder(batch_size: int):
 
 
 def index_backend_and_kwargs(
-    name: str, index_threads: int, batch_size: int, remains: int
+    name: str, index_threads: int, batch_size: int, reduced: int
 ) -> tuple[type[Index], dict[str, Any]]:
     match name:
         case "hnswlib":
@@ -246,7 +249,7 @@ def index_backend_and_kwargs(
         case "whitening":
             return WhiteningIndex, {
                 "whitening_backend": HnswlibIndex,
-                "remains": remains,
+                "reduced": reduced,
                 "threads": index_threads,
                 "batch_size": batch_size,
             }

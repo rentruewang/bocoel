@@ -24,23 +24,23 @@ class WhiteningIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
-        remains: int,
+        reduced: int,
         whitening_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:
         # Remains might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
-        remains = min(remains, embeddings.shape[1])
+        reduced = min(reduced, embeddings.shape[1])
 
-        white = self.whiten(embeddings, remains)
-        assert white.shape[1] == remains, {
+        white = self.whiten(embeddings, reduced)
+        assert white.shape[1] == reduced, {
             "whitened": white.shape,
-            "remains": remains,
+            "remains": reduced,
         }
         self._index = whitening_backend(
             embeddings=white, distance=distance, **backend_kwargs
         )
-        assert remains == self._index.dims
+        assert reduced == self._index.dims
 
     @property
     def batch(self) -> int:
