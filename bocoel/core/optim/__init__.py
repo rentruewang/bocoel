@@ -1,4 +1,5 @@
 from .ax import AcquisitionFunc, AxServiceOptimizer, AxServiceParameter, Task
+from .brute import BruteForceOptimizer
 from .evals import evaluate_corpus, evaluate_index, query_eval_func, search_eval_func
 from .interfaces import Optimizer, QueryEvaluator, SearchEvaluator, Task
 from .random import RandomOptimizer

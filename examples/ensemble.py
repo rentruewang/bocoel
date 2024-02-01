@@ -1,5 +1,7 @@
 import logging
+import pickle
 from collections.abc import Sequence
+from pathlib import Path
 from typing import Any, Literal
 
 import datasets
@@ -14,6 +16,7 @@ from bocoel import (
     AcquisitionFunc,
     Adaptor,
     AxServiceOptimizer,
+    BruteForceOptimizer,
     ClassifierModel,
     ComposedCorpus,
     DatasetsStorage,
@@ -29,6 +32,7 @@ from bocoel import (
     KMedoidsOptimizer,
     Optimizer,
     PolarIndex,
+    RandomOptimizer,
     Sst2QuestionAnswer,
     Task,
     WhiteningIndex,
@@ -63,40 +67,44 @@ def main(
     device: str = "cpu",
     acqf: str = "ENTROPY",
     task: str = "EXPLORE",
-    classification: Literal["logits", "classifier"] = "classifier",
-    optimizer: Literal["ax", "kmeans", "kmedoids"] = "ax",
-    choices: Sequence[str] = ("negative", "positive"),
+    classification: Literal["logits", "seq"] = "seq",
+    optimizer: Literal["ax", "kmeans", "kmedoids", "random", "brute"] = "ax",
+    corpus_cache_path: str | Path = "corpus.pickle",
+    embedders: Sequence[str] = tuple(
+        [
+            # "textattack/bert-base-uncased-SST-2",
+            #   "textattack/roberta-base-SST-2",
+            #   "textattack/albert-base-v2-SST-2",
+            #   "textattack/xlnet-large-cased-SST-2",
+            #   "textattack/xlnet-base-cased-SST-2",
+            #   "textattack/facebook-bart-large-SST-2",
+            #   "textattack/distilbert-base-uncased-SST-2",
+            "textattack/distilbert-base-cased-SST-2"
+        ]
+    ),
 ) -> None:
     # The corpus part
-    LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
-    ds = datasets.load_dataset(ds_path)[ds_split]
-    storage = DatasetsStorage(ds)
 
-    embedder = ensemble_embedder(batch_size=batch_size)
     sentence, label = sentence_label(ds_path)
-
-    LOGGER.info(
-        "Creating corpus with storage and embedder",
-        storage=storage,
-        embedder=embedder,
-        device=device,
-    )
-
-    index_backend, index_kwargs = index_backend_and_kwargs(
-        name=index_name,
-        index_threads=index_threads,
-        batch_size=batch_size,
-        reduced=min(reduced, embedder.dims),
-    )
-    corpus = ComposedCorpus.index_storage(
-        storage=storage,
-        embedder=embedder,
-        keys=sentence.split(),
-        index_backend=index_backend,
-        concat=" [SEP] ".join,
-        distance=Distance.INNER_PRODUCT,
-        **index_kwargs,
-    )
+    corpus_cache_path = Path(corpus_cache_path)
+    corpus: ComposedCorpus
+    if corpus_cache_path.exists():
+        with open(corpus_cache_path, "rb") as f:
+            corpus = pickle.load(f)
+    else:
+        corpus = composed_corpus(
+            ds_path=ds_path,
+            ds_split=ds_split,
+            batch_size=batch_size,
+            device=device,
+            index_name=index_name,
+            index_threads=index_threads,
+            reduced=reduced,
+            sentence=sentence,
+            embedders=embedders,
+        )
+        with open(corpus_cache_path, "wb") as f:
+            pickle.dump(corpus, f)
 
     # ------------------------
     # The model part
@@ -108,7 +116,7 @@ def main(
         "Creating LM with model", model=llm_model, device=device, task=task_name
     )
     match classification:
-        case "classifier":
+        case "seq":
             lm = HuggingfaceSequenceLM(
                 model_path=llm_model,
                 device=device,
@@ -130,7 +138,11 @@ def main(
     LOGGER.info("Creating adaptor with arguments", sentence=sentence, label=label)
     adaptor: Adaptor
     if "setfit/" in ds_path.lower():
-        adaptor = GlueAdaptor.task(task_name, lm)
+        adaptor = GlueAdaptor(
+            lm,
+            texts="text" if "sst2" in task_name else "text1 text2",
+            choices=GlueAdaptor.choices_per_task(task_name),
+        )
     elif ds_path == "SST2":
         adaptor = Sst2QuestionAnswer(lm)
     else:
@@ -179,7 +191,24 @@ def main(
                 embeddings=corpus.index.embeddings,
                 model_kwargs={"n_clusters": optimizer_steps},
             )
-
+        case "random":
+            optim = bocoel.evaluate_corpus(
+                RandomOptimizer,
+                corpus=corpus,
+                adaptor=adaptor,
+                samples=optimizer_steps,
+                batch_size=batch_size,
+            )
+        case "brute":
+            optim = bocoel.evaluate_corpus(
+                BruteForceOptimizer,
+                corpus=corpus,
+                adaptor=adaptor,
+                embeddings=corpus.index.embeddings,
+                batch_size=batch_size,
+            )
+        case _:
+            raise ValueError(f"Unknown optimizer {optimizer}")
     scores: list[float] = []
     for i in tqdm(range(optimizer_steps)):
         try:
@@ -205,33 +234,22 @@ def sentence_label(ds_path: str) -> tuple[str, str]:
     return sentence, label
 
 
-def ensemble_embedder(batch_size: int):
+def ensemble_embedder(embedders: Sequence[str], batch_size: int):
     LOGGER.info("Creating embedder")
-    embedders = []
+    embs = []
 
     cuda_available = cuda.is_available()
     device_count = cuda.device_count()
-    for i, model in enumerate(
-        [
-            # "textattack/bert-base-uncased-SST-2",
-            #   "textattack/roberta-base-SST-2",
-            #   "textattack/albert-base-v2-SST-2",
-            #   "textattack/xlnet-large-cased-SST-2",
-            #   "textattack/xlnet-base-cased-SST-2",
-            #   "textattack/facebook-bart-large-SST-2",
-            #   "textattack/distilbert-base-uncased-SST-2",
-            "textattack/distilbert-base-cased-SST-2"
-        ]
-    ):
+    for i, model in enumerate(embedders):
         # Auto cast devices
         if cuda_available:
             hf_device = f"cuda:{i%device_count}"
         else:
             hf_device = "cpu"
-        embedders.append(
+        embs.append(
             HuggingfaceEmbedder(path=model, device=hf_device, batch_size=batch_size)
         )
-    return EnsembleEmbedder(embedders)
+    return EnsembleEmbedder(embs)
 
 
 def index_backend_and_kwargs(
@@ -255,6 +273,48 @@ def index_backend_and_kwargs(
             }
         case _:
             raise ValueError(f"Unknown index backend {name}")
+
+
+def composed_corpus(
+    ds_path: str,
+    ds_split: str,
+    batch_size: int,
+    device: str,
+    index_name: str,
+    index_threads: int,
+    reduced: int,
+    sentence: str,
+    embedders: Sequence[str],
+) -> ComposedCorpus:
+    LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
+    ds = datasets.load_dataset(ds_path)[ds_split]
+    storage = DatasetsStorage(ds)
+
+    embedder = ensemble_embedder(batch_size=batch_size, embedders=embedders)
+
+    LOGGER.info(
+        "Creating corpus with storage and embedder",
+        storage=storage,
+        embedder=embedder,
+        device=device,
+    )
+
+    index_backend, index_kwargs = index_backend_and_kwargs(
+        name=index_name,
+        index_threads=index_threads,
+        batch_size=batch_size,
+        reduced=min(reduced, embedder.dims),
+    )
+    corpus = ComposedCorpus.index_storage(
+        storage=storage,
+        embedder=embedder,
+        keys=sentence.split(),
+        index_backend=index_backend,
+        concat=" [SEP] ".join,
+        distance=Distance.INNER_PRODUCT,
+        **index_kwargs,
+    )
+    return corpus
 
 
 if __name__ == "__main__":

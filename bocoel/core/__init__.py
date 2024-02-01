@@ -1,6 +1,7 @@
 from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,
+    BruteForceOptimizer,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,

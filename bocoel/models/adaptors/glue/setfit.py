@@ -4,7 +4,6 @@ from typing import Any
 import structlog
 import typeguard
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 from bocoel.models.adaptors.interfaces import Adaptor
 from bocoel.models.lms import ClassifierModel
@@ -70,10 +69,6 @@ class GlueAdaptor(Adaptor):
         sentences = [" [SEP] ".join(txt) for txt in zip(*texts)]
         classified = self.lm.classify(sentences)
         return [float(c == l) for c, l in zip(classified.argmax(-1), labels)]
-
-    @classmethod
-    def task(cls, name: str, model: ClassifierModel) -> Self:
-        return cls(model, choices=cls.choices_per_task(name))
 
     @staticmethod
     def choices_per_task(name: str) -> Sequence[str]:

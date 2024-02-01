@@ -5,6 +5,7 @@ from .common import StrEnum, version
 from .core import (
     AcquisitionFunc,
     AxServiceOptimizer,
+    BruteForceOptimizer,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,
