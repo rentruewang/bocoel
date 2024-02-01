@@ -93,7 +93,7 @@ def main(
         keys=[inputs],
         index_backend=WhiteningIndex,
         distance=Distance.INNER_PRODUCT,
-        remains=reduced_dim,
+        reduced=reduced_dim,
         whitening_backend=HnswlibIndex,
         threads=index_threads,
     )

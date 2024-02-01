@@ -1,6 +1,7 @@
 from typing import Any
 
 import numpy as np
+import structlog
 from numpy import linalg
 from numpy.typing import NDArray
 
@@ -12,6 +13,8 @@ from bocoel.corpora.indices.interfaces import (
     IndexedArray,
     InternalResult,
 )
+
+LOGGER = structlog.get_logger()
 
 
 class WhiteningIndex(Index):
@@ -28,14 +31,20 @@ class WhiteningIndex(Index):
         whitening_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:
-        # Remains might be smaller than embeddings.
+        # Reduced might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
-        reduced = min(reduced, embeddings.shape[1])
+        if reduced > embeddings.shape[1]:
+            reduced = embeddings.shape[1]
+            LOGGER.info(
+                "Reduced dimensionality is larger than embeddings. Using full dimensionality",
+                reduced=reduced,
+                embeddings=embeddings.shape,
+            )
 
         white = self.whiten(embeddings, reduced)
         assert white.shape[1] == reduced, {
             "whitened": white.shape,
-            "remains": reduced,
+            "reduced": reduced,
         }
         self._index = whitening_backend(
             embeddings=white, distance=distance, **backend_kwargs

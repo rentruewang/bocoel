@@ -27,7 +27,7 @@ def hnswlib_kwargs() -> dict[str, Any]:
 
 
 def whiten_kwargs() -> dict[str, Any]:
-    return {"remains": 3, "whitening_backend": HnswlibIndex, **hnswlib_kwargs()}
+    return {"reduced": 3, "whitening_backend": HnswlibIndex, **hnswlib_kwargs()}
 
 
 def polar_kwargs() -> dict[str, Any]:
