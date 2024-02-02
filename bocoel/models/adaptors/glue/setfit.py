@@ -1,5 +1,5 @@
 from collections.abc import Mapping, Sequence
-from typing import Any
+from typing import Any, Literal
 
 import structlog
 import typeguard
@@ -56,13 +56,15 @@ class GlueAdaptor(Adaptor):
         typeguard.check_type("texts", texts, Sequence[Sequence[str]])
         typeguard.check_type("labels", labels, Sequence[int])
 
-        choices_set = set(self.choices)
-        if not all(lab in choices_set for lab in label_texts):
-            raise ValueError("label_texts must not be empty")
-
-        if not all(0 <= i < len(choices_set) for i in labels):
+        if any(lab not in self.choices for lab in label_texts):
             raise ValueError(
-                f"labels must be in range [0, {len(choices_set)}),"
+                f"Valid choices={self.choices}. "
+                f"Got: {set(lab for lab in label_texts if lab not in self.choices)}"
+            )
+
+        if not all(0 <= i < len(self.choices) for i in labels):
+            raise ValueError(
+                f"labels must be in range [0, {len(self.choices)}),"
                 f"because choices={self.choices}"
             )
 
@@ -71,19 +73,27 @@ class GlueAdaptor(Adaptor):
         return [float(c == l) for c, l in zip(classified.argmax(-1), labels)]
 
     @staticmethod
-    def choices_per_task(name: str) -> Sequence[str]:
+    def task_choices(
+        name: Literal["sst2", "mrpc", "mnli", "qqp", "rte", "qnli"],
+        split: Literal["train", "validation", "test"],
+    ) -> Sequence[str]:
         LOGGER.debug("Getting choices for task", task=name)
 
-        match name:
-            case "sst2":
+        match name, split:
+            case "sst2", _:
                 return ["negative", "positive"]
-            case "mnli":
-                return ["entailment", "neutral", "contradiction"]
-            case "qqp":
-                return ["not duplicate", "duplicate"]
-            case "rte":
-                return ["entailment", "not entailment"]
-            case "mrpc":
+            case "mrpc", _:
                 return ["not equivalent", "equivalent"]
-            case _:
-                raise ValueError(f"Unknown task name {name}")
+            # All following cases all use "unlabeled" for "test".
+            case _, "test":
+                return ["unlabeled"]
+            case "mnli", _:
+                return ["entailment", "neutral", "contradiction"]
+            case "qqp", _:
+                return ["not duplicate", "duplicate"]
+            case "rte", _:
+                return ["entailment", "not entailment"]
+            case "qnli", _:
+                return ["entailment", "not entailment"]
+
+        raise ValueError(f"Unknown task name {name}")

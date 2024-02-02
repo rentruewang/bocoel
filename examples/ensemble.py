@@ -121,14 +121,14 @@ def main(
             lm = HuggingfaceSequenceLM(
                 model_path=llm_model,
                 device=device,
-                choices=GlueAdaptor.choices_per_task(task_name),
+                choices=GlueAdaptor.task_choices(task_name, split=ds_split),
             )
         case "logits":
             lm = HuggingfaceLogitsLM(
                 model_path=llm_model,
                 batch_size=batch_size,
                 device=device,
-                choices=GlueAdaptor.choices_per_task(task_name),
+                choices=GlueAdaptor.task_choices(task_name, split=ds_split),
             )
         case _:
             raise ValueError(f"Unknown classification {classification}")
@@ -142,7 +142,7 @@ def main(
         adaptor = GlueAdaptor(
             lm,
             texts="text" if "sst2" in task_name else "text1 text2",
-            choices=GlueAdaptor.choices_per_task(task_name),
+            choices=GlueAdaptor.task_choices(task_name, split=ds_split),
         )
     elif ds_path == "SST2":
         adaptor = Sst2QuestionAnswer(lm)

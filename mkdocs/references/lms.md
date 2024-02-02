@@ -1,6 +1,8 @@
 # <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Language Models
 
-::: bocoel.LanguageModel
-::: bocoel.HuggingfaceBaseLM
+::: bocoel.GenerativeModel
+::: bocoel.ClassifierModel
+::: bocoel.HuggingfaceTokenizer
+::: bocoel.HuggingfaceGenerativeLM
 ::: bocoel.HuggingfaceLogitsLM
-::: bocoel.HuggingfaceClassifierLM
+::: bocoel.HuggingfaceSequenceLM
