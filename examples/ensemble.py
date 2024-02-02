@@ -1,13 +1,13 @@
 import logging
 import math
 import pickle
+from collections import OrderedDict
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
 
 import datasets
 import fire
-import numpy as np
 import structlog
 from torch import cuda
 from tqdm import tqdm
@@ -31,6 +31,7 @@ from bocoel import (
     Index,
     KMeansOptimizer,
     KMedoidsOptimizer,
+    Manager,
     Optimizer,
     PolarIndex,
     RandomOptimizer,
@@ -83,6 +84,7 @@ def main(
             "textattack/distilbert-base-cased-SST-2"
         ]
     ),
+    manager_path: str | None = None,
 ) -> None:
     # The corpus part
 
@@ -221,17 +223,33 @@ def main(
         )
         optimizer_steps = math.ceil(len(corpus.index.embeddings) / batch_size)
 
-    scores: list[float] = []
+    states: OrderedDict[int, float] = OrderedDict()
     for i in tqdm(range(optimizer_steps)):
         try:
             state = optim.step()
             LOGGER.info("iteration {i}: {state}", i=i, state=state)
-            scores.extend(state.values())
+            states.update(state)
         except StopIteration:
             break
 
-    # Performs aggregation here.
-    print("average:", np.average(scores))
+    keys = [
+        "+".join(embedders),
+        f"{ds_path}/{ds_split}",
+        llm_model,
+        task_name,
+        optimizer,
+    ]
+
+    if manager_path is not None and Path(manager_path).exists():
+        manager = Manager.load(manager_path)
+    else:
+        manager = Manager()
+
+    manager.store(keys=keys, index=corpus.index, states=states)
+    manager.pretty_print()
+
+    if manager_path is not None:
+        manager.dump(manager_path)
 
 
 def sentence_label(ds_path: str) -> tuple[str, str]:
@@ -246,7 +264,7 @@ def sentence_label(ds_path: str) -> tuple[str, str]:
     return sentence, label
 
 
-def ensemble_embedder(embedders: Sequence[str], batch_size: int):
+def ensemble_embedder(embedders: Sequence[str], batch_size: int) -> EnsembleEmbedder:
     LOGGER.info("Creating embedder")
     embs = []
 

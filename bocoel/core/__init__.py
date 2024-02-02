@@ -19,3 +19,4 @@ from .optim import (
     search_eval_func,
 )
 from .tasks import Task
+from .utils import Manager

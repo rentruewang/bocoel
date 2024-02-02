@@ -10,6 +10,7 @@ from .core import (
     KMeansOptions,
     KMedoidsOptimizer,
     KMedoidsOptions,
+    Manager,
     Optimizer,
     QueryEvaluator,
     RandomOptimizer,

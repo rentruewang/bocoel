@@ -25,7 +25,7 @@ class Optimizer(Protocol):
         # Included s.t. constructors of Index can be used.
         ...
 
-    def run(self) -> OrderedDict[int, float]:
+    def run(self, steps: int | None = None) -> OrderedDict[int, float]:
         """
         Runs the optimizer until the end.
 
