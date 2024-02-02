@@ -4,8 +4,9 @@ import structlog
 from numpy.typing import NDArray
 
 from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.core.optim.interfaces import Optimizer
 from bocoel.core.optim.utils import BatchedGenerator
+from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 
 LOGGER = structlog.get_logger()

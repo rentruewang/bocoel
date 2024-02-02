@@ -9,10 +9,10 @@ from packaging import version
 from typing_extensions import Self
 
 from bocoel import common
+from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 
 from .evals import QueryEvaluator
-from .tasks import Task
 
 _VERSION_KEY = "version"
 _OPTIMIZER_KEY = "optimizer"

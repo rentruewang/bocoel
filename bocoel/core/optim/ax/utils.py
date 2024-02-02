@@ -1,4 +1,4 @@
-from bocoel.core.optim.interfaces import Task
+from bocoel.core.tasks import Task
 
 from .acquisition import AcquisitionFunc
 

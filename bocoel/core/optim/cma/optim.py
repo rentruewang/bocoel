@@ -4,7 +4,8 @@ import numpy as np
 from cma import CMAEvolutionStrategy
 
 from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 
 

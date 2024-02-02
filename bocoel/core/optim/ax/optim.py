@@ -7,7 +7,8 @@ from ax.service.ax_client import AxClient, ObjectiveProperties
 from torch import device
 
 from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer, Task
+from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 
 from . import params, utils

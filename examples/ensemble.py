@@ -110,7 +110,9 @@ def main(
     # ------------------------
     # The model part
 
-    task_name = ds_path.lower().replace("setfit/", "")
+    task_name: Any = ds_path.lower().replace("setfit/", "")
+    if task_name not in ["sst2", "mrpc", "mnli", "qqp", "rte", "qnli"]:
+        raise ValueError(f"Unknown task {task_name}")
 
     lm: ClassifierModel
     LOGGER.info(

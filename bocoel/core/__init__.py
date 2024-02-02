@@ -12,10 +12,10 @@ from .optim import (
     RemainingSteps,
     ScikitLearnOptimizer,
     SearchEvaluator,
-    Task,
     UniformOptimizer,
     evaluate_corpus,
     evaluate_index,
     query_eval_func,
     search_eval_func,
 )
+from .tasks import Task
