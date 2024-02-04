@@ -6,8 +6,8 @@ from numpy.typing import NDArray
 
 
 class ClassifierModel(Protocol):
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self.choices})"
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self.choices})"
 
     def classify(self, prompts: Sequence[str], /) -> NDArray:
         """

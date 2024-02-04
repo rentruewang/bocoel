@@ -6,6 +6,7 @@ import numpy as np
 import structlog
 from numpy.typing import ArrayLike, NDArray
 
+from bocoel import common
 from bocoel.corpora import Corpus, Storage
 
 LOGGER = structlog.get_logger()
@@ -17,8 +18,9 @@ class Adaptor(Protocol):
     It is designed to handle running a particular score on a particular corpus / dataset.
     """
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}()"
+    def __repr__(self) -> str:
+        name = common.remove_base_suffix(self, Adaptor)
+        return f"{name}()"
 
     @abc.abstractmethod
     def evaluate(self, data: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:

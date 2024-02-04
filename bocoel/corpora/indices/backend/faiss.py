@@ -49,8 +49,8 @@ class FaissIndex(Index):
         self._index_string = index_string
         self._init_index(index_string=index_string, cuda=cuda)
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._index_string}, {self.dims})"
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self._index_string}, {self.dims})"
 
     @property
     def batch(self) -> int:

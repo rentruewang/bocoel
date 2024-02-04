@@ -25,8 +25,8 @@ class HuggingfaceSequenceLM(ClassifierModel):
         self._classifier = classifier.to(device)
         self._classifier.config.pad_token_id = self._tokenizer.pad_token_id
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._model_path}, {self._choices})"
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self._model_path}, {self._choices})"
 
     @property
     def choices(self) -> Sequence[str]:

@@ -15,8 +15,24 @@ class DatasetsStorage(Storage):
     but are more memory efficient.
     """
 
-    def __init__(self, dataset: Dataset, /) -> None:
+    def __init__(
+        self,
+        dataset: Dataset,
+        path: str | None = None,
+        name: str | None = None,
+        split: str | None = None,
+    ) -> None:
         self._dataset = dataset
+
+        self._path = path
+        self._name = name
+        self._split = split
+
+    def __repr__(self) -> str:
+        args = [self._path, self._name, self._split, list(self.keys()), len(self)]
+
+        args_str = ", ".join([str(arg) for arg in args if arg is not None])
+        return f"Datasets({args_str})"
 
     def keys(self) -> Collection[str]:
         return self._dataset.column_names
@@ -28,7 +44,7 @@ class DatasetsStorage(Storage):
         return self._dataset[idx]
 
     @classmethod
-    def load(cls, path: str, name: str, split: str = "") -> Self:
+    def load(cls, path: str, name: str | None = None, split: str | None = None) -> Self:
         ds = datasets.load_dataset(path=path, name=name)
 
         if split:
@@ -37,4 +53,4 @@ class DatasetsStorage(Storage):
 
             ds = ds[split]
 
-        return cls(ds)
+        return cls(ds, path=path, name=name, split=split)

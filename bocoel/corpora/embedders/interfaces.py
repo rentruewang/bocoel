@@ -9,6 +9,7 @@ from numpy.typing import NDArray
 from torch import Tensor
 from tqdm import tqdm
 
+from bocoel import common
 from bocoel.corpora.storages import Storage
 
 LOGGER = structlog.get_logger()
@@ -21,8 +22,9 @@ class Embedder(Protocol):
     unless some database that encodes this functionality is found.
     """
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self.dims})"
+    def __repr__(self) -> str:
+        name = common.remove_base_suffix(self, Embedder)
+        return f"{name}({self.dims})"
 
     def encode_storage(
         self,

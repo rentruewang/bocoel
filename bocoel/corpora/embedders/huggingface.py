@@ -24,8 +24,8 @@ class HuggingfaceEmbedder(Embedder):
         self._model = self._model.to(device)
         self._transform = transform
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._path})"
+    def __repr__(self) -> str:
+        return f"Huggingface({self._path}, {self.dims})"
 
     @property
     def batch(self) -> int:

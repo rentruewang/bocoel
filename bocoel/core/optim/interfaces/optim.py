@@ -24,8 +24,8 @@ class Optimizer(Protocol):
         # Included s.t. constructors of Index can be used.
         ...
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}()"
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}()"
 
     @property
     @abc.abstractmethod

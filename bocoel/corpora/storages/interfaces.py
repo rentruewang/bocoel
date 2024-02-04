@@ -5,6 +5,8 @@ from typing import Any, Protocol
 
 import typeguard
 
+from bocoel import common
+
 
 class Storage(Protocol):
     """
@@ -12,8 +14,9 @@ class Storage(Protocol):
     This can be thought of as a table.
     """
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}{list(self.keys())} ({len(self)})"
+    def __repr__(self) -> str:
+        name = common.remove_base_suffix(self, Storage)
+        return f"{name}({list(self.keys())}, {len(self)})"
 
     @abc.abstractmethod
     def __len__(self) -> int:

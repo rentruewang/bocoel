@@ -1,5 +1,6 @@
 from typing import Protocol
 
+from bocoel import common
 from bocoel.corpora.indices import StatefulIndex
 from bocoel.corpora.storages import Storage
 
@@ -28,5 +29,6 @@ class Corpus(Protocol):
     Index searches one particular column in the storage into vectors.
     """
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({str(self.storage)})({str(self.index)})"
+    def __repr__(self) -> str:
+        name = common.remove_base_suffix(self, Corpus)
+        return f"{name}({str(self.storage)}, {str(self.index)})"

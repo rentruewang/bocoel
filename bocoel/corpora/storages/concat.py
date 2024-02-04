@@ -35,6 +35,9 @@ class ConcatStorage(Storage):
         self._prefix_sum = np.cumsum(storage_lengths).tolist()
         self._length = sum(storage_lengths)
 
+    def __repr___(self) -> str:
+        return f"Concat({list(self._storages)})"
+
     def keys(self) -> Collection[str]:
         return self._keys
 

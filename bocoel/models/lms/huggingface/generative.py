@@ -34,8 +34,8 @@ class HuggingfaceGenerativeLM(GenerativeModel):
 
         self.to(device)
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._model_path})"
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self._model_path})"
 
     @torch.no_grad()
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:

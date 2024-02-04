@@ -22,8 +22,8 @@ class StatefulIndex(Index):
         self._index = index
         self._clear_history()
 
-    def __str__(self) -> str:
-        return f"StatefulIndex({str(self._index)})"
+    def __repr__(self) -> str:
+        return f"Stateful({self._index})"
 
     def __len__(self) -> int:
         return len(self._history)

@@ -25,8 +25,8 @@ class SbertEmbedder(Embedder):
 
         self._batch_size = batch_size
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._name})"
+    def __repr__(self) -> str:
+        return f"Sbert({self._name})"
 
     @property
     def batch(self) -> int:

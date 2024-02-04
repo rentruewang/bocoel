@@ -4,6 +4,8 @@ from typing import Any, Protocol
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
+from bocoel import common
+
 from .boundaries import Boundary
 from .distances import Distance
 from .results import InternalResult, SearchResultBatch
@@ -29,8 +31,9 @@ class Index(Protocol):
         # Included s.t. constructors of Index can be used.
         ...
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self.dims})"
+    def __repr__(self) -> str:
+        name = common.remove_base_suffix(self, Index)
+        return f"{name}({self.dims})"
 
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """

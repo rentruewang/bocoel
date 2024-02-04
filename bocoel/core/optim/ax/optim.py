@@ -55,8 +55,8 @@ class AxServiceOptimizer(Optimizer):
         self._workers = workers
         self._terminate = False
 
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}({self._task}, {self._acqf})"
+    def __repr__(self) -> str:
+        return f"AxService({self._task}, {self._acqf})"
 
     @property
     def task(self) -> Task:

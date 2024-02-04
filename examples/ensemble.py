@@ -5,7 +5,6 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
 
-import datasets
 import fire
 import structlog
 from torch import cuda
@@ -89,6 +88,8 @@ def main(
     sentence, label = sentence_label(ds_path)
     corpus_cache_path = Path(corpus_cache_path)
     corpus: ComposedCorpus
+    embedder = ensemble_embedder(batch_size=batch_size, embedders=embedders)
+
     if corpus_cache_path.exists():
         with open(corpus_cache_path, "rb") as f:
             corpus = pickle.load(f)
@@ -102,7 +103,7 @@ def main(
             index_threads=index_threads,
             reduced=reduced,
             sentence=sentence,
-            embedders=embedders,
+            embedder=embedder,
         )
         with open(corpus_cache_path, "wb") as f:
             pickle.dump(corpus, f)
@@ -230,7 +231,14 @@ def main(
 
     manager = Manager(manager_path)
     scores = manager.run(optimizer=optim, corpus=corpus, steps=optimizer_steps)
-    manager.save(scores, optimizer=optim, corpus=corpus, model=lm, adaptor=adaptor)
+    manager.save(
+        scores,
+        optimizer=optim,
+        corpus=corpus,
+        model=lm,
+        adaptor=adaptor,
+        embedder=embedder,
+    )
 
 
 def sentence_label(ds_path: str) -> tuple[str, str]:
@@ -295,13 +303,10 @@ def composed_corpus(
     index_threads: int,
     reduced: int,
     sentence: str,
-    embedders: Sequence[str],
+    embedder: EnsembleEmbedder,
 ) -> ComposedCorpus:
     LOGGER.info("Loading datasets...", dataset=ds_path, split=ds_split)
-    ds = datasets.load_dataset(ds_path)[ds_split]
-    storage = DatasetsStorage(ds)
-
-    embedder = ensemble_embedder(batch_size=batch_size, embedders=embedders)
+    storage = DatasetsStorage.load(path=ds_path, split=ds_split)
 
     LOGGER.info(
         "Creating corpus with storage and embedder",
