@@ -21,6 +21,9 @@ class Embedder(Protocol):
     unless some database that encodes this functionality is found.
     """
 
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self.dims})"
+
     def encode_storage(
         self,
         storage: Storage,

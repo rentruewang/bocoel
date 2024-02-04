@@ -46,7 +46,11 @@ class FaissIndex(Index):
         self._dist = Distance.lookup(distance)
         self._boundary = utils.boundaries(embeddings)
 
+        self._index_string = index_string
         self._init_index(index_string=index_string, cuda=cuda)
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self._index_string}, {self.dims})"
 
     @property
     def batch(self) -> int:

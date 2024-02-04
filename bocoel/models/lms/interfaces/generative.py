@@ -4,6 +4,9 @@ from typing import Protocol
 
 
 class GenerativeModel(Protocol):
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}()"
+
     @abc.abstractmethod
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         """

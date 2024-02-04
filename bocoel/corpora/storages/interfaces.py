@@ -12,8 +12,8 @@ class Storage(Protocol):
     This can be thought of as a table.
     """
 
-    @abc.abstractmethod
-    def keys(self) -> Collection[str]: ...
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}{list(self.keys())} ({len(self)})"
 
     @abc.abstractmethod
     def __len__(self) -> int:
@@ -51,8 +51,8 @@ class Storage(Protocol):
 
         ...
 
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}{list(self.keys())} ({len(self)})"
+    @abc.abstractmethod
+    def keys(self) -> Collection[str]: ...
 
     @staticmethod
     def collate(mappings: Sequence[Mapping[str, Any]]) -> Mapping[str, Sequence[Any]]:

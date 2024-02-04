@@ -1,7 +1,6 @@
 import logging
 import math
 import pickle
-from collections import OrderedDict
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
@@ -10,7 +9,6 @@ import datasets
 import fire
 import structlog
 from torch import cuda
-from tqdm import tqdm
 
 import bocoel
 from bocoel import (
@@ -84,7 +82,7 @@ def main(
             "textattack/distilbert-base-cased-SST-2"
         ]
     ),
-    manager_path: str | None = None,
+    manager_path: str = "results",
 ) -> None:
     # The corpus part
 
@@ -215,41 +213,24 @@ def main(
         case _:
             raise ValueError(f"Unknown optimizer {optimizer}")
 
-    if optimizer == "brute":
-        LOGGER.info("Brute force optimizer optimizes over the whole corpus")
-        LOGGER.info(
-            "Setting length to the number of embeddings",
-            length=len(corpus.index.embeddings),
-        )
-        optimizer_steps = math.ceil(len(corpus.index.embeddings) / batch_size)
+    match optimizer:
+        case "brute":
+            LOGGER.info("Brute force optimizer optimizes over the whole corpus")
+            LOGGER.info(
+                "Setting length to the number of embeddings",
+                length=len(corpus.index.embeddings),
+            )
+            optimizer_steps = math.ceil(len(corpus.index.embeddings) / batch_size)
+        case "kmeans" | "kmedoids" | "random":
+            LOGGER.info(
+                "Setting length to the number of clusters divided by batch",
+                steps=optimizer_steps,
+            )
+            optimizer_steps = math.ceil(optimizer_steps / batch_size)
 
-    states: OrderedDict[int, float] = OrderedDict()
-    for i in tqdm(range(optimizer_steps)):
-        try:
-            state = optim.step()
-            LOGGER.info("iteration {i}: {state}", i=i, state=state)
-            states.update(state)
-        except StopIteration:
-            break
-
-    keys = [
-        "+".join(embedders),
-        f"{ds_path}/{ds_split}",
-        llm_model,
-        task_name,
-        optimizer,
-    ]
-
-    if manager_path is not None and Path(manager_path).exists():
-        manager = Manager.load(manager_path)
-    else:
-        manager = Manager()
-
-    manager.store(keys=keys, index=corpus.index, states=states)
-    manager.pretty_print()
-
-    if manager_path is not None:
-        manager.dump(manager_path)
+    manager = Manager(manager_path)
+    scores = manager.run(optimizer=optim, corpus=corpus, steps=optimizer_steps)
+    manager.save(scores, optimizer=optim, corpus=corpus, model=lm, adaptor=adaptor)
 
 
 def sentence_label(ds_path: str) -> tuple[str, str]:

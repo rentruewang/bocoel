@@ -27,3 +27,6 @@ class Corpus(Protocol):
     """
     Index searches one particular column in the storage into vectors.
     """
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({str(self.storage)})({str(self.index)})"

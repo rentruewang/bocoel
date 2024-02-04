@@ -23,6 +23,7 @@ class HuggingfaceGenerativeLM(GenerativeModel):
         # Optional dependency.
         from transformers import AutoModelForCausalLM
 
+        self._model_path = model_path
         self._tokenizer = HuggingfaceTokenizer(model_path=model_path, device=device)
 
         # Model used for generation
@@ -32,6 +33,9 @@ class HuggingfaceGenerativeLM(GenerativeModel):
         self._batch_size = batch_size
 
         self.to(device)
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self._model_path})"
 
     @torch.no_grad()
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:

@@ -6,6 +6,7 @@ authors = [
     {name = "RenChu Wang", email = "patrick1031wang@gmail.com"},
 ]
 dependencies = [
+    "alive-progress>=3.1.5",
     "ax-platform>=0.3.6",
     "botorch>=0.9.5",
     "gpytorch>=1.11",

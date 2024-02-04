@@ -1,7 +1,6 @@
 import abc
 import pickle
-from collections import OrderedDict
-from collections.abc import Generator, Mapping
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -25,34 +24,8 @@ class Optimizer(Protocol):
         # Included s.t. constructors of Index can be used.
         ...
 
-    def run(self, steps: int | None = None) -> OrderedDict[int, float]:
-        """
-        Runs the optimizer until the end.
-
-        Parameters
-        ----------
-
-        `save_path: str | Path`
-        The path to save the results to, if given.
-
-        Returns
-        -------
-
-        The final state of the optimizer.
-        Keys are the indices of the queries,
-        and values are the corresponding scores.
-        """
-
-        results: OrderedDict[int, float] = OrderedDict()
-        for res in self._launch():
-            results.update(res)
-        return results
-
-    def _launch(self) -> Generator[Mapping[int, float], None, None]:
-        "Launches the optimizer as a generator."
-
-        while True:
-            yield self.step()
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}()"
 
     @property
     @abc.abstractmethod

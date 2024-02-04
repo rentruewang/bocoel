@@ -3,6 +3,9 @@ from typing import Any, Protocol
 
 
 class Score(Protocol):
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}()"
+
     @abc.abstractmethod
     def __call__(self, target: Any, references: list[Any]) -> float:
         """

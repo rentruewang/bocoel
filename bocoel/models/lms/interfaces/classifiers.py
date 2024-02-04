@@ -6,6 +6,9 @@ from numpy.typing import NDArray
 
 
 class ClassifierModel(Protocol):
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self.choices})"
+
     def classify(self, prompts: Sequence[str], /) -> NDArray:
         """
         Generate logits given prompts.

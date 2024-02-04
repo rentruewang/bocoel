@@ -1,3 +1,13 @@
+from .exams import (
+    AccType,
+    Accumulation,
+    Exam,
+    Examinator,
+    Manager,
+    MstMaxEdge,
+    MstMaxEdgeType,
+    Segregation,
+)
 from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,
@@ -19,4 +29,3 @@ from .optim import (
     search_eval_func,
 )
 from .tasks import Task
-from .utils import Manager

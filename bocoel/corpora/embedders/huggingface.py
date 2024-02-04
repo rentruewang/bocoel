@@ -15,6 +15,7 @@ class HuggingfaceEmbedder(Embedder):
         batch_size: int = 64,
         transform: Callable[[Any], Tensor] = lambda output: output.logits,
     ) -> None:
+        self._path = path
         self._model = AutoModelForSequenceClassification.from_pretrained(path)
         self._tokenizer = AutoTokenizer.from_pretrained(path)
         self._batch_size = batch_size
@@ -22,6 +23,9 @@ class HuggingfaceEmbedder(Embedder):
         self._device = device
         self._model = self._model.to(device)
         self._transform = transform
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self._path})"
 
     @property
     def batch(self) -> int:

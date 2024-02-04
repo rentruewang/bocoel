@@ -21,6 +21,9 @@ class EnsembleEmbedder(Embedder):
         assert cpus is not None
         self._cpus = cpus
 
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({[str(emb) for emb in self._embedders]})"
+
     @property
     def batch(self) -> int:
         return self._batch_size

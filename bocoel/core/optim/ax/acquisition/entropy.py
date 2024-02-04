@@ -7,7 +7,9 @@ class Entropy(qMaxValueEntropy):
         self, X: Tensor, mean_M: Tensor, variance_M: Tensor, covar_mM: Tensor
     ) -> Tensor:
         # Unused variables.
-        del mean_M, variance_M, covar_mM
+        _ = mean_M
+        _ = variance_M
+        _ = covar_mM
 
         # compute the std_m, variance_m with noisy observation
         posterior_m = self.model.posterior(

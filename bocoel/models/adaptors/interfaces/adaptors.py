@@ -17,6 +17,9 @@ class Adaptor(Protocol):
     It is designed to handle running a particular score on a particular corpus / dataset.
     """
 
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}()"
+
     @abc.abstractmethod
     def evaluate(self, data: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:
         """

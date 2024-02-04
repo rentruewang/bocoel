@@ -29,6 +29,9 @@ class Index(Protocol):
         # Included s.t. constructors of Index can be used.
         ...
 
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}({self.dims})"
+
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
         Calls the search function and performs some checks.
