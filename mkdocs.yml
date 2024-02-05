@@ -21,7 +21,6 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-docs_dir: mkdocs
 edit_uri: ""
 site_url: https://bocoel.pages.dev
 repo_name: rentruewang/bocoel

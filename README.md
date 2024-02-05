@@ -19,6 +19,8 @@ Evaluating large language models are expensive and slow, and the size of modern 
 
 Wait, sounds like [Bayesian Optmization](#bayesian-optimization)!
 
+This library encodes
+
 ### 🚀 Features
 
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
@@ -34,6 +36,15 @@ Wait, sounds like [Bayesian Optmization](#bayesian-optimization)!
 
 ### Bayesian Optimization
 
+> Image from wikipedia
+![](https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif)
+
+Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an **acquisition function** to decide where to sample next. See [here](https://distill.pub/2019/visual-exploration-gaussian-processes/) for an a more in-depth introduction.
+
+### Bayesian Optimization in this Project
+
+TODO: 
+
 ### ⬇️ Installation
 
 I don't want optional dependencies:
@@ -47,3 +58,11 @@ Give me the full experience (all optional dependencies):
 ```
 pip install "bocoel[all]"
 ```
+
+## ⭐ Give me a star!
+
+If you like what you see, please consider giving this a star (★)!
+
+## 🥰 Contributing and Using
+
+Openness and inclusiveness are taken very seriously. The code is available under [Apache License](./LICENSE.md). Please follow the guide to [contributing](./CONTRIBUTING.md) and the [code of conduct](./CODE_OF_CONDUCT.md).
