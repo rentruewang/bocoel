@@ -79,6 +79,20 @@ class GlueAdaptor(Adaptor):
     ) -> Sequence[str]:
         LOGGER.debug("Getting choices for task", task=name)
 
+        # Perform checks for supported kinds of datasets.
+        match name:
+            case "sst2" | "mrpc" | "mnli" | "qqp" | "rte" | "qnli":
+                pass
+            case _:
+                raise ValueError(f"Unknown task name {name}")
+
+        # Perform checks for supported kinds of splits.
+        match split:
+            case "train", "validation", "test":
+                pass
+            case _:
+                raise ValueError(f"Unknown split {split}")
+
         match name, split:
             case "sst2", _:
                 return ["negative", "positive"]

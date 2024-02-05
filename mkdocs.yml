@@ -63,6 +63,7 @@ extra:
 nav:
   - Home:
     - README: index.md
+    - Paper: paper.md
   - Reference:
     - references/overview.md
     - references/storages.md
