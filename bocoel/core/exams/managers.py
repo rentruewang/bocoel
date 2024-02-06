@@ -38,7 +38,11 @@ class Manager:
         self.path.mkdir(parents=True, exist_ok=True)
 
         self._start = self.current()
+
         self.examinator = Examinator.presets(batch_size=batch_size, cuda=cuda)
+        """
+        The examinator that would perform evaluations on the results.
+        """
 
     def run(
         self, optimizer: Optimizer, corpus: Corpus, steps: int | None = None
@@ -49,8 +53,14 @@ class Manager:
         Parameters
         ----------
 
-        `save_path: str | Path`
-        The path to save the results to, if given.
+        `optimizer: Optimizer`
+        The optimizer to run.
+
+        `corpus: Corpus`
+        The corpus to run the optimizer on.
+
+        `steps: int | None`
+        The number of steps to run the optimizer for.
 
         Returns
         -------

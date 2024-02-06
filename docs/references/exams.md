@@ -6,6 +6,8 @@
     options:
         show_if_no_docstring: true
 
+::: bocoel.Manager
+
 ::: bocoel.Exam
 ::: bocoel.AccType
 ::: bocoel.Accumulation

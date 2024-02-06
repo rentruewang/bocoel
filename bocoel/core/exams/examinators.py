@@ -23,6 +23,13 @@ class ExamName(StrEnum):
 
 
 class Examinator:
+    """
+    The examinator is responsible for launching exams.
+    Examinators take in an index and results of an optimizer run,
+    and return a DataFrame of scores for
+    the accumulated history performance of the optimizer.
+    """
+
     def __init__(self, exams: Mapping[ExamName, Exam]) -> None:
         self.exams = exams
 
@@ -40,6 +47,24 @@ class Examinator:
 
     @classmethod
     def presets(cls, batch_size: int = 64, cuda: bool = False) -> Self:
+        """
+        Returns an examinator with the default exams.
+
+        Parameters
+        ----------
+
+        `batch_size: int`
+        The batch size to use for the exams.
+
+        `cuda: bool`
+        Whether to use CUDA for the exams.
+
+        Returns
+        -------
+
+        The default examinator.
+        """
+
         return cls(
             {
                 ExamName.ACC_MIN: Accumulation(AccType.MIN),

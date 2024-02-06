@@ -1,6 +1,6 @@
 [project]
 name = "bocoel"
-version = "0.0.4"
+version = "0.1.0"
 description = "Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models"
 authors = [
     {name = "RenChu Wang", email = "patrick1031wang@gmail.com"},
@@ -56,6 +56,9 @@ cma = [
 ]
 sklearn-extra = [
     "scikit-learn-extra>=0.3.0",
+]
+all = [
+    "bocoel[cma,datasets,index,metrics,sklearn-extra,transformers,visual]",
 ]
 
 [build-system]

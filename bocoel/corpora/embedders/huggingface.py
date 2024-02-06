@@ -24,6 +24,13 @@ class HuggingfaceEmbedder(Embedder):
         self._model = self._model.to(device)
         self._transform = transform
 
+        try:
+            self._dims = len(self._model.config.id2label)
+        except AttributeError as e:
+            raise ValueError(
+                "The model must have a `config.id2label` attribute to determine the number of classes."
+            ) from e
+
     def __repr__(self) -> str:
         return f"Huggingface({self._path}, {self.dims})"
 
@@ -33,8 +40,7 @@ class HuggingfaceEmbedder(Embedder):
 
     @property
     def dims(self) -> int:
-        # FIXME: Figure out if all the sequence classification has logits shape 2.
-        return 2
+        return self._dims
 
     def _encode(self, texts: Sequence[str]) -> Tensor:
         encoded = self._tokenizer(

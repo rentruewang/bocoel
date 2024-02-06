@@ -11,9 +11,10 @@
 [![Unit Testing](https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml/badge.svg)](https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml)
 
 
-![GitHub License](https://img.shields.io/github/license/:user/:repo)
+![GitHub License](https://img.shields.io/github/license/rentruewang/bocoel)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bocoel)
 [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
+
 
 ## 🤔 Why BoCoEL?
 
@@ -32,6 +33,7 @@ Bocoel works in the following steps:
 
 The evaluations generated are easily managed by the provided manager utility.
 
+
 ## 🚀 Features
 
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
@@ -40,23 +42,27 @@ The evaluations generated are easily managed by the provided manager utility.
 - 🤗 Integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
 
-## 🗺️ Roadmap: work in progress
-
-- 📊 Visualization module of the evaluation.
-- 🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.
-- 🥨 Integration with more backends such as [VLLM](https://github.com/vllm-project/vllm) and [OpenAI's API](https://github.com/openai/openai-python).
 
 ## ⭐ Give us a star!
 
 Like what you see? Please consider giving this a star (★)!
 
+
+
 ## <a id="bo"></a> ♾️ Bayesian Optimization
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="40%" align="right"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="30%" align="right"/>
 
 Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an **acquisition function** to decide where to sample next. See [here](https://distill.pub/2019/visual-exploration-gaussian-processes/) for an a more in-depth introduction.
 
 Since _Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)_, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.
+
+
+## 🏎️ Performance Implications
+
+LLMs are painfully slow, especially generative ones (which is what is usually referred to as LLM), since sequence generation is sequential by nature.
+
+Despite `bocoel`'s requirement to use an embedder to encode the entire corpus, embedders are faster than LLMs by orders of magnitude and the time is gained back by practically any savings in evaluating LLMs.
 
 
 ## ⬇️ Installation
@@ -74,9 +80,24 @@ pip install "bocoel[all]"
 ```
 
 
+## ✍️ Develop with BoCoEL
+
+Usage examples are under the folder [`examples`](./examples/). API reference can be found [here](https://rentruewang.github.io/bocoel/references/overview/).
+
+
 ## 🥰 Contributing
 
-Openness and inclusiveness are taken very seriously. Please follow the guide to [contributing](./CONTRIBUTING.md) and the [code of conduct](./CODE_OF_CONDUCT.md).
+Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, please follow the guide on [contributing](./CONTRIBUTING.md) and the [code of conduct](./CODE_OF_CONDUCT.md). Openness and inclusiveness are taken very seriously.
+
+
+## 🗺️ Roadmap: work in progress
+
+- 🪑 Simpler usage. I should provide a high level wrapper for the entire library s.t. evaluations can be run in one line.
+- 📊 Visualization module of the evaluation.
+- 🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.
+- 🥨 Integration with more backends such as [VLLM](https://github.com/vllm-project/vllm) and [OpenAI's API](https://github.com/openai/openai-python).
+- 🆕 Support for Python 3.11+
+
 
 ## 🏷️ License and Citation
 

@@ -41,15 +41,15 @@ plugins:
             show_root_heading: true
             inherited_members: true
             filters: null
-            # show_if_no_docstring: true
             members_order: source
-            docstring_style: 
+            docstring_style: numpy
             merge_init_into_class: true
             show_signature_annotations: true
             signature_crossrefs: true
             separate_signature: true
             summary: true
             line_length: 80
+            allow_inspection: true
 
   - git-revision-date
   - git-revision-date-localized
