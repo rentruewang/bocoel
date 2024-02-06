@@ -14,7 +14,7 @@ LOGGER = structlog.get_logger()
 
 class Adaptor(Protocol):
     """
-    Adaptors are the glue between scores, langauge models, and the corpus.
+    Adaptors are the glue between scores and the corpus.
     It is designed to handle running a particular score on a particular corpus / dataset.
     """
 

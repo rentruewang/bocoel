@@ -14,6 +14,21 @@ LOGGER = structlog.get_logger()
 class GlueAdaptor(Adaptor):
     """
     The adaptor for the glue dataset provided by setfit.
+
+    Glue is a collection of datasets for natural language understanding tasks.
+    The datasets are designed to be challenging and diverse,
+    and they are collected from a variety of sources.
+    They are mostly sentence-level classification tasks.
+
+    This adaptor is compatible with all classifier models,
+    and it is designed to work with the glue dataset
+    (in the format of setfit datasets on huggingface datasets).
+
+    Setfit datasets have the following columns:
+
+    - text: The text to classify.
+    - label: The label of the text.
+    - label_text: The text of the label.
     """
 
     def __init__(
@@ -27,6 +42,10 @@ class GlueAdaptor(Adaptor):
         """
         Parameters
         ----------
+
+        `lm: ClassifierModel`
+        The language model to use for evaluation.
+        The language model must be a classifier model.
 
         `idx: str = "idx"`
         The name of the column containing the indices.

@@ -10,6 +10,7 @@ from .core import (
     BruteForceOptimizer,
     Exam,
     Examinator,
+    ExamName,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,

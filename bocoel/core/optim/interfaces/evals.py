@@ -10,7 +10,13 @@ from bocoel.corpora import SearchResult
 
 class SearchEvaluator(Protocol):
     @abc.abstractmethod
-    def __call__(self, sr: Mapping[int, SearchResult], /) -> Mapping[int, float]: ...
+    def __call__(self, results: Mapping[int, SearchResult], /) -> Mapping[int, float]:
+        """
+        Evaluates the given batched search result.
+        The order of the results must be kept in the original order.
+        """
+
+        ...
 
 
 class QueryEvaluator(Protocol):

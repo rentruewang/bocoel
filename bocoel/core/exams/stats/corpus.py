@@ -12,7 +12,7 @@ class Segregation(Exam):
         self._cuda = cuda
         self._batch_size = batch_size
 
-    def run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
+    def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
         keys = list(results.keys())
         idx = self._index(index)
         queries = np.array([index.history[i].query for i in keys])

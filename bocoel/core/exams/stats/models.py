@@ -22,6 +22,10 @@ class AccType(StrEnum):
 
 
 class Accumulation(Exam):
+    """
+    Accumulation is an exam designed to evaluate the min / max / avg of the history.
+    """
+
     def __init__(self, typ: AccType) -> None:
         self._acc_func: Callable[[NDArray], NDArray]
         match typ:
@@ -34,7 +38,7 @@ class Accumulation(Exam):
             case _:
                 raise ValueError(f"Unknown accumulation type {typ}")
 
-    def run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
+    def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
         _ = index
 
         values = np.array(list(results.values()))
@@ -42,6 +46,24 @@ class Accumulation(Exam):
 
     @staticmethod
     def _acc(array: NDArray, accumulate: Callable[[NDArray], NDArray]) -> NDArray:
+        """
+        Accumulate the array using the given function.
+
+        Parameters
+        ----------
+
+        `array: NDArray`
+        The array to accumulate.
+
+        `accumulate: Callable[[NDArray], NDArray]`
+        The accumulation function to use.
+
+        Returns
+        -------
+
+        The accumulated array.
+        """
+
         _check_dim(array, 1)
         result = accumulate(array)
         _check_dim(result, 1)
@@ -57,7 +79,7 @@ class MstMaxEdge(Exam):
     def __init__(self, typ: MstMaxEdgeType) -> None:
         self._agg_type = typ
 
-    def run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
+    def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
         # TODO: Only supports L2 for now. Would like more options.
         points = self._points(index=index, results=results)
         return self._max_mst_edge_acc(points, metric="euclidean")

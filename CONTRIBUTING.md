@@ -2,6 +2,8 @@
 
 The goal here is to make contributing to `bocoel` as painless as possible.
 
+Feel free to reach out and I'll try to respond as soon as possible!
+
 ## Development installation
 
 First, clone and navigate into the project:
@@ -17,7 +19,8 @@ git clone git@github.com:rentruewang/bocoel
 cd bocoel/
 ```
 
-I used [PDM](https://pdm-project.org/latest/) in this project for dependency management. To install all dependencies (including development dependencies) with `pdm`, run
+I'm using [PDM](https://pdm-project.org/latest/) in this project for dependency management.
+To install all dependencies (including development dependencies) with `pdm`, run
 
 ```bash
 pdm install -G:all
@@ -37,10 +40,10 @@ Both commands perform an editable installation.
 
 The code style in the project closely follows the recommended standard of python:
 
-1. `ClassName` in `CamelCase`.
-2. `CONSTANTS` or `ENUM_VALUES` in `UPPER_SNAKE_CASE`.
-3. All others in `snake_case`.
-4. Class imports are non-qualified (`from module.path import ClassName`), and do not use unqualified function names (however, upper case functions acting as classes are treated as classes, lower case classes are treated as functions).
+1. [PEP8](https://peps.python.org/pep-0008/)
+2. Class imports are non-qualified (`from module.path import ClassName`), and do not use unqualified function names (however, upper case functions acting as classes are treated as classes, lower case classes are treated as functions).
+3. All other imports are qualified.
+4. TODO:
 
 ### Formatting
 
@@ -53,3 +56,16 @@ autoflake -i $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --rem
 isort . --profile black
 black .
 ```
+
+### Typing
+
+Be sure to run `mypy` prior to submitting! There can be issue with `mypy` not finding libraries. The command I use for checking is
+
+```bash
+mypy . --disable-error-code=import-untyped --disable-error-code=import-not-found
+```
+
+### Commit message
+
+Add an emoji that best describes this commit a the start of the commit message.
+This helps makes the project look good on GitHub.

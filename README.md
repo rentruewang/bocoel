@@ -1,6 +1,6 @@
 # ☂️ BoCoEL
 
-### Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models
+## Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models
 
 ![Logo](assets/logo-full.svg)
 
@@ -10,18 +10,29 @@
 [![Type Checking](https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml/badge.svg)](https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml)
 [![Unit Testing](https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml/badge.svg)](https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml)
 
+
+![GitHub License](https://img.shields.io/github/license/:user/:repo)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bocoel)
 [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
-### 🤔 Why BoCoEL?
+## 🤔 Why BoCoEL?
 
-Evaluating large language models are expensive and slow, and the size of modern datasets are gigantic. If only there is a way to just select a meaningful subset of the corpus and obtain a highly accurate evaluation.....
+Large language models are expensive and slow behemoths, and evaluating them on gigantic modern datasets only makes it worse. 
 
-Wait, sounds like [Bayesian Optmization](#bayesian-optimization)!
+If only there is a way to just select a meaningful (_and small_) subset of the corpus and obtain a highly accurate evaluation.....
 
-This library encodes
+Wait, sounds like [Bayesian Optmization](#bo)!
 
-### 🚀 Features
+Bocoel works in the following steps:
+
+1. Encode individual entry into embeddings (way cheaper / faster than LLM and reusable).
+2. Use Bayesian optimization to select queries to evaluate.
+3. Use the queries to retrieve from our corpus (with the encoded embeddings).
+4. Profit.
+
+The evaluations generated are easily managed by the provided manager utility.
+
+## 🚀 Features
 
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
 - 💂‍♂️ Uses the power of Bayesian optimization to select an optimal set of samples for language model to evaluate.
@@ -29,23 +40,26 @@ This library encodes
 - 🤗 Integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
 
-### 🚧 TODO: work in progress
+## 🗺️ Roadmap: work in progress
 
 - 📊 Visualization module of the evaluation.
 - 🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.
+- 🥨 Integration with more backends such as [VLLM](https://github.com/vllm-project/vllm) and [OpenAI's API](https://github.com/openai/openai-python).
 
-### Bayesian Optimization
+## ⭐ Give us a star!
 
-> Image from wikipedia
-![](https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif)
+Like what you see? Please consider giving this a star (★)!
+
+## <a id="bo"></a> ♾️ Bayesian Optimization
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="40%" align="right"/>
 
 Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an **acquisition function** to decide where to sample next. See [here](https://distill.pub/2019/visual-exploration-gaussian-processes/) for an a more in-depth introduction.
 
-### Bayesian Optimization in this Project
+Since _Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)_, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.
 
-TODO: 
 
-### ⬇️ Installation
+## ⬇️ Installation
 
 I don't want optional dependencies:
 
@@ -59,10 +73,13 @@ Give me the full experience (all optional dependencies):
 pip install "bocoel[all]"
 ```
 
-## ⭐ Give me a star!
 
-If you like what you see, please consider giving this a star (★)!
+## 🥰 Contributing
 
-## 🥰 Contributing and Using
+Openness and inclusiveness are taken very seriously. Please follow the guide to [contributing](./CONTRIBUTING.md) and the [code of conduct](./CODE_OF_CONDUCT.md).
 
-Openness and inclusiveness are taken very seriously. The code is available under [Apache License](./LICENSE.md). Please follow the guide to [contributing](./CONTRIBUTING.md) and the [code of conduct](./CODE_OF_CONDUCT.md).
+## 🏷️ License and Citation
+
+The code is available under [Apache License](./LICENSE.md).
+
+TODO: Citation

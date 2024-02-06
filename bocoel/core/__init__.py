@@ -3,6 +3,7 @@ from .exams import (
     Accumulation,
     Exam,
     Examinator,
+    ExamName,
     Manager,
     MstMaxEdge,
     MstMaxEdgeType,
