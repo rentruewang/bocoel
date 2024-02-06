@@ -1,10 +1,10 @@
-from collections.abc import Callable, Iterable
+from collections.abc import Iterable
 
 import numpy as np
 from numpy import linalg
 from numpy.typing import ArrayLike, NDArray
 
-from .interfaces import Boundary, IndexedArray, SearchResult, SearchResultBatch
+from .interfaces import Boundary, SearchResult, SearchResultBatch
 
 
 def validate_embeddings(
@@ -32,27 +32,6 @@ def boundaries(embeddings: NDArray, /) -> Boundary:
         raise ValueError(f"Expected embeddings to be 2D, got {embeddings.ndim}D")
 
     return Boundary(np.stack([embeddings.min(axis=0), embeddings.max(axis=0)]).T)
-
-
-class Indexer(IndexedArray):
-    def __init__(
-        self,
-        embeddings: NDArray | IndexedArray,
-        mapping: Callable[[NDArray], NDArray] = lambda x: x,
-    ) -> None:
-        self._emb = embeddings
-        self._mapping = mapping
-
-    def __len__(self) -> int:
-        return len(self._emb)
-
-    def __getitem__(self, index: int | NDArray, /) -> NDArray:
-        if isinstance(index, int):
-            item = self._emb[index]
-            return self._mapping(item)
-
-        items = [self._emb[k] for k in index]
-        return np.array([self._mapping(item) for item in items])
 
 
 def split_search_result_batch(srb: SearchResultBatch, /) -> list[SearchResult]:

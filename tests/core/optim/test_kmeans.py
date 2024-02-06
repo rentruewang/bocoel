@@ -1,6 +1,6 @@
 import pytest
 
-import bocoel
+from bocoel import Manager
 from tests import utils
 from tests.corpora import factories as corpus_factories
 from tests.models.adaptors import factories as adaptor_factories
@@ -27,4 +27,4 @@ def test_optimize(
     adaptor = adaptor_factories.sacre_bleu_eval(lm=lm)
     optimizer = factories.kmeans_optim(corpus, lm, adaptor)
 
-    bocoel.bocoel(optimizer=optimizer, iterations=15)
+    Manager().run(optimizer=optimizer, corpus=corpus, steps=15)

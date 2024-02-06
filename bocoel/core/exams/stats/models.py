@@ -87,13 +87,12 @@ class MstMaxEdge(Exam):
     def _points(
         self, index: StatefulIndex, results: OrderedDict[int, float]
     ) -> NDArray:
-        history = index.history
 
         match self._agg_type:
             case MstMaxEdgeType.QUERY:
-                return np.array([history[idx].query for idx in results.keys()])
+                return np.array([index[idx].query for idx in results.keys()])
             case MstMaxEdgeType.DATA:
-                return np.concatenate([history[idx].vectors for idx in results.keys()])
+                return np.concatenate([index[idx].vectors for idx in results.keys()])
             case _:
                 raise ValueError(f"Unknown aggregation type {self._agg_type}")
 

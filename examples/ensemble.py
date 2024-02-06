@@ -183,7 +183,7 @@ def main(
                 corpus=corpus,
                 adaptor=adaptor,
                 batch_size=batch_size,
-                embeddings=corpus.index.embeddings,
+                embeddings=corpus.index.data,
                 model_kwargs={"n_clusters": optimizer_steps, "n_init": "auto"},
             )
         case "kmedoids":
@@ -192,7 +192,7 @@ def main(
                 corpus=corpus,
                 adaptor=adaptor,
                 batch_size=batch_size,
-                embeddings=corpus.index.embeddings,
+                embeddings=corpus.index.data,
                 model_kwargs={"n_clusters": optimizer_steps},
             )
         case "random":
@@ -208,7 +208,7 @@ def main(
                 BruteForceOptimizer,
                 corpus=corpus,
                 adaptor=adaptor,
-                embeddings=corpus.index.embeddings,
+                embeddings=corpus.index.data,
                 batch_size=batch_size,
             )
         case _:
@@ -219,9 +219,9 @@ def main(
             LOGGER.info("Brute force optimizer optimizes over the whole corpus")
             LOGGER.info(
                 "Setting length to the number of embeddings",
-                length=len(corpus.index.embeddings),
+                length=len(corpus.index.data),
             )
-            optimizer_steps = math.ceil(len(corpus.index.embeddings) / batch_size)
+            optimizer_steps = math.ceil(len(corpus.index.data) / batch_size)
         case "kmeans" | "kmedoids" | "random":
             LOGGER.info(
                 "Setting length to the number of clusters divided by batch",

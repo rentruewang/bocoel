@@ -1,4 +1,5 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Exams
+# Exams
+
 ::: bocoel.core.exams
 
 ::: bocoel.Examinator

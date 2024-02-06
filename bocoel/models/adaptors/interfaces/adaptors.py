@@ -28,19 +28,11 @@ class Adaptor(Protocol):
         Evaluate a particular set of entries with a language model.
         Returns a list of scores, one for each entry, in the same order.
 
-        Parameters
-        ----------
+        Parameters:
+            data: A mapping from column names to the data in that column.
 
-        `data: Mapping[str, Sequence[Any]]`
-        A mapping from column names to the data in that column.
-
-        `lm: LanguageModel`
-        The language model to use for evaluation.
-
-        Returns
-        -------
-
-        The scores for each entry. Scores must be floating point numbers.
+        Returns:
+            The scores for each entry. Scores must be floating point numbers.
         """
 
         ...

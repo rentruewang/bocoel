@@ -46,7 +46,7 @@ class Examinator:
         )
 
     @classmethod
-    def presets(cls, batch_size: int = 64, cuda: bool = False) -> Self:
+    def presets(cls) -> Self:
         """
         Returns an examinator with the default exams.
 
@@ -72,6 +72,6 @@ class Examinator:
                 ExamName.ACC_AVG: Accumulation(AccType.AVG),
                 ExamName.MST_MAX_EDGE_QUERY: MstMaxEdge(MstMaxEdgeType.QUERY),
                 ExamName.MST_MAX_EDGE_DATA: MstMaxEdge(MstMaxEdgeType.DATA),
-                ExamName.SEGREGATION: Segregation(batch_size=batch_size, cuda=cuda),
+                ExamName.SEGREGATION: Segregation(),
             }
         )

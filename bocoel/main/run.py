@@ -1,8 +1,7 @@
 from collections.abc import Mapping
 from typing import Any
 
-import bocoel
-from bocoel import factories
+from bocoel import Manager, factories
 from bocoel.factories import (
     AdaptorName,
     CorpusName,
@@ -44,4 +43,4 @@ def with_kwargs(
     optim = factories.optimizer_factory(
         optimizer_name, corpus=corpus, adaptor=adaptor, **optimizer_kwargs
     )
-    bocoel.bocoel(optimizer=optim, iterations=iterations)
+    Manager().run(optimizer=optim, corpus=corpus, steps=iterations)

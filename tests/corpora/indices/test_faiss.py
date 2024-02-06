@@ -57,7 +57,7 @@ def test_faiss_search_match(index_string: str, device: str) -> None:
 @pytest.mark.parametrize("device", test_utils.faiss_devices())
 def test_faiss_search_mismatch(index_string: str, device: str) -> None:
     index_fix = index(index_string, device)
-    embeddings = index_fix.embeddings
+    embeddings = index_fix.data
 
     e0 = [embeddings[0]]
     query = [embeddings[0] + embeddings[1] / 2]

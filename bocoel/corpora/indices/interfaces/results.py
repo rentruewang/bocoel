@@ -74,17 +74,6 @@ class SearchResultBatch(_SearchResult):
                 f"{len(self.distances)}, {len(self.indices)}."
             )
 
-        dims = {
-            self.query.shape[1],
-            self.vectors.shape[2],
-        }
-
-        if len(dims) != 1:
-            raise ValueError(
-                "Batched results should have the same dimensions. "
-                f"Got {self.query.shape[1]}, {self.vectors.shape[2]}."
-            )
-
         ks = {
             self.vectors.shape[1],
             self.distances.shape[1],
@@ -124,17 +113,6 @@ class SearchResult(_SearchResult):
         if self.indices.ndim != 1:
             raise ValueError(
                 f"Indices should not be batched. Got shape {self.indices.shape}."
-            )
-
-        dims = {
-            self.query.shape[0],
-            self.vectors.shape[1],
-        }
-
-        if len(dims) != 1:
-            raise ValueError(
-                "Non-batched results should have the same dimensions. "
-                f"Got {self.query.shape[0]}, {self.vectors.shape[1]}."
             )
 
         ks = {

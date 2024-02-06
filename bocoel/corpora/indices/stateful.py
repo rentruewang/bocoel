@@ -3,13 +3,7 @@ from collections.abc import Mapping, Sequence
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import (
-    Boundary,
-    Distance,
-    Index,
-    IndexedArray,
-    SearchResult,
-)
+from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, SearchResult
 from bocoel.corpora.indices.interfaces.results import InternalResult
 
 
@@ -40,8 +34,8 @@ class StatefulIndex(Index):
         return self._index.batch
 
     @property
-    def _embeddings(self) -> NDArray | IndexedArray:
-        return self._index._embeddings
+    def data(self) -> NDArray:
+        return self._index.data
 
     @property
     def distance(self) -> Distance:

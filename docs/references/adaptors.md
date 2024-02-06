@@ -1,4 +1,6 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Adaptors
+# Adaptors
+
+::: bocoel.models.adaptors
 
 ::: bocoel.Adaptor
 ::: bocoel.GlueAdaptor

@@ -6,13 +6,7 @@ from numpy import linalg
 from numpy.typing import NDArray
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import (
-    Boundary,
-    Distance,
-    Index,
-    IndexedArray,
-    InternalResult,
-)
+from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, InternalResult
 
 LOGGER = structlog.get_logger()
 
@@ -56,8 +50,8 @@ class WhiteningIndex(Index):
         return self._index.batch
 
     @property
-    def _embeddings(self) -> NDArray | IndexedArray:
-        return self._index._embeddings
+    def data(self) -> NDArray:
+        return self._index.data
 
     @property
     def distance(self) -> Distance:

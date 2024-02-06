@@ -1,6 +1,7 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Indices
+# Indices
 
 ::: bocoel.Index
+
 ::: bocoel.HnswlibIndex
 ::: bocoel.FaissIndex
 ::: bocoel.WhiteningIndex

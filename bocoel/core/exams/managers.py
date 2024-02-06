@@ -29,17 +29,18 @@ ADAPTOR = "adaptor"
 
 
 class Manager:
-    def __init__(
-        self, path: str | Path, batch_size: int = 64, cuda: bool = False
-    ) -> None:
-        self.path = Path(path)
-        if self.path.exists() and not self.path.is_dir():
-            raise ValueError(f"{path} is not a directory")
-        self.path.mkdir(parents=True, exist_ok=True)
+    def __init__(self, path: str | Path | None = None) -> None:
+        if path is not None:
+            path = Path(path)
+            if path.exists() and not path.is_dir():
+                raise ValueError(f"{path} is not a directory")
+            path.mkdir(parents=True, exist_ok=True)
+
+        self.path = path
 
         self._start = self.current()
 
-        self.examinator = Examinator.presets(batch_size=batch_size, cuda=cuda)
+        self.examinator = Examinator.presets()
         """
         The examinator that would perform evaluations on the results.
         """
@@ -90,27 +91,10 @@ class Manager:
             scores, optimizer, corpus, model, adaptor, embedder
         )
 
+        if self.path is None:
+            raise ValueError("No path specified. Set the path to save the scores.")
+
         scores.to_csv(self.path / f"{md5}.csv", index=False)
-
-    def _launch(
-        self, optimizer: Optimizer, steps: int | None = None
-    ) -> Generator[Mapping[int, float], None, None]:
-        "Launches the optimizer as a generator."
-
-        steps_criterion = float(steps) if steps is not None else float("inf")
-
-        with ap.alive_bar(total=steps, title="optimizing") as bar:
-            while steps_criterion > 0:
-                bar()
-                steps_criterion -= 1
-
-                # Raises StopIteration (converted to RuntimError per PEP 479) if done.
-                try:
-                    results = optimizer.step()
-                except StopIteration:
-                    break
-
-                yield results
 
     def with_identifier_cols(
         self,
@@ -135,6 +119,27 @@ class Manager:
         df[MD5] = [md5] * len(df)
 
         return md5, df
+
+    @staticmethod
+    def _launch(
+        optimizer: Optimizer, steps: int | None = None
+    ) -> Generator[Mapping[int, float], None, None]:
+        "Launches the optimizer as a generator."
+
+        steps_criterion = float(steps) if steps is not None else float("inf")
+
+        with ap.alive_bar(total=steps, title="optimizing") as bar:
+            while steps_criterion > 0:
+                bar()
+                steps_criterion -= 1
+
+                # Raises StopIteration (converted to RuntimError per PEP 479) if done.
+                try:
+                    results = optimizer.step()
+                except StopIteration:
+                    break
+
+                yield results
 
     @staticmethod
     def load(path: str | Path) -> DataFrame:

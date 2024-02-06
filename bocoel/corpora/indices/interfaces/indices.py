@@ -11,17 +11,6 @@ from .distances import Distance
 from .results import InternalResult, SearchResultBatch
 
 
-class IndexedArray(Protocol):
-    @abc.abstractmethod
-    def __len__(self) -> int: ...
-
-    @abc.abstractmethod
-    def __getitem__(self, key: int | NDArray, /) -> NDArray: ...
-
-    def __array__(self) -> NDArray:
-        return np.array([self[idx] for idx in range(len(self))])
-
-
 class Index(Protocol):
     """
     Index is responsible for fast retrieval given a vector query.
@@ -39,19 +28,12 @@ class Index(Protocol):
         """
         Calls the search function and performs some checks.
 
-        Parameters
-        ----------
+        Parameters:
+            query: The query vector. Must be of shape `[batch, dims]`.
+            k: The number of nearest neighbors to return.
 
-        `query: ArrayLike`
-        The query vector. Must be of shape `[batch, dims]`.
-
-        `k: int`
-        The number of nearest neighbors to return.
-
-        Returns
-        -------
-
-        A `SearchResultBatch` instance. See `SearchResultBatch` for details.
+        Returns:
+            A `SearchResultBatch` instance. See `SearchResultBatch` for details.
         """
 
         query = np.array(query)
@@ -75,7 +57,7 @@ class Index(Protocol):
 
         indices = np.concatenate([res.indices for res in results], axis=0)
         distances = np.concatenate([res.distances for res in results], axis=0)
-        vectors = self._embeddings[indices]
+        vectors = self.data[indices]
 
         return SearchResultBatch(
             query=query, vectors=vectors, distances=distances, indices=indices
@@ -85,21 +67,22 @@ class Index(Protocol):
         return all(query >= self.lower[None, :] & query <= self.upper[None, :])
 
     @property
-    def embeddings(self) -> NDArray:
-        return np.array(self._embeddings)
-
-    @property
     @abc.abstractmethod
-    def _embeddings(self) -> NDArray | IndexedArray:
+    def data(self) -> NDArray:
         """
-        The embeddings used by the index.
+        The underly data that the index is used for searching.
         """
 
         ...
 
     @property
     @abc.abstractmethod
-    def batch(self) -> int: ...
+    def batch(self) -> int:
+        """
+        The batch size used for searching.
+        """
+
+        ...
 
     @property
     @abc.abstractmethod
@@ -127,17 +110,15 @@ class Index(Protocol):
         Parameters
         ----------
 
-        `query: NDArray`
-        The query vector. Must be of shape [dims].
+        query:
+            The query vector. Must be of shape [dims].
 
-        `k: int`
-        The number of nearest neighbors to return.
+        k:
+            The number of nearest neighbors to return.
 
-        Returns
-        -------
-
-        A numpy array of shape [k].
-        This corresponds to the indices of the nearest neighbors.
+        Returns:
+            A numpy array of shape [k].
+            This corresponds to the indices of the nearest neighbors.
         """
 
         ...

@@ -1,4 +1,6 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Corpus
+# Corpus
 
 ::: bocoel.Corpus
 ::: bocoel.ComposedCorpus
+    options:
+        docstring_style: numpy

@@ -1,4 +1,4 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Storages
+# Storages
 
 ::: bocoel.Storage
 ::: bocoel.PandasStorage

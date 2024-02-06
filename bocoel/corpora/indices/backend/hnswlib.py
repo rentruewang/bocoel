@@ -3,13 +3,7 @@ from typing import Literal
 from numpy.typing import NDArray
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import (
-    Boundary,
-    Distance,
-    Index,
-    IndexedArray,
-    InternalResult,
-)
+from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, InternalResult
 
 _HnswlibDist = Literal["l2", "ip", "cosine"]
 
@@ -49,7 +43,7 @@ class HnswlibIndex(Index):
         return self._batch_size
 
     @property
-    def _embeddings(self) -> NDArray | IndexedArray:
+    def data(self) -> NDArray:
         return self._emb
 
     @property

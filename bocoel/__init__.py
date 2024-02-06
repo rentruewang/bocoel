@@ -1,6 +1,5 @@
 from importlib import metadata
 
-from .bocoel import bocoel
 from .common import StrEnum, version
 from .core import (
     AccType,

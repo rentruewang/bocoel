@@ -36,7 +36,7 @@ def kmeans_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optim
         corpus=corpus,
         adaptor=adaptor,
         batch_size=64,
-        embeddings=corpus.index.embeddings,
+        embeddings=corpus.index.data,
         model_kwargs={"n_clusters": 3, "n_init": "auto"},
     )
 
@@ -48,6 +48,6 @@ def kmedoids_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Opt
         corpus=corpus,
         adaptor=adaptor,
         batch_size=64,
-        embeddings=corpus.index.embeddings,
+        embeddings=corpus.index.data,
         model_kwargs={"n_clusters": 3},
     )

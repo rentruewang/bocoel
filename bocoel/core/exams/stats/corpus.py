@@ -4,18 +4,14 @@ import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.core.exams.interfaces import Exam
-from bocoel.corpora import Distance, FaissIndex, StatefulIndex
+from bocoel.corpora import StatefulIndex
 
 
 class Segregation(Exam):
-    def __init__(self, cuda: bool = False, batch_size: int = 64) -> None:
-        self._cuda = cuda
-        self._batch_size = batch_size
-
     def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
         keys = list(results.keys())
-        idx = self._index(index)
-        queries = np.array([index.history[i].query for i in keys])
+        idx = index.index
+        queries = np.array([index[i].query for i in keys])
 
         if queries.ndim != 2:
             raise ValueError(
@@ -30,14 +26,3 @@ class Segregation(Exam):
             outputs.append(len(unique))
 
         return np.array(outputs)
-
-    def _index(self, index: StatefulIndex, /) -> FaissIndex:
-        # TODO: Only supports L2 for now. Would like more options.
-        # Creates a flat index s.t. there is no over head and the solution is exact.
-        return FaissIndex(
-            embeddings=index.embeddings,
-            distance=Distance.L2,
-            index_string="Flat",
-            cuda=self._cuda,
-            batch_size=self._batch_size,
-        )

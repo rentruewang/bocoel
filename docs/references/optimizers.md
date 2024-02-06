@@ -1,4 +1,5 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Optimizers
+# Optimizers
+
 ::: bocoel.core.optim
 
 ::: bocoel.Optimizer

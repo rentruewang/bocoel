@@ -1,4 +1,4 @@
-# <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> Language Models
+# Language Models
 
 ::: bocoel.GenerativeModel
 ::: bocoel.ClassifierModel
