@@ -53,25 +53,18 @@ class Boundary:
     @classmethod
     def fixed(cls, lower: float, upper: float, dims: int) -> Self:
         """
-        Create a boundary with fixed bounds.
-        If `lower > upper`, a `ValueError` would be raised.
+        Create a fixed boundary for all dimensions.
 
-        Parameters
-        ----------
+        Parameters:
+            lower: The lower bound.
+            upper: The upper bound.
+            dims: The number of dimensions.
 
-        `lower: float`
-        The lower bound.
+        Returns:
+            A `Boundary` instance.
 
-        `upper: float`
-        The upper bound.
-
-        `dims: int`
-        The number of dimensions.
-
-        Returns
-        -------
-
-        A `Boundary` instance.
+        Raises:
+            ValueError: If lower > upper.
         """
 
         if lower > upper:

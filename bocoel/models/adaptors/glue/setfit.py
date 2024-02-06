@@ -40,24 +40,14 @@ class GlueAdaptor(Adaptor):
         choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
         """
-        Parameters
-        ----------
+        Initialize the adaptor.
 
-        `lm: ClassifierModel`
-        The language model to use for evaluation.
-        The language model must be a classifier model.
-
-        `idx: str = "idx"`
-        The name of the column containing the indices.
-
-        `texts: str = "text"`
-        The name of the column containing the texts.
-        Specify multiple columsn with whitespace in between.
-        For example, "text1 text2" would be parsed to ["text1", "text2"].
-        If there is more than one column, the texts will be concatenated with [SEP].
-
-        `label: str = "label"`
-        The name of the column containing the labels.
+        Parameters:
+            lm: The language model to use for classification.
+            texts: The column name for the text to classify.
+            label: The column name for the label of the text.
+            label_text: The column name for the text of the label.
+            choices: The valid choices for the label.
         """
 
         self.lm = lm
@@ -96,6 +86,17 @@ class GlueAdaptor(Adaptor):
         name: Literal["sst2", "mrpc", "mnli", "qqp", "rte", "qnli"],
         split: Literal["train", "validation", "test"],
     ) -> Sequence[str]:
+        """
+        Get the valid choices for a particular task and split.
+
+        Parameters:
+            name: The name of the task.
+            split: The split of the task.
+
+        Returns:
+            The valid choices for the task and split.
+        """
+
         LOGGER.debug("Getting choices for task", task=name)
 
         # Perform checks for supported kinds of datasets.

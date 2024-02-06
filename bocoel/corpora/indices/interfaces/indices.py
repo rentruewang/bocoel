@@ -107,18 +107,13 @@ class Index(Protocol):
         """
         Search the index with a given query.
 
-        Parameters
-        ----------
-
-        query:
-            The query vector. Must be of shape [dims].
-
-        k:
-            The number of nearest neighbors to return.
+        Parameters:
+            query: The query vector. Must be of shape [dims].
+            k: The number of nearest neighbors to return.
 
         Returns:
             A numpy array of shape [k].
-            This corresponds to the indices of the nearest neighbors.
+                This corresponds to the indices of the nearest neighbors.
         """
 
         ...

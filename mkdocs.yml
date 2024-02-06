@@ -42,14 +42,14 @@ plugins:
             inherited_members: true
             filters: null
             members_order: source
-            # docstring_style: numpy
+            docstring_style: google
             merge_init_into_class: true
             show_signature_annotations: true
             signature_crossrefs: true
             separate_signature: true
             summary: true
             line_length: 80
-            # allow_inspection: true
+            allow_inspection: true
 
   - git-revision-date
   - git-revision-date-localized

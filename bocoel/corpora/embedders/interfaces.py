@@ -52,6 +52,13 @@ class Embedder(Protocol):
     def encode(self, text: Sequence[str], /) -> NDArray:
         """
         Calls the encode function and performs some checks.
+        Would try to encode the text in batches.
+
+        Parameters:
+            text: The text to encode.
+
+        Returns:
+            The encoded embeddings. The shape must be `[len(text), self.dims]`.
         """
 
         with torch.no_grad():
@@ -85,20 +92,13 @@ class Embedder(Protocol):
     @abc.abstractmethod
     def _encode(self, texts: Sequence[str], /) -> Tensor:
         """
-        Implements the encode function.
+        The actual encode function.
 
-        Parameters
-        ----------
+        Parameters:
+            texts: The texts to encode.
 
-        `text: Sequence[str]`
-        The text to encode.
-        If a string is given, it is treated as a singleton batch.
-        If a list is given, all those embeddings are processed together in a single batch.
-
-        Returns
-        -------
-
-        A tensor of shape [batch, dims]. If the input is a string, the shape would be [dims].
+        Returns:
+            The encoded embeddings. The shape must be `[len(texts), self.dims]`.
         """
 
         ...

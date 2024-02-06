@@ -51,24 +51,15 @@ class Manager:
         """
         Runs the optimizer until the end.
 
-        Parameters
-        ----------
+        Parameters:
+            optimizer: The optimizer to run.
+            corpus: The corpus to run the optimizer on.
+            steps: The number of steps to run the optimizer for.
 
-        `optimizer: Optimizer`
-        The optimizer to run.
-
-        `corpus: Corpus`
-        The corpus to run the optimizer on.
-
-        `steps: int | None`
-        The number of steps to run the optimizer for.
-
-        Returns
-        -------
-
-        The final state of the optimizer.
-        Keys are the indices of the queries,
-        and values are the corresponding scores.
+        Returns:
+            The final state of the optimizer.
+                Keys are the indices of the queries,
+                and values are the corresponding scores.
         """
 
         results: OrderedDict[int, float] = OrderedDict()
@@ -87,6 +78,21 @@ class Manager:
         adaptor: Adaptor,
         embedder: Embedder,
     ) -> None:
+        """
+        Saves the scores to the path.
+
+        Parameters:
+            scores: The scores to save.
+            optimizer: The optimizer used to generate the scores.
+            corpus: The corpus used to generate the scores.
+            model: The model used to generate the scores.
+            adaptor: The adaptor used to generate the scores.
+            embedder: The embedder used to generate the scores.
+
+        Raises:
+            ValueError: If the path is not set.
+        """
+
         md5, scores = self.with_identifier_cols(
             scores, optimizer, corpus, model, adaptor, embedder
         )
@@ -105,6 +111,21 @@ class Manager:
         adaptor: Adaptor,
         embedder: Embedder,
     ) -> tuple[str, DataFrame]:
+        """
+        Adds identifier columns to the DataFrame.
+
+        Parameters:
+            df: The DataFrame to add the columns to.
+            optimizer: The optimizer used to generate the scores.
+            corpus: The corpus used to generate the scores.
+            model: The model used to generate the scores.
+            adaptor: The adaptor used to generate the scores.
+            embedder: The embedder used to generate the scores.
+
+        Returns:
+            The md5 hash of the identifier columns and the DataFrame with the columns added.
+        """
+
         df = df.copy()
 
         md5 = self.md5(optimizer, corpus, model, adaptor, embedder, self._start)
@@ -143,6 +164,20 @@ class Manager:
 
     @staticmethod
     def load(path: str | Path) -> DataFrame:
+        """
+        Loads the scores from the path.
+
+        Parameters:
+            path: The path to load the scores from.
+
+        Returns:
+            The loaded scores.
+
+        Raises:
+            ValueError: If the path does not exist or is not a directory.
+            ValueError: If no csv files are found in the path.
+        """
+
         path = Path(path)
 
         dfs: list[DataFrame] = []
@@ -168,6 +203,21 @@ class Manager:
         embedder: Embedder,
         time: str,
     ) -> str:
+        """
+        Generates an md5 hash from the given data.
+
+        Parameters:
+            optimizer: The optimizer used to generate the scores.
+            corpus: The corpus used to generate the scores.
+            model: The model used to generate the scores.
+            adaptor: The adaptor used to generate the scores.
+            embedder: The embedder used to generate the scores.
+            time: The time the scores were generated.
+
+        Returns:
+            The md5 hash of the given data.
+        """
+
         data = [
             optimizer,
             embedder,

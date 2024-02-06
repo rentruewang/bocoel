@@ -11,19 +11,16 @@ class ClassifierModel(Protocol):
 
     def classify(self, prompts: Sequence[str], /) -> NDArray:
         """
-        Generate logits given prompts.
+        Classify the given prompts.
 
-        Parameters
-        ----------
+        Parameters:
+            prompts: The prompts to classify.
 
-        `prompts: Sequence[str]`
-        The prompts to generate logits from.
+        Returns:
+            The logits for each prompt and choice.
 
-        Returns
-        -------
-
-        A list of logits
-        Each logit has the same length given by each prompt's choices.
+        Raises:
+            ValueError: If the shape of the logits is not [len(prompts), len(choices)].
         """
 
         classified = self._classify(prompts)
@@ -41,19 +38,11 @@ class ClassifierModel(Protocol):
         """
         Generate logits given prompts.
 
-        Parameters
-        ----------
+        Parameters:
+            prompts: The prompts to classify.
 
-        `prompts: Sequence[str]`
-        The prompts to generate logits from.
-
-        `choices: Sequence[str]`
-        Number of choices for this batch of prompts.
-
-        Returns
-        -------
-
-        A list of logits. Must have the shaep [batch_size, choices].
+        Returns:
+            The logits for each prompt and choice.
         """
 
         ...
@@ -62,6 +51,9 @@ class ClassifierModel(Protocol):
     def choices(self) -> Sequence[str]:
         """
         The choices for this language model.
+
+        Returns:
+            The choices for this language model.
         """
 
         ...

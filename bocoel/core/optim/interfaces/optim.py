@@ -34,44 +34,13 @@ class Optimizer(Protocol):
     @abc.abstractmethod
     def step(self) -> Mapping[int, float]:
         """
-        Performs a few steps of optimization.
-        Raises StopIteration if done.
+        Perform a single step of optimization.
 
-        Returns
-        -------
+        Returns:
+            A mapping of step indices to the corresponding scores.
 
-        The state change of the optimizer during the step.
+        Raises:
+            StopIteration: If the optimization is complete.
         """
 
         ...
-
-    def save(self, path: str | Path) -> None:
-        """
-        Saves the optimizer to a file.
-
-        Parameters
-        ----------
-
-        `path: str | Path`
-        The path to save the optimizer to.
-        """
-
-        with open(path, "wb") as f:
-            pickle.dump({_VERSION_KEY: common.version(), _OPTIMIZER_KEY: self}, f)
-
-    def load(self, path: str | Path) -> Self:
-        current_version = version.parse(common.version())
-
-        with open(path, "rb") as f:
-            loaded = pickle.load(f)
-
-        loaded_version = version.parse(loaded[_VERSION_KEY])
-
-        if (
-            False
-            or current_version.major != loaded_version.major
-            or current_version.minor != loaded_version.minor
-        ):
-            raise ValueError(f"Version mismatch: {current_version} != {loaded_version}")
-
-        return loaded[_OPTIMIZER_KEY]

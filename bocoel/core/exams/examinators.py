@@ -48,21 +48,8 @@ class Examinator:
     @classmethod
     def presets(cls) -> Self:
         """
-        Returns an examinator with the default exams.
-
-        Parameters
-        ----------
-
-        `batch_size: int`
-        The batch size to use for the exams.
-
-        `cuda: bool`
-        Whether to use CUDA for the exams.
-
-        Returns
-        -------
-
-        The default examinator.
+        Returns:
+            The default examinator.
         """
 
         return cls(

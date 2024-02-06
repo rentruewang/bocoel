@@ -47,22 +47,13 @@ class StatefulIndex(Index):
         """
         Search while tracking states.
 
-        Parameters
-        ----------
+        Parameters:
+            query: The query vector. Must be of shape [dims].
+            k: The number of nearest neighbors to return.
 
-        `query: ArrayLike`
-        The query to search for.
-
-        `k: int = 1`
-        The number of nearest neighbors to return.
-
-        Returns
-        -------
-
-        `Mapping[int, SearchResult]`
-        A mapping from the index of the search result to the search result.
-        The index is used for retrieving the search result later.
-        Do so by indexing the `history` property of this object.
+        Returns:
+            A mapping from the index of the search to the search result.
+            The index can be used to look up the result in the history.
         """
 
         result = self.search(query=query, k=k)
@@ -83,6 +74,7 @@ class StatefulIndex(Index):
     @property
     def history(self) -> Sequence[SearchResult]:
         "History for looking up the results of previous searches with index handles."
+
         return self._history
 
     def _clear_history(self) -> None:

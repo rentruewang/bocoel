@@ -33,16 +33,11 @@ class PandasStorage(Storage):
         """
         Load data from a JSONL file.
 
-        Parameters
-        ----------
+        Parameters:
+            path: The path to the file.
 
-        `path: str | Path`
-        Path to the JSONL file.
-
-        Returns
-        -------
-
-        A `PandasStorage` instance.
+        Returns:
+            A `PandasStorage` instance.
         """
 
         path = Path(path)
@@ -62,18 +57,13 @@ class PandasStorage(Storage):
     @classmethod
     def from_jsonl(cls, data: Sequence[Mapping[str, str]], /) -> Self:
         """
-        Load data from a JSONL object.
+        Load data from a JSONL object or a list of JSON.
 
-        Parameters
-        ----------
+        Parameters:
+            data: The JSONL object or list of JSON.
 
-        `data: Sequence[Mapping[str, str]]`
-        Data to load.
-
-        Returns
-        -------
-
-        A `PandasStorage` instance.
+        Returns:
+            A `PandasStorage` instance.
         """
 
         df = DataFrame.from_records(data)

@@ -44,23 +44,12 @@ class Adaptor(Protocol):
         this method will extract the corresponding entries from the storage,
         and evaluate them with `Adaptor.evaluate`.
 
-        Parameters
-        ----------
+        Parameters:
+            storage: The storage to evaluate.
+            indices: The indices to evaluate.
 
-        `storage: Storage`
-        The storage to extract entries from.
-
-        `lm: LanguageModel`
-        The language model to use for evaluation.
-
-        `indices: ArrayLike`
-        The indices to extract from the storage.
-
-        Returns
-        -------
-
-        The scores for each entry. Scores must be floating point numbers.
-        The shape of the returned array must be the same as the shape of `indices`.
+        Returns:
+            The scores for each entry. The shape must be the same as the indices.
         """
 
         indices = np.array(indices).astype("i")
@@ -79,6 +68,13 @@ class Adaptor(Protocol):
         """
         Evaluate a particular set of indices on a corpus.
         A convenience wrapper around `Adaptor.on_storage`.
+
+        Parameters:
+            corpus: The corpus to evaluate.
+            indices: The indices to evaluate.
+
+        Returns:
+            The scores for each entry. The shape must be the same as the indices.
         """
 
         return self.on_storage(storage=corpus.storage, indices=indices)

@@ -49,19 +49,12 @@ class Accumulation(Exam):
         """
         Accumulate the array using the given function.
 
-        Parameters
-        ----------
+        Parameters:
+            array: The array to accumulate.
+            accumulate: The accumulation function to use.
 
-        `array: NDArray`
-        The array to accumulate.
-
-        `accumulate: Callable[[NDArray], NDArray]`
-        The accumulation function to use.
-
-        Returns
-        -------
-
-        The accumulated array.
+        Returns:
+            The accumulated array.
         """
 
         _check_dim(array, 1)

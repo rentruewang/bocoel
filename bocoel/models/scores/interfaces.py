@@ -9,21 +9,14 @@ class Score(Protocol):
     @abc.abstractmethod
     def __call__(self, target: Any, references: list[Any]) -> float:
         """
-        Calculate the score of a target given references.
+        Evaluate the target with respect to the references.
 
-        Parameters
-        ----------
+        Parameters:
+            target: The target to evaluate.
+            references: The references to evaluate against.
 
-        `target: Any`
-        The target to calculate the score for.
-
-        `references: list[Any]`
-        The references to calculate the score from.
-
-        Returns
-        -------
-
-        The score of the target given the references.
+        Returns:
+            The score for the target.
         """
 
         ...

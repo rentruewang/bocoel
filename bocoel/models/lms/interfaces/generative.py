@@ -17,19 +17,11 @@ class GenerativeModel(Protocol):
         The response would be a continuation of the prompt,
         and the prompts would be the prefix of the response.
 
-        Parameters
-        ----------
+        Parameters:
+            prompts: The prompts to generate.
 
-        `prompts: Sequence[str]`
-        The prompts to generate responses from.
-
-
-        Returns
-        -------
-
-        A sequence of responses.
-        This has the same length as the prompt.
-        Each response is a string.
+        Returns:
+            The generated responses. The length must be the same as the prompts.
         """
 
         ...
