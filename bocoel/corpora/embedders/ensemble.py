@@ -8,7 +8,20 @@ from bocoel.corpora.embedders.interfaces import Embedder
 
 
 class EnsembleEmbedder(Embedder):
+    """
+    An ensemble of embedders. The embeddings are concatenated together.
+    """
+
     def __init__(self, embedders: Sequence[Embedder], sequential: bool = False) -> None:
+        """
+        Parameters:
+            embedders: The embedders to use.
+            sequential: Whether to use sequential processing.
+
+        Raises:
+            ValueError: If the embedders have different batch sizes.
+        """
+
         # Check if all embedders have the same batch size.
         self._embedders = embedders
         self._batch_size = embedders[0].batch

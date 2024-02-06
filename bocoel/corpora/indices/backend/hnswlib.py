@@ -25,13 +25,16 @@ class HnswlibIndex(Index):
         utils.validate_embeddings(embeddings)
         embeddings = utils.normalize(embeddings)
 
-        self._emb = embeddings
+        self.__embeddings = embeddings
 
         # Would raise ValueError if not a valid distance.
         self._dist = Distance.lookup(distance)
         self._batch_size = batch_size
 
         self._boundary = utils.boundaries(embeddings)
+        assert (
+            self._boundary.dims == embeddings.shape[1]
+        ), "Boundary dimensions do not match embeddings."
 
         # A public attribute because this can be changed at anytime.
         self.threads = threads
@@ -44,15 +47,11 @@ class HnswlibIndex(Index):
 
     @property
     def data(self) -> NDArray:
-        return self._emb
+        return self.__embeddings
 
     @property
     def distance(self) -> Distance:
         return self._dist
-
-    @property
-    def dims(self) -> int:
-        return self._emb.shape[1]
 
     @property
     def boundary(self) -> Boundary:
@@ -68,8 +67,8 @@ class HnswlibIndex(Index):
 
         space = self._hnswlib_space(self.distance)
         self._index = _HnswlibIndex(space=space, dim=self.dims)
-        self._index.init_index(max_elements=len(self._emb))
-        self._index.add_items(self._emb, num_threads=self.threads)
+        self._index.init_index(max_elements=len(self.__embeddings))
+        self._index.add_items(self.__embeddings, num_threads=self.threads)
 
     @staticmethod
     def _hnswlib_space(distance: Distance) -> _HnswlibDist:

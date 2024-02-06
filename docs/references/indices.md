@@ -15,3 +15,4 @@
 ::: bocoel.corpora.indices.interfaces.results._SearchResult
 ::: bocoel.corpora.SearchResultBatch
 ::: bocoel.corpora.SearchResult
+::: bocoel.corpora.indices.interfaces.InternalResult

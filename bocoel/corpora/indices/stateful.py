@@ -13,6 +13,13 @@ class StatefulIndex(Index):
     """
 
     def __init__(self, index: Index) -> None:
+        """
+        Initializes the stateful index.
+
+        Parameters:
+            index: The index to wrap.
+        """
+
         self._index = index
         self._clear_history()
 
@@ -26,6 +33,18 @@ class StatefulIndex(Index):
         return self._history[key]
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
+        """
+        Search the index for the given query.
+        Does not track states.
+
+        Parameters:
+            query: The query vector. Must be of shape [dims].
+            k: The number of nearest neighbors to return.
+
+        Returns:
+            The search result.
+        """
+
         # This search method doesn't track states.
         return self._index._search(query=query, k=k)
 

@@ -8,6 +8,11 @@ from bocoel.corpora.embedders.interfaces import Embedder
 
 
 class HuggingfaceEmbedder(Embedder):
+    """
+    Huggingface embedder. Uses the transformers library.
+    Not a traditional encoder but uses a classifier and logits as embeddings.
+    """
+
     def __init__(
         self,
         path: str,
@@ -15,6 +20,20 @@ class HuggingfaceEmbedder(Embedder):
         batch_size: int = 64,
         transform: Callable[[Any], Tensor] = lambda output: output.logits,
     ) -> None:
+        """
+        Initializes the Huggingface embedder.
+
+        Parameters:
+            path: The path to the model.
+            device: The device to use.
+            batch_size: The batch size for encoding.
+            transform: The transformation function to use.
+
+        Raises:
+            ImportError: If transformers is not installed.
+            ValueError: If the model does not have a `config.id2label` attribute.
+        """
+
         self._path = path
         self._model = AutoModelForSequenceClassification.from_pretrained(path)
         self._tokenizer = AutoTokenizer.from_pretrained(path)

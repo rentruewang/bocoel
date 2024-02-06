@@ -1,13 +1,7 @@
 import abc
-import pickle
 from collections.abc import Mapping
-from pathlib import Path
 from typing import Any, Protocol
 
-from packaging import version
-from typing_extensions import Self
-
-from bocoel import common
 from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 

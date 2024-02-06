@@ -113,6 +113,7 @@ class GlueAdaptor(Adaptor):
             case _:
                 raise ValueError(f"Unknown split {split}")
 
+        # The actual mux.
         match name, split:
             case "sst2", _:
                 return ["negative", "positive"]
@@ -130,4 +131,4 @@ class GlueAdaptor(Adaptor):
             case "qnli", _:
                 return ["entailment", "not entailment"]
 
-        raise ValueError(f"Unknown task name {name}")
+        raise RuntimeError("Unreachable")

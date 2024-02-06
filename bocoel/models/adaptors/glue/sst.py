@@ -26,6 +26,14 @@ class Sst2QuestionAnswer(Adaptor):
         label: str = "label",
         choices: Sequence[str] = ("negative", "positive"),
     ) -> None:
+        """
+        Parameters:
+            lm: The language model to use for classification.
+            sentence: The column name for the sentence to classify.
+            label: The column name for the label of the sentence.
+            choices: The valid choices for the label.
+        """
+
         self.lm = lm
 
         self.sentence = sentence

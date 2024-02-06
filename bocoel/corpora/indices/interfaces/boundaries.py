@@ -38,16 +38,19 @@ class Boundary:
     @property
     def dims(self) -> int:
         "The number of dimensions."
+
         return self.bounds.shape[0]
 
     @property
     def lower(self) -> NDArray:
         "The lower bounds. Must be of shape `[dims]`."
+
         return self.bounds[:, 0]
 
     @property
     def upper(self) -> NDArray:
         "The upper bounds. Must be of shape `[dims]`."
+
         return self.bounds[:, 1]
 
     @classmethod

@@ -29,7 +29,24 @@ ADAPTOR = "adaptor"
 
 
 class Manager:
+    """
+    The manager for running and saving evaluations.
+    """
+
+    examinator: Examinator
+    """
+    The examinator that would perform evaluations on the results.
+    """
+
     def __init__(self, path: str | Path | None = None) -> None:
+        """
+        Parameters:
+            path: The path to save the scores to.
+
+        Raises:
+            ValueError: If the path is not a directory.
+        """
+
         if path is not None:
             path = Path(path)
             if path.exists() and not path.is_dir():
@@ -37,13 +54,8 @@ class Manager:
             path.mkdir(parents=True, exist_ok=True)
 
         self.path = path
-
         self._start = self.current()
-
         self.examinator = Examinator.presets()
-        """
-        The examinator that would perform evaluations on the results.
-        """
 
     def run(
         self, optimizer: Optimizer, corpus: Corpus, steps: int | None = None
@@ -130,14 +142,17 @@ class Manager:
 
         md5 = self.md5(optimizer, corpus, model, adaptor, embedder, self._start)
 
-        df[OPTIMIZER] = [str(optimizer)] * len(df)
-        df[MODEL] = [str(model)] * len(df)
-        df[ADAPTOR] = [str(adaptor)] * len(df)
-        df[INDEX] = [str(corpus.index.index)] * len(df)
-        df[STORAGE] = [str(corpus.storage)] * len(df)
-        df[EMBEDDER] = [str(embedder)] * len(df)
-        df[TIME] = [self._start] * len(df)
-        df[MD5] = [md5] * len(df)
+        def assign(column: str, data: str) -> None:
+            df[column] = [data] * len(df)
+
+        assign(OPTIMIZER, str(optimizer))
+        assign(MODEL, str(model))
+        assign(ADAPTOR, str(adaptor))
+        assign(INDEX, str(corpus.index.index))
+        assign(STORAGE, str(corpus.storage))
+        assign(EMBEDDER, str(embedder))
+        assign(TIME, self._start)
+        assign(MD5, md5)
 
         return md5, df
 
@@ -147,12 +162,12 @@ class Manager:
     ) -> Generator[Mapping[int, float], None, None]:
         "Launches the optimizer as a generator."
 
-        steps_criterion = float(steps) if steps is not None else float("inf")
+        steps_left = float(steps) if steps is not None else float("inf")
 
         with ap.alive_bar(total=steps, title="optimizing") as bar:
-            while steps_criterion > 0:
+            # Using a while loop because of the potential of having infinite steps.
+            while (steps_left := steps_left - 1) > 0:
                 bar()
-                steps_criterion -= 1
 
                 # Raises StopIteration (converted to RuntimError per PEP 479) if done.
                 try:
@@ -178,16 +193,8 @@ class Manager:
             ValueError: If no csv files are found in the path.
         """
 
-        path = Path(path)
-
-        dfs: list[DataFrame] = []
-
-        for csv in path.iterdir():
-            if csv.suffix != ".csv":
-                raise ValueError(f"{csv} is not a csv file")
-
-            df = pd.read_csv(csv)
-            dfs.append(df)
+        # Iterate over all csv files in the path.
+        dfs = [pd.read_csv(csv) for csv in Path(path).glob("*.csv")]
 
         if not dfs:
             raise ValueError(f"No csv files found in {path}")

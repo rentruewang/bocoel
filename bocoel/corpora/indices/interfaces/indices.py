@@ -29,7 +29,7 @@ class Index(Protocol):
         Calls the search function and performs some checks.
 
         Parameters:
-            query: The query vector. Must be of shape `[batch, dims]`.
+            query: The query vector. Must be of shape `[batch, query_dims]`.
             k: The number of nearest neighbors to return.
 
         Returns:
@@ -71,6 +71,12 @@ class Index(Protocol):
     def data(self) -> NDArray:
         """
         The underly data that the index is used for searching.
+
+        NOTE:
+            This has the shape of [n, dims], where dims is the transformed space.
+
+        Returns:
+            The data.
         """
 
         ...
@@ -80,6 +86,9 @@ class Index(Protocol):
     def batch(self) -> int:
         """
         The batch size used for searching.
+
+        Returns:
+            The batch size.
         """
 
         ...
@@ -88,7 +97,11 @@ class Index(Protocol):
     @abc.abstractmethod
     def boundary(self) -> Boundary:
         """
-        The boundary of the input.
+        The boundary of the queries.
+        This is used to check if the query is in range.
+
+        Returns:
+            The boundary of the input.
         """
 
         ...
@@ -98,6 +111,9 @@ class Index(Protocol):
     def distance(self) -> Distance:
         """
         The distance metric used by the index.
+
+        Returns:
+            The distance metric.
         """
 
         ...
@@ -108,7 +124,7 @@ class Index(Protocol):
         Search the index with a given query.
 
         Parameters:
-            query: The query vector. Must be of shape [dims].
+            query: The query vector. Must be of shape [query_dims].
             k: The number of nearest neighbors to return.
 
         Returns:
@@ -122,6 +138,9 @@ class Index(Protocol):
     def dims(self) -> int:
         """
         The number of dimensions that the query vector should be.
+
+        Returns:
+            The number of dimensions.
         """
 
         return self.boundary.dims

@@ -10,7 +10,8 @@ from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, Interna
 
 @functools.cache
 def _faiss():
-    # Optional dependency. Faiss also spits out deprecation warnings.
+    # Optional dependency.
+    # Faiss also spits out deprecation warnings.
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
@@ -32,13 +33,28 @@ class FaissIndex(Index):
         cuda: bool = False,
         batch_size: int = 64,
     ) -> None:
+        """
+        Initializes the Faiss index.
+
+        Parameters:
+            embeddings: The embeddings to index.
+            distance: The distance metric to use.
+            index_string: The index string to use.
+            cuda: Whether to use CUDA.
+            batch_size: The batch size to use for searching.
+        """
+
         utils.validate_embeddings(embeddings)
         embeddings = utils.normalize(embeddings)
-        self._emb = embeddings
+        self.__embeddings = embeddings
 
         self._batch_size = batch_size
         self._dist = Distance.lookup(distance)
+
         self._boundary = utils.boundaries(embeddings)
+        assert (
+            self._boundary.dims == embeddings.shape[1]
+        ), "Boundary dimensions do not match embeddings."
 
         self._index_string = index_string
         self._init_index(index_string=index_string, cuda=cuda)
@@ -52,7 +68,7 @@ class FaissIndex(Index):
 
     @property
     def data(self) -> NDArray:
-        return self._emb
+        return self.__embeddings
 
     @property
     def distance(self) -> Distance:
@@ -60,7 +76,7 @@ class FaissIndex(Index):
 
     @property
     def dims(self) -> int:
-        return self._emb.shape[1]
+        return self.__embeddings.shape[1]
 
     @property
     def boundary(self) -> Boundary:
@@ -78,8 +94,8 @@ class FaissIndex(Index):
         # https://github.com/facebookresearch/faiss/issues/2891
 
         index: Any = _faiss().index_factory(self.dims, index_string, metric)
-        index.train(self._emb)
-        index.add(self._emb)
+        index.train(self.__embeddings)
+        index.add(self.__embeddings)
 
         if cuda:
             index = _faiss().index_cpu_to_all_gpus(index)

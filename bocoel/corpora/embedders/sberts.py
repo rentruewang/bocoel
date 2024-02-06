@@ -17,6 +17,18 @@ class SbertEmbedder(Embedder):
         device: str = "cpu",
         batch_size: int = 64,
     ) -> None:
+        """
+        Initializes the Sbert embedder.
+
+        Parameters:
+            model_name: The model name to use.
+            device: The device to use.
+            batch_size: The batch size for encoding.
+
+        Raises:
+            ImportError: If sentence_transformers is not installed.
+        """
+
         # Optional dependency.
         from sentence_transformers import SentenceTransformer
 

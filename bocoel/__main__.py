@@ -1,10 +1,7 @@
 import logging
 import os
 
-import fire
 import structlog
-
-from . import main
 
 
 def logging_level() -> int:
@@ -36,6 +33,3 @@ if __name__ == "__main__":
     structlog.configure(
         wrapper_class=structlog.make_filtering_bound_logger(logging_level()),
     )
-
-    # Not a class. Google's standard public functions are all capitalized.
-    fire.Fire(main)

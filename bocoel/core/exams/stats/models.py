@@ -16,9 +16,18 @@ LOGGER = structlog.get_logger()
 
 
 class AccType(StrEnum):
+    """
+    Accumulation type.
+    """
+
     MIN = "MINIMUM"
+    "Minimum value accumulation."
+
     MAX = "MAXIMUM"
+    "Maximum value accumulation."
+
     AVG = "AVERAGE"
+    "Average value accumulation."
 
 
 class Accumulation(Exam):
@@ -55,6 +64,9 @@ class Accumulation(Exam):
 
         Returns:
             The accumulated array.
+
+        Raises:
+            ValueError: If the array is not 1D.
         """
 
         _check_dim(array, 1)
@@ -69,6 +81,11 @@ class MstMaxEdgeType(StrEnum):
 
 
 class MstMaxEdge(Exam):
+    """
+    MstMaxEdge is an exam designed to evaluate the maximum edge of the minimum spanning tree.
+    This can be thought of as the smallest density of a density based method.
+    """
+
     def __init__(self, typ: MstMaxEdgeType) -> None:
         self._agg_type = typ
 
@@ -94,20 +111,30 @@ class MstMaxEdge(Exam):
         array: NDArray, metric: Literal["euclidean"] = "euclidean"
     ) -> NDArray:
         WEIGHT = "weight"
+        DUMMY = 1
 
         _check_dim(array, 2)
 
         results = [float("inf")]
         for nodes in range(2, len(array) + 1):
-            dists = distance.pdist(array[:nodes], metric=metric)
+            # NOTE:
+            # Add some dummy value in case there are samples in the corner region
+            # which would result in truncating to the same points.
+            # Since networkx uses sparse matrix, 0 cost would create a disjoint graph.
+            dists = distance.pdist(array[:nodes], metric=metric) + DUMMY
             graph = nx.from_numpy_array(distance.squareform(dists))
-            source, target, weight = max(
-                nx.minimum_spanning_edges(graph), key=lambda x: x[2][WEIGHT]
-            )
+            edges = list(nx.minimum_spanning_edges(graph))
+
+            assert (
+                len(edges) == nodes - 1
+            ), f"MST should have n-1 edges. Got {len(edges)} instead of {nodes - 1}"
+
+            source, target, weight = max(edges, key=lambda x: x[2][WEIGHT])
             LOGGER.debug(
                 "max_mst_edge_acc", source=source, target=target, weight=weight[WEIGHT]
             )
-            results.append(weight[WEIGHT])
+
+            results.append(weight[WEIGHT] - DUMMY)
         return np.array(results)
 
 

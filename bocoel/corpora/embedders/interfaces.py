@@ -19,7 +19,7 @@ class Embedder(Protocol):
     """
     Embedders are responsible for encoding text into vectors.
     Embedders in this project are considered volatile because it requires CPU time,
-    unless some database that encodes this functionality is found.
+    unless some database with encoder capability is used.
     """
 
     def __repr__(self) -> str:
@@ -32,6 +32,17 @@ class Embedder(Protocol):
         /,
         transform: Callable[[Mapping[str, Sequence[Any]]], Sequence[str]],
     ) -> NDArray:
+        """
+        Encodes the storage into embeddings.
+
+        Parameters:
+            storage: The storage to encode.
+            transform: The transformation function to use.
+
+        Returns:
+            The encoded embeddings. The shape must be `[len(storage), self.dims]`.
+        """
+
         results: list[NDArray] = []
 
         for idx in tqdm(range(0, len(storage), self.batch)):

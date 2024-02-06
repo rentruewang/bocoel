@@ -25,6 +25,17 @@ class WhiteningIndex(Index):
         whitening_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:
+        """
+        Initializes the whitening index.
+
+        Parameters:
+            embeddings: The embeddings to index.
+            distance: The distance metric to use.
+            reduced: The reduced dimensionality. NOP if larger than embeddings shape.
+            whitening_backend: The backend to use for indexing.
+            **backend_kwargs: The backend specific keyword arguments.
+        """
+
         # Reduced might be smaller than embeddings.
         # In such case, no dimensionality reduction is performed.
         if reduced > embeddings.shape[1]:
@@ -51,15 +62,20 @@ class WhiteningIndex(Index):
 
     @property
     def data(self) -> NDArray:
+        """
+        Returns the data.
+        This does not necessarily have the same dimensionality
+        as the original transformed embeddings.
+
+        Returns:
+            The data.
+        """
+
         return self._index.data
 
     @property
     def distance(self) -> Distance:
         return self._index.distance
-
-    @property
-    def dims(self) -> int:
-        return self._index.dims
 
     @property
     def boundary(self) -> Boundary:

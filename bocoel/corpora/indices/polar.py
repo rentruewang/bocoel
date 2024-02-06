@@ -1,17 +1,27 @@
 from typing import Any
 
 import numpy as np
+import structlog
 from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora.indices import utils
 from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, InternalResult
 
+LOGGER = structlog.get_logger()
+
 
 class PolarIndex(Index):
     """
     Index that uses N-sphere coordinates as interfaces.
+    See wikipedia linked below for details.
 
-    https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates
+    Converting the spatial indices into spherical coordinates has the following benefits:
+
+    - Since the coordinates are normalized, the radius is always 1.
+    - The search region is rectangular in spherical coordinates,
+        ideal for bayesian optimization.
+
+    [Wikipedia link on N-sphere](https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates)
     """
 
     def __init__(
@@ -21,6 +31,14 @@ class PolarIndex(Index):
         polar_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:
+        """
+        Parameters:
+            embeddings: The embeddings to index.
+            distance: The distance metric to use.
+            polar_backend: The backend to use for indexing.
+            **backend_kwargs: The backend specific keyword arguments.
+        """
+
         embeddings = utils.normalize(embeddings)
         self._index = polar_backend(
             embeddings=embeddings,
@@ -28,7 +46,28 @@ class PolarIndex(Index):
             **backend_kwargs,
         )
 
+        dims = self._index.dims - 1
+
+        self._boundary = self._polar_boundary(dims)
+        self._data = self._inverse_query()
+
+        assert dims == self.dims, "Polar dimensions do not match embeddings."
+
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
+        """
+        Search the index for the given query.
+        This would also perform a normalization on the query,
+        and only the direction is preserved.
+
+        Parameters:
+            query: The query vector. Must be of shape [query_dims].
+            k: The number of nearest neighbors to return.
+
+        Returns:
+            A numpy array of shape [k].
+                This corresponds to the indices of the nearest neighbors.
+        """
+
         # Ignores the length of the query. Only direction is preserved.
         spatial = self.polar_to_spatial(np.ones([len(query)]), query)
 
@@ -42,14 +81,7 @@ class PolarIndex(Index):
 
     @property
     def data(self) -> NDArray:
-        """
-        Returns the actual data of the polar index.
-
-        Doesn't need to return the polar version of the embeddings
-        because this is just used for looking up encoded embeddings.
-        """
-
-        return self._index.data
+        return self._data
 
     @property
     def distance(self) -> Distance:
@@ -57,20 +89,55 @@ class PolarIndex(Index):
 
     @property
     def boundary(self) -> Boundary:
+        return self._boundary
+
+    def _polar_boundary(self, dims: int) -> Boundary:
+        """
+        The boundary of the queries.
+        For polar coordinate it is [0, pi] for all dimensions
+        except the last one which is [0, 2 * pi].
+
+        Returns:
+            The boundary of the input.
+        """
+
         # See wikipedia linked in the class documentation for details.
-        upper = np.concatenate([[np.pi] * (self.dims - 1), [2 * np.pi]])
+        upper = np.concatenate([[np.pi] * (dims - 1), [2 * np.pi]])
         lower = np.zeros_like(upper)
         return Boundary(np.stack([lower, upper], axis=-1))
 
-    @property
-    def dims(self) -> int:
-        return self._index.dims - 1
+    def _inverse_query(self) -> NDArray:
+        LOGGER.info(
+            "Converting embeddings to polar coordinates.", batch_size=self.batch
+        )
+
+        embeddings = self._index.data
+
+        results = []
+        for idx in range(0, len(embeddings), self.batch):
+            batch = embeddings[idx : idx + self.batch]
+            _, polar = self.spatial_to_polar(batch)
+            results.append(polar)
+
+        transformed = np.concatenate(results, axis=0)
+        assert (
+            transformed.shape[1] == self.dims
+        ), "Polar dimensions do not match embeddings."
+
+        return transformed
 
     @staticmethod
     def polar_to_spatial(r: ArrayLike, theta: ArrayLike) -> NDArray:
         """
         Convert an N-sphere coordinates to cartesian coordinates.
         See wikipedia linked in the class documentation for details.
+
+        Parameters:
+            r: The radius of the N-sphere. Has the shape [N].
+            theta: The angles of the N-sphere. Hash the shape [N, D].
+
+        Returns:
+            The cartesian coordinates of the N-sphere.
         """
 
         r = np.array(r)
@@ -98,6 +165,12 @@ class PolarIndex(Index):
         """
         Convert cartesian coordinates to N-sphere coordinates.
         See wikipedia linked in the class documentation for details.
+
+        Parameters:
+            x: The cartesian coordinates. Has the shape [N, D].
+
+        Returns:
+            A tuple. The radius and the angles of the N-sphere.
         """
 
         x = np.array(x)

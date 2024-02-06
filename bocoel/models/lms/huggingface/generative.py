@@ -51,7 +51,7 @@ class HuggingfaceGenerativeLM(GenerativeModel):
         return self
 
     def _generate_batch(self, prompts: Sequence[str]) -> list[str]:
-        inputs = self._tokenizer.tokenize(prompts)
+        inputs = self._tokenizer(prompts)
         outputs = self._model.generate(**inputs)
         outputs = self._tokenizer.batch_decode(outputs)
         return outputs
