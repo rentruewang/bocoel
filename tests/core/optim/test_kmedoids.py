@@ -26,7 +26,7 @@ from . import factories
 )
 def test_init_optimizer(device: str, score: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    lm = lm_factories.logits_lm(device=device)
+    lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
 
     _ = factories.kmedoids_optim(corpus, lm, adaptor)
@@ -49,7 +49,7 @@ def test_init_optimizer(device: str, score: str) -> None:
 )
 def test_optimize(device: str, score: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    lm = lm_factories.logits_lm(device=device)
+    lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
     optimizer = factories.kmedoids_optim(corpus, lm, adaptor)
 

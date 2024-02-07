@@ -10,7 +10,7 @@ def logging_level() -> int:
 
     try:
         return int(LOGGING_LEVEL)
-    except:
+    except ValueError:
         # Match the text to the supported logging levels below.
         pass
 

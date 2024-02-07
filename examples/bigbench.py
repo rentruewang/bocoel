@@ -20,6 +20,7 @@ from bocoel import (
     DatasetsStorage,
     Distance,
     HnswlibIndex,
+    HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
     SbertEmbedder,
     WhiteningIndex,
@@ -101,14 +102,6 @@ def main(
     # ------------------------
     # The model part
 
-    LOGGER.info("Creating LM with model", model=llm_model, device=device)
-    lm = HuggingfaceLogitsLM(
-        model_path=llm_model,
-        device=device,
-        batch_size=batch_size,
-        choices=[str(i) for i in range(1, 100 + 1)],
-    )
-
     LOGGER.info(
         "Creating adaptor with arguments",
         inputs=inputs,
@@ -118,12 +111,14 @@ def main(
         metric=metric,
     )
     adaptor = bigbench_adaptor(
-        lm=lm,
+        llm_model=llm_model,
         inputs=inputs,
         multiple_choice_targets=multiple_choice_targets,
         multiple_choice_scores=multiple_choice_scores,
         targets=targets,
         metric=metric,
+        device=device,
+        batch_size=batch_size,
     )
 
     # ------------------------
@@ -132,7 +127,7 @@ def main(
     LOGGER.info(
         "Creating optimizer with arguments",
         corpus=corpus,
-        lm=lm,
+        lm=llm_model,
         adaptor=adaptor,
         sobol_steps=sobol_steps,
         device=device,
@@ -156,13 +151,17 @@ def main(
 
 
 def bigbench_adaptor(
-    lm: HuggingfaceLogitsLM,
+    llm_model: str,
     inputs: str,
     multiple_choice_targets: str,
     multiple_choice_scores: str,
     targets: str,
     metric: str,
+    device: str,
+    batch_size: int,
 ) -> BigBenchMultipleChoice | BigBenchQuestionAnswer:
+    LOGGER.info("Creating LM with model", model=llm_model, device=device)
+
     if metric not in _QUESTION_ANSWER + _MULTIPLE_CHOICE:
         raise ValueError(
             f"Metric must be one of {_QUESTION_ANSWER + _MULTIPLE_CHOICE}, got {metric}."
@@ -170,16 +169,30 @@ def bigbench_adaptor(
 
     multiple_choice = metric in _MULTIPLE_CHOICE
     if multiple_choice:
+        LOGGER.info("Creating multiple choice adaptor")
+        logits_lm = HuggingfaceLogitsLM(
+            model_path=llm_model,
+            device=device,
+            batch_size=batch_size,
+            choices=[str(i) for i in range(1, 100 + 1)],
+        )
+
         return BigBenchMultipleChoice(
-            lm=lm,
+            lm=logits_lm,
             inputs=inputs,
             multiple_choice_targets=multiple_choice_targets,
             multiple_choice_scores=multiple_choice_scores,
             choice_type=BigBenchChoiceType.lookup(metric),
         )
     else:
+        LOGGER.info("Creating question answer adaptor")
+        generative_lm = HuggingfaceGenerativeLM(
+            model_path=llm_model, device=device, batch_size=batch_size
+        )
+        LOGGER.info("Creating LM with model", model=llm_model, device=device)
+
         return BigBenchQuestionAnswer(
-            lm=lm,
+            lm=generative_lm,
             inputs=inputs,
             targets=targets,
             matching_type=BigBenchMatchType.lookup(metric),

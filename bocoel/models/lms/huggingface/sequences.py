@@ -2,7 +2,6 @@ from collections.abc import Sequence
 
 import torch
 from numpy.typing import NDArray
-from transformers import AutoModelForSequenceClassification
 
 from bocoel.models.lms.interfaces import ClassifierModel
 
@@ -10,12 +9,19 @@ from .tokenizers import HuggingfaceTokenizer
 
 
 class HuggingfaceSequenceLM(ClassifierModel):
+    """
+    The sequence classification model backed by huggingface's transformers library.
+    """
+
     def __init__(
         self,
         model_path: str,
         device: str,
         choices: Sequence[str],
     ) -> None:
+        # Optional dependency
+        from transformers import AutoModelForSequenceClassification
+
         self._model_path = model_path
         self._tokenizer = HuggingfaceTokenizer(model_path=model_path, device=device)
 

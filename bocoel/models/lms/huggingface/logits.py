@@ -5,12 +5,12 @@ from numpy.typing import NDArray
 
 from bocoel.models.lms.interfaces import ClassifierModel
 
-from .generative import HuggingfaceGenerativeLM
+from .causal import HuggingfaceCausalLM
 
 
-class HuggingfaceLogitsLM(HuggingfaceGenerativeLM, ClassifierModel):
+class HuggingfaceLogitsLM(HuggingfaceCausalLM, ClassifierModel):
     """
-    The Huggingface implementation of LanguageModel that uses logits in classification.
+    Logits classification model backed by huggingface's transformers library.
     This means that the model would use the logits of ['1', '2', '3', '4', '5'] as the output,
     if `choices = 5`, for the current batch of inputs.
     """
@@ -22,7 +22,7 @@ class HuggingfaceLogitsLM(HuggingfaceGenerativeLM, ClassifierModel):
         device: str,
         choices: Sequence[str],
     ) -> None:
-        super().__init__(model_path, batch_size, device=device)
+        super().__init__(model_path=model_path, batch_size=batch_size, device=device)
 
         self._choices = choices
         self._encoded_choices = self._encode_tokens(self._choices)
