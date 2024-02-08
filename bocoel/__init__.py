@@ -61,6 +61,7 @@ from .models import (
     ExactMatch,
     GenerativeModel,
     GlueAdaptor,
+    HuggingfaceCausalLM,
     HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,

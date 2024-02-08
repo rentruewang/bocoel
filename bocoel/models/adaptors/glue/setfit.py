@@ -108,7 +108,7 @@ class GlueAdaptor(Adaptor):
 
         # Perform checks for supported kinds of splits.
         match split:
-            case "train", "validation", "test":
+            case "train" | "validation" | "test":
                 pass
             case _:
                 raise ValueError(f"Unknown split {split}")

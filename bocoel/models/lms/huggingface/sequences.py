@@ -18,12 +18,15 @@ class HuggingfaceSequenceLM(ClassifierModel):
         model_path: str,
         device: str,
         choices: Sequence[str],
+        add_sep_token: bool = False,
     ) -> None:
         # Optional dependency
         from transformers import AutoModelForSequenceClassification
 
         self._model_path = model_path
-        self._tokenizer = HuggingfaceTokenizer(model_path=model_path, device=device)
+        self._tokenizer = HuggingfaceTokenizer(
+            model_path=model_path, device=device, add_sep_token=add_sep_token
+        )
 
         self._choices = choices
 

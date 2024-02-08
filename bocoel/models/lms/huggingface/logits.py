@@ -21,8 +21,23 @@ class HuggingfaceLogitsLM(HuggingfaceCausalLM, ClassifierModel):
         batch_size: int,
         device: str,
         choices: Sequence[str],
+        add_sep_token: bool = False,
     ) -> None:
-        super().__init__(model_path=model_path, batch_size=batch_size, device=device)
+        """
+        Parameters:
+            model_path: The path to the model.
+            batch_size: The batch size to use.
+            device: The device to use.
+            choices: The choices to classify.
+            add_sep_token: Whether to add the sep token.
+        """
+
+        super().__init__(
+            model_path=model_path,
+            batch_size=batch_size,
+            device=device,
+            add_sep_token=add_sep_token,
+        )
 
         self._choices = choices
         self._encoded_choices = self._encode_tokens(self._choices)

@@ -1,5 +1,7 @@
+import hashlib
 import logging
 import math
+import os
 import pickle
 from collections.abc import Sequence
 from pathlib import Path
@@ -55,7 +57,7 @@ def main(
         "SetFit/qqp",
         "SetFit/sst2",
     ] = "SST2",
-    ds_split: Literal["train", "validation", "test"] = "train",
+    ds_split: Literal["train", "validation", "test"] = "validation",
     llm_model: str = "textattack/roberta-base-SST-2",
     batch_size: int = 16,
     index_name: Literal["hnswlib", "polar", "whitening"] = "hnswlib",
@@ -68,29 +70,40 @@ def main(
     task: str = "EXPLORE",
     classification: Literal["logits", "seq"] = "seq",
     optimizer: Literal["ax", "kmeans", "kmedoids", "random", "brute"] = "ax",
-    corpus_cache_path: str | Path = "corpus.pickle",
-    embedders: Sequence[str] = tuple(
-        [
-            # "textattack/bert-base-uncased-SST-2",
-            #   "textattack/roberta-base-SST-2",
-            #   "textattack/albert-base-v2-SST-2",
-            #   "textattack/xlnet-large-cased-SST-2",
-            #   "textattack/xlnet-base-cased-SST-2",
-            #   "textattack/facebook-bart-large-SST-2",
-            #   "textattack/distilbert-base-uncased-SST-2",
-            "textattack/distilbert-base-cased-SST-2"
-        ]
-    ),
+    corpus_cache_path: str | Path = "./cache/",
+    embedders: str = "textattack/bert-base-uncased-SST-2,textattack/distilbert-base-cased-SST-2",
+    # embedders: Sequence[str] = tuple(
+    #     [
+    #         # "textattack/bert-base-uncased-SST-2",
+    #         #   "textattack/roberta-base-SST-2",
+    #         #   "textattack/albert-base-v2-SST-2",
+    #         #   "textattack/xlnet-large-cased-SST-2",
+    #         #   "textattack/xlnet-base-cased-SST-2",
+    #         #   "textattack/facebook-bart-large-SST-2",
+    #         #   "textattack/distilbert-base-uncased-SST-2",
+    #         "textattack/distilbert-base-cased-SST-2"
+    #     ]
+    # ),
     manager_path: str = "results",
 ) -> None:
     # The corpus part
 
     sentence, label = sentence_label(ds_path)
-    corpus_cache_path = Path(corpus_cache_path)
+    # hash the task and models in the embedders, into a unique string name
+    embedders_list = embedders.split(",")
+    unique_name = hashlib.md5(
+        f"{ds_path}-{ds_split}-{index_name}-{','.join(embedders_list)}".encode("utf-8")
+    ).hexdigest()
+    LOGGER.info(
+        "Unique name for the task and models",
+        unique_name=f"{ds_path}-{ds_split}-{','.join(embedders_list)}",
+    )
+    corpus_cache_path = Path(os.path.join(corpus_cache_path, unique_name))
     corpus: ComposedCorpus
-    embedder = ensemble_embedder(batch_size=batch_size, embedders=embedders)
+    embedder = ensemble_embedder(batch_size=batch_size, embedders=embedders_list)
 
     if corpus_cache_path.exists():
+        LOGGER.info("Loading corpus from cache", path=corpus_cache_path)
         with open(corpus_cache_path, "rb") as f:
             corpus = pickle.load(f)
     else:

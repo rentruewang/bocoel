@@ -10,11 +10,12 @@ class HuggingfaceTokenizer:
     A tokenizer for Huggingface models.
     """
 
-    def __init__(self, model_path: str, device: str) -> None:
+    def __init__(self, model_path: str, device: str, add_sep_token: bool) -> None:
         """
         Parameters:
             model_path: The path to the model.
             device: The device to use.
+            add_sep_token: Whether to add the sep token.
 
         Raises:
             ImportError: If the transformers library is not installed.
@@ -27,13 +28,16 @@ class HuggingfaceTokenizer:
         self._tokenizer = AutoTokenizer.from_pretrained(
             model_path, padding_side="left", truncation_side="left"
         )
+
+        # Always add the pad token.
         if (eos := self._tokenizer.eos_token) is not None:
             self._tokenizer.pad_token = eos
         else:
             self._tokenizer.add_special_tokens({"pad_token": "[PAD]"})
 
-        if self._tokenizer.sep_token is None:
-            self._tokenizer.add_special_tokens({"sep_token": "[SEP]"})
+        if add_sep_token:
+            if self._tokenizer.sep_token is None:
+                self._tokenizer.add_special_tokens({"sep_token": "[SEP]"})
 
         self._device = device
 
@@ -47,7 +51,7 @@ class HuggingfaceTokenizer:
         self._device = device
         return self
 
-    def tokenize(self, prompts: Sequence[str], /):
+    def tokenize(self, prompts: Sequence[str], /, max_length: int | None = None):
         """
         Tokenize, pad, truncate, cast to device, and yield the encoded results.
         Returning `BatchEncoding` but not marked in the type hint
@@ -63,13 +67,17 @@ class HuggingfaceTokenizer:
             prompts = list(prompts)
 
         inputs = self._tokenizer(
-            prompts, return_tensors="pt", padding=True, truncation=True
+            prompts,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=max_length,
         )
         return inputs.to(self.device)
 
     @functools.wraps(tokenize)
-    def __call__(self, prompts: Sequence[str], /):
-        return self.tokenize(prompts)
+    def __call__(self, prompts: Sequence[str], /, max_length: int | None = None):
+        return self.tokenize(prompts, max_length=max_length)
 
     def encode(
         self,

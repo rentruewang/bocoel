@@ -103,4 +103,14 @@ Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, pl
 
 The code is available under [Apache License](./LICENSE.md).
 
-TODO: Citation
+If you find this project helpful in your research, please consider citing it at
+
+```
+@misc{bocoel2024,
+    title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
+    url = {http://rentruewang.github.io/bocoel/research/},
+    author = {Wang, RenChu and Chuang, Yung-Sung},
+    month = {Feburary},
+    year = {2024}
+}
+```

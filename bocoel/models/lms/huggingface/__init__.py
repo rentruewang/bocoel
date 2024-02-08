@@ -1,3 +1,4 @@
+from .causal import HuggingfaceCausalLM
 from .generative import HuggingfaceGenerativeLM
 from .logits import HuggingfaceLogitsLM
 from .sequences import HuggingfaceSequenceLM

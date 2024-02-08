@@ -10,14 +10,30 @@ class HuggingfaceCausalLM(metaclass=ABCMeta):
     The Huggingface implementation of LanguageModel.
     This is a wrapper around the Huggingface library,
     which would try to pull the model from the huggingface hub.
+
+    FIXME:
+        `add_sep_token` might cause huggingface to bug out with index out of range.
+        Still unclear how this might occur as `[SEP]` is a special token.
     """
 
-    def __init__(self, model_path: str, batch_size: int, device: str) -> None:
+    def __init__(
+        self, model_path: str, batch_size: int, device: str, add_sep_token: bool = False
+    ) -> None:
+        """
+        Parameters:
+            model_path: The path to the model.
+            batch_size: The batch size to use.
+            device: The device to use.
+            add_sep_token: Whether to add the sep token.
+        """
+
         # Optional dependency.
         from transformers import AutoModelForCausalLM
 
         self._model_path = model_path
-        self._tokenizer = HuggingfaceTokenizer(model_path=model_path, device=device)
+        self._tokenizer = HuggingfaceTokenizer(
+            model_path=model_path, device=device, add_sep_token=add_sep_token
+        )
 
         # Model used for generation
         self._model = AutoModelForCausalLM.from_pretrained(model_path)

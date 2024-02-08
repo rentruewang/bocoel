@@ -1,5 +1,6 @@
 import datetime as dt
 import hashlib
+import itertools
 from collections import OrderedDict
 from collections.abc import Generator, Mapping
 from pathlib import Path
@@ -162,11 +163,10 @@ class Manager:
     ) -> Generator[Mapping[int, float], None, None]:
         "Launches the optimizer as a generator."
 
-        steps_left = float(steps) if steps is not None else float("inf")
+        steps_range = range(steps) if steps is not None else itertools.count()
 
         with ap.alive_bar(total=steps, title="optimizing") as bar:
-            # Using a while loop because of the potential of having infinite steps.
-            while (steps_left := steps_left - 1) > 0:
+            for _ in steps_range:
                 bar()
 
                 # Raises StopIteration (converted to RuntimError per PEP 479) if done.

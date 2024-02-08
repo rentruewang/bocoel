@@ -15,6 +15,7 @@ They are being evaluated in this project.
 """
 
 from .huggingface import (
+    HuggingfaceCausalLM,
     HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,

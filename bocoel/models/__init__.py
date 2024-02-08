@@ -11,6 +11,7 @@ from .adaptors import (
 from .lms import (
     ClassifierModel,
     GenerativeModel,
+    HuggingfaceCausalLM,
     HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,
