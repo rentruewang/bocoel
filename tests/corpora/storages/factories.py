@@ -12,18 +12,22 @@ def df() -> DataFrame:
             {
                 "question": "hello is anyone home?",
                 "answer": ["no"],
+                "answer_id": 1,
             },
             {
                 "question": "what's up?",
                 "answer": ["not much"],
+                "answer_id": 0,
             },
             {
                 "question": "who is the most handsome man in the world?",
                 "answer": ["it's you, renchu wang"],
+                "answer_id": 0,
             },
             {
                 "question": "a vastly different question",
                 "answer": ["a vastly different answer"],
+                "answer_id": 1,
             },
         ]
     )

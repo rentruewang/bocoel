@@ -22,12 +22,12 @@ from . import factories
         "exact-match",
     ],
 )
-def test_adaptor_on_corpus(adaptor_name: str, device: str) -> None:
+def test_bigbench_adaptor_on_corpus(adaptor_name: str, device: str) -> None:
     corpus = corpus_factories.corpus(device=device)
-    lm = lm_factories.lm(device=device)
-    ev = factories.bigbench_adaptor(adaptor_name)
+    lm = lm_factories.generative_lm(device=device)
+    ev = factories.bigbench_adaptor(adaptor_name, lm=lm)
 
-    results = ev.on_corpus(corpus=corpus, lm=lm, indices=[0, 1])
+    results = ev.on_corpus(corpus=corpus, indices=[0, 1])
     assert len(results) == 2
 
     assert all(0 <= r <= 1 for r in results), {"results": results, "corpus": corpus}
