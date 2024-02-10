@@ -103,7 +103,7 @@ Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, pl
 
 The code is available under [Apache License](./LICENSE.md).
 
-If you find this project helpful in your research, please consider citing it at
+If you find this project helpful in your research, please cite this work at
 
 ```
 @misc{bocoel2024,

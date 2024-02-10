@@ -43,7 +43,11 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         self.multiple_choice_targets = multiple_choice_targets
         self.multiple_choice_scores = multiple_choice_scores
 
-        self._score_fn = BigBenchChoiceType.lookup(choice_type).score
+        self._choice_type = BigBenchChoiceType.lookup(choice_type)
+        self._score_fn = self._choice_type.score
+
+    def __repr__(self) -> str:
+        return f"BigBenchMC({self.lm}, {self.inputs}, {self.multiple_choice_targets}, {self.multiple_choice_scores}, {self._choice_type})"
 
     def evaluate(self, data: Mapping[str, Any]) -> Sequence[float] | NDArray:
         # Get data.

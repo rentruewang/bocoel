@@ -45,7 +45,7 @@ class DatasetsStorage(Storage):
 
     @classmethod
     def load(cls, path: str, name: str | None = None, split: str | None = None) -> Self:
-        ds = datasets.load_dataset(path=path, name=name)
+        ds = datasets.load_dataset(path=path, name=name, trust_remote_code=True)
 
         if split:
             if not isinstance(ds, DatasetDict):

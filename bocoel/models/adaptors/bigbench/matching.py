@@ -68,7 +68,11 @@ class BigBenchQuestionAnswer(BigBenchAdaptor):
         self.inputs = inputs
         self.targets = targets
 
-        self._score_fn = BigBenchMatchType.lookup(matching_type).score
+        self._matching_type = BigBenchMatchType.lookup(matching_type)
+        self._score_fn = self._matching_type.score
+
+    def __repr__(self) -> str:
+        return f"BigBenchQA({self.lm}, {self.inputs}, {self.targets}, {self._matching_type})"
 
     def evaluate(self, data: Mapping[str, Sequence[Any]]) -> Sequence[float] | NDArray:
         # Get data.

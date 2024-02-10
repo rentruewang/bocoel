@@ -1,8 +1,9 @@
 import logging
+import pickle
 from collections.abc import Sequence
+from pathlib import Path
 from typing import Literal
 
-import datasets
 import fire
 import structlog
 from tqdm import tqdm
@@ -18,13 +19,11 @@ from bocoel import (
     ComposedCorpus,
     ConcatStorage,
     DatasetsStorage,
-    Distance,
-    HnswlibIndex,
     HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
-    SbertEmbedder,
-    WhiteningIndex,
 )
+
+from . import common
 
 structlog.configure(
     wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
@@ -38,20 +37,21 @@ def main(
     ds_path: str = "bigbench",
     ds_names: Sequence[str] | Literal["all"] = ("abstract_narrative_understanding",),
     ds_split: str = "default",
-    inputs: str = "inputs",
-    multiple_choice_targets: str = "multiple_choice_targets",
-    multiple_choice_scores: str = "multiple_choice_scores",
-    targets: str = "targets",
+    index_name: Literal["hnswlib", "polar", "whitening"] = "hnswlib",
     sbert_model: str = "all-mpnet-base-v2",
     llm_model: str = "distilgpt2",
     batch_size: int = 16,
     device: str = "cpu",
     sobol_steps: int = 20,
     index_threads: int = 8,
+    optimizer: Literal["ax", "kmeans", "kmedoids", "random", "brute"],
     optimizer_steps: int = 30,
     reduced_dim: int = 16,
     metric: str,
+    task: str = "EXPLORE",
     acqf: str = "ENTROPY",
+    embedders: str = "textattack/bert-base-uncased-SST-2,textattack/distilbert-base-cased-SST-2",
+    corpus_cache_path: str | Path = "./cache/",
 ) -> None:
     # The corpus part
     if ds_names == "all":
@@ -63,23 +63,15 @@ def main(
     LOGGER.info("Loading datasets...", ds_list=ds_names)
 
     dataset_list: list[DatasetsStorage] = []
-    for dataset_to_load in tqdm(ds_names):
-        LOGGER.debug("Loading...", ds=dataset_to_load)
-        dataset_dict = datasets.load_dataset(
-            path=ds_path, name=dataset_to_load, trust_remote_code=True
-        )
-        dataset = dataset_dict[ds_split]
-        dataset_list.append(DatasetsStorage(dataset))
+    for ds_name in tqdm(ds_names):
+        LOGGER.debug("Loading...", path=ds_path, name=ds_name, split=ds_split)
+        dataset = DatasetsStorage.load(path=ds_path, name=ds_name, split=ds_split)
+        dataset_list.append(dataset)
 
     storage = ConcatStorage.join(dataset_list)
 
-    LOGGER.info(
-        "Creating embedder",
-        model=sbert_model,
-        device=device,
-    )
-    embedder = SbertEmbedder(
-        model_name=sbert_model, device=device, batch_size=batch_size
+    embedder = common.ensemble_embedder(
+        embedders=embedders.split(","), batch_size=batch_size
     )
 
     LOGGER.info(
@@ -88,34 +80,36 @@ def main(
         embedder=embedder,
         device=device,
     )
-    corpus = ComposedCorpus.index_storage(
-        storage=storage,
-        embedder=embedder,
-        keys=[inputs],
-        index_backend=WhiteningIndex,
-        distance=Distance.INNER_PRODUCT,
-        reduced=reduced_dim,
-        whitening_backend=HnswlibIndex,
-        threads=index_threads,
-    )
+
+    corpus_cache_path = Path(corpus_cache_path)
+    corpus: ComposedCorpus
+    if corpus_cache_path.exists():
+        LOGGER.info("Loading corpus from cache", path=corpus_cache_path)
+        with open(corpus_cache_path, "rb") as f:
+            corpus = pickle.load(f)
+    else:
+        corpus = common.composed_corpus(
+            batch_size=batch_size,
+            storage=storage,
+            device=device,
+            index_name=index_name,
+            index_threads=index_threads,
+            reduced=reduced_dim,
+            sentence="inputs",
+            embedder=embedder,
+        )
+        with open(corpus_cache_path, "wb") as f:
+            pickle.dump(corpus, f)
 
     # ------------------------
     # The model part
 
     LOGGER.info(
         "Creating adaptor with arguments",
-        inputs=inputs,
-        targets=targets,
-        multiple_choice_targets=multiple_choice_targets,
-        multiple_choice_scores=multiple_choice_scores,
         metric=metric,
     )
     adaptor = bigbench_adaptor(
         llm_model=llm_model,
-        inputs=inputs,
-        multiple_choice_targets=multiple_choice_targets,
-        multiple_choice_scores=multiple_choice_scores,
-        targets=targets,
         metric=metric,
         device=device,
         batch_size=batch_size,
@@ -133,15 +127,18 @@ def main(
         device=device,
         acqf=acqf,
     )
-    optim = bocoel.evaluate_corpus(
-        AxServiceOptimizer,
+
+    optim, optimizer_steps = common.optimizer_and_steps(
+        optimizer=optimizer,
+        optimizer_steps=optimizer_steps,
         corpus=corpus,
         adaptor=adaptor,
         sobol_steps=sobol_steps,
         device=device,
-        acqf=AcquisitionFunc.lookup(acqf),
+        task=task,
+        acqf=acqf,
+        batch_size=batch_size,
     )
-
     for i in tqdm(range(optimizer_steps)):
         try:
             state = optim.step()
@@ -151,14 +148,7 @@ def main(
 
 
 def bigbench_adaptor(
-    llm_model: str,
-    inputs: str,
-    multiple_choice_targets: str,
-    multiple_choice_scores: str,
-    targets: str,
-    metric: str,
-    device: str,
-    batch_size: int,
+    llm_model: str, metric: str, device: str, batch_size: int
 ) -> BigBenchMultipleChoice | BigBenchQuestionAnswer:
     LOGGER.info("Creating LM with model", model=llm_model, device=device)
 
@@ -178,11 +168,7 @@ def bigbench_adaptor(
         )
 
         return BigBenchMultipleChoice(
-            lm=logits_lm,
-            inputs=inputs,
-            multiple_choice_targets=multiple_choice_targets,
-            multiple_choice_scores=multiple_choice_scores,
-            choice_type=BigBenchChoiceType.lookup(metric),
+            lm=logits_lm, choice_type=BigBenchChoiceType.lookup(metric)
         )
     else:
         LOGGER.info("Creating question answer adaptor")
@@ -192,10 +178,7 @@ def bigbench_adaptor(
         LOGGER.info("Creating LM with model", model=llm_model, device=device)
 
         return BigBenchQuestionAnswer(
-            lm=generative_lm,
-            inputs=inputs,
-            targets=targets,
-            matching_type=BigBenchMatchType.lookup(metric),
+            lm=generative_lm, matching_type=BigBenchMatchType.lookup(metric)
         )
 
 
