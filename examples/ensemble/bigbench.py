@@ -8,10 +8,7 @@ import fire
 import structlog
 from tqdm import tqdm
 
-import bocoel
 from bocoel import (
-    AcquisitionFunc,
-    AxServiceOptimizer,
     BigBenchChoiceType,
     BigBenchMatchType,
     BigBenchMultipleChoice,
