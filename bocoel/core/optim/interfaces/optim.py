@@ -2,13 +2,11 @@ import abc
 from collections.abc import Mapping
 from typing import Any, Protocol
 
+from bocoel import common
 from bocoel.core.tasks import Task
 from bocoel.corpora import Boundary
 
 from .evals import QueryEvaluator
-
-_VERSION_KEY = "version"
-_OPTIMIZER_KEY = "optimizer"
 
 
 class Optimizer(Protocol):
@@ -19,7 +17,8 @@ class Optimizer(Protocol):
         ...
 
     def __repr__(self) -> str:
-        return f"{type(self).__name__}()"
+        name = common.remove_base_suffix(self, Optimizer)
+        return f"{name}()"
 
     @property
     @abc.abstractmethod
@@ -29,6 +28,9 @@ class Optimizer(Protocol):
     def step(self) -> Mapping[int, float]:
         """
         Perform a single step of optimization.
+        This is a shortcut into the optimization process.
+        For methods that evaluate the entire search at once,
+        this method would output the slices of the entire search.
 
         Returns:
             A mapping of step indices to the corresponding scores.

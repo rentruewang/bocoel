@@ -13,20 +13,8 @@ from bocoel.core.optim import Optimizer
 from bocoel.corpora import Corpus, Embedder
 from bocoel.models import Adaptor, ClassifierModel, GenerativeModel
 
+from . import columns
 from .examinators import Examinator
-
-DATETIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
-META_DATA = "metadata.json"
-
-TIME = "time"
-MD5 = "md5"
-
-INDEX = "index"
-STORAGE = "storage"
-EMBEDDER = "embedder"
-OPTIMIZER = "optimizer"
-MODEL = "model"
-ADAPTOR = "adaptor"
 
 
 class Manager:
@@ -146,14 +134,14 @@ class Manager:
         def assign(column: str, data: str) -> None:
             df[column] = [data] * len(df)
 
-        assign(OPTIMIZER, str(optimizer))
-        assign(MODEL, str(model))
-        assign(ADAPTOR, str(adaptor))
-        assign(INDEX, str(corpus.index.index))
-        assign(STORAGE, str(corpus.storage))
-        assign(EMBEDDER, str(embedder))
-        assign(TIME, self._start)
-        assign(MD5, md5)
+        assign(columns.OPTIMIZER, str(optimizer))
+        assign(columns.MODEL, str(model))
+        assign(columns.ADAPTOR, str(adaptor))
+        assign(columns.INDEX, str(corpus.index.index))
+        assign(columns.STORAGE, str(corpus.storage))
+        assign(columns.EMBEDDER, str(embedder))
+        assign(columns.TIME, self._start)
+        assign(columns.MD5, md5)
 
         return md5, df
 
@@ -241,4 +229,4 @@ class Manager:
 
     @staticmethod
     def current() -> str:
-        return dt.datetime.now().strftime(DATETIME_FORMAT)
+        return dt.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")

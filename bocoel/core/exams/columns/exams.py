@@ -1,0 +1,8 @@
+ORIGINAL = "original"
+STEP_IDX = "step_idx"
+ACC_MIN = "acc_min"
+ACC_MAX = "acc_max"
+ACC_AVG = "acc_avg"
+MST_MAX_EDGE_QUERY = "mst_max_edge_query"
+MST_MAX_EDGE_DATA = "mst_max_edge_data"
+SEGREGATION = "segregation"
