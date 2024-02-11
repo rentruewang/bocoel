@@ -57,8 +57,12 @@ cma = [
 sklearn-extra = [
     "scikit-learn-extra>=0.3.0",
 ]
+plots = [
+    "matplotlib>=3.8.2",
+    "seaborn>=0.13.2",
+]
 all = [
-    "bocoel[cma,datasets,index,metrics,sklearn-extra,transformers,visual]",
+    "bocoel[cma,datasets,index,metrics,plots,sklearn-extra,transformers,visual]",
 ]
 
 [build-system]

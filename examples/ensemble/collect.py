@@ -2,6 +2,8 @@ import itertools
 
 import fire
 import numpy as np
+import seaborn as sns
+from matplotlib import pyplot as plt
 from numpy.typing import NDArray
 from pandas import DataFrame
 from scipy import stats
@@ -13,6 +15,8 @@ from bocoel.core.exams import columns
 def main(
     *, path: str = "./results", ground_truth_optimizer: str = "BruteForce()"
 ) -> None:
+    sns.set()
+
     results = Manager.load(path)
     ref_emb = reference_embeddings(results, ground_truth_optimizer)
 
@@ -32,6 +36,25 @@ def main(
     results = results[results[columns.MD5].isin(latest_md5)]
 
     metrics = metric_by_storage_optimizer_steps(results, storages, optimizers, ref_emb)
+
+    # Plot results.
+    plotting_df = DataFrame(
+        [
+            {
+                "storage": storage,
+                "optimizer": optimizer,
+                "step": step,
+                "spearmanr": spearmanr,
+            }
+            for (storage, optimizer, step), spearmanr in metrics.items()
+            if optimizer != ground_truth_optimizer
+        ]
+    )
+
+    for store in storages:
+        data = plotting_df[plotting_df["storage"] == store]
+        sns.lineplot(data, x="step", y="spearmanr", hue="optimizer")
+        plt.show()
 
 
 def metric_by_storage_optimizer_steps(
