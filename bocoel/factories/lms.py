@@ -39,8 +39,8 @@ def generative(
     *,
     model_path: str,
     batch_size: int,
-    device: str,
-    add_sep_token: bool,
+    device: str = "auto",
+    add_sep_token: bool = False,
 ) -> GenerativeModel:
     """
     Create a generative model.
@@ -58,6 +58,8 @@ def generative(
     Raises:
         ValueError: If the name is unknown.
     """
+
+    device = common.auto_device(device)
 
     match GeneratorName.lookup(name):
         case GeneratorName.HUGGINGFACE_GENERATIVE:
@@ -77,10 +79,12 @@ def classifier(
     *,
     model_path: str,
     batch_size: int,
-    device: str,
     choices: Sequence[str],
-    add_sep_token: bool,
+    device: str = "auto",
+    add_sep_token: bool = False,
 ) -> ClassifierModel:
+    device = common.auto_device(device)
+
     match ClassifierName.lookup(name):
         case ClassifierName.HUGGINGFACE_LOGITS:
             return common.correct_kwargs(HuggingfaceLogitsLM)(

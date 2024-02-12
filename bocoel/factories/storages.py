@@ -1,7 +1,4 @@
-from collections.abc import Mapping, Sequence
-from typing import Any
-
-from bocoel import ConcatStorage, DatasetsStorage, PandasStorage, Storage
+from bocoel import DatasetsStorage, PandasStorage, Storage
 from bocoel.common import StrEnum
 
 from . import common
@@ -20,34 +17,8 @@ class StorageName(StrEnum):
 
 
 @common.correct_kwargs
-def storage(names: Sequence[str], /, configs: Sequence[Mapping[str, Any]]) -> Storage:
-    """
-    Create a storage.
-
-    Parameters:
-        names: The names of the storages.
-        configs: The configurations for the storages.
-
-    Returns:
-        The storage instance.
-
-    Raises:
-        ValueError: If the names and configs do not have the same length.
-        ValueError: If the storage is unknown.
-    """
-
-    if len(names) != len(configs):
-        raise ValueError("Names and configs must have the same length")
-
-    storages = [
-        _storage_factory_single(name, **config) for name, config in zip(names, configs)
-    ]
-
-    return ConcatStorage.join(storages)
-
-
-def _storage_factory_single(
-    storage: str | StorageName, /, *, path: str, name: str, split: str
+def storage(
+    storage: str | StorageName, /, *, path: str = "", name: str = "", split: str = ""
 ) -> Storage:
     """
     Create a single storage.

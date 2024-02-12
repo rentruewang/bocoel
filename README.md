@@ -79,10 +79,13 @@ Give me the full experience (all optional dependencies):
 pip install "bocoel[all]"
 ```
 
+## 🔬 Usage
+
+See the folder [examples/getting_started](https://github.com/rentruewang/bocoel/tree/main/examples/getting_started) for a simplistic usage of the library to get started with just a few lines of code.
 
 ## ✍️ Develop with BoCoEL
 
-Usage examples are under the folder [`examples`](./examples/). API reference can be found [here](https://rentruewang.github.io/bocoel/references/overview/).
+Usage examples are under the folder [`examples`](https://github.com/rentruewang/bocoel/tree/main/examples). API reference can be found [here](https://rentruewang.github.io/bocoel/references/overview/).
 
 
 ## 🥰 Contributing
@@ -108,9 +111,9 @@ If you find this project helpful in your research, please cite this work at
 ```
 @misc{bocoel2024,
     title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
-    url = {http://rentruewang.github.io/bocoel/research/},
+    url = {https://rentruewang.github.io/bocoel/research/},
     author = {Wang, RenChu and Chuang, Yung-Sung},
-    month = {Feburary},
+    month = {January},
     year = {2024}
 }
 ```

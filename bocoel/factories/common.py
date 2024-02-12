@@ -3,6 +3,8 @@ import inspect
 from collections.abc import Callable
 from typing import ParamSpec, TypeVar
 
+from torch import cuda
+
 P = ParamSpec("P")
 T = TypeVar("T")
 
@@ -33,3 +35,22 @@ def correct_kwargs(function: Callable[P, T]) -> Callable[P, T]:
         return result
 
     return wrapped
+
+
+def auto_device(device: str, /) -> str:
+    if cuda.is_available():
+        return "cuda" if device == "auto" else device
+    else:
+        return "cpu"
+
+
+def auto_device_list(device: str, num_models: int, /) -> list[str]:
+    device_count = cuda.device_count()
+
+    if device_count:
+        if device == "auto":
+            return [f"cuda:{i%device_count}" for i in range(num_models)]
+        else:
+            return [device] * num_models
+    else:
+        return ["cpu"] * num_models

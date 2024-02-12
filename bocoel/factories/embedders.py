@@ -1,5 +1,3 @@
-from torch import cuda
-
 from bocoel import Embedder, EnsembleEmbedder, HuggingfaceEmbedder, SbertEmbedder
 from bocoel.common import StrEnum
 
@@ -56,7 +54,9 @@ def embedder(
                 )
 
             return common.correct_kwargs(SbertEmbedder)(
-                model_name=model_name, device=auto_device(device), batch_size=batch_size
+                model_name=model_name,
+                device=common.auto_device(device),
+                batch_size=batch_size,
             )
         case EmbedderName.HUGGINGFACE:
             if not isinstance(model_name, str):
@@ -65,7 +65,9 @@ def embedder(
                     f"Got {model_name} instead."
                 )
             return common.correct_kwargs(HuggingfaceEmbedder)(
-                path=model_name, device=auto_device(device), batch_size=batch_size
+                path=model_name,
+                device=common.auto_device(device),
+                batch_size=batch_size,
             )
         case EmbedderName.HUGGINGFACE_ENSEMBLE:
             if not isinstance(model_name, list):
@@ -74,7 +76,7 @@ def embedder(
                     f"Got {model_name} instead."
                 )
 
-            device_list = auto_device_list(device, len(model_name))
+            device_list = common.auto_device_list(device, len(model_name))
             return common.correct_kwargs(EnsembleEmbedder)(
                 [
                     HuggingfaceEmbedder(path=model, device=dev, batch_size=batch_size)
@@ -83,22 +85,3 @@ def embedder(
             )
         case _:
             raise ValueError(f"Unknown embedder name: {name}")
-
-
-def auto_device(device: str) -> str:
-    if cuda.is_available():
-        return "cuda" if device == "auto" else device
-    else:
-        return "cpu"
-
-
-def auto_device_list(device: str, num_models: int) -> list[str]:
-    device_count = cuda.device_count()
-
-    if device_count:
-        if device == "auto":
-            return [f"cuda:{i%device_count}" for i in range(num_models)]
-        else:
-            return [device] * num_models
-    else:
-        return ["cpu"] * num_models

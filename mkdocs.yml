@@ -65,6 +65,7 @@ nav:
     - Research: research.md
   - Reference:
     - references/overview.md
+    - references/factories.md
     - references/storages.md
     - references/indices.md
     - references/embedders.md

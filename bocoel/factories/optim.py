@@ -22,7 +22,7 @@ class OptimizerName(StrEnum):
     The names of the optimizers.
     """
 
-    AX_SERVICE = "AX_SERVICE"
+    BAYESIAN = "BAYESIAN"
     "Corresponds to `AxServiceOptimizer`."
 
     KMEANS = "KMEANS"
@@ -66,7 +66,7 @@ def optimizer(
     klass: type[Optimizer]
 
     match name:
-        case OptimizerName.AX_SERVICE:
+        case OptimizerName.BAYESIAN:
             klass = AxServiceOptimizer
         case OptimizerName.KMEANS:
             klass = KMeansOptimizer
