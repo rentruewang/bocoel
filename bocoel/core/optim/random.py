@@ -14,6 +14,10 @@ LOGGER = structlog.get_logger()
 
 
 class RandomOptimizer(Optimizer):
+    """
+    The random optimizer that uses random search.
+    """
+
     def __init__(
         self,
         query_eval: QueryEvaluator,
@@ -22,6 +26,14 @@ class RandomOptimizer(Optimizer):
         samples: int,
         batch_size: int,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            samples: The number of samples to use for the optimization.
+            batch_size: The number of samples to evaluate at once.
+        """
+
         LOGGER.info("Instantiating RandomOptimizer", samples=samples)
 
         self._query_eval = query_eval

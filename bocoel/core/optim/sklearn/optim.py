@@ -13,6 +13,10 @@ from bocoel.corpora import Boundary
 
 
 class ScikitLearnCluster(Protocol):
+    """
+    The protocol for clustering models in scikit-learn.
+    """
+
     cluster_centers_: NDArray
 
     @abc.abstractmethod
@@ -33,6 +37,14 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
         model: ScikitLearnCluster,
         batch_size: int,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            model: The model to use for the optimization.
+            batch_size: The number of embeddings to evaluate at once.
+        """
+
         self._query_eval = query_eval
         self._boundary = boundary
 

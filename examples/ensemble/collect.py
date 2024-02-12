@@ -2,6 +2,7 @@ import itertools
 
 import fire
 import numpy as np
+import parse
 import seaborn as sns
 from matplotlib import pyplot as plt
 from numpy.typing import NDArray
@@ -12,10 +13,17 @@ from bocoel import Manager
 from bocoel.core.exams import columns
 
 
+def default_non_inc_opt() -> list[str]:
+    return ["Kmeans({})", "KMedoids({})"]
+
+
 def main(
-    *, path: str = "./results", ground_truth_optimizer: str = "BruteForce()"
+    *,
+    path: str = "./results",
+    ground_truth_optimizer: str = "BruteForce()",
+    non_incremental_optimizers: list[str] = default_non_inc_opt(),
 ) -> None:
-    sns.set()
+    sns.set_theme()
 
     results = Manager.load(path)
     ref_emb = reference_embeddings(results, ground_truth_optimizer)
@@ -26,7 +34,7 @@ def main(
 
     if len(storages) != len(ref_emb):
         raise ValueError(
-            f"Expected {len(models)} models, got {len(ref_emb)} references."
+            f"Expected {len(storages)} storages, got {len(ref_emb)} references."
         )
 
     # Filter only the latest runs.
@@ -36,6 +44,9 @@ def main(
     results = results[results[columns.MD5].isin(latest_md5)]
 
     metrics = metric_by_storage_optimizer_steps(results, storages, optimizers, ref_emb)
+
+    # Collect the optimizer where only the last step is used together into a single run.
+    metrics = collect_non_incremental(metrics, non_incremental_optimizers)
 
     # Plot results.
     plotting_df = DataFrame(
@@ -57,12 +68,67 @@ def main(
         plt.show()
 
 
+def collect_non_incremental(
+    metrics: dict[tuple[str, str, int], float], non_incremental_optimizers: list[str]
+) -> dict[tuple[str, str, int], float]:
+    """
+    Colllect the optimizers where only the last step makes sense (and is run multiple times).
+    """
+
+    # Mapping from the matched items to the tuple of count, template.
+    matched: dict[str, tuple[int, str]] = {}
+
+    for _, optimizer, step in metrics.keys():
+        for nio in non_incremental_optimizers:
+            # Skip if unmatched.
+            if parse.parse(nio, optimizer) is None:
+                continue
+
+            # Previously matched. Preverse the larger count.
+            # Skip if step isn't as large as the previously encountered.
+            if optimizer in matched:
+                prev_step, _ = matched[optimizer]
+
+                if step < prev_step:
+                    continue
+
+            # Matched.
+            matched[optimizer] = step, nio
+
+    results: dict[tuple[str, str, int], float] = {}
+    for (store, optimizer, step), value in metrics.items():
+        # Prevoiusly matched against the template.
+        if optimizer in matched:
+            matched_step, template = matched[optimizer]
+
+            # Only update if the step matches (largest one).
+            if step == matched_step:
+                results[store, template, step] = value
+        else:
+            results[store, optimizer, step] = value
+
+    return results
+
+
 def metric_by_storage_optimizer_steps(
     results: DataFrame,
     storages: list[str],
     optimizers: list[str],
     ref_emb: dict[str, NDArray],
 ) -> dict[tuple[str, str, int], float]:
+    """
+    Calculate the Spearman's R metric for each storage, optimizer and step.
+
+    Parameters:
+        results: The results DataFrame.
+        storages: The list of storages.
+        optimizers: The list of optimizers.
+        ref_emb: The reference embeddings.
+
+    Returns:
+        A dictionary with the Spearman's R metric for each storage, optimizer and step.
+    """
+
     metrics: dict[tuple[str, str, int], float] = {}
 
     for st, opt in itertools.product(storages, optimizers):

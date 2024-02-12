@@ -38,6 +38,19 @@ class AxServiceOptimizer(Optimizer):
         surrogate: str | SurrogateModel = SurrogateModel.AUTO,
         surrogate_kwargs: SurrogateOptions | None = None,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            sobol_steps: The number of steps to use for the Sobol sequence.
+            device: The device to use for the optimization.
+            workers: The number of workers to use for the optimization.
+            task: The task to use for the optimization.
+            acqf: The acquisition function to use for the optimization.
+            surrogate: The surrogate model to use for the optimization.
+            surrogate_kwargs: The keyword arguments to pass to the surrogate model.
+        """
+
         acqf = AcquisitionFunc.lookup(acqf)
         task = Task.lookup(task)
 

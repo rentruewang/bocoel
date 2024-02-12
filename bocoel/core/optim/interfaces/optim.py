@@ -10,6 +10,12 @@ from .evals import QueryEvaluator
 
 
 class Optimizer(Protocol):
+    """
+    The protocol for optimizers.
+    Optimizers are used for optimizing the search space,
+    Find the best exploration sequence for a given task.
+    """
+
     def __init__(
         self, query_eval: QueryEvaluator, boundary: Boundary, **kwargs: Any
     ) -> None:
@@ -22,7 +28,15 @@ class Optimizer(Protocol):
 
     @property
     @abc.abstractmethod
-    def task(self) -> Task: ...
+    def task(self) -> Task:
+        """
+        The task to use for the optimization.
+
+        Returns:
+            One of `Task.EXPLORE` or `Task.MINIMIZE` or `Task.MAXIMIZE`.
+        """
+
+        ...
 
     @abc.abstractmethod
     def step(self) -> Mapping[int, float]:

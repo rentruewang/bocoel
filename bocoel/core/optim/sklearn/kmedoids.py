@@ -20,6 +20,10 @@ class KMedoidsOptions(TypedDict):
 
 
 class KMedoidsOptimizer(ScikitLearnOptimizer):
+    """
+    The KMedoids optimizer that uses clustering algorithms.
+    """
+
     def __init__(
         self,
         query_eval: QueryEvaluator,
@@ -29,6 +33,15 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
         embeddings: NDArray,
         model_kwargs: KMedoidsOptions,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            batch_size: The number of embeddings to evaluate at once.
+            embeddings: The embeddings to cluster.
+            model_kwargs: The keyword arguments to pass to the KMedoids model.
+        """
+
         # Optional dependency.
         from sklearn_extra.cluster import KMedoids
 
@@ -42,3 +55,9 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
             model=model,
             batch_size=batch_size,
         )
+
+        self._model_kwargs = model_kwargs
+
+    def __repr__(self) -> str:
+        n_clusters = self._model_kwargs["n_clusters"]
+        return f"KMedoids({n_clusters})"

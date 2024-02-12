@@ -2,6 +2,7 @@ from collections import OrderedDict
 from collections.abc import Callable
 from typing import Literal
 
+import alive_progress as ap
 import networkx as nx
 import numpy as np
 import structlog
@@ -48,6 +49,8 @@ class Accumulation(Exam):
                 raise ValueError(f"Unknown accumulation type {typ}")
 
     def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
+        LOGGER.info("Running Accumulation exam", num_results=len(results))
+
         _ = index
 
         values = np.array(list(results.values()))
@@ -90,6 +93,8 @@ class MstMaxEdge(Exam):
         self._agg_type = typ
 
     def _run(self, index: StatefulIndex, results: OrderedDict[int, float]) -> NDArray:
+        LOGGER.info("Running MstMaxEdge exam", num_results=len(results))
+
         # TODO: Only supports L2 for now. Would like more options.
         points = self._points(index=index, results=results)
         return self._max_mst_edge_acc(points, metric="euclidean")
@@ -116,7 +121,9 @@ class MstMaxEdge(Exam):
         _check_dim(array, 2)
 
         results = [float("inf")]
-        for nodes in range(2, len(array) + 1):
+        for nodes in ap.alive_it(
+            range(2, len(array) + 1), title="Running MstMaxEdge exam"
+        ):
             # NOTE:
             # Add some dummy value in case there are samples in the corner region
             # which would result in truncating to the same points.

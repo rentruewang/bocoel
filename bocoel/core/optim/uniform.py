@@ -15,6 +15,10 @@ LOGGER = structlog.get_logger()
 
 
 class UniformOptimizer(Optimizer):
+    """
+    The uniform optimizer that uses grid-based search.
+    """
+
     def __init__(
         self,
         query_eval: QueryEvaluator,
@@ -23,6 +27,14 @@ class UniformOptimizer(Optimizer):
         grids: Sequence[int],
         batch_size: int,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            grids: The number of grids to use for the optimization.
+            batch_size: The number of grids to evaluate at once.
+        """
+
         LOGGER.info("Instantiating UnfiromOptimizer", grids=grids)
 
         self._query_eval = query_eval

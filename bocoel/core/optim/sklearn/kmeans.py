@@ -22,6 +22,10 @@ class KMeansOptions(TypedDict):
 
 
 class KMeansOptimizer(ScikitLearnOptimizer):
+    """
+    The KMeans optimizer that uses clustering algorithms.
+    """
+
     def __init__(
         self,
         query_eval: QueryEvaluator,
@@ -31,6 +35,15 @@ class KMeansOptimizer(ScikitLearnOptimizer):
         embeddings: NDArray,
         model_kwargs: KMeansOptions,
     ) -> None:
+        """
+        Parameters:
+            query_eval: The evaluator to use for the query.
+            boundary: The boundary to use for the query.
+            batch_size: The number of embeddings to evaluate at once.
+            embeddings: The embeddings to cluster.
+            model_kwargs: The keyword arguments to pass to the KMeans model.
+        """
+
         model = KMeans(**model_kwargs)
         model.fit(embeddings)
         validation.check_is_fitted(model)
@@ -41,3 +54,9 @@ class KMeansOptimizer(ScikitLearnOptimizer):
             model=model,
             batch_size=batch_size,
         )
+
+        self._model_kwargs = model_kwargs
+
+    def __repr__(self) -> str:
+        n_clusters = self._model_kwargs["n_clusters"]
+        return f"KMeans({n_clusters})"
