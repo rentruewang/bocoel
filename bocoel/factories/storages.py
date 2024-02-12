@@ -8,14 +8,34 @@ from . import common
 
 
 class StorageName(StrEnum):
+    """
+    The storage names.
+    """
+
     PANDAS = "PANDAS"
+    "Corresponds to `PandasStorage`."
+
     DATASETS = "DATASETS"
+    "Corresponds to `DatasetsStorage`."
 
 
 @common.correct_kwargs
-def storage_factory(
-    names: Sequence[str], /, configs: Sequence[Mapping[str, Any]]
-) -> Storage:
+def storage(names: Sequence[str], /, configs: Sequence[Mapping[str, Any]]) -> Storage:
+    """
+    Create a storage.
+
+    Parameters:
+        names: The names of the storages.
+        configs: The configurations for the storages.
+
+    Returns:
+        The storage instance.
+
+    Raises:
+        ValueError: If the names and configs do not have the same length.
+        ValueError: If the storage is unknown.
+    """
+
     if len(names) != len(configs):
         raise ValueError("Names and configs must have the same length")
 
@@ -29,6 +49,22 @@ def storage_factory(
 def _storage_factory_single(
     storage: str | StorageName, /, *, path: str, name: str, split: str
 ) -> Storage:
+    """
+    Create a single storage.
+
+    Parameters:
+        storage: The name of the storage.
+        path: The path to the storage.
+        name: The name of the storage.
+        split: The split to use.
+
+    Returns:
+        The storage instance.
+
+    Raises:
+        ValueError: If the storage is unknown.
+    """
+
     storage = StorageName.lookup(storage)
     match storage:
         case StorageName.PANDAS:
@@ -37,3 +73,5 @@ def _storage_factory_single(
             return common.correct_kwargs(DatasetsStorage.load)(
                 path=path, name=name, split=split
             )
+        case _:
+            raise ValueError(f"Unknown storage name {storage}")

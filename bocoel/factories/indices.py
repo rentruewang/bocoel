@@ -5,13 +5,31 @@ from bocoel.common import ItemNotFound, StrEnum
 
 
 class IndexName(StrEnum):
+    """
+    The names of the indices.
+    """
+
     FAISS = "FAISS"
+    "Corresponds to `FaissIndex`."
+
     HNSWLIB = "HNSWLIB"
+    "Corresponds to `HnswlibIndex`."
+
     POLAR = "POLAR"
+    "Corresponds to `PolarIndex`."
+
     WHITENING = "WHITENING"
+    "Corresponds to `WhiteningIndex`."
 
 
-def index_class_factory(name: str | IndexName, /) -> type[Index]:
+def index_class(name: str | IndexName, /) -> type[Index]:
+    """
+    Get the index class for the given name.
+
+    Parameters:
+        name: The name of the index.
+    """
+
     name = IndexName.lookup(name)
 
     match name:
@@ -30,6 +48,12 @@ def index_class_factory(name: str | IndexName, /) -> type[Index]:
 def index_set_backends(kwargs: dict[str, Any], /) -> dict[str, Any]:
     """
     Sets the backend variable to the desired class in `kwargs`.
+
+    Parameters:
+        kwargs: The keyword arguments to map.
+
+    Returns:
+        The mapped keyword arguments.
     """
 
     mapped = {**kwargs}
@@ -38,7 +62,7 @@ def index_set_backends(kwargs: dict[str, Any], /) -> dict[str, Any]:
         try:
             if isinstance(value, str):
                 idx = IndexName.lookup(value)
-                mapped[key] = index_class_factory(idx)
+                mapped[key] = index_class(idx)
         except ItemNotFound:
             pass
 

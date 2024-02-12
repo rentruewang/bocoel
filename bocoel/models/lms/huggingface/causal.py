@@ -7,7 +7,7 @@ from .tokenizers import HuggingfaceTokenizer
 
 class HuggingfaceCausalLM(metaclass=ABCMeta):
     """
-    The Huggingface implementation of LanguageModel.
+    The Huggingface implementation of language model.
     This is a wrapper around the Huggingface library,
     which would try to pull the model from the huggingface hub.
 

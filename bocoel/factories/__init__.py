@@ -1,7 +1,7 @@
-from .adaptors import AdaptorName, adaptor_factory
-from .corpora import CorpusName, corpus_factory
-from .embedders import EmbedderName, embedder_factory
-from .indices import IndexName, index_class_factory
-from .lms import LMName, lm_factory
-from .optim import OptimizerName, optimizer_factory
-from .storages import StorageName, storage_factory
+from .adaptors import AdaptorName, adaptor
+from .corpora import CorpusName, corpus
+from .embedders import EmbedderName, embedder
+from .indices import IndexName, index_class
+from .lms import ClassifierName, classifier
+from .optim import OptimizerName, optimizer
+from .storages import StorageName, storage
