@@ -13,10 +13,12 @@ from bocoel import (
     ClassifierModel,
     ComposedCorpus,
     DatasetsStorage,
+    Embedder,
     GlueAdaptor,
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,
     Manager,
+    SbertEmbedder,
     Sst2QuestionAnswer,
 )
 
@@ -54,19 +56,7 @@ def main(
     task: str = "EXPLORE",
     classification: Literal["logits", "seq"] = "seq",
     corpus_cache_path: str | Path = "./cache/",
-    embedders: str = "textattack/bert-base-uncased-SST-2,textattack/distilbert-base-cased-SST-2",
-    # embedders: Sequence[str] = tuple(
-    #     [
-    #         # "textattack/bert-base-uncased-SST-2",
-    #         #   "textattack/roberta-base-SST-2",
-    #         #   "textattack/albert-base-v2-SST-2",
-    #         #   "textattack/xlnet-large-cased-SST-2",
-    #         #   "textattack/xlnet-base-cased-SST-2",
-    #         #   "textattack/facebook-bart-large-SST-2",
-    #         #   "textattack/distilbert-base-uncased-SST-2",
-    #         "textattack/distilbert-base-cased-SST-2"
-    #     ]
-    # ),
+    embedders: str = "sbert",
     manager_path: str = "results",
 ) -> None:
     # The corpus part
@@ -82,7 +72,14 @@ def main(
         unique_name=f"{ds_path}-{ds_split}-{','.join(embedders_list)}",
     )
     corpus_cache_path = Path(os.path.join(corpus_cache_path, unique_name))
-    embedder = common.ensemble_embedder(batch_size=batch_size, embedders=embedders_list)
+
+    embedder: Embedder
+    if embedders == "sbert":
+        embedder = SbertEmbedder(device=device, batch_size=batch_size)
+    else:
+        embedder = common.ensemble_embedder(
+            batch_size=batch_size, embedders=embedders_list
+        )
     storage = DatasetsStorage.load(path=ds_path, split=ds_split)
 
     corpus: ComposedCorpus

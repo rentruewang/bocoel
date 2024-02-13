@@ -14,6 +14,7 @@ from bocoel import (
     ComposedCorpus,
     Corpus,
     Distance,
+    Embedder,
     EnsembleEmbedder,
     HnswlibIndex,
     HuggingfaceEmbedder,
@@ -81,7 +82,7 @@ def composed_corpus(
     reduced: int,
     sentence: str,
     storage: Storage,
-    embedder: EnsembleEmbedder,
+    embedder: Embedder,
 ) -> ComposedCorpus:
 
     LOGGER.info(

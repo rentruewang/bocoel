@@ -49,18 +49,22 @@ def main(
 
     experiments = pd.concat([non_inc_last_steps, inc_results])
 
-    plotting_results = metrics(experiments, ref_emb)
+    evaluated_metrics = metrics(experiments, ref_emb)
 
     for store, index in itertools.product(storages, indices):
-        storage_match = plotting_results[columns.STORAGE] == store
-        index_match = plotting_results[columns.INDEX] == index
-        data = plotting_results[storage_match & index_match]
-        data = data.sort_values(columns.STEP_IDX)
+        storage_match = evaluated_metrics[columns.STORAGE] == store
+        index_match = evaluated_metrics[columns.INDEX] == index
+        data = evaluated_metrics[storage_match & index_match]
 
         sns.lineplot(
             data, x=columns.STEP_IDX, y=SPEARMAN_R, hue=columns.OPTIMIZER
         ).set_title(f"{store} - {index}")
         plt.show()
+
+    sns.lineplot(
+        evaluated_metrics, x=columns.STEP_IDX, y=SPEARMAN_R, hue=columns.OPTIMIZER
+    ).set_title("all")
+    plt.show()
 
 
 def last_steps(df: DataFrame) -> DataFrame:
