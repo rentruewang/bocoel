@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Instead of evaluating with queries (vectors), evaluate with locations (integers) in the corpus. AxServiceOptimizer is responsible for performing retrieval.
+
+
 ## [v0.1.0] - 2024-02-12
 
 ### Added
@@ -13,12 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Metrics to gain insights to how well the model and the corpus are performing.
 - Getting started guide.
 
-
 ### Changed
 
 - Organization of ensemble experiments. Added scripts for collection and visualization.
 - Miscellaneous bug fix and documentation.
-
 
 ## [v0.0.4] - 2024-02-05
 

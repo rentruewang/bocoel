@@ -33,6 +33,8 @@ Bocoel works in the following steps:
 
 The evaluations generated are easily managed by the provided manager utility.
 
+To our knowledge, this is the first work aiming to reduce computation costs during evaluation (benchmarking) with a (possibly dynamic) budget.
+
 
 ## 🚀 Features
 

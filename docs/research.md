@@ -57,6 +57,7 @@ Using this framework, BoCoEL iteratively selects samples from $\mathcal{X}$ (the
 ## Experiments
 
 TODO: Add plot
+TODO: Explain the experiments
 
 The experimental section will present the application of BoCoEL in various scenarios, demonstrating its effectiveness in evaluating different LLMs. Comparative analyses between BoCoEL and traditional evaluation methods will be highlighted, showcasing the efficiency gains in terms of computational resources and time. This section will also include case studies or real-world examples where BoCoEL has been successfully implemented. The results obtained from these experiments will serve to validate the efficacy of the BoCoEL framework in providing accurate evaluations of LLMs using a significantly reduced dataset.
 
