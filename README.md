@@ -41,6 +41,7 @@ The evaluations generated are easily managed by the provided manager utility.
 - 💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.
 - 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
+- 🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to agument evaluation quality.
 
 
 ## ⭐ Give us a star!

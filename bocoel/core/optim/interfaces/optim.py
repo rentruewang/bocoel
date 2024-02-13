@@ -19,6 +19,16 @@ class Optimizer(Protocol):
     def __init__(
         self, query_eval: QueryEvaluator, boundary: Boundary, **kwargs: Any
     ) -> None:
+        """
+        Parameters:
+            query_eval: The query evaluator.
+            boundary: The boundary.
+            **kwargs: The keyword arguments.
+
+        TODO:
+            Switch to an `index_eval` scheme rather than `query_eval`.
+        """
+
         # Included s.t. constructors of Index can be used.
         ...
 
