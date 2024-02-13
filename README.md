@@ -39,7 +39,7 @@ The evaluations generated are easily managed by the provided manager utility.
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
 - 💂‍♂️ Uses the power of Bayesian optimization to select an optimal set of samples for language model to evaluate.
 - 💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.
-- 🤗 Integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
+- 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
 
 

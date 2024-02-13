@@ -48,6 +48,7 @@ class ClassifierModel(Protocol):
         ...
 
     @property
+    @abc.abstractmethod
     def choices(self) -> Sequence[str]:
         """
         The choices for this language model.

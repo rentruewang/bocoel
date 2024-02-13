@@ -2,6 +2,7 @@ from collections.abc import Sequence
 
 import torch
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 from bocoel.models.lms.interfaces import ClassifierModel
 
@@ -46,3 +47,8 @@ class HuggingfaceSequenceLM(ClassifierModel):
         tokenized = self._tokenizer(prompts)
         output = self._classifier(**tokenized)
         return output.logits.cpu().numpy()
+
+    def to(self, device: str, /) -> Self:
+        self._tokenizer.to(device)
+        self._classifier.to(device)
+        return self

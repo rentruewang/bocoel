@@ -2,6 +2,7 @@ from collections.abc import Sequence
 
 import torch
 from numpy.typing import NDArray
+from typing_extensions import Self
 
 from bocoel.models.lms.interfaces import ClassifierModel
 
