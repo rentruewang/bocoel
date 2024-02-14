@@ -22,7 +22,7 @@ Large language models are expensive and slow behemoths, and evaluating them on g
 
 If only there is a way to just select a meaningful (_and small_) subset of the corpus and obtain a highly accurate evaluation.....
 
-Wait, sounds like [Bayesian Optmization](#bo)!
+Wait, sounds like [Bayesian Optimization](#bo)!
 
 Bocoel works in the following steps:
 
