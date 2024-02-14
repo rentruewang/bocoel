@@ -29,6 +29,18 @@ class Examinator:
     def examine(
         self, index: StatefulIndex, results: OrderedDict[int, float]
     ) -> DataFrame:
+        """
+        Perform the exams on the results.
+        This method looks up results in the index and runs the exams on the results.
+
+        Parameters:
+            index: The index of the results.
+            results: The results.
+
+        Returns:
+            The scores of the exams.
+        """
+
         scores = {k: v.run(index, results) for k, v in self.exams.items()}
         original = {
             exams.STEP_IDX: list(range(len(results))),

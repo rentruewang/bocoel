@@ -1,5 +1,6 @@
 import itertools
 
+import alive_progress as ap
 import fire
 import numpy as np
 import pandas as pd
@@ -95,7 +96,13 @@ def metrics(
 
     cols = columns.STORAGE, columns.INDEX, columns.OPTIMIZER, columns.STEP_IDX
 
-    for _, (store, idx, opt, step) in experiments[list(cols)].iterrows():
+    unique_combo = experiments[list(cols)].drop_duplicates()
+
+    experiments.groupby(cols)
+
+    for _, (store, idx, opt, step) in ap.alive_it(
+        unique_combo.iterrows(), total=len(unique_combo)
+    ):
         store_match = experiments[columns.STORAGE] == store
         idx_match = experiments[columns.INDEX] == idx
         opt_match = experiments[columns.OPTIMIZER] == opt
@@ -151,7 +158,7 @@ def last_for_non_inc(
     # Mapping of the parsing from non incremental optimizer
     # to the optimizer and step index.
     non_inc_idx: dict[str, tuple[str, int]] = {}
-    for target, optim in itertools.product(non_inc_opts, optimizers):
+    for target, optim in ap.alive_it(itertools.product(non_inc_opts, optimizers)):
         if (parsed := parse.parse(target, optim)) is not None:
             idx = int(parsed[0])
             non_inc_idx[optim] = target, idx
@@ -204,7 +211,7 @@ def reference_embeddings(
 
     # References by storage name.
     references: dict[tuple[str, str], NDArray] = {}
-    for dataset, index in itertools.product(storages, indices):
+    for dataset, index in ap.alive_it(itertools.product(storages, indices)):
         dataset_match = ground_truth[columns.STORAGE] == dataset
         index_match = ground_truth[columns.INDEX] == index
 

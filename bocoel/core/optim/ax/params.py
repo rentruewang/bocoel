@@ -6,11 +6,24 @@ from bocoel.corpora import Boundary
 
 
 class AxServiceParameter(TypedDict):
+    """
+    The parameter for the AxServiceOptimizer.
+    """
+
     name: str
+    "The name of the parameter."
+
     type: str
+    "The type of the parameter."
+
     bounds: tuple[float, float]
+    "The boundaries of the parameter."
+
     value_type: NotRequired[str]
+    "The value type of the parameter."
+
     log_scale: NotRequired[bool]
+    "Whether the parameter is on a log scale."
 
 
 # Currently using Any to silence typing warnings.
