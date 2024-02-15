@@ -1,4 +1,7 @@
 import itertools
+import re
+from collections.abc import Callable, Sequence
+from typing import Any, Literal
 
 import alive_progress as ap
 import fire
@@ -38,18 +41,17 @@ def main(
     # whereas non incremental optimizers means that only the last step is used,
     # and that multiple runs are joined together for analysis.
     non_inc_opts = non_incremental.split(",")
-    inc_opts = set(optimizers).difference(non_inc_opts).difference([ground_truth])
 
     # Last steps, both in time and step index.
     last = last_steps(results)
 
     ref_emb = reference_embeddings(last, ground_truth)
 
-    non_inc_last_steps = last_for_non_inc(last, non_inc_opts, optimizers)
+    non_inc_last_steps, non_inc_keys = last_for_non_inc(last, non_inc_opts, optimizers)
+    inc_opts = set(optimizers).difference(non_inc_keys).difference([ground_truth])
     inc_results = results[results[columns.OPTIMIZER].isin(inc_opts)]
 
     experiments = pd.concat([non_inc_last_steps, inc_results])
-
     evaluated_metrics = metrics(experiments, ref_emb)
 
     for store, index in itertools.product(storages, indices):
@@ -57,22 +59,132 @@ def main(
         index_match = evaluated_metrics[columns.INDEX] == index
         data = evaluated_metrics[storage_match & index_match]
 
-        sns.lineplot(
-            data, x=columns.STEP_IDX, y=SPEARMAN_R, hue=columns.OPTIMIZER
-        ).set_title(f"{store} - {index}")
-        plt.show()
+        lineplot(
+            data,
+            x=columns.STEP_IDX,
+            y=SPEARMAN_R,
+            hue=columns.OPTIMIZER,
+            title=f"{store} - {index}",
+        )
 
-    sns.lineplot(
-        evaluated_metrics, x=columns.STEP_IDX, y=SPEARMAN_R, hue=columns.OPTIMIZER
-    ).set_title("all")
-    plt.show()
+    lineplot(
+        evaluated_metrics,
+        x=columns.STEP_IDX,
+        y=SPEARMAN_R,
+        hue=columns.OPTIMIZER,
+        title="all",
+    )
+
+
+def lineplot(data: DataFrame, x: str, y: str, hue: str, title: str) -> None:
+    plt.clf()
+    sns.lineplot(data, x=x, y=y, hue=hue).set_title(title)
+    fname = re.sub(r"[^\w_. -]", "_", title)
+    plt.savefig(f"{fname}.png")
 
 
 def last_steps(df: DataFrame) -> DataFrame:
-    cols = columns.STORAGE, columns.INDEX, columns.MODEL, columns.OPTIMIZER
-    return df.sort_values(
-        [columns.TIME, columns.STEP_IDX], ascending=False
-    ).drop_duplicates(cols)
+    cols = [columns.STORAGE, columns.INDEX, columns.MODEL, columns.OPTIMIZER]
+    return (
+        df[[*cols, columns.STEP_IDX, columns.ACC_AVG]]
+        .groupby(cols, as_index=False)
+        .mean()
+        .sort_values([columns.STEP_IDX])
+        .drop_duplicates(cols)
+    )
+
+
+class ScipyStat:
+    def __init__(
+        self,
+        experiments: DataFrame,
+        cols: Sequence[str],
+        ref_emb: dict[tuple[str, str], NDArray],
+        stat: Literal["spearmanr", "kendalltau"] = "kendalltau",
+    ) -> None:
+        num_models = len(set(experiments[columns.MODEL]))
+        experiments = experiments.sort_values([*cols, columns.MODEL])
+
+        self._groups = experiments.groupby(list(cols))
+        self._ref_emb = ref_emb
+        self._num_models = num_models
+        self._stat = stat
+
+        for values in self._ref_emb.values():
+            if len(values) != num_models:
+                f"Expected {num_models} models. Got {len(values)}."
+
+    def stat(self, x: NDArray, y: NDArray) -> float:
+        match self._stat:
+            case "spearmanr":
+                return stats.spearmanr(x, y).statistic
+            case "kendalltau":
+                return stats.kendalltau(x, y).statistic
+            case _:
+                raise ValueError(f"Unknown statistic {self._stat}.")
+
+    def _compute_one(
+        self, grouped: DataFrame, progress: Callable[[], Any]
+    ) -> Series | None:
+        """
+        Calculate the Spearman correlation.
+        This function is called `total` times.
+        """
+
+        progress()
+
+        assert len(set(grouped[columns.STORAGE])) == 1, "Multiple storages."
+        assert len(set(grouped[columns.INDEX])) == 1, "Multiple indices."
+        assert len(set(grouped[columns.OPTIMIZER])) == 1, "Multiple optimizers."
+        assert len(set(grouped[columns.STEP_IDX])) == 1, "Multiple step indices."
+
+        storage = grouped[columns.STORAGE].iloc[0]
+        index = grouped[columns.INDEX].iloc[0]
+        optimizer = grouped[columns.OPTIMIZER].iloc[0]
+        step_idx = grouped[columns.STEP_IDX].iloc[0]
+
+        grouped = grouped.sort_values(columns.MODEL)
+        acc_avg = np.array(grouped[columns.ACC_AVG])
+        reference = self._ref_emb[storage, index]
+
+        if len(acc_avg) != self._num_models:
+            LOGGER.debug(
+                "Insufficient models, discarded.",
+                rows=len(acc_avg),
+                reference=len(reference),
+                storage=storage,
+                index=index,
+            )
+            return None
+
+        score = float(stats.kendalltau(acc_avg, reference).statistic)
+        return Series(
+            {
+                columns.STORAGE: storage,
+                columns.INDEX: index,
+                columns.OPTIMIZER: optimizer,
+                columns.STEP_IDX: step_idx,
+                SPEARMAN_R: score,
+            }
+        )
+
+    def compute(self) -> DataFrame:
+        """
+        Calculate the correlation values from Scipy's registry.
+
+        FIXME:
+            DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns
+
+        Returns:
+            The correlation values.
+        """
+
+        with ap.alive_bar(total=len(self._groups), title="grouping by") as bar:
+
+            def function(grouped: DataFrame):
+                return self._compute_one(grouped, bar)
+
+            return self._groups.apply(function)
 
 
 def metrics(
@@ -90,59 +202,16 @@ def metrics(
         The metrics DataFrame.
     """
 
-    num_models = len(set(experiments[columns.MODEL]))
-
-    metrics_records = []
-
     cols = columns.STORAGE, columns.INDEX, columns.OPTIMIZER, columns.STEP_IDX
 
-    unique_combo = experiments[list(cols)].drop_duplicates()
+    scipy_stat = ScipyStat(experiments, cols, ref_emb)
 
-    experiments.groupby(cols)
-
-    for _, (store, idx, opt, step) in ap.alive_it(
-        unique_combo.iterrows(), total=len(unique_combo)
-    ):
-        store_match = experiments[columns.STORAGE] == store
-        idx_match = experiments[columns.INDEX] == idx
-        opt_match = experiments[columns.OPTIMIZER] == opt
-        step_match = experiments[columns.STEP_IDX] == step
-        relevant = experiments[store_match & idx_match & opt_match & step_match]
-
-        if len(relevant) != num_models:
-            LOGGER.debug(
-                "Insufficient models, discarded.",
-                rows=len(relevant),
-                num_models=num_models,
-                storage=store,
-                index=idx,
-                optimizer=opt,
-                step=step,
-            )
-
-            continue
-
-        relevant = relevant.sort_values(columns.MODEL)
-        spearmanr = stats.spearmanr(
-            np.array(relevant[columns.ACC_AVG]), ref_emb[store]
-        ).statistic
-
-        metrics_records.append(
-            {
-                columns.STORAGE: store,
-                columns.INDEX: idx,
-                columns.OPTIMIZER: opt,
-                columns.STEP_IDX: step,
-                SPEARMAN_R: spearmanr,
-            }
-        )
-
-    return DataFrame.from_records(metrics_records)
+    return scipy_stat.compute()
 
 
 def last_for_non_inc(
     last_steps: DataFrame, non_inc_opts: list[str], optimizers: list[str]
-) -> DataFrame:
+) -> tuple[DataFrame, list[str]]:
     """
     Get the last steps for non incremental optimizers.
 
@@ -152,7 +221,8 @@ def last_for_non_inc(
         optimizers: The optimizers.
 
     Returns:
-        The last steps for non incremental optimizers.
+        The last steps for non incremental optimizers
+        and the non incremental optimizers.
     """
 
     # Mapping of the parsing from non incremental optimizer
@@ -179,7 +249,7 @@ def last_for_non_inc(
     non_inc_keys = list(non_inc_idx.keys())
     non_inc_last_steps = last_steps[last_steps[columns.OPTIMIZER].isin(non_inc_keys)]
 
-    return non_inc_last_steps.apply(transform, axis=1)
+    return non_inc_last_steps.apply(transform, axis=1), non_inc_keys
 
 
 def reference_embeddings(
@@ -226,7 +296,7 @@ def reference_embeddings(
                 f"got {len(acc_avg)}."
             )
 
-        references[dataset] = acc_avg
+        references[dataset, index] = acc_avg
 
     return references
 
