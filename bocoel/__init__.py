@@ -9,6 +9,7 @@ from .core import (
     BruteForceOptimizer,
     Exam,
     Examinator,
+    IdEvaluator,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,
