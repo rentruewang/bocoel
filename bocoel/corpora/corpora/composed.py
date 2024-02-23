@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from bocoel.corpora.corpora.interfaces import Corpus
 from bocoel.corpora.embedders import Embedder
-from bocoel.corpora.indices import Index, StatefulIndex
+from bocoel.corpora.indices import Index
 from bocoel.corpora.storages import Storage
 
 
@@ -17,7 +17,7 @@ class ComposedCorpus(Corpus):
     Simply a collection of components.
     """
 
-    index: StatefulIndex
+    index: Index
     storage: Storage
 
     @classmethod
@@ -114,4 +114,4 @@ class ComposedCorpus(Corpus):
         """
 
         index = index_backend(embeddings, **index_kwargs)
-        return cls(index=StatefulIndex(index), storage=storage)
+        return cls(index=index, storage=storage)

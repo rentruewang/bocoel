@@ -100,7 +100,9 @@ class AxServiceOptimizer(Optimizer):
     def _eval_one_query(self, tidx: int, parameters: dict[str, float]) -> float:
         names = params.name_list(len(parameters))
         query = [[parameters[name] for name in names]]
-        indices = self._index.search(query=query).indices
+
+        # Since k=1, the first index is the one we want.
+        indices = self._index.search(query=query).indices[..., 0]
         value = self._index_eval(indices)[0]
 
         # # Exploration with a maximization entropy setting means maximizing y=0.

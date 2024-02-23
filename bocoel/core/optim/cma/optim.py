@@ -41,7 +41,7 @@ class PyCMAOptimizer(Optimizer):
 
         solutions = np.array(self._es.ask(self._samples))
 
-        indices = self._index.search(query=solutions).indices
+        indices = self._index.search(query=solutions).indices[..., 0]
         results = self._index_eval(indices)
         returns = {i: r for i, r in zip(indices, results)}
 

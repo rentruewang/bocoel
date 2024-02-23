@@ -5,10 +5,10 @@ from pandas import DataFrame
 from typing_extensions import Self
 
 from bocoel.core.exams.interfaces import Exam
-from bocoel.corpora import StatefulIndex
+from bocoel.corpora import Index
 
 from .columns import exams
-from .stats import AccType, Accumulation, MstMaxEdge, MstMaxEdgeType, Segregation
+from .stats import AccType, Accumulation
 
 
 class Examinator:
@@ -26,9 +26,7 @@ class Examinator:
     def __init__(self, exams: Mapping[str, Exam]) -> None:
         self.exams = exams
 
-    def examine(
-        self, index: StatefulIndex, results: OrderedDict[int, float]
-    ) -> DataFrame:
+    def examine(self, index: Index, results: OrderedDict[int, float]) -> DataFrame:
         """
         Perform the exams on the results.
         This method looks up results in the index and runs the exams on the results.
@@ -60,8 +58,5 @@ class Examinator:
                 exams.ACC_MIN: Accumulation(AccType.MIN),
                 exams.ACC_MAX: Accumulation(AccType.MAX),
                 exams.ACC_AVG: Accumulation(AccType.AVG),
-                exams.MST_MAX_EDGE_QUERY: MstMaxEdge(MstMaxEdgeType.QUERY),
-                exams.MST_MAX_EDGE_DATA: MstMaxEdge(MstMaxEdgeType.DATA),
-                exams.SEGREGATION: Segregation(),
             }
         )
