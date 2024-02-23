@@ -21,4 +21,5 @@ from .interfaces import (
     SearchResultBatch,
 )
 from .polar import PolarIndex
+from .ppf import InverseCDFIndex
 from .whitening import WhiteningIndex

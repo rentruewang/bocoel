@@ -19,6 +19,7 @@ from bocoel import (
     HnswlibIndex,
     HuggingfaceEmbedder,
     Index,
+    InverseCDFIndex,
     KMeansOptimizer,
     KMedoidsOptimizer,
     Optimizer,
@@ -56,6 +57,12 @@ def index_backend_and_kwargs(
     match name:
         case "hnswlib":
             return HnswlibIndex, {"threads": index_threads, "batch_size": batch_size}
+        case "inverse_cdf":
+            return InverseCDFIndex, {
+                "inverse_cdf_backend": HnswlibIndex,
+                "threads": index_threads,
+                "batch_size": batch_size,
+            }
         case "polar":
             return PolarIndex, {
                 "polar_backend": HnswlibIndex,
