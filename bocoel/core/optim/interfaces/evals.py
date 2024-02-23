@@ -50,7 +50,7 @@ class QueryEvaluator(Protocol):
         ...
 
 
-class IdEvaluator(Protocol):
+class IndexEvaluator(Protocol):
     """
     A protocol for evaluating with the indices.
     """

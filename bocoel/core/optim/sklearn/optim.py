@@ -4,12 +4,12 @@ from collections.abc import Mapping
 from typing import Any, Protocol
 
 from numpy.typing import NDArray
+from sklearn.utils import validation
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
 from bocoel.core.optim.utils import BatchedGenerator
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Index
 
 
 class ScikitLearnCluster(Protocol):
@@ -20,7 +20,29 @@ class ScikitLearnCluster(Protocol):
     cluster_centers_: NDArray
 
     @abc.abstractmethod
-    def fit(self, X: Any) -> None: ...
+    def fit(self, X: Any) -> None:
+        """
+        Fits the model and returns the cluster indices.
+
+        Parameters:
+            X: The data to fit.
+        """
+
+        ...
+
+    @abc.abstractmethod
+    def predict(self, X: Any) -> list[int] | NDArray:
+        """
+        Fits the model and returns the cluster indices.
+
+        Parameters:
+            X: The data to use.
+
+        Returns:
+            The cluster indices.
+        """
+
+        ...
 
 
 class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
@@ -32,23 +54,28 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
+        embeddings: NDArray,
         model: ScikitLearnCluster,
         batch_size: int,
     ) -> None:
         """
         Parameters:
-            query_eval: The evaluator to use for the query.
-            boundary: The boundary to use for the query.
+            index_eval: The evaluator to use for the query.
+            index: The index to use for the query.
             model: The model to use for the optimization.
             batch_size: The number of embeddings to evaluate at once.
         """
 
-        self._query_eval = query_eval
-        self._boundary = boundary
+        self._index_eval = index_eval
+        self._index = index
 
-        self._generator = iter(BatchedGenerator(model.cluster_centers_, batch_size))
+        model.fit(embeddings)
+        validation.check_is_fitted(model)
+        ids = model.predict(model.cluster_centers_)
+
+        self._generator = iter(BatchedGenerator(ids, batch_size))
 
     @property
     def task(self) -> Task:
@@ -56,5 +83,6 @@ class ScikitLearnOptimizer(Optimizer, metaclass=ABCMeta):
         return Task.EXPLORE
 
     def step(self) -> Mapping[int, float]:
-        centers = next(self._generator)
-        return self._query_eval(centers)
+        indices = next(self._generator)
+        results = self._index_eval(indices)
+        return {i: r for i, r in zip(indices, results)}

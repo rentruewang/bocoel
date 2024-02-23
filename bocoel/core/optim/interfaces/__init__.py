@@ -1,2 +1,2 @@
-from .evals import IdEvaluator, QueryEvaluator, SearchEvaluator
+from .evals import IndexEvaluator, QueryEvaluator, SearchEvaluator
 from .optim import Optimizer

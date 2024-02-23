@@ -7,8 +7,8 @@ would guide the search towards the optimal trajectory.
 
 from .ax import AcquisitionFunc, AxServiceOptimizer, AxServiceParameter
 from .brute import BruteForceOptimizer
-from .evals import evaluate_corpus, evaluate_index, query_eval_func, search_eval_func
-from .interfaces import IdEvaluator, Optimizer, QueryEvaluator, SearchEvaluator
+from .evals import evaluate_corpus
+from .interfaces import IndexEvaluator, Optimizer, QueryEvaluator, SearchEvaluator
 from .random import RandomOptimizer
 from .sklearn import (
     KMeansOptimizer,

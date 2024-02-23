@@ -12,7 +12,7 @@ from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,
     BruteForceOptimizer,
-    IdEvaluator,
+    IndexEvaluator,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,
@@ -25,8 +25,5 @@ from .optim import (
     SearchEvaluator,
     UniformOptimizer,
     evaluate_corpus,
-    evaluate_index,
-    query_eval_func,
-    search_eval_func,
 )
 from .tasks import Task

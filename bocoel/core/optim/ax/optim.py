@@ -6,10 +6,9 @@ from ax.modelbridge.generation_strategy import GenerationStep, GenerationStrateg
 from ax.service.ax_client import AxClient, ObjectiveProperties
 from torch import device
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Boundary, Index
 
 from . import params, utils
 from .acquisition import AcquisitionFunc
@@ -27,8 +26,8 @@ class AxServiceOptimizer(Optimizer):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
         *,
         sobol_steps: int = 0,
         device: Device = "cpu",
@@ -40,8 +39,8 @@ class AxServiceOptimizer(Optimizer):
     ) -> None:
         """
         Parameters:
-            query_eval: The evaluator to use for the query.
-            boundary: The boundary to use for the query.
+            index_eval: The evaluator to use for the query.
+            index: The index to for querying.
             sobol_steps: The number of steps to use for the Sobol sequence.
             device: The device to use for the optimization.
             workers: The number of workers to use for the optimization.
@@ -62,9 +61,10 @@ class AxServiceOptimizer(Optimizer):
         self._task = task
 
         self._ax_client = AxClient(generation_strategy=self._gen_strat(sobol_steps))
-        self._create_experiment(boundary)
+        self._create_experiment(index.boundary)
 
-        self._query_eval = query_eval
+        self._index_eval = index_eval
+        self._index = index
         self._workers = workers
         self._terminate = False
 
@@ -100,7 +100,8 @@ class AxServiceOptimizer(Optimizer):
     def _eval_one_query(self, tidx: int, parameters: dict[str, float]) -> float:
         names = params.name_list(len(parameters))
         query = [[parameters[name] for name in names]]
-        [[_, value]] = self._query_eval(query).items()
+        indices = self._index.search(query=query).indices
+        value = self._index_eval(indices)[0]
 
         # # Exploration with a maximization entropy setting means maximizing y=0.
         # if self._task is Task.EXPLORE:

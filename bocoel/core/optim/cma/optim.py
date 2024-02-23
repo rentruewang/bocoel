@@ -3,10 +3,9 @@ from collections.abc import Mapping
 import numpy as np
 from cma import CMAEvolutionStrategy
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Index
 
 
 class PyCMAOptimizer(Optimizer):
@@ -18,19 +17,19 @@ class PyCMAOptimizer(Optimizer):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
         *,
         dims: int,
         samples: int,
         minimize: bool = True,
     ) -> None:
-        self._query_eval = query_eval
-
         self._es = CMAEvolutionStrategy(dims * [0], 0.5)
         self._samples = samples
         self._minimize = minimize
-        self._boundary = boundary
+
+        self._index_eval = index_eval
+        self._index = index
 
     @property
     def task(self) -> Task:
@@ -42,14 +41,11 @@ class PyCMAOptimizer(Optimizer):
 
         solutions = np.array(self._es.ask(self._samples))
 
-        result = self._query_eval(solutions)
+        indices = self._index.search(query=solutions).indices
+        results = self._index_eval(indices)
+        returns = {i: r for i, r in zip(indices, results)}
 
-        # This works because result keeps the ordering.
-        evaluation = np.array(list(result.values()))
+        evaluations = np.array(results) if self._minimize else -np.array(results)
 
-        if not self._minimize:
-            evaluation = -evaluation
-
-        self._es.tell(solutions, evaluation)
-
-        return result
+        self._es.tell(solutions, evaluations)
+        return returns
