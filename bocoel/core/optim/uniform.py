@@ -51,7 +51,7 @@ class UniformOptimizer(Optimizer):
     def step(self) -> Mapping[int, float]:
         locs = next(self._generator)
         indices = self._index.search(query=locs).indices
-        results = self._index_eval(indices)
+        results = self._index_eval(indices)[..., 0]
         return {i: r for i, r in zip(indices, results)}
 
     def _gen_locs(self, grids: Sequence[int]) -> Generator[NDArray, None, None]:

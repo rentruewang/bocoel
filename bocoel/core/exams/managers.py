@@ -143,7 +143,7 @@ class Manager:
         assign(columns.OPTIMIZER, str(optimizer))
         assign(columns.MODEL, str(model))
         assign(columns.ADAPTOR, str(adaptor))
-        assign(columns.INDEX, str(corpus.index.index))
+        assign(columns.INDEX, str(corpus.index))
         assign(columns.STORAGE, str(corpus.storage))
         assign(columns.EMBEDDER, str(embedder))
         assign(columns.TIME, self._start)
@@ -219,7 +219,7 @@ class Manager:
         data = [
             optimizer,
             embedder,
-            corpus.index.index,
+            corpus.index,
             corpus.storage,
             model,
             adaptor,

@@ -34,6 +34,19 @@ class Index(Protocol):
 
         return len(self.data)
 
+    def __getitem__(self, idx: int) -> NDArray:
+        """
+        Get the item at the given index.
+
+        Parameters:
+            idx: The index of the item.
+
+        Returns:
+            The item.
+        """
+
+        return self.data[idx]
+
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
         Calls the search function and performs some checks.
