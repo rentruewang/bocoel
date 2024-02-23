@@ -37,6 +37,7 @@ from .corpora import (
     HnswlibIndex,
     HuggingfaceEmbedder,
     Index,
+    InverseCDFIndex,
     PandasStorage,
     PolarIndex,
     SbertEmbedder,

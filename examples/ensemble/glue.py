@@ -45,7 +45,7 @@ def main(
     ds_split: Literal["train", "validation", "test"] = "validation",
     llm_model: str = "textattack/roberta-base-SST-2",
     batch_size: int = 16,
-    index_name: Literal["hnswlib", "polar", "whitening"] = "hnswlib",
+    index_name: Literal["hnswlib", "polar", "whitening", "inverse_cdf"] = "hnswlib",
     sobol_steps: int = 5,
     index_threads: int = 8,
     optimizer: Literal["ax", "kmeans", "kmedoids", "random", "brute"] = "ax",

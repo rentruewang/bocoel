@@ -49,29 +49,15 @@ class PolarIndex(Index):
         dims = self._index.dims - 1
 
         self._boundary = self._polar_boundary(dims)
-        self._data = self._inverse_query()
+        self._data = self._polar_coordinates()
 
-        assert dims == self.dims, "Polar dimensions do not match embeddings."
+        assert dims == self._index.dims, "Polar dimensions do not match embeddings."
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
-        """
-        Search the index for the given query.
-        This would also perform a normalization on the query,
-        and only the direction is preserved.
-
-        Parameters:
-            query: The query vector. Must be of shape [query_dims].
-            k: The number of nearest neighbors to return.
-
-        Returns:
-            A numpy array of shape [k].
-                This corresponds to the indices of the nearest neighbors.
-        """
-
         # Ignores the length of the query. Only direction is preserved.
         spatial = self.polar_to_spatial(np.ones([len(query)]), query)
 
-        assert spatial.shape[1] == self.dims + 1
+        assert spatial.shape[1] == self._index.dims + 1
 
         return self._index._search(spatial, k=k)
 
@@ -106,7 +92,7 @@ class PolarIndex(Index):
         lower = np.zeros_like(upper)
         return Boundary(np.stack([lower, upper], axis=-1))
 
-    def _inverse_query(self) -> NDArray:
+    def _polar_coordinates(self) -> NDArray:
         LOGGER.info(
             "Converting embeddings to polar coordinates.", batch_size=self.batch
         )

@@ -1,9 +1,9 @@
 import abc
 from collections import OrderedDict
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from typing import Protocol
 
-from numpy.typing import ArrayLike
+from numpy.typing import ArrayLike, NDArray
 
 from bocoel.corpora import SearchResult
 
@@ -56,7 +56,7 @@ class IndexEvaluator(Protocol):
     """
 
     @abc.abstractmethod
-    def __call__(self, idx: ArrayLike, /) -> Sequence[float]:
+    def __call__(self, idx: ArrayLike, /) -> NDArray:
         """
         Evaluates the given batched query.
         The order of the results must be kept in the original order.

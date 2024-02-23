@@ -6,6 +6,7 @@ from .indices import (
     FaissIndex,
     HnswlibIndex,
     Index,
+    InverseCDFIndex,
     PolarIndex,
     SearchResult,
     SearchResultBatch,
