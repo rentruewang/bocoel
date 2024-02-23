@@ -4,9 +4,9 @@ from typing import Any, Protocol
 
 from bocoel import common
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Index
 
-from .evals import QueryEvaluator
+from .evals import IndexEvaluator
 
 
 class Optimizer(Protocol):
@@ -16,17 +16,12 @@ class Optimizer(Protocol):
     Find the best exploration sequence for a given task.
     """
 
-    def __init__(
-        self, query_eval: QueryEvaluator, boundary: Boundary, **kwargs: Any
-    ) -> None:
+    def __init__(self, index_eval: IndexEvaluator, index: Index, **kwargs: Any) -> None:
         """
         Parameters:
-            query_eval: The query evaluator.
-            boundary: The boundary.
+            index_eval: The id evaluator. Evalutes the items at the given storage indices.
+            index: The index that contains information about the domain.
             **kwargs: The keyword arguments.
-
-        TODO:
-            Switch to an `index_eval` scheme rather than `query_eval`.
         """
 
         # Included s.t. constructors of Index can be used.
@@ -57,7 +52,7 @@ class Optimizer(Protocol):
         this method would output the slices of the entire search.
 
         Returns:
-            A mapping of step indices to the corresponding scores.
+            A mapping of storage indices to the corresponding scores.
 
         Raises:
             StopIteration: If the optimization is complete.

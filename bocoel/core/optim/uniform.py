@@ -5,11 +5,10 @@ import numpy as np
 import structlog
 from numpy.typing import NDArray
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
 from bocoel.core.optim.utils import BatchedGenerator
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Index
 
 LOGGER = structlog.get_logger()
 
@@ -21,29 +20,29 @@ class UniformOptimizer(Optimizer):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
         *,
         grids: Sequence[int],
         batch_size: int,
     ) -> None:
         """
         Parameters:
-            query_eval: The evaluator to use for the query.
-            boundary: The boundary to use for the query.
+            index_eval: The evaluator to use for the storage.
+            index: The index to use for the query.
             grids: The number of grids to use for the optimization.
             batch_size: The number of grids to evaluate at once.
         """
 
         LOGGER.info("Instantiating UnfiromOptimizer", grids=grids)
 
-        self._query_eval = query_eval
-        self._boundary = boundary
+        self._index_eval = index_eval
+        self._index = index
 
         self._generator = iter(BatchedGenerator(self._gen_locs(grids), batch_size))
 
-        if len(grids) != self._boundary.dims:
-            raise ValueError(f"Expected {self._boundary.dims} strides, got {grids}")
+        if len(grids) != self._index.dims:
+            raise ValueError(f"Expected {self._index.dims} strides, got {grids}")
 
     @property
     def task(self) -> Task:
@@ -51,11 +50,13 @@ class UniformOptimizer(Optimizer):
 
     def step(self) -> Mapping[int, float]:
         locs = next(self._generator)
-        return self._query_eval(locs)
+        indices = self._index.search(query=locs).indices
+        results = self._index_eval(indices)
+        return {i: r for i, r in zip(indices, results)}
 
     def _gen_locs(self, grids: Sequence[int]) -> Generator[NDArray, None, None]:
-        lower = self._boundary.lower
-        upper = self._boundary.upper
+        lower = self._index.lower
+        upper = self._index.upper
 
         box_size = upper - lower
         step_size = box_size / np.array(grids)

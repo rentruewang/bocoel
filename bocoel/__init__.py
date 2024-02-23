@@ -9,7 +9,7 @@ from .core import (
     BruteForceOptimizer,
     Exam,
     Examinator,
-    IdEvaluator,
+    IndexEvaluator,
     KMeansOptimizer,
     KMeansOptions,
     KMedoidsOptimizer,
@@ -26,9 +26,6 @@ from .core import (
     Task,
     UniformOptimizer,
     evaluate_corpus,
-    evaluate_index,
-    query_eval_func,
-    search_eval_func,
 )
 from .corpora import (
     Boundary,

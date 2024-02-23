@@ -33,6 +33,6 @@
 ::: bocoel.UniformOptimizer
 
 
-::: bocoel.IdEvaluator
+::: bocoel.IndexEvaluator
 ::: bocoel.QueryEvaluator
 ::: bocoel.SearchEvaluator

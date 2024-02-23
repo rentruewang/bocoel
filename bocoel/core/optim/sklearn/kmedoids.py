@@ -1,11 +1,10 @@
 from typing import Literal, TypedDict
 
 from numpy.typing import NDArray
-from sklearn.utils import validation
 from typing_extensions import NotRequired
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.corpora import Boundary
+from bocoel.core.optim.interfaces import IndexEvaluator
+from bocoel.corpora import Index
 
 from .optim import ScikitLearnOptimizer
 
@@ -26,8 +25,8 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
         *,
         batch_size: int,
         embeddings: NDArray,
@@ -35,8 +34,8 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
     ) -> None:
         """
         Parameters:
-            query_eval: The evaluator to use for the query.
-            boundary: The boundary to use for the query.
+            index_eval: The evaluator to use for the index.
+            index: The index to use for the query.
             batch_size: The number of embeddings to evaluate at once.
             embeddings: The embeddings to cluster.
             model_kwargs: The keyword arguments to pass to the KMedoids model.
@@ -46,12 +45,11 @@ class KMedoidsOptimizer(ScikitLearnOptimizer):
         from sklearn_extra.cluster import KMedoids
 
         model = KMedoids(**model_kwargs)
-        model.fit(embeddings)
-        validation.check_is_fitted(model)
 
         super().__init__(
-            query_eval=query_eval,
-            boundary=boundary,
+            index_eval=index_eval,
+            index=index,
+            embeddings=embeddings,
             model=model,
             batch_size=batch_size,
         )

@@ -24,6 +24,16 @@ class Index(Protocol):
         name = common.remove_base_suffix(self, Index)
         return f"{name}({self.dims})"
 
+    def __len__(self) -> int:
+        """
+        The number of items in the index.
+
+        Returns:
+            The number of items.
+        """
+
+        return len(self.data)
+
     def search(self, query: ArrayLike, k: int = 1) -> SearchResultBatch:
         """
         Calls the search function and performs some checks.

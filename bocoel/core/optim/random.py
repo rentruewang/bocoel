@@ -1,14 +1,12 @@
-from collections.abc import Generator, Mapping
+import random
+from collections.abc import Mapping
 
 import structlog
-from numpy import random
-from numpy.typing import NDArray
 
-from bocoel.core.optim.evals import QueryEvaluator
-from bocoel.core.optim.interfaces import Optimizer
+from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
 from bocoel.core.optim.utils import BatchedGenerator
 from bocoel.core.tasks import Task
-from bocoel.corpora import Boundary
+from bocoel.corpora import Index
 
 LOGGER = structlog.get_logger()
 
@@ -20,24 +18,24 @@ class RandomOptimizer(Optimizer):
 
     def __init__(
         self,
-        query_eval: QueryEvaluator,
-        boundary: Boundary,
+        index_eval: IndexEvaluator,
+        index: Index,
         *,
         samples: int,
         batch_size: int,
     ) -> None:
         """
         Parameters:
-            query_eval: The evaluator to use for the query.
-            boundary: The boundary to use for the query.
+            index_eval: The evaluator to use for the storage.
+            index: The index to use for the query.
             samples: The number of samples to use for the optimization.
             batch_size: The number of samples to evaluate at once.
         """
 
         LOGGER.info("Instantiating RandomOptimizer", samples=samples)
 
-        self._query_eval = query_eval
-        self._boundary = boundary
+        self._index_eval = index_eval
+        self._index = index
         self._generator = iter(BatchedGenerator(self._gen_random(samples), batch_size))
 
     @property
@@ -50,14 +48,9 @@ class RandomOptimizer(Optimizer):
 
     def step(self) -> Mapping[int, float]:
         samples = next(self._generator)
-        return self._query_eval(samples)
+        results = self._index_eval(samples)
+        return {s: r for s, r in zip(samples, results)}
 
-    def _gen_random(self, samples: int, /) -> Generator[NDArray, None, None]:
-        lower = self._boundary.lower
-        upper = self._boundary.upper
-
-        for _ in range(samples):
-            point = random.random([len(self._boundary)])
-            point *= upper - lower
-            point += lower
-            yield point
+    def _gen_random(self, samples: int, /) -> list[int]:
+        full = list(range(len(self._index)))
+        return random.sample(full, k=samples)
