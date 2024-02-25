@@ -57,7 +57,10 @@ class PolarIndex(Index):
         # Ignores the length of the query. Only direction is preserved.
         spatial = self.polar_to_spatial(np.ones([len(query)]), query)
 
-        assert spatial.shape[1] == self._index.dims + 1
+        assert spatial.shape[1] == self.dims + 1, (
+            "Spatial dimensions do not match embeddings. "
+            f"Expected {self.dims + 1}. Got {spatial.shape[1]}."
+        )
 
         return self._index._search(spatial, k=k)
 
