@@ -170,7 +170,7 @@ def optimizer_and_steps(
                 BruteForceOptimizer,
                 corpus=corpus,
                 adaptor=adaptor,
-                embeddings=corpus.index.data,
+                total=optimizer_steps,
                 batch_size=batch_size,
             )
         case _:
