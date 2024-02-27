@@ -68,7 +68,14 @@ def main(
         f"{ds_path}-{ds_split}-{index_name}-{','.join(embedders_list)}".encode("utf-8")
     ).hexdigest()
 
-    LOGGER.info("Unique name for the task and models", unique_name=md5_hash)
+    LOGGER.info(
+        "Unique name for the task and models",
+        unique_name=md5_hash,
+        ds_path=ds_path,
+        ds_split=ds_split,
+        index_name=index_name,
+        embedders=embedders_list,
+    )
 
     corpus_cache_path = Path(corpus_cache_path)
     corpus_cache_path.mkdir(exist_ok=True, parents=True)
