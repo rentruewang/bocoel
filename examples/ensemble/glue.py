@@ -1,6 +1,5 @@
 import hashlib
 import logging
-import os
 import pickle
 from pathlib import Path
 from typing import Any, Literal
@@ -64,15 +63,16 @@ def main(
     sentence = glue_text_field(ds_path)
     # hash the task and models in the embedders, into a unique string name
     embedders_list = embedders.split(",")
-    unique_name = hashlib.md5(
+
+    md5_hash = hashlib.md5(
         f"{ds_path}-{ds_split}-{index_name}-{','.join(embedders_list)}".encode("utf-8")
     ).hexdigest()
-    LOGGER.info(
-        "Unique name for the task and models",
-        unique_name=f"{ds_path}-{ds_split}-{','.join(embedders_list)}",
-    )
-    unique_path = Path(os.path.join(corpus_cache_path, unique_name))
-    unique_path.mkdir(exist_ok=True)
+
+    LOGGER.info("Unique name for the task and models", unique_name=md5_hash)
+
+    corpus_cache_path = Path(corpus_cache_path)
+    corpus_cache_path.mkdir(exist_ok=True, parents=True)
+    unique_path = corpus_cache_path / f"{md5_hash}.pkl"
 
     embedder: Embedder
     if embedders == "sbert":

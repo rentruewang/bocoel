@@ -8,7 +8,6 @@ The module provides a few index implementations:
 - HnswlibIndex: Uses the hnswlib library for fast nearest neighbor search.
 - PolarIndex: Transforms spatial coordinates into polar coordinates for indexing.
 - WhiteningIndex: Whitens the data before indexing.
-- StatefulIndex: Wraps an index to track search states.
 """
 
 from .backend import FaissIndex, HnswlibIndex
