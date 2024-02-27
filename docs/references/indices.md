@@ -7,8 +7,6 @@
 ::: bocoel.WhiteningIndex
 ::: bocoel.PolarIndex
 
-::: bocoel.StatefulIndex
-
 ::: bocoel.Boundary
 ::: bocoel.Distance
 
