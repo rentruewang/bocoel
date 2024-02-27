@@ -71,7 +71,8 @@ def main(
         "Unique name for the task and models",
         unique_name=f"{ds_path}-{ds_split}-{','.join(embedders_list)}",
     )
-    corpus_cache_path = Path(os.path.join(corpus_cache_path, unique_name))
+    unique_path = Path(os.path.join(corpus_cache_path, unique_name))
+    unique_path.mkdir(exist_ok=True)
 
     embedder: Embedder
     if embedders == "sbert":
@@ -83,9 +84,9 @@ def main(
     storage = DatasetsStorage.load(path=ds_path, split=ds_split)
 
     corpus: ComposedCorpus
-    if corpus_cache_path.exists():
-        LOGGER.info("Loading corpus from cache", path=corpus_cache_path)
-        with open(corpus_cache_path, "rb") as f:
+    if unique_path.exists():
+        LOGGER.info("Loading corpus from cache", path=unique_path)
+        with open(unique_path, "rb") as f:
             corpus = pickle.load(f)
     else:
         corpus = common.composed_corpus(
@@ -98,7 +99,7 @@ def main(
             embedder=embedder,
             storage=storage,
         )
-        with open(corpus_cache_path, "wb") as f:
+        with open(unique_path, "wb") as f:
             pickle.dump(corpus, f)
 
     # ------------------------

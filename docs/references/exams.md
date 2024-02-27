@@ -7,9 +7,6 @@
 ::: bocoel.Exam
 ::: bocoel.AccType
 ::: bocoel.Accumulation
-::: bocoel.MstMaxEdge
-::: bocoel.MstMaxEdgeType
-::: bocoel.Segregation
 
 ::: bocoel.Manager
 ::: bocoel.core.exams.columns

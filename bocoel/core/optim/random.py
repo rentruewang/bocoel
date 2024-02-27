@@ -32,7 +32,7 @@ class RandomOptimizer(Optimizer):
             batch_size: The number of samples to evaluate at once.
         """
 
-        LOGGER.info("Instantiating RandomOptimizer", samples=samples)
+        LOGGER.info("Instantiating RandomOptimizer", total=len(index), samples=samples)
 
         self._index_eval = index_eval
         self._index = index
