@@ -51,8 +51,6 @@ class PolarIndex(Index):
         self._boundary = self._polar_boundary(dims)
         self._data = self._polar_coordinates()
 
-        assert dims == self._index.dims, "Polar dimensions do not match embeddings."
-
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         # Ignores the length of the query. Only direction is preserved.
         spatial = self.polar_to_spatial(np.ones([len(query)]), query)
