@@ -1,5 +1,7 @@
 import itertools
 
+from torch import cuda
+
 from . import glue
 
 DS_PATHS = ["SetFit/mrpc"]
@@ -29,6 +31,7 @@ EMBEDDERS = [
 ]
 INDEX_THREADS = 8
 REDUCED = 32
+DEVICE = "cuda" if cuda.is_available() else "cpu"
 
 
 def main():
@@ -55,7 +58,7 @@ def main():
             index_threads=INDEX_THREADS,
             embedders=embedder,
             reduced=REDUCED,
-            device="cuda",
+            device=DEVICE,
         )
 
 
