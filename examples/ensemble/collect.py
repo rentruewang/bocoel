@@ -102,17 +102,17 @@ class ScipyStat:
         ref_emb: dict[tuple[str, str], NDArray],
         stat: Literal["spearmanr", "kendalltau"] = "kendalltau",
     ) -> None:
-        num_models = len(set(experiments[columns.MODEL]))
+        models = sorted(set(experiments[columns.MODEL]))
         experiments = experiments.sort_values([*cols, columns.MODEL])
 
         self._groups = experiments.groupby(list(cols))
         self._ref_emb = ref_emb
-        self._num_models = num_models
+        self._models = models
         self._stat = stat
 
         for values in self._ref_emb.values():
-            if len(values) != num_models:
-                f"Expected {num_models} models. Got {len(values)}."
+            if len(values) != len(models):
+                f"Expected {len(models)} models. Got {len(values)}."
 
     def stat(self, x: NDArray, y: NDArray) -> float:
         match self._stat:
@@ -147,13 +147,17 @@ class ScipyStat:
         acc_avg = np.array(grouped[columns.ACC_AVG])
         reference = self._ref_emb[storage, index]
 
-        if len(acc_avg) != self._num_models:
+        if len(acc_avg) != len(self._models):
+            models = grouped[columns.MODEL]
             LOGGER.debug(
                 "Insufficient models, discarded.",
+                groups=len(grouped),
                 rows=len(acc_avg),
                 reference=len(reference),
                 storage=storage,
                 index=index,
+                models=sorted(models),
+                all_models=self._models,
             )
             return None
 
