@@ -27,7 +27,7 @@ CLASSIFICATION = ["logits"]
 INDICES = ["polar", "whitening", "inverse_cdf"]
 EMBEDDERS = [
     "sbert",
-    # "textattack/bert-base-uncased-MRPC,textattack/roberta-base-MRPC,textattack/distilbert-base-uncased-MRPC,textattack/albert-base-v2-MRPC,textattack/distilbert-base-cased-MRPC,textattack/xlnet-large-cased-MRPC,textattack/xlnet-base-cased-MRPC"
+    "textattack/bert-base-uncased-MRPC,textattack/roberta-base-MRPC,textattack/distilbert-base-uncased-MRPC,textattack/albert-base-v2-MRPC,textattack/distilbert-base-cased-MRPC,textattack/xlnet-large-cased-MRPC,textattack/xlnet-base-cased-MRPC",
 ]
 INDEX_THREADS = 8
 REDUCED = 32

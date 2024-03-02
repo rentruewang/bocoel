@@ -29,6 +29,8 @@ class FaissIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
+        *,
+        normalize: bool = True,
         index_string: str,
         cuda: bool = False,
         batch_size: int = 64,
@@ -44,8 +46,9 @@ class FaissIndex(Index):
             batch_size: The batch size to use for searching.
         """
 
-        utils.validate_embeddings(embeddings)
-        embeddings = utils.normalize(embeddings)
+        if normalize:
+            embeddings = utils.normalize(embeddings)
+
         self.__embeddings = embeddings
 
         self._batch_size = batch_size
