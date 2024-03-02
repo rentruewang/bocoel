@@ -28,6 +28,7 @@ class PolarIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
+        *,
         polar_backend: type[Index],
         **backend_kwargs: Any,
     ) -> None:

@@ -21,6 +21,7 @@ class WhiteningIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
+        *,
         reduced: int,
         whitening_backend: type[Index],
         **backend_kwargs: Any,

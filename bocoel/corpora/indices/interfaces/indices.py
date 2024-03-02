@@ -16,7 +16,9 @@ class Index(Protocol):
     Index is responsible for fast retrieval given a vector query.
     """
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(
+        self, embeddings: NDArray, distance: str | Distance, **kwargs: Any
+    ) -> None:
         # Included s.t. constructors of Index can be used.
         ...
 

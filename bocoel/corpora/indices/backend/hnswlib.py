@@ -19,11 +19,27 @@ class HnswlibIndex(Index):
         self,
         embeddings: NDArray,
         distance: str | Distance,
+        *,
+        normalize: bool = True,
         threads: int = -1,
         batch_size: int = 64,
     ) -> None:
-        utils.validate_embeddings(embeddings)
-        embeddings = utils.normalize(embeddings)
+        """
+        Initializes the HNSWLIB index.
+
+        Parameters:
+            embeddings: The embeddings to index.
+            distance: The distance metric to use.
+            normalize: Whether to normalize the embeddings.
+            threads: The number of threads to use.
+            batch_size: The batch size to use for searching.
+
+        Raises:
+            ValueError: If the distance is not supported.
+        """
+
+        if normalize:
+            embeddings = utils.normalize(embeddings)
 
         self.__embeddings = embeddings
 
