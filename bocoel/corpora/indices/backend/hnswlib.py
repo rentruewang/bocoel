@@ -47,11 +47,6 @@ class HnswlibIndex(Index):
         self._dist = Distance.lookup(distance)
         self._batch_size = batch_size
 
-        self._boundary = utils.boundaries(embeddings)
-        assert (
-            self._boundary.dims == embeddings.shape[1]
-        ), "Boundary dimensions do not match embeddings."
-
         # A public attribute because this can be changed at anytime.
         self.threads = threads
 
@@ -69,10 +64,6 @@ class HnswlibIndex(Index):
     def distance(self) -> Distance:
         return self._dist
 
-    @property
-    def boundary(self) -> Boundary:
-        return self._boundary
-
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         indices, distances = self._index.knn_query(query, k=k, num_threads=self.threads)
         return InternalResult(indices=indices, distances=distances)
@@ -83,8 +74,8 @@ class HnswlibIndex(Index):
 
         space = self._hnswlib_space(self.distance)
         self._index = _HnswlibIndex(space=space, dim=self.dims)
-        self._index.init_index(max_elements=len(self.__embeddings))
-        self._index.add_items(self.__embeddings, num_threads=self.threads)
+        self._index.init_index(max_elements=len(self.data))
+        self._index.add_items(self.data, num_threads=self.threads)
 
     @staticmethod
     def _hnswlib_space(distance: Distance) -> _HnswlibDist:
