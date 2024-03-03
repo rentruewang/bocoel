@@ -119,17 +119,18 @@ class Index(Protocol):
         ...
 
     @property
-    @abc.abstractmethod
     def boundary(self) -> Boundary:
         """
         The boundary of the queries.
         This is used to check if the query is in range.
+        By default, this is [-1, 1] for all dimensions,
+        since embeddings are normalized.
 
         Returns:
             The boundary of the input.
         """
 
-        ...
+        return Boundary.fixed(lower=-1, upper=1, dims=self.dims)
 
     @property
     @abc.abstractmethod
@@ -168,7 +169,7 @@ class Index(Protocol):
             The number of dimensions.
         """
 
-        return self.boundary.dims
+        return self.data.shape[-1]
 
     @property
     def lower(self) -> NDArray:

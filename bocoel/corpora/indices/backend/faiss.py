@@ -54,11 +54,6 @@ class FaissIndex(Index):
         self._batch_size = batch_size
         self._dist = Distance.lookup(distance)
 
-        self._boundary = utils.boundaries(embeddings)
-        assert (
-            self._boundary.dims == embeddings.shape[1]
-        ), "Boundary dimensions do not match embeddings."
-
         self._index_string = index_string
         self._init_index(index_string=index_string, cuda=cuda)
 
@@ -81,10 +76,6 @@ class FaissIndex(Index):
     def dims(self) -> int:
         return self.__embeddings.shape[1]
 
-    @property
-    def boundary(self) -> Boundary:
-        return self._boundary
-
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
         distances, indices = self._index.search(query, k)
         return InternalResult(distances=distances, indices=indices)
@@ -97,8 +88,8 @@ class FaissIndex(Index):
         # https://github.com/facebookresearch/faiss/issues/2891
 
         index: Any = _faiss().index_factory(self.dims, index_string, metric)
-        index.train(self.__embeddings)
-        index.add(self.__embeddings)
+        index.train(self.data)
+        index.add(self.data)
 
         if cuda:
             index = _faiss().index_cpu_to_all_gpus(index)

@@ -1,3 +1,4 @@
+import logging
 from collections.abc import Mapping
 from typing import Any
 
@@ -16,6 +17,17 @@ from .surrogates import SurrogateModel, SurrogateOptions
 
 _KEY = "EVAL"
 Device = str | device
+
+
+def silence_ax():
+    # Disable the very verbose logging from Ax.
+
+    ax_service_loggers = [
+        key for key in logging.root.manager.loggerDict if key.startswith("ax.service")
+    ]
+
+    for logger in ax_service_loggers:
+        logging.getLogger(logger).setLevel(logging.WARNING)
 
 
 class AxServiceOptimizer(Optimizer):
@@ -49,6 +61,8 @@ class AxServiceOptimizer(Optimizer):
             surrogate: The surrogate model to use for the optimization.
             surrogate_kwargs: The keyword arguments to pass to the surrogate model.
         """
+
+        silence_ax()
 
         acqf = AcquisitionFunc.lookup(acqf)
         task = Task.lookup(task)
