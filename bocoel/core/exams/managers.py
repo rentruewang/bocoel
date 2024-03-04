@@ -1,5 +1,4 @@
 import datetime as dt
-import glob
 import hashlib
 import itertools
 from collections import OrderedDict
@@ -225,12 +224,8 @@ class Manager:
             ValueError: If no csv files are found in the path.
         """
 
-        posix = Path(path).absolute().as_posix()
-
         # Iterate over all csv files in the path.
-        dfs = [
-            pd.read_csv(csv) for csv in glob.glob(f"{posix}/**/*.csv", recursive=True)
-        ]
+        dfs = [pd.read_csv(csv) for csv in Path(path).rglob(f"*.csv")]
 
         if not dfs:
             raise ValueError(f"No csv files found in {path}")
