@@ -1,6 +1,6 @@
 import pytest
 
-from bocoel import Manager
+from bocoel import Manager, SbertEmbedder
 from tests import utils
 from tests.corpora import factories as corpus_factories
 from tests.models.adaptors import factories as adaptor_factories
@@ -25,7 +25,8 @@ from . import factories
     ],
 )
 def test_init_optimizer(device: str, score: str) -> None:
-    corpus = corpus_factories.corpus(device=device)
+    embedder = SbertEmbedder(device=device)
+    corpus = corpus_factories.corpus(embedder=embedder)
     lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
 
@@ -48,9 +49,17 @@ def test_init_optimizer(device: str, score: str) -> None:
     ],
 )
 def test_optimize(device: str, score: str) -> None:
-    corpus = corpus_factories.corpus(device=device)
+    embedder = SbertEmbedder(device=device)
+    corpus = corpus_factories.corpus(embedder=embedder)
     lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
     optimizer = factories.kmedoids_optim(corpus, lm, adaptor)
 
-    Manager().run(optimizer=optimizer, corpus=corpus, steps=15)
+    Manager().run(
+        optimizer=optimizer,
+        embedder=embedder,
+        corpus=corpus,
+        model=lm,
+        adaptor=adaptor,
+        steps=15,
+    )

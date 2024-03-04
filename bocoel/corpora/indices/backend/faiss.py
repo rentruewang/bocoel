@@ -5,7 +5,7 @@ from typing import Any
 from numpy.typing import NDArray
 
 from bocoel.corpora.indices import utils
-from bocoel.corpora.indices.interfaces import Boundary, Distance, Index, InternalResult
+from bocoel.corpora.indices.interfaces import Distance, Index, InternalResult
 
 
 @functools.cache

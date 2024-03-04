@@ -1,5 +1,6 @@
 import pytest
 
+from bocoel import SbertEmbedder
 from tests import utils
 
 from . import factories
@@ -7,4 +8,5 @@ from . import factories
 
 @pytest.mark.parametrize("device", utils.torch_devices())
 def test_init_corpus(device: str) -> None:
-    _ = factories.corpus(device)
+    embedder = SbertEmbedder(device=device)
+    _ = factories.corpus(embedder=embedder)

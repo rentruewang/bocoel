@@ -179,14 +179,13 @@ def main(
     )
 
     manager = Manager(manager_path)
-    scores = manager.run(optimizer=optim, corpus=corpus, steps=optimizer_steps)
-    manager.save(
-        scores,
+    manager.run(
         optimizer=optim,
         corpus=corpus,
         model=lm,
         adaptor=adaptor,
         embedder=embedder,
+        steps=optimizer_steps,
     )
 
 

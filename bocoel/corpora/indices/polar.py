@@ -109,7 +109,7 @@ class PolarIndex(Index):
 
         transformed = np.concatenate(results, axis=0)
         assert (
-            transformed.shape[1] == self.dims
+            transformed.shape[1] == self._index.dims - 1
         ), "Polar dimensions do not match embeddings."
 
         return transformed

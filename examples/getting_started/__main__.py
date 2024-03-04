@@ -49,7 +49,14 @@ def main() -> None:
     man = Manager("results")
 
     # Evaluates the model on the corpus for up to 60 samples.
-    man.run(optimizer=optimizer, corpus=corpus, steps=60)
+    man.run(
+        steps=60,
+        optimizer=optimizer,
+        embedder=embedder,
+        corpus=corpus,
+        model=llm,
+        adaptor=adaptor,
+    )
 
     # The end results is saved automatically to the folder "results".
     # Different runs are preserved in the same folder.
