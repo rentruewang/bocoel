@@ -1,2 +1,2 @@
-from .evals import IndexEvaluator, QueryEvaluator, SearchEvaluator
+from .evals import CachedIndexEvaluator, IndexEvaluator, QueryEvaluator, SearchEvaluator
 from .optim import Optimizer

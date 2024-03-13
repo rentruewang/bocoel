@@ -5,14 +5,15 @@ from typing import Any, Literal
 import structlog
 from torch import cuda
 
-import bocoel
 from bocoel import (
     AcquisitionFunc,
     Adaptor,
     AxServiceOptimizer,
     BruteForceOptimizer,
+    CachedIndexEvaluator,
     ComposedCorpus,
     Corpus,
+    CorpusEvaluator,
     Distance,
     Embedder,
     EnsembleEmbedder,
@@ -31,6 +32,21 @@ from bocoel import (
 )
 
 LOGGER = structlog.get_logger()
+
+
+class CorpusEvaluatorRegistry:
+    def __init__(self) -> None:
+        self._cache: dict[tuple[str, str], CachedIndexEvaluator] = {}
+
+    def __call__(self, corpus: Corpus, adaptor: Adaptor) -> CachedIndexEvaluator:
+        key = repr(corpus), repr(adaptor)
+
+        if key not in self._cache:
+            corpus_eval = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
+            cached_corpus_eval = CachedIndexEvaluator(corpus_eval)
+            self._cache[key] = cached_corpus_eval
+
+        return self._cache[key]
 
 
 def ensemble_embedder(embedders: Sequence[str], batch_size: int) -> EnsembleEmbedder:
@@ -91,7 +107,6 @@ def composed_corpus(
     storage: Storage,
     embedder: Embedder,
 ) -> ComposedCorpus:
-
     LOGGER.info(
         "Creating corpus with storage and embedder",
         storage=storage,
@@ -127,51 +142,50 @@ def optimizer_and_steps(
     task: str,
     acqf: str,
     batch_size: int,
+    corpus_evals: CorpusEvaluatorRegistry,
 ) -> tuple[Optimizer, int]:
+    corpus_eval = corpus_evals(corpus=corpus, adaptor=adaptor)
+    optim: Optimizer
+
     match optimizer:
         case "ax":
-            optim = bocoel.evaluate_corpus(
-                AxServiceOptimizer,
-                corpus=corpus,
-                adaptor=adaptor,
+            optim = AxServiceOptimizer(
+                index_eval=corpus_eval,
+                index=corpus.index,
                 sobol_steps=sobol_steps,
                 device=device,
                 task=Task.lookup(task),
                 acqf=AcquisitionFunc.lookup(acqf),
             )
         case "kmeans":
-            optim = bocoel.evaluate_corpus(
-                KMeansOptimizer,
-                corpus=corpus,
-                adaptor=adaptor,
+            optim = KMeansOptimizer(
+                index_eval=corpus_eval,
+                index=corpus.index,
                 batch_size=batch_size,
                 embeddings=corpus.index.data,
                 model_kwargs={"n_clusters": optimizer_steps, "n_init": "auto"},
             )
         case "kmedoids":
-            optim = bocoel.evaluate_corpus(
-                KMedoidsOptimizer,
-                corpus=corpus,
-                adaptor=adaptor,
+            optim = KMedoidsOptimizer(
+                index_eval=corpus_eval,
+                index=corpus.index,
                 batch_size=batch_size,
                 embeddings=corpus.index.data,
                 model_kwargs={"n_clusters": optimizer_steps},
             )
         case "random":
-            optim = bocoel.evaluate_corpus(
-                RandomOptimizer,
-                corpus=corpus,
-                adaptor=adaptor,
+            optim = RandomOptimizer(
+                index_eval=corpus_eval,
+                index=corpus.index,
                 samples=optimizer_steps,
                 batch_size=batch_size,
             )
         case "brute":
-            optim = bocoel.evaluate_corpus(
-                BruteForceOptimizer,
-                corpus=corpus,
-                adaptor=adaptor,
-                total=optimizer_steps,
+            optim = BruteForceOptimizer(
+                index_eval=corpus_eval,
+                index=corpus.index,
                 batch_size=batch_size,
+                total=optimizer_steps,
             )
         case _:
             raise ValueError(f"Unknown optimizer {optimizer}")

@@ -5,16 +5,14 @@ from bocoel import (
     AxServiceOptimizer,
     BruteForceOptimizer,
     Corpus,
+    CorpusEvaluator,
     KMeansOptimizer,
     KMedoidsOptimizer,
     Optimizer,
     RandomOptimizer,
     UniformOptimizer,
-    core,
 )
 from bocoel.common import StrEnum
-
-from . import common
 
 
 class OptimizerName(StrEnum):
@@ -81,6 +79,5 @@ def optimizer(
         case _:
             raise ValueError(f"Unknown optimizer name: {name}")
 
-    return common.correct_kwargs(core.evaluate_corpus)(
-        klass, corpus=corpus, adaptor=adaptor, **kwargs
-    )
+    corpus_evaluator = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
+    return klass(index_eval=corpus_evaluator, index=corpus.index, **kwargs)

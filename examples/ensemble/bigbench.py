@@ -21,6 +21,7 @@ from bocoel import (
 )
 
 from . import common
+from .common import CorpusEvaluatorRegistry
 
 structlog.configure(
     wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
@@ -125,6 +126,7 @@ def main(
         acqf=acqf,
     )
 
+    registry = CorpusEvaluatorRegistry()
     optim, optimizer_steps = common.optimizer_and_steps(
         optimizer=optimizer,
         optimizer_steps=optimizer_steps,
@@ -135,6 +137,7 @@ def main(
         task=task,
         acqf=acqf,
         batch_size=batch_size,
+        corpus_evals=registry,
     )
     for i in tqdm(range(optimizer_steps)):
         try:

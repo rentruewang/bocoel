@@ -17,10 +17,6 @@ class Examinator:
     Examinators take in an index and results of an optimizer run,
     and return a DataFrame of scores for
     the accumulated history performance of the optimizer.
-
-    TODO:
-        Run the different exams in parallel.
-        Currently the exams are run sequentially and can be slow.
     """
 
     def __init__(self, exams: Mapping[str, Exam]) -> None:
@@ -37,6 +33,10 @@ class Examinator:
 
         Returns:
             The scores of the exams.
+
+        TODO:
+            Run the different exams in parallel.
+            Currently the exams are run sequentially and can be slow.
         """
 
         scores = {k: v.run(index, results) for k, v in self.exams.items()}

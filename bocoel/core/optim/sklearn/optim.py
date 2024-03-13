@@ -7,7 +7,7 @@ from numpy.typing import NDArray
 from sklearn.utils import validation
 
 from bocoel.core.optim.interfaces import IndexEvaluator, Optimizer
-from bocoel.core.optim.utils import BatchedGenerator
+from bocoel.core.optim.interfaces.utils import BatchedGenerator
 from bocoel.core.tasks import Task
 from bocoel.corpora import Index
 

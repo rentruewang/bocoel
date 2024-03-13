@@ -3,6 +3,8 @@ from .optim import (
     AcquisitionFunc,
     AxServiceOptimizer,
     BruteForceOptimizer,
+    CachedIndexEvaluator,
+    CorpusEvaluator,
     IndexEvaluator,
     KMeansOptimizer,
     KMeansOptions,
@@ -15,6 +17,5 @@ from .optim import (
     ScikitLearnOptimizer,
     SearchEvaluator,
     UniformOptimizer,
-    evaluate_corpus,
 )
 from .tasks import Task

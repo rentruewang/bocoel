@@ -7,6 +7,8 @@ from .core import (
     AcquisitionFunc,
     AxServiceOptimizer,
     BruteForceOptimizer,
+    CachedIndexEvaluator,
+    CorpusEvaluator,
     Exam,
     Examinator,
     IndexEvaluator,
@@ -22,7 +24,6 @@ from .core import (
     SearchEvaluator,
     Task,
     UniformOptimizer,
-    evaluate_corpus,
 )
 from .corpora import (
     Boundary,

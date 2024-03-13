@@ -7,8 +7,15 @@ would guide the search towards the optimal trajectory.
 
 from .ax import AcquisitionFunc, AxServiceOptimizer, AxServiceParameter
 from .brute import BruteForceOptimizer
-from .evals import evaluate_corpus
-from .interfaces import IndexEvaluator, Optimizer, QueryEvaluator, SearchEvaluator
+from .corpora import CorpusEvaluator
+from .interfaces import (
+    CachedIndexEvaluator,
+    IndexEvaluator,
+    Optimizer,
+    QueryEvaluator,
+    SearchEvaluator,
+)
+from .interfaces.utils import RemainingSteps
 from .random import RandomOptimizer
 from .sklearn import (
     KMeansOptimizer,
@@ -18,4 +25,3 @@ from .sklearn import (
     ScikitLearnOptimizer,
 )
 from .uniform import UniformOptimizer
-from .utils import RemainingSteps
