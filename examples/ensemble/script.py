@@ -3,6 +3,7 @@ import itertools
 from torch import cuda
 
 from . import glue
+from .common import CorpusEvaluatorRegistry
 
 DS_PATHS = ["SetFit/mrpc"]
 DS_SPLITS = ["validation"]
@@ -35,6 +36,8 @@ DEVICE = "cuda" if cuda.is_available() else "cpu"
 
 
 def main():
+    registry = CorpusEvaluatorRegistry()
+
     for (
         ds_path,
         ds_split,
@@ -59,6 +62,7 @@ def main():
             embedders=embedder,
             reduced=REDUCED,
             device=DEVICE,
+            registry=registry,
         )
 
 

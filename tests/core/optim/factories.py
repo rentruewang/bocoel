@@ -3,12 +3,12 @@ from bocoel import (
     Adaptor,
     AxServiceOptimizer,
     Corpus,
+    CorpusEvaluator,
     GenerativeModel,
     KMeansOptimizer,
     KMedoidsOptimizer,
     Optimizer,
     Task,
-    core,
 )
 from tests import utils
 
@@ -17,10 +17,10 @@ from tests import utils
 def ax_optim(
     corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor, device: str, workers: int
 ) -> Optimizer:
-    return core.evaluate_corpus(
-        AxServiceOptimizer,
-        corpus=corpus,
-        adaptor=adaptor,
+    corpus_eval = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
+    return AxServiceOptimizer(
+        index_eval=corpus_eval,
+        index=corpus.index,
         sobol_steps=5,
         device=device,
         acqf=AcquisitionFunc.UCB,
@@ -31,10 +31,10 @@ def ax_optim(
 
 @utils.cache
 def kmeans_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optimizer:
-    return core.evaluate_corpus(
-        KMeansOptimizer,
-        corpus=corpus,
-        adaptor=adaptor,
+    corpus_eval = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
+    return KMeansOptimizer(
+        index_eval=corpus_eval,
+        index=corpus.index,
         batch_size=64,
         embeddings=corpus.index.data,
         model_kwargs={"n_clusters": 3, "n_init": "auto"},
@@ -43,10 +43,10 @@ def kmeans_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optim
 
 @utils.cache
 def kmedoids_optim(corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor) -> Optimizer:
-    return core.evaluate_corpus(
-        KMedoidsOptimizer,
-        corpus=corpus,
-        adaptor=adaptor,
+    corpus_eval = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
+    return KMedoidsOptimizer(
+        index_eval=corpus_eval,
+        index=corpus.index,
         batch_size=64,
         embeddings=corpus.index.data,
         model_kwargs={"n_clusters": 3},

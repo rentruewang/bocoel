@@ -22,6 +22,7 @@ from bocoel import (
 )
 
 from . import common
+from .common import CorpusEvaluatorRegistry
 
 structlog.configure(
     wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
@@ -57,6 +58,7 @@ def main(
     corpus_cache_path: str | Path = "./cache/",
     embedders: str = "sbert",
     manager_path: str = "results",
+    registry: CorpusEvaluatorRegistry,
 ) -> None:
     # The corpus part
 
@@ -176,6 +178,7 @@ def main(
         task=task,
         acqf=acqf,
         batch_size=batch_size,
+        corpus_evals=registry,
     )
 
     manager = Manager(manager_path)
