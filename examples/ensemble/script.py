@@ -1,5 +1,8 @@
+import functools
 import itertools
+import operator
 
+import alive_progress as ap
 from torch import cuda
 
 from . import glue
@@ -38,6 +41,18 @@ DEVICE = "cuda" if cuda.is_available() else "cpu"
 def main():
     registry = CorpusEvaluatorRegistry()
 
+    arguments = (
+        DS_PATHS,
+        DS_SPLITS,
+        CLASSIFICATION,
+        EMBEDDERS,
+        MODELS,
+        OPTIMIZERS,
+        INDICES,
+    )
+
+    total = functools.reduce(operator.mul, map(len, arguments), 1)
+
     for (
         ds_path,
         ds_split,
@@ -46,9 +61,7 @@ def main():
         llm_model,
         optim,
         index_name,
-    ) in itertools.product(
-        DS_PATHS, DS_SPLITS, CLASSIFICATION, EMBEDDERS, MODELS, OPTIMIZERS, INDICES
-    ):
+    ) in ap.alive_it(itertools.product(*arguments), total=total):
         glue.main(
             ds_path=ds_path,
             ds_split=ds_split,
