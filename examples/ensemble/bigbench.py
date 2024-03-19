@@ -63,7 +63,7 @@ def main(
     dataset_list: list[DatasetsStorage] = []
     for ds_name in tqdm(ds_names):
         LOGGER.debug("Loading...", path=ds_path, name=ds_name, split=ds_split)
-        dataset = DatasetsStorage.load(path=ds_path, name=ds_name, split=ds_split)
+        dataset = DatasetsStorage(path=ds_path, name=ds_name, split=ds_split)
         dataset_list.append(dataset)
 
     storage = ConcatStorage.join(dataset_list)

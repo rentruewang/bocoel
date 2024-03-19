@@ -41,7 +41,7 @@ def storage(
         case StorageName.PANDAS:
             return common.correct_kwargs(PandasStorage.from_jsonl_file)(path)
         case StorageName.DATASETS:
-            return common.correct_kwargs(DatasetsStorage.load)(
+            return common.correct_kwargs(DatasetsStorage)(
                 path=path, name=name, split=split
             )
         case _:

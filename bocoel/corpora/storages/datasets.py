@@ -1,10 +1,6 @@
 from collections.abc import Collection, Mapping
 from typing import Any
 
-import datasets
-from datasets import Dataset, DatasetDict
-from typing_extensions import Self
-
 from bocoel.corpora.storages.interfaces import Storage
 
 
@@ -16,17 +12,25 @@ class DatasetsStorage(Storage):
     """
 
     def __init__(
-        self,
-        dataset: Dataset,
-        path: str | None = None,
-        name: str | None = None,
-        split: str | None = None,
+        self, path: str, name: str | None = None, split: str | None = None
     ) -> None:
-        self._dataset = dataset
+        # Optional dependency.
+        import datasets
+        from datasets import DatasetDict
 
         self._path = path
         self._name = name
         self._split = split
+
+        ds = datasets.load_dataset(path=path, name=name, trust_remote_code=True)
+
+        if split:
+            if not isinstance(ds, DatasetDict):
+                raise ValueError("Split is not supported for this dataset")
+
+            ds = ds[split]
+
+        self._dataset = ds
 
     def __repr__(self) -> str:
         args = [self._path, self._name, self._split, list(self.keys()), len(self)]
@@ -42,15 +46,3 @@ class DatasetsStorage(Storage):
 
     def _getitem(self, idx: int) -> Mapping[str, Any]:
         return self._dataset[idx]
-
-    @classmethod
-    def load(cls, path: str, name: str | None = None, split: str | None = None) -> Self:
-        ds = datasets.load_dataset(path=path, name=name, trust_remote_code=True)
-
-        if split:
-            if not isinstance(ds, DatasetDict):
-                raise ValueError("Split is not supported for this dataset")
-
-            ds = ds[split]
-
-        return cls(ds, path=path, name=name, split=split)
