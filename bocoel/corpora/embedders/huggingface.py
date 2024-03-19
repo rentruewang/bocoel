@@ -2,7 +2,6 @@ from collections.abc import Callable, Sequence
 from typing import Any
 
 from torch import Tensor
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from bocoel.corpora.embedders.interfaces import Embedder
 
@@ -33,6 +32,9 @@ class HuggingfaceEmbedder(Embedder):
             ImportError: If transformers is not installed.
             ValueError: If the model does not have a `config.id2label` attribute.
         """
+
+        # Optional dependency.
+        from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
         self._path = path
         self._model = AutoModelForSequenceClassification.from_pretrained(path)

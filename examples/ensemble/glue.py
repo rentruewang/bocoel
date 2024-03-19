@@ -90,7 +90,7 @@ def main(
         embedder = common.ensemble_embedder(
             batch_size=batch_size, embedders=embedders_list
         )
-    storage = DatasetsStorage.load(path=ds_path, split=ds_split)
+    storage = DatasetsStorage(path=ds_path, split=ds_split)
 
     corpus: ComposedCorpus
     if unique_path.exists():
