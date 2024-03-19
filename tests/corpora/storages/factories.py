@@ -44,4 +44,4 @@ def dataset() -> Dataset:
 
 @utils.cache
 def datasets_storage() -> Storage:
-    return DatasetsStorage(dataset())
+    return DatasetsStorage("SetFit/sst2")
