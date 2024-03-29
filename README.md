@@ -116,7 +116,7 @@ If you find this project helpful in your research, please cite this work at
 @misc{bocoel2024,
     title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
     url = {https://rentruewang.github.io/bocoel/research/},
-    author = {Wang, RenChu and Chuang, Yung-Sung},
+    author = {Wang, RenChu},
     month = {January},
     year = {2024}
 }

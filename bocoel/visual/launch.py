@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from dash import Dash, Input, Output
 from dash.dash_table import DataTable
 from numpy.typing import NDArray
@@ -11,7 +13,12 @@ from .reducers import Reducer
 
 def main(*, debug: bool = True, X: NDArray, reducer: Reducer) -> None:
     #### Initialize app ####
+    # TODO: Input Real Data
     data: DataFrame = reducer.process(X)
+    data_2: DataFrame = reducer.process(X)
+    data_3: DataFrame = reducer.process(X)
+    data_4: DataFrame = reducer.process(X)
+    all_data = [data, data_2, data_3, data_4]
 
     APP = Dash(
         __name__,
@@ -31,15 +38,15 @@ def main(*, debug: bool = True, X: NDArray, reducer: Reducer) -> None:
     #### CALLBACKS ####
     """Reads control input and update div generators"""
 
-    @APP.callback(Output("data_card_1", "children"), [Input("slider", "value")])
+    @APP.callback(Output("data-card-1", "children"), [Input("slider", "value")])
     def update_control_text_1(slider_value: float):
         return updates.control_text_1(slider_value=slider_value)
 
-    @APP.callback(Output("data_card_2", "figure"), [Input("CI", "value")])
+    @APP.callback(Output("data-card-2", "figure"), [Input("CI", "value")])
     def update_control_text_2(slider_value: float) -> Figure:
         return updates.control_text_2(slider_value=slider_value)
 
-    @APP.callback(Output("table_out", "children"), Input("slider", "value"))
+    @APP.callback(Output("table-content", "children"), Input("slider", "value"))
     def update_table(slider_value: float) -> DataTable:
         return updates.table(slider_value=slider_value, df=data)
 
@@ -58,9 +65,28 @@ def main(*, debug: bool = True, X: NDArray, reducer: Reducer) -> None:
         return updates.y_splines(slider_value=slider_value, df=data)
 
     @APP.callback(
-        Output("3D-plane", "figure"), [Input("slider", "value"), Input("CI", "value")]
+        [Output("3D-plane", "children")],
+        [
+            Input("slider", "value"),
+            Input("CI", "value"),
+            Input("LLM-dropdown", "value"),
+            Input("Corpus-dropdown", "value"),
+        ],
     )
-    def update_3D_plot(slider_value: float, ci: float = 0) -> Figure:
-        return updates.three_d(slider_value=slider_value, ci=ci, df=data)
+    def update_3D_plot(
+        slider_value: float,
+        ci: float = 0,
+        llm: Sequence[str] = (),
+        corpus: Sequence[str] = (),
+        layout_children: Sequence[str] = (),
+    ):
+        return updates.three_d(
+            slider_value=slider_value,
+            ci=ci,
+            llm=llm,
+            corpus=corpus,
+            layout_children=layout_children,
+            data=all_data,
+        )
 
-    APP.run_server(debug=debug)
+    APP.run_server(debug=debug, dev_tools_hot_reload=True)

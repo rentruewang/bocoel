@@ -2,6 +2,8 @@
 
 _This page is a work in progress. More experiments would be added and the page would be prettier in the future._
 
+--8<-- "README.md"
+
 
 ## Abstract
 
@@ -66,15 +68,3 @@ The experimental section will present the application of BoCoEL in various scena
 TODO: Add authors.
 
 See [the thank you page](./thanks.md) for details.
-
-## Citation
-
-```
-@misc{bocoel2024,
-    title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
-    url = {https://rentruewang.github.io/bocoel/research/},
-    author = {Wang, RenChu and Chuang, Yung-Sung},
-    month = {January},
-    year = {2024}
-}
-```
