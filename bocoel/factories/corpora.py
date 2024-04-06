@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from typing import Any
 
 from bocoel import ComposedCorpus, Corpus, Embedder, Storage
@@ -22,6 +23,7 @@ def corpus(
     *,
     storage: Storage,
     embedder: Embedder,
+    keys: Sequence[str],
     index_name: str | IndexName,
     **index_kwargs: Any,
 ) -> Corpus:
@@ -32,6 +34,7 @@ def corpus(
         name: The name of the corpus.
         storage: The storage to use.
         embedder: The embedder to use.
+        keys: The key to use for the index.
         index_name: The name of the index backend to use.
         **index_kwargs: The keyword arguments to pass to the index backend.
 
@@ -48,6 +51,7 @@ def corpus(
     return common.correct_kwargs(ComposedCorpus.index_storage)(
         storage=storage,
         embedder=embedder,
+        keys=keys,
         index_backend=indices.index_class(index_name),
         **indices.index_set_backends(index_kwargs),
     )

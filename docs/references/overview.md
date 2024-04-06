@@ -10,12 +10,12 @@ graph TD;
     adaptor --> optimizer;
     optimizer --> exams;
 
-    index[<a href='/references/indices'>Index</a>]
-    storage[<a href='/references/storages'>Storage</a>]
-    embedder[<a href='/references/embedders'>Embedder</a>]
-    corpus[<a href='/references/corpora'>Corpus</a>]
-    adaptor[<a href='/references/adaptors'>Adaptor</a>]
-    score[<a href='/references/scores'>Score</a>]
-    optimizer[<a href='/references/optimizers'>Optimizer</a>]
-    exams[<a href='/references/exams'>Exams / Results</a>]
+    index[<a href='https://rentruewang.github.io/bocoel/references/indices'>Index</a>]
+    storage[<a href='https://rentruewang.github.io/bocoel/references/storages'>Storage</a>]
+    embedder[<a href='https://rentruewang.github.io/bocoel/references/embedders'>Embedder</a>]
+    corpus[<a href='https://rentruewang.github.io/bocoel/references/corpora'>Corpus</a>]
+    adaptor[<a href='https://rentruewang.github.io/bocoel/references/adaptors'>Adaptor</a>]
+    score[<a href='https://rentruewang.github.io/bocoel/references/scores'>Score</a>]
+    optimizer[<a href='https://rentruewang.github.io/bocoel/references/optimizers'>Optimizer</a>]
+    exams[<a href='https://rentruewang.github.io/bocoel/references/exams'>Exams / Results</a>]
 ```

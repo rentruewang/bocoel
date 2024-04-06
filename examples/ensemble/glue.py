@@ -4,7 +4,6 @@ import pickle
 from pathlib import Path
 from typing import Any, Literal
 
-import fire
 import structlog
 
 from bocoel import (
@@ -200,7 +199,3 @@ def glue_text_field(ds_path: str) -> str:
     else:
         raise ValueError(f"Unknown dataset {ds_path}")
     return sentence
-
-
-if __name__ == "__main__":
-    fire.Fire(main)
