@@ -23,7 +23,12 @@ def main() -> None:
     # Using hnswlib because it is a "standalone" index.
     # Other index like `PolarIndex` and `WhiteningIndex` are backed by other indices,
     # which is more complicated.
-    corpus = factories.corpus(storage=storage, embedder=embedder, index_name="HNSWLIB")
+    corpus = factories.corpus(
+        storage=storage,
+        embedder=embedder,
+        keys=["text1", "text2"],
+        index_name="HNSWLIB",
+    )
 
     # MNLI uses the choices "entailment", "neutral", "contradiction".
     MNLI_CHOICES = ["entailment", "neutral", "contradiction"]
