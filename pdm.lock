@@ -5,14 +5,14 @@
 groups = ["default", "cma", "datasets", "format", "index", "metrics", "pretty", "sklearn-extra", "test", "transformers", "type", "visual", "website", "all", "plots"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:e3c5a02fab3dd03f49726c2c32da633a2d079430bdebaee7540a0ed0dfb3b2cf"
+content_hash = "sha256:704591bcb4118ee780d37c4d21e58a51a4eff0946abdccfc07f0855f813dad80"
 
 [[package]]
 name = "about-time"
 version = "4.2.1"
 requires_python = ">=3.7, <4"
 summary = "Easily measure timing and throughput of code blocks, with beautiful human friendly representations."
-groups = ["default", "pretty"]
+groups = ["all", "default", "pretty"]
 files = [
     {file = "about-time-4.2.1.tar.gz", hash = "sha256:6a538862d33ce67d997429d14998310e1dbfda6cb7d9bbfbf799c4709847fece"},
     {file = "about_time-4.2.1-py3-none-any.whl", hash = "sha256:8bbf4c75fe13cbd3d72f49a03b02c5c7dca32169b6d49117c257e7eb3eaee341"},
@@ -81,7 +81,7 @@ name = "alive-progress"
 version = "3.1.5"
 requires_python = ">=3.7, <4"
 summary = "A new kind of Progress Bar, with real-time throughput, ETA, and very cool animations!"
-groups = ["default", "pretty"]
+groups = ["all", "default", "pretty"]
 dependencies = [
     "about-time==4.2.1",
     "grapheme==0.6.0",
@@ -924,7 +924,7 @@ files = [
 name = "grapheme"
 version = "0.6.0"
 summary = "Unicode grapheme helpers"
-groups = ["default", "pretty"]
+groups = ["all", "default", "pretty"]
 files = [
     {file = "grapheme-0.6.0.tar.gz", hash = "sha256:44c2b9f21bbe77cfb05835fec230bd435954275267fea1858013b102f8603cca"},
 ]
