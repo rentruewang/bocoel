@@ -8,7 +8,7 @@ from typing_extensions import NotRequired
 from bocoel.common import StrEnum
 
 
-class MLLOptions(TypedDict):
+class (TypedDict):
     num_samples: NotRequired[int]
     warmup_steps: NotRequired[int]
 
