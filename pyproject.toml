@@ -1,6 +1,6 @@
 [project]
 name = "bocoel"
-version = "0.1.1"
+version = "0.1.2"
 description = "Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models"
 authors = [
     {name = "RenChu Wang", email = "patrick1031wang@gmail.com"},
