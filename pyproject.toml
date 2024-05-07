@@ -74,6 +74,10 @@ build-backend = "hatchling.build"
 [tool.pdm]
 distribution = "true"
 
+[tool.isort]
+profile = "black"
+
+
 [tool.pdm.dev-dependencies]
 format = [
     "autoflake>=2.2.1",
