@@ -3,7 +3,6 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
 
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 from bocoel.corpora.corpora.interfaces import Corpus
 from bocoel.corpora.embedders import Embedder
@@ -29,7 +28,7 @@ class ComposedCorpus(Corpus):
         index_backend: type[Index],
         concat: Callable[[Iterable[Any]], str] = " [SEP] ".join,
         **index_kwargs: Any,
-    ) -> Self:
+    ) -> "ComposedCorpus":
         """
         Creates a corpus from the given storage, embedder, key and index class,
         where storage entries would be mapped to strings,
@@ -66,7 +65,7 @@ class ComposedCorpus(Corpus):
         transform: Callable[[Mapping[str, Sequence[Any]]], Sequence[str]],
         index_backend: type[Index],
         **index_kwargs: Any,
-    ) -> Self:
+    ) -> "ComposedCorpus":
         """
         Creates a corpus from the given storage, embedder, key and index class,
         where storage entries would be mapped to strings,
@@ -98,7 +97,7 @@ class ComposedCorpus(Corpus):
         embeddings: NDArray,
         index_backend: type[Index],
         **index_kwargs: Any,
-    ) -> Self:
+    ) -> "ComposedCorpus":
         """
         Create the corpus with the given embeddings.
         This can be used to save time by encoding once and caching embeddings.

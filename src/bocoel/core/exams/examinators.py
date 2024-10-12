@@ -2,7 +2,6 @@ from collections import OrderedDict
 from collections.abc import Mapping
 
 from pandas import DataFrame
-from typing_extensions import Self
 
 from bocoel.core.exams.interfaces import Exam
 from bocoel.corpora import Index
@@ -47,7 +46,7 @@ class Examinator:
         return DataFrame.from_dict({**original, **scores})
 
     @classmethod
-    def presets(cls) -> Self:
+    def presets(cls) -> "Examinator":
         """
         Returns:
             The default examinator.

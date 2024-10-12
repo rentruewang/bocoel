@@ -2,8 +2,6 @@ import functools
 from collections.abc import Sequence
 from typing import Any
 
-from typing_extensions import Self
-
 
 class HuggingfaceTokenizer:
     """
@@ -41,7 +39,7 @@ class HuggingfaceTokenizer:
 
         self._device = device
 
-    def to(self, device: str, /) -> Self:
+    def to(self, device: str, /) -> "HuggingfaceTokenizer":
         """
         Move the tokenizer to the given device.
 

@@ -30,5 +30,7 @@ sphinx:
   myst_fence_as_directive: [mermaid]
   config:
     intersphinx_mapping:
-      python: ['https://docs.python.org/3', null]
-      numpy: ['http://docs.scipy.org/doc/numpy', null]
+      python: [https://docs.python.org/3, null]
+      numpy: [http://docs.scipy.org/doc/numpy, null]
+      pandas: [http://pandas.pydata.org/pandas-docs/dev, null]
+      torch: [https://pytorch.org/docs/master, null]

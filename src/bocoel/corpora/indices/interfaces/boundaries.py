@@ -2,7 +2,6 @@ import dataclasses as dcls
 
 import numpy as np
 from numpy.typing import NDArray
-from typing_extensions import Self
 
 
 @dcls.dataclass(frozen=True)
@@ -54,7 +53,7 @@ class Boundary:
         return self.bounds[:, 1]
 
     @classmethod
-    def fixed(cls, lower: float, upper: float, dims: int) -> Self:
+    def fixed(cls, lower: float, upper: float, dims: int) -> "Boundary":
         """
         Create a fixed boundary for all dimensions.
 

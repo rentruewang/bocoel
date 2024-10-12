@@ -1,10 +1,9 @@
+import json
 from collections.abc import Collection, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-import ujson as json
 from pandas import DataFrame
-from typing_extensions import Self
 
 from bocoel.corpora.storages.interfaces import Storage
 
@@ -29,7 +28,7 @@ class PandasStorage(Storage):
         return self._df.iloc[idx].to_dict()
 
     @classmethod
-    def from_jsonl_file(cls, path: str | Path, /) -> Self:
+    def from_jsonl_file(cls, path: str | Path, /) -> "PandasStorage":
         """
         Load data from a JSONL file.
 
@@ -55,7 +54,7 @@ class PandasStorage(Storage):
         return cls.from_jsonl(data)
 
     @classmethod
-    def from_jsonl(cls, data: Sequence[Mapping[str, str]], /) -> Self:
+    def from_jsonl(cls, data: Sequence[Mapping[str, str]], /) -> "PandasStorage":
         """
         Load data from a JSONL object or a list of JSON.
 
