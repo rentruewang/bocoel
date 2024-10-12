@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Scores &#8212; Bocoel</title>
+    <title>Score API &#8212; Bocoel</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'references/scores';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Adaptors" href="adaptors.html" />
-    <link rel="prev" title="Corpus" href="corpora.html" />
+    <link rel="next" title="Adaptor API" href="adaptors.html" />
+    <link rel="prev" title="Corpus API" href="corpora.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storages.html">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Scores</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exams.html">Exams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factory API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storages.html">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Score API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptor API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/scores.md" target="_blank"
+      <li><a href="../_sources/references/scores.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Scores</h1>
+    <h1>Score API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,37 +366,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge._RougeScoreType"><code class="docutils literal notranslate"><span class="pre">_RougeScoreType</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore.RougeScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore.RougeScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge._RougeScore2Type"><code class="docutils literal notranslate"><span class="pre">_RougeScore2Type</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore2.RougeScore2</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.ExactMatch"><code class="docutils literal notranslate"><span class="pre">ExactMatch</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.MultiChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">MultiChoiceAccuracy</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.NltkBleuScore"><code class="docutils literal notranslate"><span class="pre">NltkBleuScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.OneHotChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">OneHotChoiceAccuracy</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.RougeScore"><code class="docutils literal notranslate"><span class="pre">RougeScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.RougeScore2"><code class="docutils literal notranslate"><span class="pre">RougeScore2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.SacreBleuScore"><code class="docutils literal notranslate"><span class="pre">SacreBleuScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.Score"><code class="docutils literal notranslate"><span class="pre">Score</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -409,107 +385,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="scores">
-<h1>Scores<a class="headerlink" href="#scores" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.models.scores">
+<span id="score-api"></span><h1>Score API<a class="headerlink" href="#module-bocoel.models.scores" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Score</span></span><a class="headerlink" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__repr__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.ExactMatch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">ExactMatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.ExactMatch" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__call__">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__call__" title="Link to this definition">#</a></dt>
-<dd><p>Evaluate the target with respect to the references.</p>
-<p>Parameters:
-target: The target to evaluate.
-references: The references to evaluate against.</p>
-<p>Returns:
-The score for the target.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NltkBleuScore</span></span><a class="headerlink" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.MultiChoiceAccuracy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">MultiChoiceAccuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.MultiChoiceAccuracy" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SacreBleuScore</span></span><a class="headerlink" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.NltkBleuScore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">NltkBleuScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.NltkBleuScore" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge._RougeScoreType">
-<span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.rouge.</span></span><span class="sig-name descname"><span class="pre">_RougeScoreType</span></span><a class="headerlink" href="#bocoel.models.scores.rouge._RougeScoreType" title="Link to this definition">#</a></dt>
-<dd><p>None</p>
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RougeScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.scores.rouge._RougeScoreType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.OneHotChoiceAccuracy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">OneHotChoiceAccuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.OneHotChoiceAccuracy" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge._RougeScore2Type">
-<span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.rouge.</span></span><span class="sig-name descname"><span class="pre">_RougeScore2Type</span></span><a class="headerlink" href="#bocoel.models.scores.rouge._RougeScore2Type" title="Link to this definition">#</a></dt>
-<dd><p>None</p>
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RougeScore2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.scores.rouge._RougeScore2Type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.RougeScore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">RougeScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'rouge-1'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rouge-2'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rouge-l'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.RougeScore" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OneHotChoiceAccuracy</span></span><a class="headerlink" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.RougeScore2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">RougeScore2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'rouge1'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rouge2'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rougeL'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.RougeScore2" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultiChoiceAccuracy</span></span><a class="headerlink" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.scores.interfaces.html#bocoel.models.scores.interfaces.Score" title="bocoel.models.scores.interfaces.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.scores.SacreBleuScore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">SacreBleuScore</span></span><a class="headerlink" href="#bocoel.models.scores.SacreBleuScore" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.scores.Score">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.scores.</span></span><span class="sig-name descname"><span class="pre">Score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.scores.Score" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 </section>
 
@@ -549,7 +465,7 @@ The score for the target.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Corpus</p>
+        <p class="prev-next-title">Corpus API</p>
       </div>
     </a>
     <a class="right-next"
@@ -557,7 +473,7 @@ The score for the target.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Adaptors</p>
+        <p class="prev-next-title">Adaptor API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -577,37 +493,14 @@ The score for the target.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.interfaces.bocoel.models.scores.interfaces.Score.Score.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.interfaces.Score.Score.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.NltkBleuScore.NltkBleuScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.bleu.bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.bleu.SacreBleuScore.SacreBleuScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge._RougeScoreType"><code class="docutils literal notranslate"><span class="pre">_RougeScoreType</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore.RougeScore</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore.RougeScore.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore.RougeScore.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge._RougeScore2Type"><code class="docutils literal notranslate"><span class="pre">_RougeScore2Type</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore2.RougeScore2</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.rouge.bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.rouge.RougeScore2.RougeScore2.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.OneHotChoiceAccuracy.OneHotChoiceAccuracy.__call__()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.multi.bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.scores.multi.MultiChoiceAccuracy.MultiChoiceAccuracy.__call__()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.ExactMatch"><code class="docutils literal notranslate"><span class="pre">ExactMatch</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.MultiChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">MultiChoiceAccuracy</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.NltkBleuScore"><code class="docutils literal notranslate"><span class="pre">NltkBleuScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.OneHotChoiceAccuracy"><code class="docutils literal notranslate"><span class="pre">OneHotChoiceAccuracy</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.RougeScore"><code class="docutils literal notranslate"><span class="pre">RougeScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.RougeScore2"><code class="docutils literal notranslate"><span class="pre">RougeScore2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.SacreBleuScore"><code class="docutils literal notranslate"><span class="pre">SacreBleuScore</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.scores.Score"><code class="docutils literal notranslate"><span class="pre">Score</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -632,7 +525,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>

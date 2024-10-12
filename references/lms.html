@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Language Models &#8212; Bocoel</title>
+    <title>Language Model API &#8212; Bocoel</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'references/lms';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Optimizers" href="optimizers.html" />
-    <link rel="prev" title="Adaptors" href="adaptors.html" />
+    <link rel="next" title="Exam API" href="exams.html" />
+    <link rel="prev" title="Adaptor API" href="adaptors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storages.html">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptors</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exams.html">Exams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factory API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storages.html">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Score API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptor API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/lms.md" target="_blank"
+      <li><a href="../_sources/references/lms.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Language Models</h1>
+    <h1>Language Model API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,52 +366,34 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel"><code class="docutils literal notranslate"><span class="pre">ClassifierModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel.choices"><code class="docutils literal notranslate"><span class="pre">ClassifierModel.choices</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel.classify"><code class="docutils literal notranslate"><span class="pre">ClassifierModel.classify()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.GenerativeModel"><code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.GenerativeModel.generate"><code class="docutils literal notranslate"><span class="pre">GenerativeModel.generate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceCausalLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceCausalLM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceGenerativeLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceGenerativeLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceGenerativeLM.generate"><code class="docutils literal notranslate"><span class="pre">HuggingfaceGenerativeLM.generate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceLogitsLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceLogitsLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceLogitsLM.choices"><code class="docutils literal notranslate"><span class="pre">HuggingfaceLogitsLM.choices</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceSequenceLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceSequenceLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceSequenceLM.choices"><code class="docutils literal notranslate"><span class="pre">HuggingfaceSequenceLM.choices</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.batch_decode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.batch_decode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.decode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.decode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.encode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.encode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.to"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.tokenize"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.tokenize()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -426,276 +407,245 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="language-models">
-<h1>Language Models<a class="headerlink" href="#language-models" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.models.lms">
+<span id="language-model-api"></span><h1>Language Model API<a class="headerlink" href="#module-bocoel.models.lms" title="Link to this heading">#</a></h1>
+<p>Language models (LMs) are models that are trained
+to predict the next word in a sequence of words.
+They are being evaluated in this project.</p>
+<p>2 useful abstractions are defined in this module:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>ClassifierModel:</dt><dd><p>A model that classifies text.
+Classifiers are used for predicting the class of a text.
+They do so by generating logits for each choice.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>GenerativeModel:</dt><dd><p>A model that generates text.
+This is the LLM in common sense.</p>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GenerativeModel</span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.lms.ClassifierModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">ClassifierModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.ClassifierModel" title="Link to this definition">#</a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="bocoel.models.lms.ClassifierModel.choices">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.ClassifierModel.choices" title="Link to this definition">#</a></dt>
+<dd><p>The choices for this language model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The choices for this language model.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate" title="Link to this definition">#</a></dt>
-<dd><p>TODO:
-Add logits.</p>
-<p>Generate a sequence of responses given prompts.
+<dt class="sig sig-object py" id="bocoel.models.lms.ClassifierModel.classify">
+<span class="sig-name descname"><span class="pre">classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.ClassifierModel.classify" title="Link to this definition">#</a></dt>
+<dd><p>Classify the given prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompts</strong> – The prompts to classify.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logits for each prompt and choice.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the shape of the logits is not [len(prompts), len(choices)].</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.lms.GenerativeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">GenerativeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.GenerativeModel" title="Link to this definition">#</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.lms.GenerativeModel.generate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.GenerativeModel.generate" title="Link to this definition">#</a></dt>
+<dd><p>Generate a sequence of responses given prompts.
 The length of the response is the same as the prompt.
 The response would be a continuation of the prompt,
 and the prompts would be the prefix of the response.</p>
-<p>Parameters:
-prompts: The prompts to generate.</p>
-<p>Returns:
-The generated responses. The length must be the same as the prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompts</strong> – The prompts to generate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated responses. The length must be the same as the prompts.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassifierModel</span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify">
-<span class="sig-name descname"><span class="pre">classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify" title="Link to this definition">#</a></dt>
-<dd><p>Classify the given prompts.</p>
-<p>Parameters:
-prompts: The prompts to classify.</p>
-<p>Returns:
-The logits for each prompt and choice.</p>
-<p>Raises:
-ValueError: If the shape of the logits is not [len(prompts), len(choices)].</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify" title="Link to this definition">#</a></dt>
-<dd><p>Generate logits given prompts.</p>
-<p>Parameters:
-prompts: The prompts to classify.</p>
-<p>Returns:
-The logits for each prompt and choice.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices" title="Link to this definition">#</a></dt>
-<dd><p>The choices for this language model.</p>
-<p>Returns:
-The choices for this language model.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HuggingfaceCausalLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceCausalLM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">HuggingfaceCausalLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceCausalLM" title="Link to this definition">#</a></dt>
 <dd><p>The Huggingface implementation of language model.
 This is a wrapper around the Huggingface library,
 which would try to pull the model from the huggingface hub.</p>
-<p>FIXME:
-<code class="docutils literal notranslate"><span class="pre">add_sep_token</span></code> might cause huggingface to bug out with index out of range.
-Still unclear how this might occur as <code class="docutils literal notranslate"><span class="pre">[SEP]</span></code> is a special token.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-model_path: The path to the model.
-batch_size: The batch size to use.
-device: The device to use.
-add_sep_token: Whether to add the sep token.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<dl class="simple">
+<dt>FIXME:</dt><dd><p><cite>add_sep_token</cite> might cause huggingface to bug out with index out of range.
+Still unclear how this might occur as <cite>[SEP]</cite> is a special token.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HuggingfaceGenerativeLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.lms.huggingface.causal.html#bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM" title="bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.GenerativeModel</span></code></p>
-<p>The generative model backed by huggingface’s transformers library.</p>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceGenerativeLM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">HuggingfaceGenerativeLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceGenerativeLM" title="Link to this definition">#</a></dt>
+<dd><p>The generative model backed by huggingface’s transformers library.</p>
 <p>Since huggingface’s tokenizer needs padding to the left to work,
 padding doesn’t guarentee the same positional embeddings, and thus, results.
 If sameness with generating one by one is desired, batch size should be 1.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-model_path: The path to the model.
-batch_size: The batch size to use.
-device: The device to use.
-add_sep_token: Whether to add the sep token.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch">
-<span class="sig-name descname"><span class="pre">_generate_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceGenerativeLM.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceGenerativeLM.generate" title="Link to this definition">#</a></dt>
+<dd><p>Generate a sequence of responses given prompts.
+The length of the response is the same as the prompt.
+The response would be a continuation of the prompt,
+and the prompts would be the prefix of the response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompts</strong> – The prompts to generate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated responses. The length must be the same as the prompts.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HuggingfaceLogitsLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.lms.huggingface.causal.html#bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM" title="bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.ClassifierModel</span></code></p>
-<p>Logits classification model backed by huggingface’s transformers library.
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceLogitsLM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">HuggingfaceLogitsLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceLogitsLM" title="Link to this definition">#</a></dt>
+<dd><p>Logits classification model backed by huggingface’s transformers library.
 This means that the model would use the logits of [‘1’, ‘2’, ‘3’, ‘4’, ‘5’] as the output,
-if <code class="docutils literal notranslate"><span class="pre">choices</span> <span class="pre">=</span> <span class="pre">5</span></code>, for the current batch of inputs.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-model_path: The path to the model.
-batch_size: The batch size to use.
-device: The device to use.
-choices: The choices to classify.
-add_sep_token: Whether to add the sep token.</p>
+if <cite>choices = 5</cite>, for the current batch of inputs.</p>
 <dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify">
-<span class="sig-name descname"><span class="pre">_classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens">
-<span class="sig-name descname"><span class="pre">_encode_tokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceLogitsLM.choices">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.HuggingfaceLogitsLM.choices" title="Link to this definition">#</a></dt>
+<dd><p>The choices for this language model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The choices for this language model.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HuggingfaceSequenceLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.ClassifierModel</span></code></p>
-<p>The sequence classification model backed by huggingface’s transformers library.</p>
-<p class="rubric">Initialization</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceSequenceLM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">HuggingfaceSequenceLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceSequenceLM" title="Link to this definition">#</a></dt>
+<dd><p>The sequence classification model backed by huggingface’s transformers library.</p>
 <dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify">
-<span class="sig-name descname"><span class="pre">_classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceSequenceLM.choices">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bocoel.models.lms.HuggingfaceSequenceLM.choices" title="Link to this definition">#</a></dt>
+<dd><p>The choices for this language model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The choices for this language model.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HuggingfaceTokenizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.lms.</span></span><span class="sig-name descname"><span class="pre">HuggingfaceTokenizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer" title="Link to this definition">#</a></dt>
 <dd><p>A tokenizer for Huggingface models.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-model_path: The path to the model.
-device: The device to use.
-add_sep_token: Whether to add the sep token.</p>
-<p>Raises:
-ImportError: If the transformers library is not installed.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to" title="Link to this definition">#</a></dt>
-<dd><p>Move the tokenizer to the given device.</p>
-<p>Parameters:
-device: The device to move to.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize">
-<span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize" title="Link to this definition">#</a></dt>
-<dd><p>Tokenize, pad, truncate, cast to device, and yield the encoded results.
-Returning <code class="docutils literal notranslate"><span class="pre">BatchEncoding</span></code> but not marked in the type hint
-due to optional dependency.</p>
-<p>Parameters:
-prompts: The prompts to tokenize.</p>
-<p>Returns:
-(BatchEncoding): The tokenized prompts.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode">
-<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode" title="Link to this definition">#</a></dt>
-<dd><p>Encode the given prompts.</p>
-<p>Parameters:
-prompts: The prompts to encode.
-return_tensors: Whether to return tensors.
-add_special_tokens: Whether to add special tokens.</p>
-<p>Returns:
-(Any): The encoded prompts.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode" title="Link to this definition">#</a></dt>
-<dd><p>Decode the given outputs.</p>
-<p>Parameters:
-outputs: The outputs to decode.
-skip_special_tokens: Whether to skip special tokens.</p>
-<p>Returns:
-The decoded outputs.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode">
-<span class="sig-name descname"><span class="pre">batch_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer.batch_decode">
+<span class="sig-name descname"><span class="pre">batch_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer.batch_decode" title="Link to this definition">#</a></dt>
 <dd><p>Batch decode the given outputs.</p>
-<p>Parameters:
-outputs: The outputs to decode.
-skip_special_tokens: Whether to skip special tokens.</p>
-<p>Returns:
-The batch decoded outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outputs</strong> – The outputs to decode.</p></li>
+<li><p><strong>skip_special_tokens</strong> – Whether to skip special tokens.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The batch decoded outputs.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer.decode" title="Link to this definition">#</a></dt>
+<dd><p>Decode the given outputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outputs</strong> – The outputs to decode.</p></li>
+<li><p><strong>skip_special_tokens</strong> – Whether to skip special tokens.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decoded outputs.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pad_token_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_special_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer.encode" title="Link to this definition">#</a></dt>
+<dd><p>Encode the given prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompts</strong> – The prompts to encode.</p></li>
+<li><p><strong>return_tensors</strong> – Whether to return tensors.</p></li>
+<li><p><strong>add_special_tokens</strong> – Whether to add special tokens.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded prompts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(Any)</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pad_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer.to" title="Link to this definition">#</a></dt>
+<dd><p>Move the tokenizer to the given device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> – The device to move to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.lms.HuggingfaceTokenizer.tokenize">
+<span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.lms.HuggingfaceTokenizer.tokenize" title="Link to this definition">#</a></dt>
+<dd><p>Tokenize, pad, truncate, cast to device, and yield the encoded results.
+Returning <cite>BatchEncoding</cite> but not marked in the type hint
+due to optional dependency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompts</strong> – The prompts to tokenize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The tokenized prompts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(BatchEncoding)</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -737,15 +687,15 @@ The batch decoded outputs.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Adaptors</p>
+        <p class="prev-next-title">Adaptor API</p>
       </div>
     </a>
     <a class="right-next"
-       href="optimizers.html"
+       href="exams.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Optimizers</p>
+        <p class="prev-next-title">Exam API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -765,52 +715,34 @@ The batch decoded outputs.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.generative.bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.generative.GenerativeModel.GenerativeModel.generate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel"><code class="docutils literal notranslate"><span class="pre">ClassifierModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel.choices"><code class="docutils literal notranslate"><span class="pre">ClassifierModel.choices</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.ClassifierModel.classify"><code class="docutils literal notranslate"><span class="pre">ClassifierModel.classify()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.interfaces.classifiers.bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.interfaces.classifiers.ClassifierModel.ClassifierModel.choices</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.GenerativeModel"><code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.GenerativeModel.generate"><code class="docutils literal notranslate"><span class="pre">GenerativeModel.generate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.to()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.causal.bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.causal.HuggingfaceCausalLM.HuggingfaceCausalLM.device</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceCausalLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceCausalLM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceGenerativeLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceGenerativeLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceGenerativeLM.generate"><code class="docutils literal notranslate"><span class="pre">HuggingfaceGenerativeLM.generate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM.generate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.generative.bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.generative.HuggingfaceGenerativeLM.HuggingfaceGenerativeLM._generate_batch()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceLogitsLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceLogitsLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceLogitsLM.choices"><code class="docutils literal notranslate"><span class="pre">HuggingfaceLogitsLM.choices</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM.choices</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.logits.bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.logits.HuggingfaceLogitsLM.HuggingfaceLogitsLM._encode_tokens()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceSequenceLM"><code class="docutils literal notranslate"><span class="pre">HuggingfaceSequenceLM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceSequenceLM.choices"><code class="docutils literal notranslate"><span class="pre">HuggingfaceSequenceLM.choices</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.choices</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM._classify()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.sequences.bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.sequences.HuggingfaceSequenceLM.HuggingfaceSequenceLM.to()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.to()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.tokenize()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.__call__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.encode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.decode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.batch_decode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.device</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token_id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.huggingface.tokenizers.bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token"><code class="docutils literal notranslate"><span class="pre">bocoel.models.lms.huggingface.tokenizers.HuggingfaceTokenizer.HuggingfaceTokenizer.pad_token</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.batch_decode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.batch_decode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.decode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.decode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.encode"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.encode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.to"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.lms.HuggingfaceTokenizer.tokenize"><code class="docutils literal notranslate"><span class="pre">HuggingfaceTokenizer.tokenize()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -837,7 +769,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>

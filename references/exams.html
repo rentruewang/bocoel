@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Exams &#8212; Bocoel</title>
+    <title>Exam API &#8212; Bocoel</title>
   
   
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Appreciation" href="../thanks.html" />
-    <link rel="prev" title="Optimizers" href="optimizers.html" />
+    <link rel="prev" title="Language Model API" href="lms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storages.html">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factory API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storages.html">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Score API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptor API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Model API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/exams.md" target="_blank"
+      <li><a href="../_sources/references/exams.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exams</h1>
+    <h1>Exam API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,36 +366,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.examine"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator.examine()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.presets"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator.presets()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType"><code class="docutils literal notranslate"><span class="pre">AccType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.AVG"><code class="docutils literal notranslate"><span class="pre">AccType.AVG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.MAX"><code class="docutils literal notranslate"><span class="pre">AccType.MAX</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.MIN"><code class="docutils literal notranslate"><span class="pre">AccType.MIN</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam.run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam.run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam._run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam._run()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Accumulation"><code class="docutils literal notranslate"><span class="pre">Accumulation</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Exam"><code class="docutils literal notranslate"><span class="pre">Exam</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Exam.run"><code class="docutils literal notranslate"><span class="pre">Exam.run()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MIN"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.MIN</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MAX"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.MAX</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.AVG"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.AVG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator"><code class="docutils literal notranslate"><span class="pre">Examinator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator.examine"><code class="docutils literal notranslate"><span class="pre">Examinator.examine()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator.presets"><code class="docutils literal notranslate"><span class="pre">Examinator.presets()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation._run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._examinator"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager._examinator</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.save"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.save()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.with_cols"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.with_cols()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._launch"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager._launch()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.load"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.load()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.md5"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.md5()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.current"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.current()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager"><code class="docutils literal notranslate"><span class="pre">Manager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.load"><code class="docutils literal notranslate"><span class="pre">Manager.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.md5"><code class="docutils literal notranslate"><span class="pre">Manager.md5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.run"><code class="docutils literal notranslate"><span class="pre">Manager.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.save"><code class="docutils literal notranslate"><span class="pre">Manager.save()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.with_cols"><code class="docutils literal notranslate"><span class="pre">Manager.with_cols()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -410,228 +401,219 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exams">
-<h1>Exams<a class="headerlink" href="#exams" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.core.exams">
+<span id="exam-api"></span><h1>Exam API<a class="headerlink" href="#module-bocoel.core.exams" title="Link to this heading">#</a></h1>
+<p>The exams module provides the functionality to create and manage exams.
+Here, an exam is used to measure how well the corpus or the model performs on a given task.</p>
+<p>The module provides the following functionality:</p>
+<ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">`</span></a>Examinator`s are responsible for launch exams.</p></li>
+<li><p><a href="#id3"><span class="problematic" id="id4">`</span></a>Exam`s are the tests that take in an accumulated history of model / corpus and returns a score.</p></li>
+<li><p><a href="#id5"><span class="problematic" id="id6">`</span></a>Manager`s are responsible for managing results across runs.</p></li>
+</ul>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Examinator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.core.exams.interfaces.html#bocoel.core.exams.interfaces.Exam" title="bocoel.core.exams.interfaces.Exam"><span class="pre">bocoel.core.exams.interfaces.Exam</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.AccType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.core.exams.</span></span><span class="sig-name descname"><span class="pre">AccType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.AccType" title="Link to this definition">#</a></dt>
+<dd><p>Accumulation type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.core.exams.AccType.AVG">
+<span class="sig-name descname"><span class="pre">AVG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AVERAGE'</span></em><a class="headerlink" href="#bocoel.core.exams.AccType.AVG" title="Link to this definition">#</a></dt>
+<dd><p>Average value accumulation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.core.exams.AccType.MAX">
+<span class="sig-name descname"><span class="pre">MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MAXIMUM'</span></em><a class="headerlink" href="#bocoel.core.exams.AccType.MAX" title="Link to this definition">#</a></dt>
+<dd><p>Maximum value accumulation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.core.exams.AccType.MIN">
+<span class="sig-name descname"><span class="pre">MIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MINIMUM'</span></em><a class="headerlink" href="#bocoel.core.exams.AccType.MIN" title="Link to this definition">#</a></dt>
+<dd><p>Minimum value accumulation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.core.exams.Accumulation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.core.exams.</span></span><span class="sig-name descname"><span class="pre">Accumulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bocoel.core.exams.AccType" title="bocoel.core.exams.stats.acc.AccType"><span class="pre">AccType</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.Accumulation" title="Link to this definition">#</a></dt>
+<dd><p>Accumulation is an exam designed to evaluate the min / max / avg of the history.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.core.exams.Exam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.core.exams.</span></span><span class="sig-name descname"><span class="pre">Exam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.Exam" title="Link to this definition">#</a></dt>
+<dd><p>Exams are designed to evaluate the performance of a particular index,
+using a particular set of results generated by the optimizer.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.core.exams.Exam.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.13)"><span class="pre">OrderedDict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.core.exams.Exam.run" title="Link to this definition">#</a></dt>
+<dd><p>Run the exam on the given index and results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index to evaluate.</p></li>
+<li><p><strong>results</strong> – The results generated by the optimizer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry in the index. The length must be the same as the results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.core.exams.Examinator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.core.exams.</span></span><span class="sig-name descname"><span class="pre">Examinator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.core.exams.Exam" title="bocoel.core.exams.interfaces.Exam"><span class="pre">Exam</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.Examinator" title="Link to this definition">#</a></dt>
 <dd><p>The examinator is responsible for launching exams.
 Examinators take in an index and results of an optimizer run,
 and return a DataFrame of scores for
 the accumulated history performance of the optimizer.</p>
-<p class="rubric">Initialization</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.examine">
-<span class="sig-name descname"><span class="pre">examine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.examine" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.Examinator.examine">
+<span class="sig-name descname"><span class="pre">examine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.13)"><span class="pre">OrderedDict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.Examinator.examine" title="Link to this definition">#</a></dt>
 <dd><p>Perform the exams on the results.
 This method looks up results in the index and runs the exams on the results.</p>
-<p>Parameters:
-index: The index of the results.
-results: The results.</p>
-<p>Returns:
-The scores of the exams.</p>
-<p>TODO:
-Run the different exams in parallel.
-Currently the exams are run sequentially and can be slow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of the results.</p></li>
+<li><p><strong>results</strong> – The results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores of the exams.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.presets">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">presets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.presets" title="Link to this definition">#</a></dt>
-<dd><p>Returns:
-The default examinator.</p>
+<dt class="sig sig-object py" id="bocoel.core.exams.Examinator.presets">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">presets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#bocoel.core.exams.Examinator.presets" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The default examinator.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Exam</span></span><a class="headerlink" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<p>Exams are designed to evaluate the performance of a particular index,
-using a particular set of results generated by the optimizer.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam.run" title="Link to this definition">#</a></dt>
-<dd><p>Run the exam on the given index and results.</p>
-<p>Parameters:
-index: The index to evaluate.
-results: The results generated by the optimizer.</p>
-<p>Returns:
-The scores for each entry in the index. The length must be the same as the results.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam._run">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam._run" title="Link to this definition">#</a></dt>
-<dd><p>Run the exam on the given index and results.</p>
-<p>Parameters:
-index: The index to evaluate.
-results: The results generated by the optimizer.</p>
-<p>Returns:
-The scores for each entry in the index. The length must be the same as the results.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AccType</span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>Accumulation type.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MIN">
-<span class="sig-name descname"><span class="pre">MIN</span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MIN" title="Link to this definition">#</a></dt>
-<dd><p>‘MINIMUM’</p>
-<p>Minimum value accumulation.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MAX">
-<span class="sig-name descname"><span class="pre">MAX</span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MAX" title="Link to this definition">#</a></dt>
-<dd><p>‘MAXIMUM’</p>
-<p>Maximum value accumulation.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.AVG">
-<span class="sig-name descname"><span class="pre">AVG</span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.AVG" title="Link to this definition">#</a></dt>
-<dd><p>‘AVERAGE’</p>
-<p>Average value accumulation.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Accumulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../apidocs/bocoel/bocoel.core.exams.stats.acc.html#bocoel.core.exams.stats.acc.AccType" title="bocoel.core.exams.stats.acc.AccType"><span class="pre">bocoel.core.exams.stats.acc.AccType</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.core.exams.interfaces.html#bocoel.core.exams.interfaces.Exam" title="bocoel.core.exams.interfaces.Exam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam</span></code></a></p>
-<p>Accumulation is an exam designed to evaluate the min / max / avg of the history.</p>
-<p class="rubric">Initialization</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._run">
-<span class="sig-name descname"><span class="pre">_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._run" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc" title="Link to this definition">#</a></dt>
-<dd><p>Accumulate the array using the given function.</p>
-<p>Parameters:
-array: The array to accumulate.
-accumulate: The accumulation function to use.</p>
-<p>Returns:
-The accumulated array.</p>
-<p>Raises:
-ValueError: If the array is not 1D.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_rerun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.core.exams.</span></span><span class="sig-name descname"><span class="pre">Manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_rerun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.core.exams.Manager" title="Link to this definition">#</a></dt>
 <dd><p>The manager for running and saving evaluations.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-root: The path to save the scores to.
-skip_rerun: Whether to skip rerunning the optimizer if the scores already exist.</p>
-<p>Raises:
-ValueError: If the path is not a directory.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._examinator">
-<span class="sig-name descname"><span class="pre">_examinator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.core.exams.examinators.html#bocoel.core.exams.examinators.Examinator" title="bocoel.core.exams.examinators.Examinator"><span class="pre">bocoel.core.exams.examinators.Examinator</span></a></em><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._examinator" title="Link to this definition">#</a></dt>
-<dd><p>None</p>
-<p>The examinator that would perform evaluations on the results.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager.load">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.Manager.load" title="Link to this definition">#</a></dt>
+<dd><p>Loads the scores from the path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – The path to load the scores from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded scores.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the path does not exist or is not a directory.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If no csv files are found in the path.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.core.optim.Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.GenerativeModel</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bocoel.models.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.Adaptor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.run" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager.md5">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">md5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.GenerativeModel" title="bocoel.models.lms.interfaces.generative.GenerativeModel"><span class="pre">GenerativeModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="adaptors.html#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#bocoel.core.exams.Manager.md5" title="Link to this definition">#</a></dt>
+<dd><p>Generates an md5 hash from the given data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimizer</strong> – The optimizer used to generate the scores.</p></li>
+<li><p><strong>corpus</strong> – The corpus used to generate the scores.</p></li>
+<li><p><strong>model</strong> – The model used to generate the scores.</p></li>
+<li><p><strong>adaptor</strong> – The adaptor used to generate the scores.</p></li>
+<li><p><strong>embedder</strong> – The embedder used to generate the scores.</p></li>
+<li><p><strong>time</strong> – The time the scores were generated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The md5 hash of the given data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.GenerativeModel" title="bocoel.models.lms.interfaces.generative.GenerativeModel"><span class="pre">GenerativeModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="adaptors.html#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.Manager.run" title="Link to this definition">#</a></dt>
 <dd><p>Runs the optimizer until the end.
 If the root path is set in the constructor,
 the scores are saved to the path.</p>
-<p>Parameters:
-optimizer: The optimizer to run.
-embedder: The embedder to run the optimizer with.
-corpus: The corpus to run the optimizer on.
-model: The model to run the optimizer with.
-adaptor: The adaptor to run the optimizer with.
-steps: The number of steps to run the optimizer for.</p>
-<p>Returns:
-The final state of the optimizer.
-Keys are the indices of the queries,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimizer</strong> – The optimizer to run.</p></li>
+<li><p><strong>embedder</strong> – The embedder to run the optimizer with.</p></li>
+<li><p><strong>corpus</strong> – The corpus to run the optimizer on.</p></li>
+<li><p><strong>model</strong> – The model to run the optimizer with.</p></li>
+<li><p><strong>adaptor</strong> – The adaptor to run the optimizer with.</p></li>
+<li><p><strong>steps</strong> – The number of steps to run the optimizer for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The final state of the optimizer.</dt><dd><p>Keys are the indices of the queries,
 and values are the corresponding scores.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.core.optim.Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.GenerativeModel</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bocoel.models.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.Adaptor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">md5</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.save" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.GenerativeModel" title="bocoel.models.lms.interfaces.generative.GenerativeModel"><span class="pre">GenerativeModel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="adaptors.html#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">md5</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#bocoel.core.exams.Manager.save" title="Link to this definition">#</a></dt>
 <dd><p>Saves the scores to the path.
 If the root path is not set in the constructor, the scores are not saved.</p>
-<p>Parameters:
-scores: The scores to save.
-optimizer: The optimizer used to generate the scores.
-corpus: The corpus used to generate the scores.
-model: The model used to generate the scores.
-adaptor: The adaptor used to generate the scores.
-embedder: The embedder used to generate the scores.
-md5: The md5 hash of the identifier columns.</p>
-<p>Raises:
-ValueError: If the path is not set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – The scores to save.</p></li>
+<li><p><strong>optimizer</strong> – The optimizer used to generate the scores.</p></li>
+<li><p><strong>corpus</strong> – The corpus used to generate the scores.</p></li>
+<li><p><strong>model</strong> – The model used to generate the scores.</p></li>
+<li><p><strong>adaptor</strong> – The adaptor used to generate the scores.</p></li>
+<li><p><strong>embedder</strong> – The embedder used to generate the scores.</p></li>
+<li><p><strong>md5</strong> – The md5 hash of the identifier columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the path is not set.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.with_cols">
-<span class="sig-name descname"><span class="pre">with_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.with_cols" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.core.exams.Manager.with_cols">
+<span class="sig-name descname"><span class="pre">with_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.Manager.with_cols" title="Link to this definition">#</a></dt>
 <dd><p>Adds identifier columns to the DataFrame.</p>
-<p>Parameters:
-df: The DataFrame to add the columns to.
-mappings: The columns to add to the DataFrame.</p>
-<p>Returns:
-The md5 hash of the identifier columns and the DataFrame with the columns added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – The DataFrame to add the columns to.</p></li>
+<li><p><strong>mappings</strong> – The columns to add to the DataFrame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The md5 hash of the identifier columns and the DataFrame with the columns added.</p>
+</dd>
+</dl>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._launch">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_launch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.core.optim.Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._launch" title="Link to this definition">#</a></dt>
-<dd><p>Launches the optimizer as a generator.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.load" title="Link to this definition">#</a></dt>
-<dd><p>Loads the scores from the path.</p>
-<p>Parameters:
-path: The path to load the scores from.</p>
-<p>Returns:
-The loaded scores.</p>
-<p>Raises:
-ValueError: If the path does not exist or is not a directory.
-ValueError: If no csv files are found in the path.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.md5">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">md5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.core.optim.Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.GenerativeModel</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bocoel.models.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.Adaptor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.md5" title="Link to this definition">#</a></dt>
-<dd><p>Generates an md5 hash from the given data.</p>
-<p>Parameters:
-optimizer: The optimizer used to generate the scores.
-corpus: The corpus used to generate the scores.
-model: The model used to generate the scores.
-adaptor: The adaptor used to generate the scores.
-embedder: The embedder used to generate the scores.
-time: The time the scores were generated.</p>
-<p>Returns:
-The md5 hash of the given data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.current">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.current" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -668,12 +650,12 @@ The md5 hash of the given data.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="optimizers.html"
+       href="lms.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Optimizers</p>
+        <p class="prev-next-title">Language Model API</p>
       </div>
     </a>
     <a class="right-next"
@@ -701,36 +683,28 @@ The md5 hash of the given data.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.examine"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator.examine()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.examinators.bocoel.core.exams.examinators.Examinator.Examinator.presets"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.examinators.Examinator.Examinator.presets()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType"><code class="docutils literal notranslate"><span class="pre">AccType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.AVG"><code class="docutils literal notranslate"><span class="pre">AccType.AVG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.MAX"><code class="docutils literal notranslate"><span class="pre">AccType.MAX</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.AccType.MIN"><code class="docutils literal notranslate"><span class="pre">AccType.MIN</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam.run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam.run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.interfaces.bocoel.core.exams.interfaces.Exam.Exam._run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.interfaces.Exam.Exam._run()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Accumulation"><code class="docutils literal notranslate"><span class="pre">Accumulation</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Exam"><code class="docutils literal notranslate"><span class="pre">Exam</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Exam.run"><code class="docutils literal notranslate"><span class="pre">Exam.run()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MIN"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.MIN</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.MAX"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.MAX</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.AccType.AccType.AVG"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.AccType.AccType.AVG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator"><code class="docutils literal notranslate"><span class="pre">Examinator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator.examine"><code class="docutils literal notranslate"><span class="pre">Examinator.examine()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Examinator.presets"><code class="docutils literal notranslate"><span class="pre">Examinator.presets()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation._run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.stats.acc.bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.stats.acc.Accumulation.Accumulation._acc()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._examinator"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager._examinator</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.run"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.run()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.save"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.save()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.with_cols"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.with_cols()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager._launch"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager._launch()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.load"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.load()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.md5"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.md5()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.managers.bocoel.core.exams.managers.Manager.Manager.current"><code class="docutils literal notranslate"><span class="pre">bocoel.core.exams.managers.Manager.Manager.current()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager"><code class="docutils literal notranslate"><span class="pre">Manager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.load"><code class="docutils literal notranslate"><span class="pre">Manager.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.md5"><code class="docutils literal notranslate"><span class="pre">Manager.md5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.run"><code class="docutils literal notranslate"><span class="pre">Manager.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.save"><code class="docutils literal notranslate"><span class="pre">Manager.save()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.core.exams.Manager.with_cols"><code class="docutils literal notranslate"><span class="pre">Manager.with_cols()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -757,7 +731,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>

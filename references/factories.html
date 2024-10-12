@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Factories &#8212; Bocoel</title>
+    <title>Factory API &#8212; Bocoel</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'references/factories';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Storages" href="storages.html" />
+    <link rel="next" title="Storage API" href="storages.html" />
     <link rel="prev" title="Overview" href="overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Factories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storages.html">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exams.html">Exams</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Factory API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storages.html">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Score API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptor API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/factories.md" target="_blank"
+      <li><a href="../_sources/references/factories.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Factories</h1>
+    <h1>Factory API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,61 +366,60 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.FAISS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.FAISS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.HNSWLIB"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.HNSWLIB</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.POLAR"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.POLAR</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.WHITENING"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.WHITENING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName"><code class="docutils literal notranslate"><span class="pre">AdaptorName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.BIGBENCH_MC"><code class="docutils literal notranslate"><span class="pre">AdaptorName.BIGBENCH_MC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.BIGBENCH_QA"><code class="docutils literal notranslate"><span class="pre">AdaptorName.BIGBENCH_QA</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.GLUE"><code class="docutils literal notranslate"><span class="pre">AdaptorName.GLUE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.SST2"><code class="docutils literal notranslate"><span class="pre">AdaptorName.SST2</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.index_class"><code class="docutils literal notranslate"><span class="pre">index_class()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.PANDAS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName.PANDAS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.DATASETS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName.DATASETS</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName"><code class="docutils literal notranslate"><span class="pre">ClassifierName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName.HUGGINGFACE_LOGITS"><code class="docutils literal notranslate"><span class="pre">ClassifierName.HUGGINGFACE_LOGITS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName.HUGGINGFACE_SEQUENCE"><code class="docutils literal notranslate"><span class="pre">ClassifierName.HUGGINGFACE_SEQUENCE</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.storage"><code class="docutils literal notranslate"><span class="pre">storage()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.CorpusName"><code class="docutils literal notranslate"><span class="pre">CorpusName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.CorpusName.COMPOSED"><code class="docutils literal notranslate"><span class="pre">CorpusName.COMPOSED</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.embedder"><code class="docutils literal notranslate"><span class="pre">embedder()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.corpora.CorpusName.CorpusName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName"><code class="docutils literal notranslate"><span class="pre">EmbedderName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.HUGGINGFACE"><code class="docutils literal notranslate"><span class="pre">EmbedderName.HUGGINGFACE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.HUGGINGFACE_ENSEMBLE"><code class="docutils literal notranslate"><span class="pre">EmbedderName.HUGGINGFACE_ENSEMBLE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.SBERT"><code class="docutils literal notranslate"><span class="pre">EmbedderName.SBERT</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.corpus"><code class="docutils literal notranslate"><span class="pre">corpus()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.adaptor"><code class="docutils literal notranslate"><span class="pre">adaptor()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.GeneratorName"><code class="docutils literal notranslate"><span class="pre">GeneratorName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.GeneratorName.HUGGINGFACE_GENERATIVE"><code class="docutils literal notranslate"><span class="pre">GeneratorName.HUGGINGFACE_GENERATIVE</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.GeneratorName.GeneratorName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName"><code class="docutils literal notranslate"><span class="pre">IndexName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.FAISS"><code class="docutils literal notranslate"><span class="pre">IndexName.FAISS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.HNSWLIB"><code class="docutils literal notranslate"><span class="pre">IndexName.HNSWLIB</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.POLAR"><code class="docutils literal notranslate"><span class="pre">IndexName.POLAR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.WHITENING"><code class="docutils literal notranslate"><span class="pre">IndexName.WHITENING</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.generative"><code class="docutils literal notranslate"><span class="pre">generative()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName"><code class="docutils literal notranslate"><span class="pre">OptimizerName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.BAYESIAN"><code class="docutils literal notranslate"><span class="pre">OptimizerName.BAYESIAN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.BRUTE"><code class="docutils literal notranslate"><span class="pre">OptimizerName.BRUTE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.KMEANS"><code class="docutils literal notranslate"><span class="pre">OptimizerName.KMEANS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.KMEDOIDS"><code class="docutils literal notranslate"><span class="pre">OptimizerName.KMEDOIDS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.RANDOM"><code class="docutils literal notranslate"><span class="pre">OptimizerName.RANDOM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.UNIFORM"><code class="docutils literal notranslate"><span class="pre">OptimizerName.UNIFORM</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.classifier"><code class="docutils literal notranslate"><span class="pre">classifier()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName"><code class="docutils literal notranslate"><span class="pre">StorageName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName.DATASETS"><code class="docutils literal notranslate"><span class="pre">StorageName.DATASETS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName.PANDAS"><code class="docutils literal notranslate"><span class="pre">StorageName.PANDAS</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.optimizer"><code class="docutils literal notranslate"><span class="pre">optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptor"><code class="docutils literal notranslate"><span class="pre">adaptor()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpus"><code class="docutils literal notranslate"><span class="pre">corpus()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedder"><code class="docutils literal notranslate"><span class="pre">embedder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.generative"><code class="docutils literal notranslate"><span class="pre">generative()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.index_class"><code class="docutils literal notranslate"><span class="pre">index_class()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optimizer"><code class="docutils literal notranslate"><span class="pre">optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storage"><code class="docutils literal notranslate"><span class="pre">storage()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -433,347 +431,342 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="factories">
-<h1>Factories<a class="headerlink" href="#factories" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.factories">
+<span id="factory-api"></span><h1>Factory API<a class="headerlink" href="#module-bocoel.factories" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IndexName</span></span><a class="headerlink" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The names of the indices.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="bocoel.factories.AdaptorName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">AdaptorName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.AdaptorName" title="Link to this definition">#</a></dt>
+<dd><p>The names of the adaptors.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.FAISS">
-<span class="sig-name descname"><span class="pre">FAISS</span></span><a class="headerlink" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.FAISS" title="Link to this definition">#</a></dt>
-<dd><p>‘FAISS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">FaissIndex</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.AdaptorName.BIGBENCH_MC">
+<span class="sig-name descname"><span class="pre">BIGBENCH_MC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BIGBENCH_MULTIPLE_CHOICE'</span></em><a class="headerlink" href="#bocoel.factories.AdaptorName.BIGBENCH_MC" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>BigBenchMultipleChoice</cite>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.HNSWLIB">
-<span class="sig-name descname"><span class="pre">HNSWLIB</span></span><a class="headerlink" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.HNSWLIB" title="Link to this definition">#</a></dt>
-<dd><p>‘HNSWLIB’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">HnswlibIndex</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.AdaptorName.BIGBENCH_QA">
+<span class="sig-name descname"><span class="pre">BIGBENCH_QA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BIGBENCH_QUESTION_ANSWER'</span></em><a class="headerlink" href="#bocoel.factories.AdaptorName.BIGBENCH_QA" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>BigBenchQuestionAnswer</cite>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.POLAR">
-<span class="sig-name descname"><span class="pre">POLAR</span></span><a class="headerlink" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.POLAR" title="Link to this definition">#</a></dt>
-<dd><p>‘POLAR’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">PolarIndex</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.AdaptorName.GLUE">
+<span class="sig-name descname"><span class="pre">GLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GLUE'</span></em><a class="headerlink" href="#bocoel.factories.AdaptorName.GLUE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>GlueAdaptor</cite>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.WHITENING">
-<span class="sig-name descname"><span class="pre">WHITENING</span></span><a class="headerlink" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.WHITENING" title="Link to this definition">#</a></dt>
-<dd><p>‘WHITENING’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">WhiteningIndex</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.AdaptorName.SST2">
+<span class="sig-name descname"><span class="pre">SST2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SST2'</span></em><a class="headerlink" href="#bocoel.factories.AdaptorName.SST2" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>Sst2QuestionAnswer</cite>.</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.indices.index_class">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.indices.</span></span><span class="sig-name descname"><span class="pre">index_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.indices.html#bocoel.factories.indices.IndexName" title="bocoel.factories.indices.IndexName"><span class="pre">bocoel.factories.indices.IndexName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">bocoel.Index</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.factories.indices.index_class" title="Link to this definition">#</a></dt>
-<dd><p>Get the index class for the given name.</p>
-<p>Parameters:
-name: The name of the index.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StorageName</span></span><a class="headerlink" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The storage names.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="bocoel.factories.ClassifierName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">ClassifierName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.ClassifierName" title="Link to this definition">#</a></dt>
+<dd><p>The classifier names.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.PANDAS">
-<span class="sig-name descname"><span class="pre">PANDAS</span></span><a class="headerlink" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.PANDAS" title="Link to this definition">#</a></dt>
-<dd><p>‘PANDAS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">PandasStorage</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.ClassifierName.HUGGINGFACE_LOGITS">
+<span class="sig-name descname"><span class="pre">HUGGINGFACE_LOGITS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HUGGINGFACE_LOGITS'</span></em><a class="headerlink" href="#bocoel.factories.ClassifierName.HUGGINGFACE_LOGITS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>HuggingfaceLogitsLM</cite>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.DATASETS">
-<span class="sig-name descname"><span class="pre">DATASETS</span></span><a class="headerlink" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.DATASETS" title="Link to this definition">#</a></dt>
-<dd><p>‘DATASETS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">DatasetsStorage</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.ClassifierName.HUGGINGFACE_SEQUENCE">
+<span class="sig-name descname"><span class="pre">HUGGINGFACE_SEQUENCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HUGGINGFACE_SEQUENCE'</span></em><a class="headerlink" href="#bocoel.factories.ClassifierName.HUGGINGFACE_SEQUENCE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>HuggingfaceSequenceLM</cite>.</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.storages.storage">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.storages.</span></span><span class="sig-name descname"><span class="pre">storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.storages.html#bocoel.factories.storages.StorageName" title="bocoel.factories.storages.StorageName"><span class="pre">bocoel.factories.storages.StorageName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.Storage</span></span></span><a class="headerlink" href="#bocoel.factories.storages.storage" title="Link to this definition">#</a></dt>
-<dd><p>Create a single storage.</p>
-<p>Parameters:
-storage: The name of the storage.
-path: The path to the storage.
-name: The name of the storage.
-split: The split to use.</p>
-<p>Returns:
-The storage instance.</p>
-<p>Raises:
-ValueError: If the storage is unknown.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EmbedderName</span></span><a class="headerlink" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The names of the embedders.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="bocoel.factories.CorpusName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">CorpusName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.CorpusName" title="Link to this definition">#</a></dt>
+<dd><p>The names of the corpus.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT">
-<span class="sig-name descname"><span class="pre">SBERT</span></span><a class="headerlink" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT" title="Link to this definition">#</a></dt>
-<dd><p>‘SBERT’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">SbertEmbedder</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.CorpusName.COMPOSED">
+<span class="sig-name descname"><span class="pre">COMPOSED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'COMPOSED'</span></em><a class="headerlink" href="#bocoel.factories.CorpusName.COMPOSED" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>ComposedCorpus</cite>.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE">
-<span class="sig-name descname"><span class="pre">HUGGINGFACE</span></span><a class="headerlink" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE" title="Link to this definition">#</a></dt>
-<dd><p>‘HUGGINGFACE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">HuggingfaceEmbedder</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE">
-<span class="sig-name descname"><span class="pre">HUGGINGFACE_ENSEMBLE</span></span><a class="headerlink" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE" title="Link to this definition">#</a></dt>
-<dd><p>‘HUGGINGFACE_ENSEMBLE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">EnsembleEmbedder</span></code> concatenating <code class="docutils literal notranslate"><span class="pre">HuggingfaceEmbedder</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.embedders.embedder">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.embedders.</span></span><span class="sig-name descname"><span class="pre">embedder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.embedders.html#bocoel.factories.embedders.EmbedderName" title="bocoel.factories.embedders.EmbedderName"><span class="pre">bocoel.factories.embedders.EmbedderName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.Embedder</span></span></span><a class="headerlink" href="#bocoel.factories.embedders.embedder" title="Link to this definition">#</a></dt>
-<dd><p>Create an embedder.</p>
-<p>Parameters:
-name: The name of the embedder.
-model_name: The model name to use.
-device: The device to use.
-batch_size: The batch size to use.</p>
-<p>Returns:
-The embedder instance.</p>
-<p>Raises:
-ValueError: If the name is unknown.
-TypeError: If the model name is not a string for SBERT or Huggingface,
-or not a list of strings for HuggingfaceEnsemble.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CorpusName</span></span><a class="headerlink" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The names of the corpus.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dt class="sig sig-object py" id="bocoel.factories.EmbedderName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">EmbedderName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.EmbedderName" title="Link to this definition">#</a></dt>
+<dd><p>The names of the embedders.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED">
-<span class="sig-name descname"><span class="pre">COMPOSED</span></span><a class="headerlink" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED" title="Link to this definition">#</a></dt>
-<dd><p>‘COMPOSED’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">ComposedCorpus</span></code>.</p>
+<dt class="sig sig-object py" id="bocoel.factories.EmbedderName.HUGGINGFACE">
+<span class="sig-name descname"><span class="pre">HUGGINGFACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HUGGINGFACE'</span></em><a class="headerlink" href="#bocoel.factories.EmbedderName.HUGGINGFACE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>HuggingfaceEmbedder</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.EmbedderName.HUGGINGFACE_ENSEMBLE">
+<span class="sig-name descname"><span class="pre">HUGGINGFACE_ENSEMBLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HUGGINGFACE_ENSEMBLE'</span></em><a class="headerlink" href="#bocoel.factories.EmbedderName.HUGGINGFACE_ENSEMBLE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>EnsembleEmbedder</cite> concatenating <cite>HuggingfaceEmbedder</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.EmbedderName.SBERT">
+<span class="sig-name descname"><span class="pre">SBERT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SBERT'</span></em><a class="headerlink" href="#bocoel.factories.EmbedderName.SBERT" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>SbertEmbedder</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.factories.GeneratorName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">GeneratorName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.GeneratorName" title="Link to this definition">#</a></dt>
+<dd><p>The generator names.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.GeneratorName.HUGGINGFACE_GENERATIVE">
+<span class="sig-name descname"><span class="pre">HUGGINGFACE_GENERATIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HUGGINGFACE_GENERATIVE'</span></em><a class="headerlink" href="#bocoel.factories.GeneratorName.HUGGINGFACE_GENERATIVE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>HuggingfaceGenerativeLM</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.factories.IndexName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">IndexName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.IndexName" title="Link to this definition">#</a></dt>
+<dd><p>The names of the indices.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.IndexName.FAISS">
+<span class="sig-name descname"><span class="pre">FAISS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FAISS'</span></em><a class="headerlink" href="#bocoel.factories.IndexName.FAISS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>FaissIndex</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.IndexName.HNSWLIB">
+<span class="sig-name descname"><span class="pre">HNSWLIB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HNSWLIB'</span></em><a class="headerlink" href="#bocoel.factories.IndexName.HNSWLIB" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>HnswlibIndex</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.IndexName.POLAR">
+<span class="sig-name descname"><span class="pre">POLAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'POLAR'</span></em><a class="headerlink" href="#bocoel.factories.IndexName.POLAR" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>PolarIndex</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.IndexName.WHITENING">
+<span class="sig-name descname"><span class="pre">WHITENING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WHITENING'</span></em><a class="headerlink" href="#bocoel.factories.IndexName.WHITENING" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>WhiteningIndex</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">OptimizerName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.OptimizerName" title="Link to this definition">#</a></dt>
+<dd><p>The names of the optimizers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.BAYESIAN">
+<span class="sig-name descname"><span class="pre">BAYESIAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BAYESIAN'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.BAYESIAN" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>AxServiceOptimizer</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.BRUTE">
+<span class="sig-name descname"><span class="pre">BRUTE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BRUTE'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.BRUTE" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>BruteForceOptimizer</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.KMEANS">
+<span class="sig-name descname"><span class="pre">KMEANS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'KMEANS'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.KMEANS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>KMeansOptimizer</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.KMEDOIDS">
+<span class="sig-name descname"><span class="pre">KMEDOIDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'KMEDOIDS'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.KMEDOIDS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>KMedoidsOptimizer</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.RANDOM">
+<span class="sig-name descname"><span class="pre">RANDOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RANDOM'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.RANDOM" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>RandomOptimizer</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.OptimizerName.UNIFORM">
+<span class="sig-name descname"><span class="pre">UNIFORM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNIFORM'</span></em><a class="headerlink" href="#bocoel.factories.OptimizerName.UNIFORM" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>UniformOptimizer</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.factories.StorageName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">StorageName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.factories.StorageName" title="Link to this definition">#</a></dt>
+<dd><p>The storage names.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.StorageName.DATASETS">
+<span class="sig-name descname"><span class="pre">DATASETS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DATASETS'</span></em><a class="headerlink" href="#bocoel.factories.StorageName.DATASETS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>DatasetsStorage</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bocoel.factories.StorageName.PANDAS">
+<span class="sig-name descname"><span class="pre">PANDAS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PANDAS'</span></em><a class="headerlink" href="#bocoel.factories.StorageName.PANDAS" title="Link to this definition">#</a></dt>
+<dd><p>Corresponds to <cite>PandasStorage</cite>.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.corpora.corpus">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.corpora.</span></span><span class="sig-name descname"><span class="pre">corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.corpora.html#bocoel.factories.corpora.CorpusName" title="bocoel.factories.corpora.CorpusName"><span class="pre">bocoel.factories.corpora.CorpusName</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">CorpusName.COMPOSED</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.Storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.Embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.indices.html#bocoel.factories.indices.IndexName" title="bocoel.factories.indices.IndexName"><span class="pre">bocoel.factories.indices.IndexName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">index_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.Corpus</span></span></span><a class="headerlink" href="#bocoel.factories.corpora.corpus" title="Link to this definition">#</a></dt>
-<dd><p>Create a corpus.</p>
-<p>Parameters:
-name: The name of the corpus.
-storage: The storage to use.
-embedder: The embedder to use.
-keys: The key to use for the index.
-index_name: The name of the index backend to use.
-**index_kwargs: The keyword arguments to pass to the index backend.</p>
-<p>Returns:
-The corpus instance.</p>
-<p>Raises:
-ValueError: If the name is unknown.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.adaptor">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.adaptors.</span></span><span class="sig-name descname"><span class="pre">adaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.adaptors.html#bocoel.factories.adaptors.AdaptorName" title="bocoel.factories.adaptors.AdaptorName"><span class="pre">bocoel.factories.adaptors.AdaptorName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.Adaptor</span></span></span><a class="headerlink" href="#bocoel.factories.adaptors.adaptor" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.factories.adaptor">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">adaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.AdaptorName" title="bocoel.factories.adaptors.AdaptorName"><span class="pre">AdaptorName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="adaptors.html#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a></span></span><a class="headerlink" href="#bocoel.factories.adaptor" title="Link to this definition">#</a></dt>
 <dd><p>Create an adaptor.</p>
-<p>Parameters:
-name: The name of the adaptor.
-**kwargs: The keyword arguments to pass to the adaptor.
-See the documentation of the corresponding adaptor for details.</p>
-<p>Returns:
-The adaptor instance.</p>
-<p>Raises:
-ValueError: If the name is unknown.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptorName</span></span><a class="headerlink" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The names of the adaptors.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC">
-<span class="sig-name descname"><span class="pre">BIGBENCH_MC</span></span><a class="headerlink" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC" title="Link to this definition">#</a></dt>
-<dd><p>‘BIGBENCH_MULTIPLE_CHOICE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA">
-<span class="sig-name descname"><span class="pre">BIGBENCH_QA</span></span><a class="headerlink" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA" title="Link to this definition">#</a></dt>
-<dd><p>‘BIGBENCH_QUESTION_ANSWER’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">BigBenchQuestionAnswer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2">
-<span class="sig-name descname"><span class="pre">SST2</span></span><a class="headerlink" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2" title="Link to this definition">#</a></dt>
-<dd><p>‘SST2’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">Sst2QuestionAnswer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE">
-<span class="sig-name descname"><span class="pre">GLUE</span></span><a class="headerlink" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE" title="Link to this definition">#</a></dt>
-<dd><p>‘GLUE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">GlueAdaptor</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratorName</span></span><a class="headerlink" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The generator names.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE">
-<span class="sig-name descname"><span class="pre">HUGGINGFACE_GENERATIVE</span></span><a class="headerlink" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE" title="Link to this definition">#</a></dt>
-<dd><p>‘HUGGINGFACE_GENERATIVE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">HuggingfaceGenerativeLM</span></code>.</p>
-</dd></dl>
-
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the adaptor.</p></li>
+<li><p><strong>**kwargs</strong> – The keyword arguments to pass to the adaptor.
+See the documentation of the corresponding adaptor for details.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The adaptor instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the name is unknown.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.lms.generative">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.lms.</span></span><span class="sig-name descname"><span class="pre">generative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.lms.html#bocoel.factories.lms.GeneratorName" title="bocoel.factories.lms.GeneratorName"><span class="pre">bocoel.factories.lms.GeneratorName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.GenerativeModel</span></span></span><a class="headerlink" href="#bocoel.factories.lms.generative" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.factories.corpus">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.CorpusName" title="bocoel.factories.corpora.CorpusName"><span class="pre">CorpusName</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">CorpusName.COMPOSED</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.IndexName" title="bocoel.factories.indices.IndexName"><span class="pre">IndexName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">index_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></span><a class="headerlink" href="#bocoel.factories.corpus" title="Link to this definition">#</a></dt>
+<dd><p>Create a corpus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the corpus.</p></li>
+<li><p><strong>storage</strong> – The storage to use.</p></li>
+<li><p><strong>embedder</strong> – The embedder to use.</p></li>
+<li><p><strong>keys</strong> – The key to use for the index.</p></li>
+<li><p><strong>index_name</strong> – The name of the index backend to use.</p></li>
+<li><p><strong>**index_kwargs</strong> – The keyword arguments to pass to the index backend.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corpus instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the name is unknown.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bocoel.factories.embedder">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">embedder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.EmbedderName" title="bocoel.factories.embedders.EmbedderName"><span class="pre">EmbedderName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></span><a class="headerlink" href="#bocoel.factories.embedder" title="Link to this definition">#</a></dt>
+<dd><p>Create an embedder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the embedder.</p></li>
+<li><p><strong>model_name</strong> – The model name to use.</p></li>
+<li><p><strong>device</strong> – The device to use.</p></li>
+<li><p><strong>batch_size</strong> – The batch size to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The embedder instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the name is unknown.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If the model name is not a string for SBERT or Huggingface,
+    or not a list of strings for HuggingfaceEnsemble.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bocoel.factories.generative">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">generative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.GeneratorName" title="bocoel.factories.lms.GeneratorName"><span class="pre">GeneratorName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lms.html#bocoel.models.lms.GenerativeModel" title="bocoel.models.lms.interfaces.generative.GenerativeModel"><span class="pre">GenerativeModel</span></a></span></span><a class="headerlink" href="#bocoel.factories.generative" title="Link to this definition">#</a></dt>
 <dd><p>Create a generative model.</p>
-<p>Parameters:
-name: The name of the model.
-model_path: The path to the model.
-batch_size: The batch size to use.
-device: The device to use.
-add_sep_token: Whether to add the sep token.</p>
-<p>Returns:
-The generative model instance.</p>
-<p>Raises:
-ValueError: If the name is unknown.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassifierName</span></span><a class="headerlink" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The classifier names.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS">
-<span class="sig-name descname"><span class="pre">HUGGINGFACE_LOGITS</span></span><a class="headerlink" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS" title="Link to this definition">#</a></dt>
-<dd><p>‘HUGGINGFACE_LOGITS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">HuggingfaceLogitsLM</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE">
-<span class="sig-name descname"><span class="pre">HUGGINGFACE_SEQUENCE</span></span><a class="headerlink" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE" title="Link to this definition">#</a></dt>
-<dd><p>‘HUGGINGFACE_SEQUENCE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">HuggingfaceSequenceLM</span></code>.</p>
-</dd></dl>
-
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the model.</p></li>
+<li><p><strong>model_path</strong> – The path to the model.</p></li>
+<li><p><strong>batch_size</strong> – The batch size to use.</p></li>
+<li><p><strong>device</strong> – The device to use.</p></li>
+<li><p><strong>add_sep_token</strong> – Whether to add the sep token.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generative model instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the name is unknown.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.lms.classifier">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.lms.</span></span><span class="sig-name descname"><span class="pre">classifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.lms.html#bocoel.factories.lms.ClassifierName" title="bocoel.factories.lms.ClassifierName"><span class="pre">bocoel.factories.lms.ClassifierName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sep_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.ClassifierModel</span></span></span><a class="headerlink" href="#bocoel.factories.lms.classifier" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OptimizerName</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<p>The names of the optimizers.</p>
-<p class="rubric">Initialization</p>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN">
-<span class="sig-name descname"><span class="pre">BAYESIAN</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN" title="Link to this definition">#</a></dt>
-<dd><p>‘BAYESIAN’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">AxServiceOptimizer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS">
-<span class="sig-name descname"><span class="pre">KMEANS</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS" title="Link to this definition">#</a></dt>
-<dd><p>‘KMEANS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">KMeansOptimizer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS">
-<span class="sig-name descname"><span class="pre">KMEDOIDS</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS" title="Link to this definition">#</a></dt>
-<dd><p>‘KMEDOIDS’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">KMedoidsOptimizer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM">
-<span class="sig-name descname"><span class="pre">RANDOM</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM" title="Link to this definition">#</a></dt>
-<dd><p>‘RANDOM’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">RandomOptimizer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE">
-<span class="sig-name descname"><span class="pre">BRUTE</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE" title="Link to this definition">#</a></dt>
-<dd><p>‘BRUTE’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">BruteForceOptimizer</span></code>.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM">
-<span class="sig-name descname"><span class="pre">UNIFORM</span></span><a class="headerlink" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM" title="Link to this definition">#</a></dt>
-<dd><p>‘UNIFORM’</p>
-<p>Corresponds to <code class="docutils literal notranslate"><span class="pre">UniformOptimizer</span></code>.</p>
-</dd></dl>
-
+<dt class="sig sig-object py" id="bocoel.factories.index_class">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">index_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.IndexName" title="bocoel.factories.indices.IndexName"><span class="pre">IndexName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.factories.index_class" title="Link to this definition">#</a></dt>
+<dd><p>Get the index class for the given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – The name of the index.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bocoel.factories.optim.optimizer">
-<span class="sig-prename descclassname"><span class="pre">bocoel.factories.optim.</span></span><span class="sig-name descname"><span class="pre">optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.factories.optim.html#bocoel.factories.optim.OptimizerName" title="bocoel.factories.optim.OptimizerName"><span class="pre">bocoel.factories.optim.OptimizerName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.Corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.Adaptor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bocoel.Optimizer</span></span></span><a class="headerlink" href="#bocoel.factories.optim.optimizer" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.factories.optimizer">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.OptimizerName" title="bocoel.factories.optim.OptimizerName"><span class="pre">OptimizerName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="adaptors.html#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optimizer</span></span></span><a class="headerlink" href="#bocoel.factories.optimizer" title="Link to this definition">#</a></dt>
 <dd><p>Create an optimizer instance.</p>
-<p>Parameters:
-name: The name of the optimizer.
-corpus: The corpus to optimize.
-adaptor: The adaptor to use.
-**kwargs: Additional keyword arguments to pass to the optimizer.
-See the documentation for the specific optimizer for details.</p>
-<p>Returns:
-The optimizer instance.</p>
-<p>Raises:
-ValueError: If the name is unknown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the optimizer.</p></li>
+<li><p><strong>corpus</strong> – The corpus to optimize.</p></li>
+<li><p><strong>adaptor</strong> – The adaptor to use.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the optimizer.
+See the documentation for the specific optimizer for details.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The optimizer instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the name is unknown.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bocoel.factories.storage">
+<span class="sig-prename descclassname"><span class="pre">bocoel.factories.</span></span><span class="sig-name descname"><span class="pre">storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.factories.StorageName" title="bocoel.factories.storages.StorageName"><span class="pre">StorageName</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></span><a class="headerlink" href="#bocoel.factories.storage" title="Link to this definition">#</a></dt>
+<dd><p>Create a single storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>storage</strong> – The name of the storage.</p></li>
+<li><p><strong>path</strong> – The path to the storage.</p></li>
+<li><p><strong>name</strong> – The name of the storage.</p></li>
+<li><p><strong>split</strong> – The split to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The storage instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the storage is unknown.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -822,7 +815,7 @@ ValueError: If the name is unknown.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Storages</p>
+        <p class="prev-next-title">Storage API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -842,61 +835,60 @@ ValueError: If the name is unknown.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.FAISS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.FAISS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.HNSWLIB"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.HNSWLIB</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.POLAR"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.POLAR</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.bocoel.factories.indices.IndexName.IndexName.WHITENING"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.indices.IndexName.IndexName.WHITENING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName"><code class="docutils literal notranslate"><span class="pre">AdaptorName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.BIGBENCH_MC"><code class="docutils literal notranslate"><span class="pre">AdaptorName.BIGBENCH_MC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.BIGBENCH_QA"><code class="docutils literal notranslate"><span class="pre">AdaptorName.BIGBENCH_QA</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.GLUE"><code class="docutils literal notranslate"><span class="pre">AdaptorName.GLUE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.AdaptorName.SST2"><code class="docutils literal notranslate"><span class="pre">AdaptorName.SST2</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.indices.index_class"><code class="docutils literal notranslate"><span class="pre">index_class()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.PANDAS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName.PANDAS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.bocoel.factories.storages.StorageName.StorageName.DATASETS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.storages.StorageName.StorageName.DATASETS</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName"><code class="docutils literal notranslate"><span class="pre">ClassifierName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName.HUGGINGFACE_LOGITS"><code class="docutils literal notranslate"><span class="pre">ClassifierName.HUGGINGFACE_LOGITS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.ClassifierName.HUGGINGFACE_SEQUENCE"><code class="docutils literal notranslate"><span class="pre">ClassifierName.HUGGINGFACE_SEQUENCE</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storages.storage"><code class="docutils literal notranslate"><span class="pre">storage()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.SBERT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.embedders.EmbedderName.EmbedderName.HUGGINGFACE_ENSEMBLE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.CorpusName"><code class="docutils literal notranslate"><span class="pre">CorpusName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.CorpusName.COMPOSED"><code class="docutils literal notranslate"><span class="pre">CorpusName.COMPOSED</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedders.embedder"><code class="docutils literal notranslate"><span class="pre">embedder()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.corpora.CorpusName.CorpusName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.corpora.CorpusName.CorpusName.COMPOSED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName"><code class="docutils literal notranslate"><span class="pre">EmbedderName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.HUGGINGFACE"><code class="docutils literal notranslate"><span class="pre">EmbedderName.HUGGINGFACE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.HUGGINGFACE_ENSEMBLE"><code class="docutils literal notranslate"><span class="pre">EmbedderName.HUGGINGFACE_ENSEMBLE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.EmbedderName.SBERT"><code class="docutils literal notranslate"><span class="pre">EmbedderName.SBERT</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpora.corpus"><code class="docutils literal notranslate"><span class="pre">corpus()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.adaptor"><code class="docutils literal notranslate"><span class="pre">adaptor()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_MC</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.BIGBENCH_QA</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.SST2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptors.bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.adaptors.AdaptorName.AdaptorName.GLUE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.GeneratorName"><code class="docutils literal notranslate"><span class="pre">GeneratorName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.GeneratorName.HUGGINGFACE_GENERATIVE"><code class="docutils literal notranslate"><span class="pre">GeneratorName.HUGGINGFACE_GENERATIVE</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.GeneratorName.GeneratorName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.GeneratorName.GeneratorName.HUGGINGFACE_GENERATIVE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName"><code class="docutils literal notranslate"><span class="pre">IndexName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.FAISS"><code class="docutils literal notranslate"><span class="pre">IndexName.FAISS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.HNSWLIB"><code class="docutils literal notranslate"><span class="pre">IndexName.HNSWLIB</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.POLAR"><code class="docutils literal notranslate"><span class="pre">IndexName.POLAR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.IndexName.WHITENING"><code class="docutils literal notranslate"><span class="pre">IndexName.WHITENING</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.generative"><code class="docutils literal notranslate"><span class="pre">generative()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_LOGITS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.lms.ClassifierName.ClassifierName.HUGGINGFACE_SEQUENCE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName"><code class="docutils literal notranslate"><span class="pre">OptimizerName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.BAYESIAN"><code class="docutils literal notranslate"><span class="pre">OptimizerName.BAYESIAN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.BRUTE"><code class="docutils literal notranslate"><span class="pre">OptimizerName.BRUTE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.KMEANS"><code class="docutils literal notranslate"><span class="pre">OptimizerName.KMEANS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.KMEDOIDS"><code class="docutils literal notranslate"><span class="pre">OptimizerName.KMEDOIDS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.RANDOM"><code class="docutils literal notranslate"><span class="pre">OptimizerName.RANDOM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.OptimizerName.UNIFORM"><code class="docutils literal notranslate"><span class="pre">OptimizerName.UNIFORM</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.lms.classifier"><code class="docutils literal notranslate"><span class="pre">classifier()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.BAYESIAN</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.KMEANS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.KMEDOIDS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.RANDOM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.BRUTE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM"><code class="docutils literal notranslate"><span class="pre">bocoel.factories.optim.OptimizerName.OptimizerName.UNIFORM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName"><code class="docutils literal notranslate"><span class="pre">StorageName</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName.DATASETS"><code class="docutils literal notranslate"><span class="pre">StorageName.DATASETS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.StorageName.PANDAS"><code class="docutils literal notranslate"><span class="pre">StorageName.PANDAS</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optim.optimizer"><code class="docutils literal notranslate"><span class="pre">optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.adaptor"><code class="docutils literal notranslate"><span class="pre">adaptor()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.corpus"><code class="docutils literal notranslate"><span class="pre">corpus()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.embedder"><code class="docutils literal notranslate"><span class="pre">embedder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.generative"><code class="docutils literal notranslate"><span class="pre">generative()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.index_class"><code class="docutils literal notranslate"><span class="pre">index_class()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.optimizer"><code class="docutils literal notranslate"><span class="pre">optimizer()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.factories.storage"><code class="docutils literal notranslate"><span class="pre">storage()</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -921,7 +913,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>

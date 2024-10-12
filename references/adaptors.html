@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adaptors &#8212; Bocoel</title>
+    <title>Adaptor API &#8212; Bocoel</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'references/adaptors';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Language Models" href="lms.html" />
-    <link rel="prev" title="Scores" href="scores.html" />
+    <link rel="next" title="Language Model API" href="lms.html" />
+    <link rel="prev" title="Score API" href="scores.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storages.html">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Adaptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exams.html">Exams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factory API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storages.html">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Score API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Adaptor API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/adaptors.md" target="_blank"
+      <li><a href="../_sources/references/adaptors.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Adaptors</h1>
+    <h1>Adaptor API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,58 +366,33 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor"><code class="docutils literal notranslate"><span class="pre">Adaptor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">Adaptor.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.on_corpus"><code class="docutils literal notranslate"><span class="pre">Adaptor.on_corpus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.on_storage"><code class="docutils literal notranslate"><span class="pre">Adaptor.on_storage()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.AdaptorBundle"><code class="docutils literal notranslate"><span class="pre">AdaptorBundle</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.AdaptorMapping"><code class="docutils literal notranslate"><span class="pre">AdaptorMapping</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchAdaptor"><code class="docutils literal notranslate"><span class="pre">BigBenchAdaptor</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchChoiceType"><code class="docutils literal notranslate"><span class="pre">BigBenchChoiceType</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMatchType"><code class="docutils literal notranslate"><span class="pre">BigBenchMatchType</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice.evaluate"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice.numeric_choices()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchQuestionAnswer"><code class="docutils literal notranslate"><span class="pre">BigBenchQuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchQuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">BigBenchQuestionAnswer.evaluate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor.task_choices"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor.task_choices()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Sst2QuestionAnswer"><code class="docutils literal notranslate"><span class="pre">Sst2QuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Sst2QuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">Sst2QuestionAnswer.evaluate()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -432,74 +406,146 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="adaptors">
-<h1>Adaptors<a class="headerlink" href="#adaptors" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.models.adaptors">
+<span id="adaptor-api"></span><h1>Adaptor API<a class="headerlink" href="#module-bocoel.models.adaptors" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Adaptor</span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<p>Adaptors are the glue between scores and the corpus.
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Adaptor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">Adaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.Adaptor" title="Link to this definition">#</a></dt>
+<dd><p>Adaptors are the glue between scores and the corpus.
 It is designed to handle running a particular score on a particular corpus / dataset.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Adaptor.evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.Adaptor.evaluate" title="Link to this definition">#</a></dt>
 <dd><p>Evaluate a particular set of entries with a language model.
 Returns a list of scores, one for each entry, in the same order.</p>
-<p>Parameters:
-data: A mapping from column names to the data in that column.</p>
-<p>Returns:
-The scores for each entry. Scores must be floating point numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A mapping from column names to the data in that column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. Scores must be floating point numbers.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage">
-<span class="sig-name descname"><span class="pre">on_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Adaptor.on_corpus">
+<span class="sig-name descname"><span class="pre">on_corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="corpora.html#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.interfaces.Corpus"><span class="pre">Corpus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.13)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.13)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.Adaptor.on_corpus" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate a particular set of indices on a corpus.
+A convenience wrapper around <cite>Adaptor.on_storage</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corpus</strong> – The corpus to evaluate.</p></li>
+<li><p><strong>indices</strong> – The indices to evaluate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. The shape must be the same as the indices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Adaptor.on_storage">
+<span class="sig-name descname"><span class="pre">on_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.13)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.13)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.Adaptor.on_storage" title="Link to this definition">#</a></dt>
 <dd><p>Evaluate a particular set of indices on a storage.
 Given indices and a storage,
 this method will extract the corresponding entries from the storage,
-and evaluate them with <code class="docutils literal notranslate"><span class="pre">Adaptor.evaluate</span></code>.</p>
-<p>Parameters:
-storage: The storage to evaluate.
-indices: The indices to evaluate.</p>
-<p>Returns:
-The scores for each entry. The shape must be the same as the indices.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus">
-<span class="sig-name descname"><span class="pre">on_corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.corpora.Corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus" title="Link to this definition">#</a></dt>
-<dd><p>Evaluate a particular set of indices on a corpus.
-A convenience wrapper around <code class="docutils literal notranslate"><span class="pre">Adaptor.on_storage</span></code>.</p>
-<p>Parameters:
-corpus: The corpus to evaluate.
-indices: The indices to evaluate.</p>
-<p>Returns:
-The scores for each entry. The shape must be the same as the indices.</p>
+and evaluate them with <cite>Adaptor.evaluate</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>storage</strong> – The storage to evaluate.</p></li>
+<li><p><strong>indices</strong> – The indices to evaluate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. The shape must be the same as the indices.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptorBundle</span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.AdaptorBundle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">AdaptorBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.AdaptorBundle" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.AdaptorMapping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">AdaptorMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adaptors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.models.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><span class="pre">Adaptor</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.AdaptorMapping" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchAdaptor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">BigBenchAdaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchAdaptor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchChoiceType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">BigBenchChoiceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchChoiceType" title="Link to this definition">#</a></dt>
+<dd><p>An enumeration.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GlueAdaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.lms.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('negative',</span> <span class="pre">'positive')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.Adaptor</span></code></p>
-<p>The adaptor for the glue dataset provided by setfit.</p>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchMatchType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">BigBenchMatchType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchMatchType" title="Link to this definition">#</a></dt>
+<dd><p>An enumeration.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchMultipleChoice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">BigBenchMultipleChoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple_choice_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'multiple_choice_targets'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple_choice_scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'multiple_choice_scores'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.models.adaptors.BigBenchChoiceType" title="bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType"><span class="pre">BigBenchChoiceType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BigBenchChoiceType.SUM_OF_SCORES</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchMultipleChoice" title="Link to this definition">#</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchMultipleChoice.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchMultipleChoice.evaluate" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate a particular set of entries with a language model.
+Returns a list of scores, one for each entry, in the same order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A mapping from column names to the data in that column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. Scores must be floating point numbers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">numeric_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices" title="Link to this definition">#</a></dt>
+<dd><p>Convert a multiple choice question into a numeric choice question.
+Returns a tuple of generated prompt and list of valid choices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchQuestionAnswer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">BigBenchQuestionAnswer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.GenerativeModel" title="bocoel.models.lms.interfaces.generative.GenerativeModel"><span class="pre">GenerativeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'targets'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#bocoel.models.adaptors.BigBenchMatchType" title="bocoel.models.adaptors.bigbench.matching.BigBenchMatchType"><span class="pre">BigBenchMatchType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BigBenchMatchType.EXACT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchQuestionAnswer" title="Link to this definition">#</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.BigBenchQuestionAnswer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.BigBenchQuestionAnswer.evaluate" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate a particular set of entries with a language model.
+Returns a list of scores, one for each entry, in the same order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A mapping from column names to the data in that column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. Scores must be floating point numbers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.GlueAdaptor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">GlueAdaptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">texts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('negative',</span> <span class="pre">'positive')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.GlueAdaptor" title="Link to this definition">#</a></dt>
+<dd><p>The adaptor for the glue dataset provided by setfit.</p>
 <p>Glue is a collection of datasets for natural language understanding tasks.
 The datasets are designed to be challenging and diverse,
 and they are collected from a variety of sources.
@@ -513,193 +559,63 @@ and it is designed to work with the glue dataset
 <li><p>label: The label of the text.</p></li>
 <li><p>label_text: The text of the label.</p></li>
 </ul>
-<p class="rubric">Initialization</p>
-<p>Initialize the adaptor.</p>
-<p>Parameters:
-lm: The language model to use for classification.
-texts: The column name for the text to classify.
-label: The column name for the label of the text.
-label_text: The column name for the text of the label.
-choices: The valid choices for the label.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.GlueAdaptor.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.GlueAdaptor.evaluate" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate a particular set of entries with a language model.
+Returns a list of scores, one for each entry, in the same order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A mapping from column names to the data in that column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. Scores must be floating point numbers.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">task_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">sst2</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">mrpc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">mnli</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">qqp</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">rte</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">qnli</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">train</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">validation</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">test</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.GlueAdaptor.task_choices">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">task_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'sst2'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mrpc'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mnli'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'qqp'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rte'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'qnli'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'train'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'validation'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'test'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.GlueAdaptor.task_choices" title="Link to this definition">#</a></dt>
 <dd><p>Get the valid choices for a particular task and split.</p>
-<p>Parameters:
-name: The name of the task.
-split: The split of the task.</p>
-<p>Returns:
-The valid choices for the task and split.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BigBenchAdaptor</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.adaptors.interfaces.adaptors.html#bocoel.models.adaptors.interfaces.adaptors.Adaptor" title="bocoel.models.adaptors.interfaces.adaptors.Adaptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn">
-<span class="sig-name descname"><span class="pre">_score_fn</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bocoel.models.scores.Score</span></em><a class="headerlink" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn" title="Link to this definition">#</a></dt>
-<dd><p>None</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BigBenchQuestionAnswer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.lms.GenerativeModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'targets'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.models.adaptors.bigbench.matching.html#bocoel.models.adaptors.bigbench.matching.BigBenchMatchType" title="bocoel.models.adaptors.bigbench.matching.BigBenchMatchType"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BigBenchMatchType.EXACT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.adaptors.bigbench.interfaces.html#bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor" title="bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BigBenchMatchType</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT">
-<span class="sig-name descname"><span class="pre">EXACT</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT" title="Link to this definition">#</a></dt>
-<dd><p>‘EXACT’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU">
-<span class="sig-name descname"><span class="pre">NLTK_BLEU</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU" title="Link to this definition">#</a></dt>
-<dd><p>‘NLTK_BLEU’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU">
-<span class="sig-name descname"><span class="pre">SACRE_BLEU</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU" title="Link to this definition">#</a></dt>
-<dd><p>‘SACRE_BLEU’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1">
-<span class="sig-name descname"><span class="pre">ROUGE_1</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_1’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2">
-<span class="sig-name descname"><span class="pre">ROUGE_2</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_2’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L">
-<span class="sig-name descname"><span class="pre">ROUGE_L</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_L’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1">
-<span class="sig-name descname"><span class="pre">ROUGE_SCORE_1</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_SCORE_1’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2">
-<span class="sig-name descname"><span class="pre">ROUGE_SCORE_2</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_SCORE_2’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L">
-<span class="sig-name descname"><span class="pre">ROUGE_SCORE_L</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L" title="Link to this definition">#</a></dt>
-<dd><p>‘ROUGE_SCORE_L’</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bocoel.models.scores.Score</span></em><a class="headerlink" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BigBenchMultipleChoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.lms.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple_choice_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'multiple_choice_targets'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple_choice_scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'multiple_choice_scores'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../apidocs/bocoel/bocoel.models.adaptors.bigbench.multi.html#bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType" title="bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BigBenchChoiceType.SUM_OF_SCORES</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.models.adaptors.bigbench.interfaces.html#bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor" title="bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">numeric_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices" title="Link to this definition">#</a></dt>
-<dd><p>Convert a multiple choice question into a numeric choice question.
-Returns a tuple of generated prompt and list of valid choices.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BigBenchChoiceType</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.common.StrEnum</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES">
-<span class="sig-name descname"><span class="pre">SUM_OF_SCORES</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES" title="Link to this definition">#</a></dt>
-<dd><p>‘SUM_OF_SCORES’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS">
-<span class="sig-name descname"><span class="pre">LIST_OF_ANSWERS</span></span><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS" title="Link to this definition">#</a></dt>
-<dd><p>‘LIST_OF_ANSWERS’</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bocoel.models.scores.Score</span></em><a class="headerlink" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Sst2QuestionAnswer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bocoel.models.lms.ClassifierModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sentence'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('negative',</span> <span class="pre">'positive')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.Adaptor</span></code></p>
-<p>The adaptor for the SST-2 dataset.
-This adaptor assumes that the dataset has the following columns:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">idx</span></code>: The index of the entry.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sentence</span></code>: The sentence to classify.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: The label of the sentence.</p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the task.</p></li>
+<li><p><strong>split</strong> – The split of the task.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The valid choices for the task and split.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Sst2QuestionAnswer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.models.adaptors.</span></span><span class="sig-name descname"><span class="pre">Sst2QuestionAnswer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lms.html#bocoel.models.lms.ClassifierModel" title="bocoel.models.lms.interfaces.classifiers.ClassifierModel"><span class="pre">ClassifierModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sentence'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'label'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('negative',</span> <span class="pre">'positive')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.models.adaptors.Sst2QuestionAnswer" title="Link to this definition">#</a></dt>
+<dd><p>The adaptor for the SST-2 dataset.
+This adaptor assumes that the dataset has the following columns:
+- <cite>idx</cite>: The index of the entry.
+- <cite>sentence</cite>: The sentence to classify.
+- <cite>label</cite>: The label of the sentence.</p>
 <p>Each entry in the dataset must be a single sentence.</p>
-<p class="rubric">Initialization</p>
-<p>Parameters:
-lm: The language model to use for classification.
-sentence: The column name for the sentence to classify.
-label: The column name for the label of the sentence.
-choices: The valid choices for the label.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span></span></span><a class="headerlink" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.models.adaptors.Sst2QuestionAnswer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.models.adaptors.Sst2QuestionAnswer.evaluate" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate a particular set of entries with a language model.
+Returns a list of scores, one for each entry, in the same order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A mapping from column names to the data in that column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scores for each entry. Scores must be floating point numbers.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -741,7 +657,7 @@ choices: The valid choices for the label.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Scores</p>
+        <p class="prev-next-title">Score API</p>
       </div>
     </a>
     <a class="right-next"
@@ -749,7 +665,7 @@ choices: The valid choices for the label.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Language Models</p>
+        <p class="prev-next-title">Language Model API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -769,58 +685,33 @@ choices: The valid choices for the label.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_storage()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.adaptors.bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.adaptors.Adaptor.Adaptor.on_corpus()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor"><code class="docutils literal notranslate"><span class="pre">Adaptor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">Adaptor.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.on_corpus"><code class="docutils literal notranslate"><span class="pre">Adaptor.on_corpus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Adaptor.on_storage"><code class="docutils literal notranslate"><span class="pre">Adaptor.on_storage()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.interfaces.bundles.bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.interfaces.bundles.AdaptorBundle.AdaptorBundle.evaluate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.AdaptorBundle"><code class="docutils literal notranslate"><span class="pre">AdaptorBundle</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.AdaptorMapping"><code class="docutils literal notranslate"><span class="pre">AdaptorMapping</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchAdaptor"><code class="docutils literal notranslate"><span class="pre">BigBenchAdaptor</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchChoiceType"><code class="docutils literal notranslate"><span class="pre">BigBenchChoiceType</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMatchType"><code class="docutils literal notranslate"><span class="pre">BigBenchMatchType</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice.evaluate"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices"><code class="docutils literal notranslate"><span class="pre">BigBenchMultipleChoice.numeric_choices()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.setfit.bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.setfit.GlueAdaptor.GlueAdaptor.task_choices()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchQuestionAnswer"><code class="docutils literal notranslate"><span class="pre">BigBenchQuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.BigBenchQuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">BigBenchQuestionAnswer.evaluate()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.interfaces.bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.interfaces.BigBenchAdaptor.BigBenchAdaptor._score_fn</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor.evaluate"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor.evaluate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.GlueAdaptor.task_choices"><code class="docutils literal notranslate"><span class="pre">GlueAdaptor.task_choices()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchQuestionAnswer.BigBenchQuestionAnswer.evaluate()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.EXACT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.NLTK_BLEU</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.SACRE_BLEU</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_L</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.ROUGE_SCORE_L</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.matching.bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.matching.BigBenchMatchType.BigBenchMatchType.score</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.evaluate()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchMultipleChoice.BigBenchMultipleChoice.numeric_choices()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.SUM_OF_SCORES</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.LIST_OF_ANSWERS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.bigbench.multi.bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.bigbench.multi.BigBenchChoiceType.BigBenchChoiceType.score</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.glue.sst.bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">bocoel.models.adaptors.glue.sst.Sst2QuestionAnswer.Sst2QuestionAnswer.evaluate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Sst2QuestionAnswer"><code class="docutils literal notranslate"><span class="pre">Sst2QuestionAnswer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.models.adaptors.Sst2QuestionAnswer.evaluate"><code class="docutils literal notranslate"><span class="pre">Sst2QuestionAnswer.evaluate()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -847,7 +738,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>

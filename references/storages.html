@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Storages &#8212; Bocoel</title>
+    <title>Storage API &#8212; Bocoel</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'references/storages';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Indices" href="indices.html" />
-    <link rel="prev" title="Factories" href="factories.html" />
+    <link rel="next" title="Index API" href="indices.html" />
+    <link rel="prev" title="Factory API" href="factories.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,16 +186,15 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="factories.html">Factories</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Storages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exams.html">Exams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="factories.html">Factory API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Storage API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Index API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">Embedder API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corpora.html">Corpus API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Score API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptors.html">Adaptor API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
@@ -273,7 +272,7 @@
       
       
       
-      <li><a href="../_sources/references/storages.md" target="_blank"
+      <li><a href="../_sources/references/storages.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +282,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -357,7 +356,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Storages</h1>
+    <h1>Storage API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -367,38 +366,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.collate"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.collate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.ConcatStorage"><code class="docutils literal notranslate"><span class="pre">ConcatStorage</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.DatasetsStorage"><code class="docutils literal notranslate"><span class="pre">DatasetsStorage</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage"><code class="docutils literal notranslate"><span class="pre">PandasStorage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage.from_jsonl"><code class="docutils literal notranslate"><span class="pre">PandasStorage.from_jsonl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage.from_jsonl_file"><code class="docutils literal notranslate"><span class="pre">PandasStorage.from_jsonl_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.Storage"><code class="docutils literal notranslate"><span class="pre">Storage</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -410,157 +385,66 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="storages">
-<h1>Storages<a class="headerlink" href="#storages" title="Link to this heading">#</a></h1>
+  <section id="module-bocoel.corpora.storages">
+<span id="storage-api"></span><h1>Storage API<a class="headerlink" href="#module-bocoel.corpora.storages" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Storage</span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
-<p>Storage is responsible for storing the data.
-This can be thought of as a table.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__len__">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__len__" title="Link to this definition">#</a></dt>
-<dd><p>Returns the number of rows in the storage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage._getitem">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_getitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage._getitem" title="Link to this definition">#</a></dt>
-<dd><p>Returns the row at the given index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.keys">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.keys" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.collate">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.collate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PandasStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></code></a></p>
-<p>Storage for pandas DataFrame.
-Since pandas DataFrames are in-memory, this storage is fast,
-but might be memory inefficient and require a lot of RAM.</p>
-<p class="rubric">Initialization</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem">
-<span class="sig-name descname"><span class="pre">_getitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_jsonl_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file" title="Link to this definition">#</a></dt>
-<dd><p>Load data from a JSONL file.</p>
-<p>Parameters:
-path: The path to the file.</p>
-<p>Returns:
-A <code class="docutils literal notranslate"><span class="pre">PandasStorage</span></code> instance.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_jsonl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typing_extensions.Self</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl" title="Link to this definition">#</a></dt>
-<dd><p>Load data from a JSONL object or a list of JSON.</p>
-<p>Parameters:
-data: The JSONL object or list of JSON.</p>
-<p>Returns:
-A <code class="docutils literal notranslate"><span class="pre">PandasStorage</span></code> instance.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DatasetsStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></code></a></p>
-<p>Storage for datasets from HuggingFace Datasets library.
-Datasets are loaded on disk, so they might be slow(er) to load,
-but are more memory efficient.</p>
-<p class="rubric">Initialization</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem">
-<span class="sig-name descname"><span class="pre">_getitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ConcatStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></code></a></p>
-<p>Storage that concatenates multiple storages together.
+<dt class="sig sig-object py" id="bocoel.corpora.storages.ConcatStorage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.corpora.storages.</span></span><span class="sig-name descname"><span class="pre">ConcatStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.ConcatStorage" title="Link to this definition">#</a></dt>
+<dd><p>Storage that concatenates multiple storages together.
 Concatenation is done on the first dimension.
 The resulting storage is read-only and has length
 equal to the sum of the lengths of the storages.</p>
-<p class="rubric">Initialization</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.corpora.storages.DatasetsStorage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.corpora.storages.</span></span><span class="sig-name descname"><span class="pre">DatasetsStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.DatasetsStorage" title="Link to this definition">#</a></dt>
+<dd><p>Storage for datasets from HuggingFace Datasets library.
+Datasets are loaded on disk, so they might be slow(er) to load,
+but are more memory efficient.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.corpora.storages.PandasStorage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.corpora.storages.</span></span><span class="sig-name descname"><span class="pre">PandasStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.PandasStorage" title="Link to this definition">#</a></dt>
+<dd><p>Storage for pandas DataFrame.
+Since pandas DataFrames are in-memory, this storage is fast,
+but might be memory inefficient and require a lot of RAM.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___">
-<span class="sig-name descname"><span class="pre">__repr___</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.corpora.storages.PandasStorage.from_jsonl">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_jsonl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.PandasStorage.from_jsonl" title="Link to this definition">#</a></dt>
+<dd><p>Load data from a JSONL object or a list of JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – The JSONL object or list of JSON.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <cite>PandasStorage</cite> instance.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="bocoel.corpora.storages.PandasStorage.from_jsonl_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_jsonl_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.PandasStorage.from_jsonl_file" title="Link to this definition">#</a></dt>
+<dd><p>Load data from a JSONL file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – The path to the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <cite>PandasStorage</cite> instance.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem">
-<span class="sig-name descname"><span class="pre">_getitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../apidocs/bocoel/bocoel.corpora.storages.interfaces.html#bocoel.corpora.storages.interfaces.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">bocoel.corpora.storages.interfaces.Storage</span></a></span></span><a class="headerlink" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<dl class="py class">
+<dt class="sig sig-object py" id="bocoel.corpora.storages.Storage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.corpora.storages.</span></span><span class="sig-name descname"><span class="pre">Storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bocoel.corpora.storages.Storage" title="Link to this definition">#</a></dt>
+<dd><p>Storage is responsible for storing the data.
+This can be thought of as a table.</p>
 </dd></dl>
 
 </section>
@@ -601,7 +485,7 @@ equal to the sum of the lengths of the storages.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Factories</p>
+        <p class="prev-next-title">Factory API</p>
       </div>
     </a>
     <a class="right-next"
@@ -609,7 +493,7 @@ equal to the sum of the lengths of the storages.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Indices</p>
+        <p class="prev-next-title">Index API</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -629,38 +513,14 @@ equal to the sum of the lengths of the storages.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.__getitem__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.interfaces.bocoel.corpora.storages.interfaces.Storage.Storage.collate"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.interfaces.Storage.Storage.collate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.ConcatStorage"><code class="docutils literal notranslate"><span class="pre">ConcatStorage</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.DatasetsStorage"><code class="docutils literal notranslate"><span class="pre">DatasetsStorage</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage"><code class="docutils literal notranslate"><span class="pre">PandasStorage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage.from_jsonl"><code class="docutils literal notranslate"><span class="pre">PandasStorage.from_jsonl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.PandasStorage.from_jsonl_file"><code class="docutils literal notranslate"><span class="pre">PandasStorage.from_jsonl_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl_file()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.pandas.bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.pandas.PandasStorage.PandasStorage.from_jsonl()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__repr__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.datasets.bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.datasets.DatasetsStorage.DatasetsStorage._getitem()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__repr___()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.keys()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.__len__()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage._getitem()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.concat.bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join"><code class="docutils literal notranslate"><span class="pre">bocoel.corpora.storages.concat.ConcatStorage.ConcatStorage.join()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.storages.Storage"><code class="docutils literal notranslate"><span class="pre">Storage</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -685,7 +545,7 @@ By RenChu Wang
 
   <p class="copyright">
     
-      © Copyright RenChu Wang, 2024.
+      © Copyright 2024.
       <br/>
     
   </p>
