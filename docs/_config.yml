@@ -31,3 +31,4 @@ sphinx:
   config:
     intersphinx_mapping:
       python: ['https://docs.python.org/3', null]
+      numpy: ['http://docs.scipy.org/doc/numpy', null]
