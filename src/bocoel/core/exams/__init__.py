@@ -13,3 +13,5 @@ from .examinators import Examinator
 from .interfaces import Exam
 from .managers import Manager
 from .stats import AccType, Accumulation
+
+__all__ = ["Examinator", "Exam", "Manager", "AccType", "Accumulation"]

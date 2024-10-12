@@ -22,3 +22,13 @@ from .huggingface import (
     HuggingfaceTokenizer,
 )
 from .interfaces import ClassifierModel, GenerativeModel
+
+__all__ = [
+    "HuggingfaceCausalLM",
+    "HuggingfaceGenerativeLM",
+    "HuggingfaceLogitsLM",
+    "HuggingfaceSequenceLM",
+    "HuggingfaceTokenizer",
+    "ClassifierModel",
+    "GenerativeModel",
+]
