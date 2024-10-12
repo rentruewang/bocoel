@@ -1,1 +1,4 @@
---8<-- "LICENSE.md"
+# License
+
+```{include} ../LICENSE.md
+```

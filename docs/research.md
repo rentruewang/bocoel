@@ -2,7 +2,8 @@
 
 _This page is a work in progress. More experiments would be added and the page would be prettier in the future._
 
---8<-- "README.md"
+```{include} ./index.md
+```
 
 
 ## Abstract

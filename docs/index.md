@@ -1,1 +1,2 @@
---8<-- "README.md"
+```{include} ../README.md
+```

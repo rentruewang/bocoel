@@ -18,11 +18,11 @@
 
 ## 🤔 Why BoCoEL?
 
-Large language models are expensive and slow behemoths, and evaluating them on gigantic modern datasets only makes it worse. 
+Large language models are expensive and slow behemoths, and evaluating them on gigantic modern datasets only makes it worse.
 
 If only there is a way to just select a meaningful (_and small_) subset of the corpus and obtain a highly accurate evaluation.....
 
-Wait, sounds like [Bayesian Optimization](#bo)!
+Wait, sounds like Bayesian Optimization!
 
 Bocoel works in the following steps:
 
@@ -51,7 +51,7 @@ To our knowledge, this is the first work aiming to reduce computation costs duri
 Like what you see? Please consider giving this a star (★)!
 
 
-## <a id="bo"></a> ♾️ Bayesian Optimization
+## ♾️ Bayesian Optimization
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="30%" align="right"/>
 

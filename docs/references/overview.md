@@ -1,6 +1,6 @@
 # Overview
 
-```mermaid
+```{mermaid}
 graph TD;
     embedder --> corpus;
     index --> corpus;
@@ -10,12 +10,12 @@ graph TD;
     adaptor --> optimizer;
     optimizer --> exams;
 
-    index[<a href='https://rentruewang.github.io/bocoel/references/indices'>Index</a>]
-    storage[<a href='https://rentruewang.github.io/bocoel/references/storages'>Storage</a>]
-    embedder[<a href='https://rentruewang.github.io/bocoel/references/embedders'>Embedder</a>]
-    corpus[<a href='https://rentruewang.github.io/bocoel/references/corpora'>Corpus</a>]
-    adaptor[<a href='https://rentruewang.github.io/bocoel/references/adaptors'>Adaptor</a>]
-    score[<a href='https://rentruewang.github.io/bocoel/references/scores'>Score</a>]
-    optimizer[<a href='https://rentruewang.github.io/bocoel/references/optimizers'>Optimizer</a>]
-    exams[<a href='https://rentruewang.github.io/bocoel/references/exams'>Exams / Results</a>]
+    index[<a href='./indices.html'>Index</a>]
+    storage[<a href='./storages.html'>Storage</a>]
+    embedder[<a href='./embedders.html'>Embedder</a>]
+    corpus[<a href='./corpora.html'>Corpus</a>]
+    adaptor[<a href='./adaptors.html'>Adaptor</a>]
+    score[<a href='./scores.html'>Score</a>]
+    optimizer[<a href='./optimizers.html'>Optimizer</a>]
+    exams[<a href='./exams.html'>Exams / Results</a>]
 ```

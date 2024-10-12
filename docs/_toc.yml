@@ -1,0 +1,25 @@
+format: jb-book
+root: index
+parts:
+  - chapters:
+    - file: research
+  - caption: API Reference
+    chapters:
+    - file: references/overview
+    - file: references/factories
+    - file: references/storages
+    - file: references/indices
+    - file: references/embedders
+    - file: references/corpora
+    - file: references/scores
+    - file: references/adaptors
+    - file: references/lms
+    - file: references/optimizers
+    - file: references/exams
+  - caption: Development
+    chapters:
+    - file: thanks
+    - file: CHANGELOG
+    - file: CONTRIBUTING
+    - file: LICENSE
+    - file: CODE_OF_CONDUCT

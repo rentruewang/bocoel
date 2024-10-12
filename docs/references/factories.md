@@ -1,24 +1,56 @@
 # Factories
 
-::: bocoel.factories.IndexName
-::: bocoel.factories.index_class
+```{autodoc2-object} bocoel.factories.indices.IndexName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.indices.index_class
+render_plugin = "myst"
+```
 
-::: bocoel.factories.StorageName
-::: bocoel.factories.storage
+```{autodoc2-object} bocoel.factories.storages.StorageName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.storages.storage
+render_plugin = "myst"
+```
 
-::: bocoel.factories.EmbedderName
-::: bocoel.factories.embedder
+```{autodoc2-object} bocoel.factories.embedders.EmbedderName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.embedders.embedder
+render_plugin = "myst"
+```
 
-::: bocoel.factories.CorpusName
-::: bocoel.factories.corpus
+```{autodoc2-object} bocoel.factories.corpora.CorpusName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.corpora.corpus
+render_plugin = "myst"
+```
 
-::: bocoel.factories.adaptor
-::: bocoel.factories.AdaptorName
+```{autodoc2-object} bocoel.factories.adaptors.adaptor
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.adaptors.AdaptorName
+render_plugin = "myst"
+```
 
-::: bocoel.factories.GeneratorName
-::: bocoel.factories.generative
-::: bocoel.factories.ClassifierName
-::: bocoel.factories.classifier
+```{autodoc2-object} bocoel.factories.lms.GeneratorName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.lms.generative
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.lms.ClassifierName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.lms.classifier
+render_plugin = "myst"
+```
 
-::: bocoel.factories.OptimizerName
-::: bocoel.factories.optimizer
+```{autodoc2-object} bocoel.factories.optim.OptimizerName
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.factories.optim.optimizer
+render_plugin = "myst"
+```
