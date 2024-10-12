@@ -13,7 +13,6 @@
 
 ![GitHub License](https://img.shields.io/github/license/rentruewang/bocoel)
 ![Python 3.10](https://img.shields.io/badge/python-3.10-blue)
-[![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 
 ## 🤔 Why BoCoEL?
