@@ -18,9 +18,13 @@ execute:
 
 sphinx:
   extra_extensions: [
-    sphinx.ext.napoleon,
-    sphinx.ext.intersphinx,
     sphinx.ext.autodoc,
+    sphinx.ext.intersphinx,
+    sphinx.ext.inheritance_diagram,
+    sphinx.ext.githubpages,
+    sphinx.ext.napoleon,
+    sphinx.ext.todo,
+    sphinx.ext.viewcode,
     sphinxcontrib.mermaid,
   ]
   myst_fence_as_directive: [mermaid]
