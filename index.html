@@ -1,10 +1,627 @@
-<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link href=https://rentruewang.github.io/bocoel/ rel=canonical><link href=research/ rel=next><link rel=icon href=assets/logo.svg><meta name=generator content="mkdocs-1.6.0, mkdocs-material-9.5.21"><title>README - Bayesian Optimization as a Coverage Tool for Evaluating LLM</title><link rel=stylesheet href=assets/stylesheets/main.66ac8b77.min.css><link rel=stylesheet href=assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=assets/_mkdocstrings.css><script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script><meta property=og:type content=website><meta property=og:title content="README - Bayesian Optimization as a Coverage Tool for Evaluating LLM"><meta property=og:description content=None><meta property=og:image content=https://rentruewang.github.io/bocoel/assets/images/social/index.png><meta property=og:image:type content=image/png><meta property=og:image:width content=1200><meta property=og:image:height content=630><meta content=https://rentruewang.github.io/bocoel/ property=og:url><meta name=twitter:card content=summary_large_image><meta name=twitter:title content="README - Bayesian Optimization as a Coverage Tool for Evaluating LLM"><meta name=twitter:description content=None><meta name=twitter:image content=https://rentruewang.github.io/bocoel/assets/images/social/index.png></head> <body dir=ltr data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#bocoel class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=. title="Bayesian Optimization as a Coverage Tool for Evaluating LLM" class="md-header__button md-logo" aria-label="Bayesian Optimization as a Coverage Tool for Evaluating LLM" data-md-component=logo> <img src=assets/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Bayesian Optimization as a Coverage Tool for Evaluating LLM </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> README </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to dark mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg> </label> <input class=md-option data-md-color-media data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg> </label> </form> <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/rentruewang/bocoel title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg> </div> <div class=md-source__repository> rentruewang/bocoel </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class="md-tabs__item md-tabs__item--active"> <a href=. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=references/overview/ class=md-tabs__link> Reference </a> </li> <li class=md-tabs__item> <a href=thanks/ class=md-tabs__link> Contributing </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=. title="Bayesian Optimization as a Coverage Tool for Evaluating LLM" class="md-nav__button md-logo" aria-label="Bayesian Optimization as a Coverage Tool for Evaluating LLM" data-md-component=logo> <img src=assets/logo.svg alt=logo> </a> Bayesian Optimization as a Coverage Tool for Evaluating LLM </label> <div class=md-nav__source> <a href=https://github.com/rentruewang/bocoel title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg> </div> <div class=md-source__repository> rentruewang/bocoel </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1 checked> <label class=md-nav__link for=__nav_1 id=__nav_1_label tabindex> <span class=md-ellipsis> Home </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_1_label aria-expanded=true> <label class=md-nav__title for=__nav_1> <span class="md-nav__icon md-icon"></span> Home </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> README </span> <span class="md-nav__icon md-icon"></span> </label> <a href=. class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> README </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models class=md-nav__link> <span class=md-ellipsis> Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models </span> </a> </li> <li class=md-nav__item> <a href=#why-bocoel class=md-nav__link> <span class=md-ellipsis> 🤔 Why BoCoEL? </span> </a> </li> <li class=md-nav__item> <a href=#features class=md-nav__link> <span class=md-ellipsis> 🚀 Features </span> </a> </li> <li class=md-nav__item> <a href=#give-us-a-star class=md-nav__link> <span class=md-ellipsis> ⭐ Give us a star! </span> </a> </li> <li class=md-nav__item> <a href=#bayesian-optimization class=md-nav__link> <span class=md-ellipsis> ♾️ Bayesian Optimization </span> </a> </li> <li class=md-nav__item> <a href=#performance-implications class=md-nav__link> <span class=md-ellipsis> 🏎️ Performance Implications </span> </a> </li> <li class=md-nav__item> <a href=#installation class=md-nav__link> <span class=md-ellipsis> ⬇️ Installation </span> </a> </li> <li class=md-nav__item> <a href=#usage class=md-nav__link> <span class=md-ellipsis> 🔬 Usage </span> </a> </li> <li class=md-nav__item> <a href=#develop-with-bocoel class=md-nav__link> <span class=md-ellipsis> ✍️ Develop with BoCoEL </span> </a> </li> <li class=md-nav__item> <a href=#contributing class=md-nav__link> <span class=md-ellipsis> 🥰 Contributing </span> </a> </li> <li class=md-nav__item> <a href=#roadmap-work-in-progress class=md-nav__link> <span class=md-ellipsis> 🗺️ Roadmap: work in progress </span> </a> </li> <li class=md-nav__item> <a href=#license-and-citation class=md-nav__link> <span class=md-ellipsis> 🏷️ License and Citation </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=research/ class=md-nav__link> <span class=md-ellipsis> Research </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2> <label class=md-nav__link for=__nav_2 id=__nav_2_label tabindex=0> <span class=md-ellipsis> Reference </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> Reference </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=references/overview/ class=md-nav__link> <span class=md-ellipsis> Overview </span> </a> </li> <li class=md-nav__item> <a href=references/factories/ class=md-nav__link> <span class=md-ellipsis> Factories </span> </a> </li> <li class=md-nav__item> <a href=references/storages/ class=md-nav__link> <span class=md-ellipsis> Storages </span> </a> </li> <li class=md-nav__item> <a href=references/indices/ class=md-nav__link> <span class=md-ellipsis> Indices </span> </a> </li> <li class=md-nav__item> <a href=references/embedders/ class=md-nav__link> <span class=md-ellipsis> Embedders </span> </a> </li> <li class=md-nav__item> <a href=references/corpora/ class=md-nav__link> <span class=md-ellipsis> Corpus </span> </a> </li> <li class=md-nav__item> <a href=references/scores/ class=md-nav__link> <span class=md-ellipsis> Scores </span> </a> </li> <li class=md-nav__item> <a href=references/adaptors/ class=md-nav__link> <span class=md-ellipsis> Adaptors </span> </a> </li> <li class=md-nav__item> <a href=references/lms/ class=md-nav__link> <span class=md-ellipsis> Language Models </span> </a> </li> <li class=md-nav__item> <a href=references/optimizers/ class=md-nav__link> <span class=md-ellipsis> Optimizers </span> </a> </li> <li class=md-nav__item> <a href=references/exams/ class=md-nav__link> <span class=md-ellipsis> Exams </span> </a> </li> <li class=md-nav__item> <a href=CHANGELOG/ class=md-nav__link> <span class=md-ellipsis> Changelog </span> </a> </li> <li class=md-nav__item> <a href=LICENSE/ class=md-nav__link> <span class=md-ellipsis> License </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3> <label class=md-nav__link for=__nav_3 id=__nav_3_label tabindex=0> <span class=md-ellipsis> Contributing </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=false> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> Contributing </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=thanks/ class=md-nav__link> <span class=md-ellipsis> Thank you </span> </a> </li> <li class=md-nav__item> <a href=CONTRIBUTING/ class=md-nav__link> <span class=md-ellipsis> Contributing </span> </a> </li> <li class=md-nav__item> <a href=CODE_OF_CONDUCT/ class=md-nav__link> <span class=md-ellipsis> Code of Conduct </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models class=md-nav__link> <span class=md-ellipsis> Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models </span> </a> </li> <li class=md-nav__item> <a href=#why-bocoel class=md-nav__link> <span class=md-ellipsis> 🤔 Why BoCoEL? </span> </a> </li> <li class=md-nav__item> <a href=#features class=md-nav__link> <span class=md-ellipsis> 🚀 Features </span> </a> </li> <li class=md-nav__item> <a href=#give-us-a-star class=md-nav__link> <span class=md-ellipsis> ⭐ Give us a star! </span> </a> </li> <li class=md-nav__item> <a href=#bayesian-optimization class=md-nav__link> <span class=md-ellipsis> ♾️ Bayesian Optimization </span> </a> </li> <li class=md-nav__item> <a href=#performance-implications class=md-nav__link> <span class=md-ellipsis> 🏎️ Performance Implications </span> </a> </li> <li class=md-nav__item> <a href=#installation class=md-nav__link> <span class=md-ellipsis> ⬇️ Installation </span> </a> </li> <li class=md-nav__item> <a href=#usage class=md-nav__link> <span class=md-ellipsis> 🔬 Usage </span> </a> </li> <li class=md-nav__item> <a href=#develop-with-bocoel class=md-nav__link> <span class=md-ellipsis> ✍️ Develop with BoCoEL </span> </a> </li> <li class=md-nav__item> <a href=#contributing class=md-nav__link> <span class=md-ellipsis> 🥰 Contributing </span> </a> </li> <li class=md-nav__item> <a href=#roadmap-work-in-progress class=md-nav__link> <span class=md-ellipsis> 🗺️ Roadmap: work in progress </span> </a> </li> <li class=md-nav__item> <a href=#license-and-citation class=md-nav__link> <span class=md-ellipsis> 🏷️ License and Citation </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=bocoel>☂️ BoCoEL</h1> <h2 id=bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models>Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models</h2> <p><img alt=Logo src=assets/logo-full.svg></p> <p><a href=https://github.com/rentruewang/bocoel/actions/workflows/release.yaml><img alt=Publish src=https://github.com/rentruewang/bocoel/actions/workflows/release.yaml/badge.svg></a> <a href=https://github.com/rentruewang/bocoel/actions/workflows/build.yaml><img alt="Build Pages" src=https://github.com/rentruewang/bocoel/actions/workflows/build.yaml/badge.svg></a> <a href=https://github.com/rentruewang/bocoel/actions/workflows/format.yaml><img alt=Formatting src=https://github.com/rentruewang/bocoel/actions/workflows/format.yaml/badge.svg></a> <a href=https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml><img alt="Type Checking" src=https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml/badge.svg></a> <a href=https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml><img alt="Unit Testing" src=https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml/badge.svg></a></p> <p><img alt="GitHub License" src=https://img.shields.io/github/license/rentruewang/bocoel> <img alt="Python 3.10" src=https://img.shields.io/badge/python-3.10-blue> <a href=https://squidfunk.github.io/mkdocs-material/ ><img alt="Built with Material for MkDocs" src="https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white"></a></p> <h2 id=why-bocoel>🤔 Why BoCoEL?</h2> <p>Large language models are expensive and slow behemoths, and evaluating them on gigantic modern datasets only makes it worse. </p> <p>If only there is a way to just select a meaningful (<em>and small</em>) subset of the corpus and obtain a highly accurate evaluation.....</p> <p>Wait, sounds like <a href=#bo>Bayesian Optimization</a>!</p> <p>Bocoel works in the following steps:</p> <ol> <li>Encode individual entry into embeddings (way cheaper / faster than LLM and reusable).</li> <li>Use Bayesian optimization to select queries to evaluate.</li> <li>Use the queries to retrieve from our corpus (with the encoded embeddings).</li> <li>Profit.</li> </ol> <p>The evaluations generated are easily managed by the provided manager utility.</p> <p>To our knowledge, this is the first work aiming to reduce computation costs during evaluation (benchmarking) with a (possibly dynamic) budget.</p> <h2 id=features>🚀 Features</h2> <ul> <li>🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.</li> <li>💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for language model to evaluate.</li> <li>💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.</li> <li>🤗 Support for <code>GPT2</code>, <code>Pythia</code>, <code>LLAMA</code> and more through integration with huggingface <a href=https://huggingface.co/docs/transformers/en/index>transformers</a> and <a href=https://huggingface.co/docs/datasets/en/index>datasets</a></li> <li>🧩 Modular design.</li> <li>🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to agument evaluation quality.</li> </ul> <h2 id=give-us-a-star>⭐ Give us a star!</h2> <p>Like what you see? Please consider giving this a star (★)!</p> <h2 id=bayesian-optimization><a id=bo></a> ♾️ Bayesian Optimization</h2> <p><img src=https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif width=30% align=right></p> <p>Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an <strong>acquisition function</strong> to decide where to sample next. See <a href=https://distill.pub/2019/visual-exploration-gaussian-processes/ >here</a> for an a more in-depth introduction.</p> <p>Since <em>Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)</em>, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.</p> <h2 id=performance-implications>🏎️ Performance Implications</h2> <p>LLMs are painfully slow, especially generative ones (which is what is usually referred to as LLM), since sequence generation is sequential by nature.</p> <p>Despite <code>bocoel</code>'s requirement to use an embedder to encode the entire corpus, embedders are faster than LLMs by orders of magnitude and the time is gained back by practically any savings in evaluating LLMs.</p> <h2 id=installation>⬇️ Installation</h2> <p>I don't want optional dependencies:</p> <div class=highlight><pre><span></span><code>pip install bocoel
-</code></pre></div> <p>Give me the full experience (all optional dependencies):</p> <div class=highlight><pre><span></span><code>pip install &quot;bocoel[all]&quot;
-</code></pre></div> <h2 id=usage>🔬 Usage</h2> <p>See the folder <a href=https://github.com/rentruewang/bocoel/tree/main/examples/getting_started>examples/getting_started</a> for a simplistic usage of the library to get started with just a few lines of code.</p> <h2 id=develop-with-bocoel>✍️ Develop with BoCoEL</h2> <p>Usage examples are under the folder <a href=https://github.com/rentruewang/bocoel/tree/main/examples><code>examples</code></a>. API reference can be found <a href=https://rentruewang.github.io/bocoel/references/overview/ >here</a>.</p> <h2 id=contributing>🥰 Contributing</h2> <p>Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, please follow the guide on <a href=CONTRIBUTING/ >contributing</a> and the <a href=CODE_OF_CONDUCT/ >code of conduct</a>. Openness and inclusiveness are taken very seriously.</p> <h2 id=roadmap-work-in-progress>🗺️ Roadmap: work in progress</h2> <ul> <li>🪑 Simpler usage. I should provide a high level wrapper for the entire library s.t. evaluations can be run in one line.</li> <li>📊 Visualization module of the evaluation.</li> <li>🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.</li> <li>🥨 Integration with more backends such as <a href=https://github.com/vllm-project/vllm>VLLM</a> and <a href=https://github.com/openai/openai-python>OpenAI's API</a>.</li> <li>🆕 Support for Python 3.11+</li> </ul> <h2 id=license-and-citation>🏷️ License and Citation</h2> <p>The code is available under <a href=LICENSE/ >Apache License</a>.</p> <p>If you find this project helpful in your research, please cite this work at</p> <div class=highlight><pre><span></span><code>@misc{bocoel2024,
-    title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
-    url = {https://rentruewang.github.io/bocoel/research/},
-    author = {Wang, RenChu},
-    month = {January},
-    year = {2024}
-}
-</code></pre></div> <aside class=md-source-file> <span class=md-source-file__fact> <span class=md-icon title="Last update"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg> </span> <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 3, 2024</span> </span> </aside> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> <div class=md-social> <a href=https://github.com/rentruewang target=_blank rel=noopener title=github.com class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 496 512"><!-- Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> </a> <a href=https://pypi.org/project/bocoel/ target=_blank rel=noopener title=pypi.org class=md-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <div class=md-progress data-md-component=progress role=progressbar></div> <script id=__config type=application/json>{"base": ".", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=assets/javascripts/bundle.a7c05c9e.min.js></script> <script src=javascripts/mathjax.js></script> <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> <script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script> </body> </html>
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>☂️ BoCoEL &#8212; Bocoel</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Research" href="research.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="Bocoel - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Bocoel - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    ☂️ BoCoEL
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="research.html">Research</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/factories.html">Factories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/storages.html">Storages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/indices.html">Indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/embedders.html">Embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/corpora.html">Corpus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/scores.html">Scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/adaptors.html">Adaptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/lms.html">Language Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/optimizers.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/exams.html">Exams</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="thanks.html">Appreciation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CODE_OF_CONDUCT.html">Code of Conduct</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/rentruewang/bocoel" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>☂️ BoCoEL</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models">Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bocoel">🤔 Why BoCoEL?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">🚀 Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#give-us-a-star">⭐ Give us a star!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">♾️ Bayesian Optimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-implications">🏎️ Performance Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">⬇️ Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">🔬 Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#develop-with-bocoel">✍️ Develop with BoCoEL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">🥰 Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roadmap-work-in-progress">🗺️ Roadmap: work in progress</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-citation">🏷️ License and Citation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bocoel">
+<h1>☂️ BoCoEL<a class="headerlink" href="#bocoel" title="Link to this heading">#</a></h1>
+<section id="bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models">
+<h2>Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models<a class="headerlink" href="#bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models" title="Link to this heading">#</a></h2>
+<p><img alt="Logo" src="_images/logo-full.svg" /></p>
+<p><a class="reference external" href="https://github.com/rentruewang/bocoel/actions/workflows/release.yaml"><img alt="Publish" src="https://github.com/rentruewang/bocoel/actions/workflows/release.yaml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/rentruewang/bocoel/actions/workflows/build.yaml"><img alt="Build Pages" src="https://github.com/rentruewang/bocoel/actions/workflows/build.yaml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/rentruewang/bocoel/actions/workflows/format.yaml"><img alt="Formatting" src="https://github.com/rentruewang/bocoel/actions/workflows/format.yaml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml"><img alt="Type Checking" src="https://github.com/rentruewang/bocoel/actions/workflows/typecheck.yaml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml"><img alt="Unit Testing" src="https://github.com/rentruewang/bocoel/actions/workflows/unittest.yaml/badge.svg" /></a></p>
+<p><img alt="GitHub License" src="https://img.shields.io/github/license/rentruewang/bocoel" />
+<img alt="Python 3.10" src="https://img.shields.io/badge/python-3.10-blue" />
+<a class="reference external" href="https://squidfunk.github.io/mkdocs-material/"><img alt="Built with Material for MkDocs" src="https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&amp;logo=MaterialForMkDocs&amp;logoColor=white" /></a></p>
+</section>
+<section id="why-bocoel">
+<h2>🤔 Why BoCoEL?<a class="headerlink" href="#why-bocoel" title="Link to this heading">#</a></h2>
+<p>Large language models are expensive and slow behemoths, and evaluating them on gigantic modern datasets only makes it worse.</p>
+<p>If only there is a way to just select a meaningful (<em>and small</em>) subset of the corpus and obtain a highly accurate evaluation…..</p>
+<p>Wait, sounds like Bayesian Optimization!</p>
+<p>Bocoel works in the following steps:</p>
+<ol class="arabic simple">
+<li><p>Encode individual entry into embeddings (way cheaper / faster than LLM and reusable).</p></li>
+<li><p>Use Bayesian optimization to select queries to evaluate.</p></li>
+<li><p>Use the queries to retrieve from our corpus (with the encoded embeddings).</p></li>
+<li><p>Profit.</p></li>
+</ol>
+<p>The evaluations generated are easily managed by the provided manager utility.</p>
+<p>To our knowledge, this is the first work aiming to reduce computation costs during evaluation (benchmarking) with a (possibly dynamic) budget.</p>
+</section>
+<section id="features">
+<h2>🚀 Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.</p></li>
+<li><p>💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for language model to evaluate.</p></li>
+<li><p>💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.</p></li>
+<li><p>🤗 Support for <code class="docutils literal notranslate"><span class="pre">GPT2</span></code>, <code class="docutils literal notranslate"><span class="pre">Pythia</span></code>, <code class="docutils literal notranslate"><span class="pre">LLAMA</span></code> and more through integration with huggingface <a class="reference external" href="https://huggingface.co/docs/transformers/en/index">transformers</a> and <a class="reference external" href="https://huggingface.co/docs/datasets/en/index">datasets</a></p></li>
+<li><p>🧩 Modular design.</p></li>
+<li><p>🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to agument evaluation quality.</p></li>
+</ul>
+</section>
+<section id="give-us-a-star">
+<h2>⭐ Give us a star!<a class="headerlink" href="#give-us-a-star" title="Link to this heading">#</a></h2>
+<p>Like what you see? Please consider giving this a star (★)!</p>
+</section>
+<section id="bayesian-optimization">
+<h2>♾️ Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h2>
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="30%" align="right"/>
+<p>Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an <strong>acquisition function</strong> to decide where to sample next. See <a class="reference external" href="https://distill.pub/2019/visual-exploration-gaussian-processes/">here</a> for an a more in-depth introduction.</p>
+<p>Since <em>Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)</em>, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.</p>
+</section>
+<section id="performance-implications">
+<h2>🏎️ Performance Implications<a class="headerlink" href="#performance-implications" title="Link to this heading">#</a></h2>
+<p>LLMs are painfully slow, especially generative ones (which is what is usually referred to as LLM), since sequence generation is sequential by nature.</p>
+<p>Despite <code class="docutils literal notranslate"><span class="pre">bocoel</span></code>’s requirement to use an embedder to encode the entire corpus, embedders are faster than LLMs by orders of magnitude and the time is gained back by practically any savings in evaluating LLMs.</p>
+</section>
+<section id="installation">
+<h2>⬇️ Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>I don’t want optional dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">bocoel</span>
+</pre></div>
+</div>
+<p>Give me the full experience (all optional dependencies):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;bocoel[all]&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>🔬 Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>See the folder <a class="reference external" href="https://github.com/rentruewang/bocoel/tree/main/examples/getting_started">examples/getting_started</a> for a simplistic usage of the library to get started with just a few lines of code.</p>
+</section>
+<section id="develop-with-bocoel">
+<h2>✍️ Develop with BoCoEL<a class="headerlink" href="#develop-with-bocoel" title="Link to this heading">#</a></h2>
+<p>Usage examples are under the folder <a class="reference external" href="https://github.com/rentruewang/bocoel/tree/main/examples"><code class="docutils literal notranslate"><span class="pre">examples</span></code></a>. API reference can be found <a class="reference external" href="https://rentruewang.github.io/bocoel/references/overview/">here</a>.</p>
+</section>
+<section id="contributing">
+<h2>🥰 Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
+<p>Contributors wanted! Don’t be shy. Feel free to file issues and PRs. For PRs, please follow the guide on <a class="reference internal" href="CONTRIBUTING.html"><span class="std std-doc">contributing</span></a> and the <a class="reference internal" href="CODE_OF_CONDUCT.html"><span class="std std-doc">code of conduct</span></a>. Openness and inclusiveness are taken very seriously.</p>
+</section>
+<section id="roadmap-work-in-progress">
+<h2>🗺️ Roadmap: work in progress<a class="headerlink" href="#roadmap-work-in-progress" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🪑 Simpler usage. I should provide a high level wrapper for the entire library s.t. evaluations can be run in one line.</p></li>
+<li><p>📊 Visualization module of the evaluation.</p></li>
+<li><p>🎲 Integration of alternative methods (random, kmedoids…) with Gaussian process.</p></li>
+<li><p>🥨 Integration with more backends such as <a class="reference external" href="https://github.com/vllm-project/vllm">VLLM</a> and <a class="reference external" href="https://github.com/openai/openai-python">OpenAI’s API</a>.</p></li>
+<li><p>🆕 Support for Python 3.11+</p></li>
+</ul>
+</section>
+<section id="license-and-citation">
+<h2>🏷️ License and Citation<a class="headerlink" href="#license-and-citation" title="Link to this heading">#</a></h2>
+<p>The code is available under <a class="reference internal" href="LICENSE.html"><span class="std std-doc">Apache License</span></a>.</p>
+<p>If you find this project helpful in your research, please cite this work at</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">bocoel2024</span><span class="p">,</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="p">{</span><span class="n">BoCoEL</span><span class="p">:</span> <span class="n">Bayesian</span> <span class="n">Optimization</span> <span class="k">as</span> <span class="n">a</span> <span class="n">Coverage</span> <span class="n">Tool</span> <span class="k">for</span> <span class="n">Evaluating</span> <span class="n">Large</span> <span class="n">Language</span> <span class="n">Models</span><span class="p">},</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rentruewang</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">bocoel</span><span class="o">/</span><span class="n">research</span><span class="o">/</span><span class="p">},</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Wang</span><span class="p">,</span> <span class="n">RenChu</span><span class="p">},</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="p">{</span><span class="n">January</span><span class="p">},</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2024</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="research.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Research</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-as-a-coverage-tool-for-evaluating-large-language-models">Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bocoel">🤔 Why BoCoEL?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">🚀 Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#give-us-a-star">⭐ Give us a star!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">♾️ Bayesian Optimization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-implications">🏎️ Performance Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">⬇️ Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">🔬 Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#develop-with-bocoel">✍️ Develop with BoCoEL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">🥰 Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roadmap-work-in-progress">🗺️ Roadmap: work in progress</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-citation">🏷️ License and Citation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RenChu Wang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright RenChu Wang, 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
