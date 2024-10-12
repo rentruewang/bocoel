@@ -22,7 +22,6 @@ dependencies = [
     "torch>=2.1.2",
     "typeguard>=2.13.3",
     "typing-extensions>=4.9.0",
-    "ujson>=5.9.0",
 ]
 requires-python = ">=3.10,<3.11"
 readme = "README.md"
@@ -74,10 +73,6 @@ build-backend = "hatchling.build"
 [tool.pdm]
 distribution = "true"
 
-[tool.isort]
-profile = "black"
-
-
 [tool.pdm.dev-dependencies]
 format = [
     "autoflake>=2.2.1",
@@ -103,3 +98,22 @@ website = [
     "myst-parser>=2.0.0",
     "sphinxcontrib-mermaid>=0.9.2",
 ]
+
+[tool.autoflake]
+in-place = true
+recursive = true
+exclude = "__init__.py"
+expand-star-imports = true
+remove-all-unused-imports = true
+remove-duplicate-keys = true
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+disallow_untyped_defs = true
+disallow_untyped_decorators = true
+show_error_codes = true

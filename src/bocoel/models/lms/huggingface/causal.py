@@ -1,7 +1,5 @@
 from abc import ABCMeta
 
-from typing_extensions import Self
-
 from .tokenizers import HuggingfaceTokenizer
 
 
@@ -46,7 +44,7 @@ class HuggingfaceCausalLM(metaclass=ABCMeta):
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self._model_path})"
 
-    def to(self, device: str, /) -> Self:
+    def to(self, device: str, /) -> "HuggingfaceCausalLM":
         self._device = device
         self._tokenizer.to(device)
         self._model = self._model.to(device)

@@ -1,8 +1,6 @@
 from collections.abc import Iterable, Iterator
 from typing import Generic, TypeVar
 
-from typing_extensions import Self
-
 T = TypeVar("T")
 
 
@@ -89,7 +87,7 @@ class RemainingSteps:
         return self._count <= 0
 
     @classmethod
-    def infinite(cls) -> Self:
+    def infinite(cls) -> "RemainingSteps":
         """
         Create a counter that never ends.
 

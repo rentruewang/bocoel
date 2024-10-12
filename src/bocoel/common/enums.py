@@ -1,7 +1,5 @@
 from enum import Enum
 
-from typing_extensions import Self
-
 
 class ItemNotFound(Exception):
     pass
@@ -9,7 +7,7 @@ class ItemNotFound(Exception):
 
 class StrEnum(str, Enum):
     @classmethod
-    def lookup(cls, name: str | Self) -> Self:
+    def lookup(cls, name: "str | StrEnum") -> "StrEnum":
         if isinstance(name, cls):
             return name
 
