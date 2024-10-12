@@ -1,0 +1,22 @@
+title: Bocoel
+author: RenChu Wang
+copyright: RenChu Wang, 2024
+logo: assets/logo.svg
+
+exclude_patterns: [_build]
+only_build_toc_files: true
+
+repository:
+  url: https://github.com/rentruewang/bocoel
+
+html:
+  use_repository_button: true
+
+execute:
+  execute_notebooks: force
+
+sphinx:
+  extra_extensions: [sphinxcontrib.mermaid, sphinx.ext.napoleon, autodoc2]
+  myst_fence_as_directive: [mermaid]
+  config:
+    autodoc2_packages: ["../src/bocoel"]

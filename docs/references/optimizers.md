@@ -1,38 +1,56 @@
 # Optimizers
 
-::: bocoel.core.optim
+```{autodoc2-object} bocoel.core.optim.interfaces.optim.Optimizer
+render_plugin = "myst"
+```
 
-::: bocoel.Optimizer
+```{autodoc2-object} bocoel.core.optim.ax.optim.AxServiceOptimizer
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.tasks.Task
+render_plugin = "myst"
+```
 
-::: bocoel.AxServiceOptimizer
-::: bocoel.Task
-    options:
-        show_if_no_docstring: true
-::: bocoel.AcquisitionFunc
-    options:
-        show_if_no_docstring: true
-::: bocoel.core.optim.ax.surrogates.SurrogateModel
-    options:
-        show_if_no_docstring: true
-::: bocoel.core.optim.ax.surrogates.SurrogateOptions
-    options:
-        show_if_no_docstring: true
+```{autodoc2-object} bocoel.core.optim.ax.acquisition.supported.AcquisitionFunc
+render_plugin = "myst"
+```
 
-::: bocoel.KMeansOptimizer
-::: bocoel.KMeansOptions
-    options:
-        show_if_no_docstring: true
+```{autodoc2-object} bocoel.core.optim.ax.surrogates.supported.SurrogateModel
+render_plugin = "myst"
+```
 
-::: bocoel.KMedoidsOptimizer
-::: bocoel.KMedoidsOptions
-    options:
-        show_if_no_docstring: true
+```{autodoc2-object} bocoel.core.optim.ax.surrogates.supported.SurrogateOptions
+render_plugin = "myst"
+```
+
+```{autodoc2-object} bocoel.core.optim.sklearn.kmeans.KMeansOptimizer
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.optim.sklearn.kmeans.KMeansOptions
+render_plugin = "myst"
+```
+
+```{autodoc2-object} bocoel.core.optim.sklearn.kmedoids.KMedoidsOptimizer
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.optim.sklearn.kmedoids.KMedoidsOptions
+render_plugin = "myst"
+```
+
+```{autodoc2-object} bocoel.core.optim.random.RandomOptimizer
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.optim.uniform.UniformOptimizer
+render_plugin = "myst"
+```
 
 
-::: bocoel.RandomOptimizer
-::: bocoel.UniformOptimizer
-
-
-::: bocoel.IndexEvaluator
-::: bocoel.QueryEvaluator
-::: bocoel.SearchEvaluator
+```{autodoc2-object} bocoel.core.optim.interfaces.evals.IndexEvaluator
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.optim.interfaces.evals.QueryEvaluator
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.optim.interfaces.evals.SearchEvaluator
+render_plugin = "myst"
+```

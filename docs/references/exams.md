@@ -1,15 +1,19 @@
 # Exams
 
-::: bocoel.core.exams
+```{autodoc2-object} bocoel.core.exams.examinators.Examinator
+render_plugin = "myst"
+```
 
-::: bocoel.Examinator
+```{autodoc2-object} bocoel.core.exams.interfaces.Exam
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.exams.stats.acc.AccType
+render_plugin = "myst"
+```
+```{autodoc2-object} bocoel.core.exams.stats.acc.Accumulation
+render_plugin = "myst"
+```
 
-::: bocoel.Exam
-::: bocoel.AccType
-::: bocoel.Accumulation
-
-::: bocoel.Manager
-::: bocoel.core.exams.columns
-    options:
-        show_if_no_docstring: true
-        show_submodules: true
+```{autodoc2-object} bocoel.core.exams.managers.Manager
+render_plugin = "myst"
+```
