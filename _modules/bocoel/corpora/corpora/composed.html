@@ -196,6 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/scores.html">Score API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/adaptors.html">Adaptor API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../references/optimizers.html">Optimizer API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -328,7 +329,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">NDArray</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
 
 <span class="kn">from</span> <span class="nn">bocoel.corpora.corpora.interfaces</span> <span class="kn">import</span> <span class="n">Corpus</span>
 <span class="kn">from</span> <span class="nn">bocoel.corpora.embedders</span> <span class="kn">import</span> <span class="n">Embedder</span>
@@ -358,7 +358,7 @@ document.write(`
         <span class="n">index_backend</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Index</span><span class="p">],</span>
         <span class="n">concat</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; [SEP] &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span>
         <span class="o">**</span><span class="n">index_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ComposedCorpus&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a corpus from the given storage, embedder, key and index class,</span>
 <span class="sd">        where storage entries would be mapped to strings,</span>
@@ -398,7 +398,7 @@ document.write(`
         <span class="n">transform</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]],</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
         <span class="n">index_backend</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Index</span><span class="p">],</span>
         <span class="o">**</span><span class="n">index_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ComposedCorpus&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a corpus from the given storage, embedder, key and index class,</span>
 <span class="sd">        where storage entries would be mapped to strings,</span>
@@ -433,7 +433,7 @@ document.write(`
         <span class="n">embeddings</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
         <span class="n">index_backend</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Index</span><span class="p">],</span>
         <span class="o">**</span><span class="n">index_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ComposedCorpus&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create the corpus with the given embeddings.</span>
 <span class="sd">        This can be used to save time by encoding once and caching embeddings.</span>

@@ -196,6 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/scores.html">Score API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/adaptors.html">Adaptor API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../references/optimizers.html">Optimizer API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../references/exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -327,7 +328,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
 
 <span class="kn">from</span> <span class="nn">bocoel.core.exams.interfaces</span> <span class="kn">import</span> <span class="n">Exam</span>
 <span class="kn">from</span> <span class="nn">bocoel.corpora</span> <span class="kn">import</span> <span class="n">Index</span>
@@ -379,7 +379,7 @@ document.write(`
 <div class="viewcode-block" id="Examinator.presets">
 <a class="viewcode-back" href="../../../../references/exams.html#bocoel.core.exams.Examinator.presets">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">presets</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">presets</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Examinator&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            The default examinator.</span>

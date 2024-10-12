@@ -196,6 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="references/scores.html">Score API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references/adaptors.html">Adaptor API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references/lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/optimizers.html">Optimizer API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references/exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -341,10 +342,12 @@ document.write(`
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
@@ -354,6 +357,8 @@ document.write(`
       <li><a href="references/exams.html#bocoel.core.exams.AccType">AccType (class in bocoel.core.exams)</a>
 </li>
       <li><a href="references/exams.html#bocoel.core.exams.Accumulation">Accumulation (class in bocoel.core.exams)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AcquisitionFunc">AcquisitionFunc (class in bocoel.core.optim)</a>
 </li>
       <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor">Adaptor (class in bocoel.models.adaptors)</a>
 </li>
@@ -368,6 +373,10 @@ document.write(`
       <li><a href="references/factories.html#bocoel.factories.AdaptorName">AdaptorName (class in bocoel.factories)</a>
 </li>
       <li><a href="references/exams.html#bocoel.core.exams.AccType.AVG">AVG (bocoel.core.exams.AccType attribute)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer">AxServiceOptimizer (class in bocoel.core.optim)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter">AxServiceParameter (class in bocoel.core.optim)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -420,6 +429,13 @@ document.write(`
 
       <ul>
         <li><a href="references/exams.html#module-bocoel.core.exams">module</a>
+</li>
+      </ul></li>
+      <li>
+    bocoel.core.optim
+
+      <ul>
+        <li><a href="references/optimizers.html#module-bocoel.core.optim">module</a>
 </li>
       </ul></li>
       <li>
@@ -492,9 +508,15 @@ document.write(`
       </ul></li>
       <li><a href="references/indices.html#bocoel.corpora.indices.Boundary">Boundary (class in bocoel.corpora.indices)</a>
 </li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.bounds">bounds (bocoel.corpora.indices.Boundary attribute)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.bounds">bounds (bocoel.core.optim.AxServiceParameter attribute)</a>
+
+      <ul>
+        <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.bounds">(bocoel.corpora.indices.Boundary attribute)</a>
 </li>
+      </ul></li>
       <li><a href="references/factories.html#bocoel.factories.OptimizerName.BRUTE">BRUTE (bocoel.factories.OptimizerName attribute)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer">BruteForceOptimizer (class in bocoel.core.optim)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -502,6 +524,8 @@ document.write(`
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/optimizers.html#bocoel.core.optim.CachedIndexEvaluator">CachedIndexEvaluator (class in bocoel.core.optim)</a>
+</li>
       <li><a href="references/lms.html#bocoel.models.lms.ClassifierModel.choices">choices (bocoel.models.lms.ClassifierModel property)</a>
 
       <ul>
@@ -528,7 +552,11 @@ document.write(`
 </li>
       <li><a href="references/factories.html#bocoel.factories.corpus">corpus() (in module bocoel.factories)</a>
 </li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.CorpusEvaluator">CorpusEvaluator (class in bocoel.core.optim)</a>
+</li>
       <li><a href="references/factories.html#bocoel.factories.CorpusName">CorpusName (class in bocoel.factories)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.count">count (bocoel.core.optim.RemainingSteps property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -593,6 +621,8 @@ document.write(`
       <li><a href="references/indices.html#bocoel.corpora.indices.Distance">Distance (class in bocoel.corpora.indices)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.InternalResult.distances">distances (bocoel.corpora.indices.InternalResult attribute)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.done">done (bocoel.core.optim.RemainingSteps property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -734,13 +764,17 @@ document.write(`
 </li>
       <li><a href="references/corpora.html#bocoel.corpora.corpora.ComposedCorpus.index_mapped">index_mapped() (bocoel.corpora.corpora.ComposedCorpus class method)</a>
 </li>
+      <li><a href="references/corpora.html#bocoel.corpora.corpora.ComposedCorpus.index_storage">index_storage() (bocoel.corpora.corpora.ComposedCorpus class method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/corpora.html#bocoel.corpora.corpora.ComposedCorpus.index_storage">index_storage() (bocoel.corpora.corpora.ComposedCorpus class method)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.IndexEvaluator">IndexEvaluator (class in bocoel.core.optim)</a>
 </li>
       <li><a href="references/factories.html#bocoel.factories.IndexName">IndexName (class in bocoel.factories)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.InternalResult.indices">indices (bocoel.corpora.indices.InternalResult attribute)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.infinite">infinite() (bocoel.core.optim.RemainingSteps class method)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.Distance.INNER_PRODUCT">INNER_PRODUCT (bocoel.corpora.indices.Distance attribute)</a>
 </li>
@@ -756,9 +790,17 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/factories.html#bocoel.factories.OptimizerName.KMEANS">KMEANS (bocoel.factories.OptimizerName attribute)</a>
 </li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.KMeansOptimizer">KMeansOptimizer (class in bocoel.core.optim)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.KMeansOptions">KMeansOptions (class in bocoel.core.optim)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/factories.html#bocoel.factories.OptimizerName.KMEDOIDS">KMEDOIDS (bocoel.factories.OptimizerName attribute)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.KMedoidsOptimizer">KMedoidsOptimizer (class in bocoel.core.optim)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.KMedoidsOptions">KMedoidsOptions (class in bocoel.core.optim)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -768,9 +810,11 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/indices.html#bocoel.corpora.indices.Distance.L2">L2 (bocoel.corpora.indices.Distance attribute)</a>
 </li>
+      <li><a href="references/exams.html#bocoel.core.exams.Manager.load">load() (bocoel.core.exams.Manager static method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager.load">load() (bocoel.core.exams.Manager static method)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.log_scale">log_scale (bocoel.core.optim.AxServiceParameter attribute)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.lower">lower (bocoel.corpora.indices.Boundary property)</a>
 </li>
@@ -793,6 +837,8 @@ document.write(`
 
       <ul>
         <li><a href="references/exams.html#module-bocoel.core.exams">bocoel.core.exams</a>
+</li>
+        <li><a href="references/optimizers.html#module-bocoel.core.optim">bocoel.core.optim</a>
 </li>
         <li><a href="references/corpora.html#module-bocoel.corpora.corpora">bocoel.corpora.corpora</a>
 </li>
@@ -821,10 +867,12 @@ document.write(`
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.NltkBleuScore">NltkBleuScore (class in bocoel.models.scores)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.name">name (bocoel.core.optim.AxServiceParameter attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/scores.html#bocoel.models.scores.NltkBleuScore">NltkBleuScore (class in bocoel.models.scores)</a>
+</li>
       <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices">numeric_choices() (bocoel.models.adaptors.BigBenchMultipleChoice static method)</a>
 </li>
   </ul></td>
@@ -837,9 +885,11 @@ document.write(`
 </li>
       <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor.on_storage">on_storage() (bocoel.models.adaptors.Adaptor method)</a>
 </li>
+      <li><a href="references/scores.html#bocoel.models.scores.OneHotChoiceAccuracy">OneHotChoiceAccuracy (class in bocoel.models.scores)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.OneHotChoiceAccuracy">OneHotChoiceAccuracy (class in bocoel.models.scores)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer">Optimizer (class in bocoel.core.optim)</a>
 </li>
       <li><a href="references/factories.html#bocoel.factories.optimizer">optimizer() (in module bocoel.factories)</a>
 </li>
@@ -868,15 +918,27 @@ document.write(`
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/optimizers.html#bocoel.core.optim.QueryEvaluator">QueryEvaluator (class in bocoel.core.optim)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/factories.html#bocoel.factories.OptimizerName.RANDOM">RANDOM (bocoel.factories.OptimizerName attribute)</a>
 </li>
-      <li><a href="references/scores.html#bocoel.models.scores.RougeScore">RougeScore (class in bocoel.models.scores)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer">RandomOptimizer (class in bocoel.core.optim)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps">RemainingSteps (class in bocoel.core.optim)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/scores.html#bocoel.models.scores.RougeScore">RougeScore (class in bocoel.models.scores)</a>
+</li>
       <li><a href="references/scores.html#bocoel.models.scores.RougeScore2">RougeScore2 (class in bocoel.models.scores)</a>
 </li>
       <li><a href="references/exams.html#bocoel.core.exams.Exam.run">run() (bocoel.core.exams.Exam method)</a>
@@ -899,22 +961,42 @@ document.write(`
 </li>
       <li><a href="references/embedders.html#bocoel.corpora.embedders.SbertEmbedder">SbertEmbedder (class in bocoel.corpora.embedders)</a>
 </li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer">ScikitLearnOptimizer (class in bocoel.core.optim)</a>
+</li>
       <li><a href="references/scores.html#bocoel.models.scores.Score">Score (class in bocoel.models.scores)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.Index.search">search() (bocoel.corpora.indices.Index method)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.SearchEvaluator">SearchEvaluator (class in bocoel.core.optim)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.SearchResult">SearchResult (class in bocoel.corpora.indices)</a>
 </li>
       <li><a href="references/indices.html#bocoel.corpora.indices.SearchResultBatch">SearchResultBatch (class in bocoel.corpora.indices)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.spatial_to_polar">spatial_to_polar() (bocoel.corpora.indices.PolarIndex static method)</a>
 </li>
       <li><a href="references/factories.html#bocoel.factories.AdaptorName.SST2">SST2 (bocoel.factories.AdaptorName attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="references/adaptors.html#bocoel.models.adaptors.Sst2QuestionAnswer">Sst2QuestionAnswer (class in bocoel.models.adaptors)</a>
 </li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer.step">step() (bocoel.core.optim.AxServiceOptimizer method)</a>
+
+      <ul>
+        <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer.step">(bocoel.core.optim.BruteForceOptimizer method)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer.step">(bocoel.core.optim.Optimizer method)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer.step">(bocoel.core.optim.RandomOptimizer method)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.step">(bocoel.core.optim.RemainingSteps method)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer.step">(bocoel.core.optim.ScikitLearnOptimizer method)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer.step">(bocoel.core.optim.UniformOptimizer method)</a>
+</li>
+      </ul></li>
       <li><a href="references/corpora.html#bocoel.corpora.corpora.ComposedCorpus.storage">storage (bocoel.corpora.corpora.ComposedCorpus attribute)</a>
 
       <ul>
@@ -933,13 +1015,29 @@ document.write(`
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor.task_choices">task_choices() (bocoel.models.adaptors.GlueAdaptor static method)</a>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer.task">task (bocoel.core.optim.AxServiceOptimizer property)</a>
+
+      <ul>
+        <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer.task">(bocoel.core.optim.BruteForceOptimizer property)</a>
 </li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer.task">(bocoel.core.optim.Optimizer property)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer.task">(bocoel.core.optim.RandomOptimizer property)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer.task">(bocoel.core.optim.ScikitLearnOptimizer property)</a>
+</li>
+        <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer.task">(bocoel.core.optim.UniformOptimizer property)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor.task_choices">task_choices() (bocoel.models.adaptors.GlueAdaptor static method)</a>
+</li>
       <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.to">to() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
 </li>
       <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.tokenize">tokenize() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
+</li>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.type">type (bocoel.core.optim.AxServiceParameter attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -951,7 +1049,17 @@ document.write(`
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer">UniformOptimizer (class in bocoel.core.optim)</a>
+</li>
       <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.upper">upper (bocoel.corpora.indices.Boundary property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.value_type">value_type (bocoel.core.optim.AxServiceParameter attribute)</a>
 </li>
   </ul></td>
 </tr></table>

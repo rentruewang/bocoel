@@ -196,6 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../references/scores.html">Score API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../references/adaptors.html">Adaptor API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../references/lms.html">Language Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../references/optimizers.html">Optimizer API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../references/exams.html">Exam API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -327,7 +328,6 @@ document.write(`
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">NDArray</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
 
 
 <div class="viewcode-block" id="Boundary">
@@ -383,7 +383,7 @@ document.write(`
 <div class="viewcode-block" id="Boundary.fixed">
 <a class="viewcode-back" href="../../../../../references/indices.html#bocoel.corpora.indices.Boundary.fixed">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fixed</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">fixed</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Boundary&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a fixed boundary for all dimensions.</span>
 
