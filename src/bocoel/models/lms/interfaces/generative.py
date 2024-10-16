@@ -10,8 +10,6 @@ class GenerativeModel(Protocol):
     @abc.abstractmethod
     def generate(self, prompts: Sequence[str], /) -> Sequence[str]:
         """
-        TODO:
-            Add logits.
 
         Generate a sequence of responses given prompts.
         The length of the response is the same as the prompt.
@@ -23,6 +21,9 @@ class GenerativeModel(Protocol):
 
         Returns:
             The generated responses. The length must be the same as the prompts.
+
+        Todo:
+            Add logits.
         """
 
         ...

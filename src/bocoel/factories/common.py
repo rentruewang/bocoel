@@ -14,7 +14,7 @@ def correct_kwargs(function: Callable[P, T]) -> Callable[P, T]:
     Catches TypeError during function call.
     This happens if function arguments don't match the signature.
 
-    TODO:
+    Todo:
         Perhaps make it a decorator for classes directly?
     """
 
