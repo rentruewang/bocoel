@@ -33,7 +33,7 @@ class Examinator:
         Returns:
             The scores of the exams.
 
-        TODO:
+        Todo:
             Run the different exams in parallel.
             Currently the exams are run sequentially and can be slow.
         """

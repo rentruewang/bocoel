@@ -88,7 +88,7 @@ See the folder [examples/getting_started](https://github.com/rentruewang/bocoel/
 
 ## ✍️ Develop with BoCoEL
 
-Usage examples are under the folder [`examples`](https://github.com/rentruewang/bocoel/tree/main/examples). API reference can be found [here](https://rentruewang.github.io/bocoel/references/overview/).
+Usage examples are under the folder [`examples`](https://github.com/rentruewang/bocoel/tree/main/examples). API reference can be found [here](https://bocoel.rentruewang.com/references/overview/).
 
 
 ## 🥰 Contributing
@@ -114,7 +114,7 @@ If you find this project helpful in your research, please cite this work at
 ```
 @misc{bocoel2024,
     title = {BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models},
-    url = {https://rentruewang.github.io/bocoel/research/},
+    url = {https://bocoel.rentruewang.com/research/},
     author = {Wang, RenChu},
     month = {January},
     year = {2024}

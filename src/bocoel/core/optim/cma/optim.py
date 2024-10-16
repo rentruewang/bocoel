@@ -10,7 +10,7 @@ from bocoel.corpora import Index
 
 class PyCMAOptimizer(Optimizer):
     """
-    TODO: Documentation.
+    Todo: Documentation.
 
     CMA-ES
     """
