@@ -5,7 +5,7 @@
 groups = ["default", "all", "cma", "datasets", "format", "index", "metrics", "plots", "pretty", "sklearn-extra", "test", "transformers", "type", "visual", "website"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:242fbc189be24a9ca4b54633716bc8d9968887bb05cbc0117342cd8e32f34220"
+content_hash = "sha256:82bd3b7d1ae4bad098347eba062993f3725190b1379de9f85979689413fe4025"
 
 [[metadata.targets]]
 requires_python = ">=3.12,<3.13"
@@ -961,23 +961,6 @@ dependencies = [
 files = [
     {file = "fsspec-2024.6.1-py3-none-any.whl", hash = "sha256:3cb443f8bcd2efb31295a5b9fdb02aee81d8452c80d28f97a6d0959e6cee101e"},
     {file = "fsspec-2024.6.1.tar.gz", hash = "sha256:fad7d7e209dd4c1208e3bbfda706620e0da5142bebbd9c384afb95b07e798e49"},
-]
-
-[[package]]
-name = "furo"
-version = "2024.8.6"
-requires_python = ">=3.8"
-summary = "A clean customisable Sphinx documentation theme."
-groups = ["website"]
-dependencies = [
-    "beautifulsoup4",
-    "pygments>=2.7",
-    "sphinx-basic-ng>=1.0.0.beta2",
-    "sphinx<9.0,>=6.0",
-]
-files = [
-    {file = "furo-2024.8.6-py3-none-any.whl", hash = "sha256:6cd97c58b47813d3619e63e9081169880fbe331f0ca883c871ff1f3f11814f5c"},
-    {file = "furo-2024.8.6.tar.gz", hash = "sha256:b63e4cee8abfc3136d3bc03a3d45a76a850bada4d6374d24c1716b0e01394a01"},
 ]
 
 [[package]]
@@ -3323,20 +3306,6 @@ dependencies = [
 files = [
     {file = "sphinx-7.4.7-py3-none-any.whl", hash = "sha256:c2419e2135d11f1951cd994d6eb18a1835bd8fdd8429f9ca375dc1f3281bd239"},
     {file = "sphinx-7.4.7.tar.gz", hash = "sha256:242f92a7ea7e6c5b406fdc2615413890ba9f699114a9c09192d7dfead2ee9cfe"},
-]
-
-[[package]]
-name = "sphinx-basic-ng"
-version = "1.0.0b2"
-requires_python = ">=3.7"
-summary = "A modern skeleton for Sphinx themes."
-groups = ["website"]
-dependencies = [
-    "sphinx>=4.0",
-]
-files = [
-    {file = "sphinx_basic_ng-1.0.0b2-py3-none-any.whl", hash = "sha256:eb09aedbabfb650607e9b4b68c9d240b90b1e1be221d6ad71d61c52e29f7932b"},
-    {file = "sphinx_basic_ng-1.0.0b2.tar.gz", hash = "sha256:9ec55a47c90c8c002b5960c57492ec3021f5193cb26cebc2dc4ea226848651c9"},
 ]
 
 [[package]]
