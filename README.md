@@ -12,7 +12,7 @@
 
 
 ![GitHub License](https://img.shields.io/github/license/rentruewang/bocoel)
-![Python 3.10](https://img.shields.io/badge/python-3.10-blue)
+![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 
 
 ## 🤔 Why BoCoEL?
@@ -102,7 +102,7 @@ Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, pl
 - 📊 Visualization module of the evaluation.
 - 🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.
 - 🥨 Integration with more backends such as [VLLM](https://github.com/vllm-project/vllm) and [OpenAI's API](https://github.com/openai/openai-python).
-- 🆕 Support for Python 3.11+
+- 🆕 Support for Python 3.12+
 
 
 ## 🏷️ License and Citation
