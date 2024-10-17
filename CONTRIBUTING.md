@@ -49,7 +49,7 @@ The code style in the project closely follows the recommended standard of python
 
 Use `autoflake`, `isort`, `black` for consistent formatting.
 
-Prior to commiting, please run the following commands:
+Prior to committing, please run the following commands:
 
 ```bash
 autoflake -i $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --remove-all-unused-imports
