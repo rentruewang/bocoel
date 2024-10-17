@@ -12,7 +12,7 @@ class HuggingfaceGenerativeLM(HuggingfaceCausalLM, GenerativeModel):
     The generative model backed by huggingface's transformers library.
 
     Since huggingface's tokenizer needs padding to the left to work,
-    padding doesn't guarentee the same positional embeddings, and thus, results.
+    padding doesn't guarantee the same positional embeddings, and thus, results.
     If sameness with generating one by one is desired, batch size should be 1.
     """
 
