@@ -21,12 +21,10 @@ sphinx:
     sphinx.ext.autodoc,
     sphinx.ext.githubpages,
     sphinx.ext.intersphinx,
-    sphinx.ext.inheritance_diagram,
     sphinx.ext.napoleon,
     sphinx.ext.todo,
     sphinx.ext.viewcode,
     sphinxcontrib.mermaid,
-    pallets_sphinx_themes,
   ]
   myst_fence_as_directive: [mermaid]
   config:
