@@ -428,7 +428,7 @@ To install all dependencies (including development dependencies) with <code clas
 <section id="formatting">
 <h3>Formatting<a class="headerlink" href="#formatting" title="Link to this heading">#</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">autoflake</span></code>, <code class="docutils literal notranslate"><span class="pre">isort</span></code>, <code class="docutils literal notranslate"><span class="pre">black</span></code> for consistent formatting.</p>
-<p>Prior to commiting, please run the following commands:</p>
+<p>Prior to committing, please run the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>autoflake<span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.py&quot;</span><span class="w"> </span>!<span class="w"> </span>-path<span class="w"> </span><span class="s1">&#39;*/.venv/*&#39;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span>__init__.py<span class="k">)</span><span class="w"> </span>--remove-all-unused-imports
 isort<span class="w"> </span>.<span class="w"> </span>--profile<span class="w"> </span>black
 black<span class="w"> </span>.
