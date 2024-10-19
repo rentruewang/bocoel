@@ -10,3 +10,10 @@ This page is dedicated to our contributors.
 | <img src="https://avatars.githubusercontent.com/psydak-meng" width="150"/>   | Cheting Meng <br>     https://github.com/psydak-meng | Thanks for the visualization parts. Without you I would have to do them myself and that's a nightmare.                       |
 | <img src="https://avatars.githubusercontent.com/svjayanthi" width="150"/>    | Sraven Jayanthi <br>   https://github.com/svjayanthi | This idea came up during our discussion on dynamically routing between LLMs.                                                  |
 | <img src="https://avatars.githubusercontent.com/gauthameyunni" width="150"/> | Gautham Eyunni <br> https://github.com/gauthameyunni | Thanks for the very nice looking vector graphics logo.                                                                       |
+
+### Thank you strangers for noticing typos
+
+- https://github.com/mayt
+- https://github.com/tingalbert0
+- https://github.com/eltociear
+- https://github.com/FarukhS52
