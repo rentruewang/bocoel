@@ -107,7 +107,7 @@ Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, pl
 
 ## 🏷️ License and Citation
 
-The code is available under [Apache License](./LICENSE.md).
+The code is available under [BSD-3 License](./LICENSE.md).
 
 If you find this project helpful in your research, please cite this work at
 
