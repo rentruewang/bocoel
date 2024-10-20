@@ -38,11 +38,11 @@ To our knowledge, this is the first work aiming to reduce computation costs duri
 ## 🚀 Features
 
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
-- 💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for language model to evaluate.
-- 💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.
-- 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
+- 💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for the language model to evaluate.
+- 💯 Evaluate the corpus on the model in addition to evaluating the model on the corpus.
+- 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with hugging face [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
-- 🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to augment evaluation quality.
+- 🔎 Efficient representation of the corpus/dataset such as N-sphere representation or whitening of the latent space to augment evaluation quality.
 
 
 ## ⭐ Give us a star!
@@ -56,7 +56,7 @@ Like what you see? Please consider giving this a star (★)!
 
 Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an **acquisition function** to decide where to sample next. See [here](https://distill.pub/2019/visual-exploration-gaussian-processes/) for an a more in-depth introduction.
 
-Since _Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)_, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.
+Since _Bayesian optimization works well with an expensive-to-evaluate black-box model (paraphrase: LLM)_, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.
 
 
 ## 🏎️ Performance Implications
@@ -98,7 +98,7 @@ Contributors wanted! Don't be shy. Feel free to file issues and PRs. For PRs, pl
 
 ## 🗺️ Roadmap: work in progress
 
-- 🪑 Simpler usage. I should provide a high level wrapper for the entire library s.t. evaluations can be run in one line.
+- 🪑 Simpler usage. I should provide a high-level wrapper for the entire library s.t. evaluations can be run in one line.
 - 📊 Visualization module of the evaluation.
 - 🎲 Integration of alternative methods (random, kmedoids...) with Gaussian process.
 - 🥨 Integration with more backends such as [VLLM](https://github.com/vllm-project/vllm) and [OpenAI's API](https://github.com/openai/openai-python).
