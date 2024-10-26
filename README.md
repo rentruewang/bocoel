@@ -40,7 +40,7 @@ To our knowledge, this is the first work aiming to reduce computation costs duri
 - 🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.
 - 💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for the language model to evaluate.
 - 💯 Evaluate the corpus on the model in addition to evaluating the model on the corpus.
-- 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with hugging face [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
+- 🤗 Support for `GPT2`, `Pythia`, `LLAMA` and more through integration with huggingface [transformers](https://huggingface.co/docs/transformers/en/index) and [datasets](https://huggingface.co/docs/datasets/en/index)
 - 🧩 Modular design.
 - 🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to augment evaluation quality.
 
