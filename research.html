@@ -442,8 +442,8 @@ document.write(`
 <h2>🚀 Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>🎯 Accurately evaluate large language models with just tens of samples from your selected corpus.</p></li>
-<li><p>💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for language model to evaluate.</p></li>
-<li><p>💯 Evalutes the corpus on the model in addition to evaluating the model on corpus.</p></li>
+<li><p>💂‍♂️ Uses the power of Bayesian optimization to select an optimal subset of samples for the language model to evaluate.</p></li>
+<li><p>💯 Evaluate the corpus on the model in addition to evaluating the model on the corpus.</p></li>
 <li><p>🤗 Support for <code class="docutils literal notranslate"><span class="pre">GPT2</span></code>, <code class="docutils literal notranslate"><span class="pre">Pythia</span></code>, <code class="docutils literal notranslate"><span class="pre">LLAMA</span></code> and more through integration with huggingface <a class="reference external" href="https://huggingface.co/docs/transformers/en/index">transformers</a> and <a class="reference external" href="https://huggingface.co/docs/datasets/en/index">datasets</a></p></li>
 <li><p>🧩 Modular design.</p></li>
 <li><p>🔎 Efficient representation of the corpus / dataset such as N-sphere representation or whitening of the latent space to augment evaluation quality.</p></li>
@@ -457,7 +457,7 @@ document.write(`
 <h2>♾️ Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h2>
 <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" width="30%" align="right"/>
 <p>Simply put, Bayesian optimization aims to optimize either the exploration objective (the purple area in the image) or the exploitation object (the height of the black dots). It uses Gaussian processes as a backbone for inference, and uses an <strong>acquisition function</strong> to decide where to sample next. See <a class="reference external" href="https://distill.pub/2019/visual-exploration-gaussian-processes/">here</a> for an a more in-depth introduction.</p>
-<p>Since <em>Bayesian optimization works well with expensive-to-evaluate black-box model (paraphrase: LLM)</em>, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.</p>
+<p>Since <em>Bayesian optimization works well with an expensive-to-evaluate black-box model (paraphrase: LLM)</em>, it is perfect for this particular use case. Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.</p>
 </section>
 <section id="performance-implications">
 <h2>🏎️ Performance Implications<a class="headerlink" href="#performance-implications" title="Link to this heading">#</a></h2>
@@ -490,7 +490,7 @@ document.write(`
 <section id="roadmap-work-in-progress">
 <h2>🗺️ Roadmap: work in progress<a class="headerlink" href="#roadmap-work-in-progress" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>🪑 Simpler usage. I should provide a high level wrapper for the entire library s.t. evaluations can be run in one line.</p></li>
+<li><p>🪑 Simpler usage. I should provide a high-level wrapper for the entire library s.t. evaluations can be run in one line.</p></li>
 <li><p>📊 Visualization module of the evaluation.</p></li>
 <li><p>🎲 Integration of alternative methods (random, kmedoids…) with Gaussian process.</p></li>
 <li><p>🥨 Integration with more backends such as <a class="reference external" href="https://github.com/vllm-project/vllm">VLLM</a> and <a class="reference external" href="https://github.com/openai/openai-python">OpenAI’s API</a>.</p></li>
