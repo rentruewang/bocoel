@@ -88,7 +88,7 @@ See the folder [examples/getting_started](https://github.com/rentruewang/bocoel/
 
 ## ✍️ Develop with BoCoEL
 
-Usage examples are under the folder [`examples`](https://github.com/rentruewang/bocoel/tree/main/examples). API reference can be found [here](https://bocoel.rentruewang.com/references/overview/).
+Usage examples are under the folder [`examples`](https://github.com/rentruewang/bocoel/tree/main/examples). API reference can be found [here](https://bocoel.rentruewang.com/references/overview.html).
 
 
 ## 🥰 Contributing
