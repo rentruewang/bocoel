@@ -85,9 +85,6 @@ test = [
     "pytest-cov>=4.1.0",
     "pytest-xdist>=3.5.0",
 ]
-type = [
-    "mypy>=1.10.0",
-]
 pretty = [
     "alive-progress>=3.1.5",
     "rich>=13.7.0",
@@ -98,6 +95,9 @@ website = [
     "myst-parser>=2.0.0",
     "sphinxcontrib-mermaid>=0.9.2",
 ]
+
+[dependency-groups]
+type = ["mypy>=1.10.0", "pip>=24.3.1"]
 
 [tool.autoflake]
 in-place = true
@@ -117,3 +117,11 @@ profile = "black"
 disallow_untyped_defs = true
 disallow_untyped_decorators = true
 show_error_codes = true
+disable_error_code = ["import-untyped", "import-not-found"]
+
+# Skipping analysis for some modules because they are not typed.
+[[tool.mypy.overrides]]
+module = [
+    "bocoel.visual.*",
+]
+ignore_errors = true

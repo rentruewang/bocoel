@@ -1,6 +1,7 @@
-import functools
 from collections.abc import Sequence
 from typing import Any
+
+from transformers import BatchEncoding
 
 
 class HuggingfaceTokenizer:
@@ -49,7 +50,9 @@ class HuggingfaceTokenizer:
         self._device = device
         return self
 
-    def tokenize(self, prompts: Sequence[str], /, max_length: int | None = None):
+    def tokenize(
+        self, prompts: Sequence[str], /, max_length: int | None = None
+    ) -> BatchEncoding:
         """
         Tokenize, pad, truncate, cast to device, and yield the encoded results.
         Returning `BatchEncoding` but not marked in the type hint
@@ -73,8 +76,9 @@ class HuggingfaceTokenizer:
         )
         return inputs.to(self.device)
 
-    @functools.wraps(tokenize)
-    def __call__(self, prompts: Sequence[str], /, max_length: int | None = None):
+    def __call__(
+        self, prompts: Sequence[str], /, max_length: int | None = None
+    ) -> BatchEncoding:
         return self.tokenize(prompts, max_length=max_length)
 
     def encode(
@@ -83,7 +87,7 @@ class HuggingfaceTokenizer:
         /,
         return_tensors: str | None = None,
         add_special_tokens: bool = True,
-    ):
+    ) -> list[int]:
         """
         Encode the given prompts.
 
