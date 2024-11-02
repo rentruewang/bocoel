@@ -1,6 +1,6 @@
 [project]
 name = "bocoel"
-version = "0.1.2"
+version = "0.1.3"
 description = "Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models"
 authors = [
     {name = "RenChu Wang", email = "patrick1031wang@gmail.com"},
@@ -52,7 +52,7 @@ index = [
     "hnswlib>=0.8.0",
 ]
 cma = [
-    "cma>=3.3.0",
+    "cma>=4.0.0",
 ]
 sklearn-extra = [
     "scikit-learn-extra>=0.3.0",
@@ -70,34 +70,13 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 
-[tool.pdm]
-distribution = "true"
-
-[tool.pdm.dev-dependencies]
-format = [
-    "autoflake>=2.2.1",
-    "black>=24.1.1",
-    "isort>=5.13.2",
-]
-test = [
-    "coverage>=7.4.0",
-    "pytest>=7.4.4",
-    "pytest-cov>=4.1.0",
-    "pytest-xdist>=3.5.0",
-]
-pretty = [
-    "alive-progress>=3.1.5",
-    "rich>=13.7.0",
-]
-website = [
-    "jupyter>=1.1.1",
-    "jupyter-book>=1.0.3",
-    "myst-parser>=2.0.0",
-    "sphinxcontrib-mermaid>=0.9.2",
-]
-
 [dependency-groups]
 type = ["mypy>=1.10.0", "pip>=24.3.1"]
+format = ["autoflake>=2.3.1", "black>=24.10.0", "isort>=5.13.2"]
+test = ["coverage>=7.4.0", "pytest>=7.4.4", "pytest-cov>=4.1.0", "pytest-xdist>=3.5.0"]
+pretty = ["rich>=13.7.0"]
+website = ["jupyter>=1.1.1", "jupyter-book>=1.0.3", "myst-parser>=2.0.0", "sphinxcontrib-mermaid>=0.9.2"]
+
 
 [tool.autoflake]
 in-place = true
@@ -125,3 +104,6 @@ module = [
     "bocoel.visual.*",
 ]
 ignore_errors = true
+
+[tool.pdm]
+distribution = "true"
