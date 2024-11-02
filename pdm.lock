@@ -5,7 +5,7 @@
 groups = ["default", "all", "cma", "datasets", "format", "index", "metrics", "plots", "pretty", "sklearn-extra", "test", "transformers", "type", "visual", "website"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:82bd3b7d1ae4bad098347eba062993f3725190b1379de9f85979689413fe4025"
+content_hash = "sha256:5590ee561b3f32f8e1dbc82b86171cf76e6dabe712672b5167ee4b633e44c68e"
 
 [[metadata.targets]]
 requires_python = ">=3.12,<3.13"
@@ -3818,7 +3818,7 @@ files = [
 
 [[package]]
 name = "typeguard"
-version = "4.3.0"
+version = "4.4.0"
 requires_python = ">=3.8"
 summary = "Run-time type checker for Python"
 groups = ["default"]
@@ -3827,8 +3827,8 @@ dependencies = [
     "typing-extensions>=4.10.0",
 ]
 files = [
-    {file = "typeguard-4.3.0-py3-none-any.whl", hash = "sha256:4d24c5b39a117f8a895b9da7a9b3114f04eb63bade45a4492de49b175b6f7dfa"},
-    {file = "typeguard-4.3.0.tar.gz", hash = "sha256:92ee6a0aec9135181eae6067ebd617fd9de8d75d714fb548728a4933b1dea651"},
+    {file = "typeguard-4.4.0-py3-none-any.whl", hash = "sha256:8ca34c14043f53b2caae7040549ba431770869bcd6287cfa8239db7ecb882b4a"},
+    {file = "typeguard-4.4.0.tar.gz", hash = "sha256:463bd8697a65a4aa576a63767c369b1ecfba8a5ba735edfe3223127b6ecfa28c"},
 ]
 
 [[package]]

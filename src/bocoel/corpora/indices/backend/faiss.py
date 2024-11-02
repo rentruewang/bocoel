@@ -2,6 +2,7 @@ import functools
 import warnings
 from typing import Any
 
+import numpy as np
 from numpy.typing import NDArray
 
 from bocoel.corpora.indices import utils
@@ -77,7 +78,11 @@ class FaissIndex(Index):
         return self.__embeddings.shape[1]
 
     def _search(self, query: NDArray, k: int = 1) -> InternalResult:
-        distances, indices = self._index.search(query, k)
+        results = [
+            self._index.search(query[i : i + self._batch_size], k)
+            for i in range(0, len(query), self._batch_size)
+        ]
+        distances, indices = map(np.concatenate, zip(*results))
         return InternalResult(distances=distances, indices=indices)
 
     def _init_index(self, index_string: str, cuda: bool) -> None:
