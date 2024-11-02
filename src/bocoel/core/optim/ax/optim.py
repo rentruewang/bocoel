@@ -19,7 +19,7 @@ _KEY = "EVAL"
 Device = str | device
 
 
-def silence_ax():
+def silence_ax() -> None:
     # Disable the very verbose logging from Ax.
 
     ax_service_loggers = [

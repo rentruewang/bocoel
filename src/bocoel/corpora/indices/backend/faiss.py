@@ -1,5 +1,6 @@
 import functools
 import warnings
+from types import ModuleType
 from typing import Any
 
 import numpy as np
@@ -10,7 +11,7 @@ from bocoel.corpora.indices.interfaces import Distance, Index, InternalResult
 
 
 @functools.cache
-def _faiss():
+def _faiss() -> ModuleType:
     # Optional dependency.
     # Faiss also spits out deprecation warnings.
     with warnings.catch_warnings():

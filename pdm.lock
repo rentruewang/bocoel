@@ -5,7 +5,7 @@
 groups = ["default", "all", "cma", "datasets", "format", "index", "metrics", "plots", "pretty", "sklearn-extra", "test", "transformers", "type", "visual", "website"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:5590ee561b3f32f8e1dbc82b86171cf76e6dabe712672b5167ee4b633e44c68e"
+content_hash = "sha256:509657964ca0c47b26c1ffa6e2c2ceb843e98b2ced9d72ea563f74cf4d8ea2bd"
 
 [[metadata.targets]]
 requires_python = ">=3.12,<3.13"
@@ -2462,6 +2462,17 @@ files = [
     {file = "pillow-11.0.0-cp312-cp312-win_amd64.whl", hash = "sha256:8ec4a89295cd6cd4d1058a5e6aec6bf51e0eaaf9714774e1bfac7cfc9051db47"},
     {file = "pillow-11.0.0-cp312-cp312-win_arm64.whl", hash = "sha256:27a7860107500d813fcd203b4ea19b04babe79448268403172782754870dac25"},
     {file = "pillow-11.0.0.tar.gz", hash = "sha256:72bacbaf24ac003fea9bff9837d1eedb6088758d41e100c1552930151f677739"},
+]
+
+[[package]]
+name = "pip"
+version = "24.3.1"
+requires_python = ">=3.8"
+summary = "The PyPA recommended tool for installing Python packages."
+groups = ["type"]
+files = [
+    {file = "pip-24.3.1-py3-none-any.whl", hash = "sha256:3790624780082365f47549d032f3770eeb2b1e8bd1f7b2e02dace1afa361b4ed"},
+    {file = "pip-24.3.1.tar.gz", hash = "sha256:ebcb60557f2aefabc2e0f918751cd24ea0d56d8ec5445fe1807f1d2109660b99"},
 ]
 
 [[package]]
