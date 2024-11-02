@@ -62,8 +62,8 @@ class GlueAdaptor(Adaptor):
         labels = data[self.label]
         label_texts = data[self.label_text]
 
-        typeguard.check_type("texts", texts, Sequence[Sequence[str]])
-        typeguard.check_type("labels", labels, Sequence[int])
+        typeguard.check_type(texts, Sequence[Sequence[str]])
+        typeguard.check_type(labels, Sequence[int])
 
         if any(lab not in self.choices for lab in label_texts):
             raise ValueError(

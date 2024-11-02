@@ -41,7 +41,7 @@ class Storage(Protocol):
             slice_range = range(*idx.indices(len(self)))
             return self.collate([self._getitem(i) for i in slice_range])
         elif isinstance(idx, Sequence):
-            typeguard.check_type("idx", idx, Sequence[int])
+            typeguard.check_type(idx, Sequence[int])
             return self.collate([self._getitem(i) for i in idx])
         else:
             raise TypeError(f"Index must be int or sequence, got {type(idx)}")
