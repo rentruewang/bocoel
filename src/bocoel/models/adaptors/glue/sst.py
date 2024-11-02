@@ -44,8 +44,8 @@ class Sst2QuestionAnswer(Adaptor):
         sentences = data[self.sentence]
         labels = data[self.label]
 
-        typeguard.check_type("sentences", sentences, Sequence[str])
-        typeguard.check_type("labels", labels, Sequence[int])
+        typeguard.check_type(sentences, Sequence[str])
+        typeguard.check_type(labels, Sequence[int])
 
         if not all(0 <= i < len(self.choices) for i in labels):
             raise ValueError("labels must be in range [0, choices)")

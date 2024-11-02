@@ -63,9 +63,9 @@ class BigBenchMultipleChoice(BigBenchAdaptor):
         )
 
         # Check data.
-        typeguard.check_type("inputs", inputs, Sequence[str])
-        typeguard.check_type("mct", multiple_choice_targets, Sequence[Sequence[str]])
-        typeguard.check_type("mcs", multiple_choice_scores, Sequence[Sequence[Number]])
+        typeguard.check_type(inputs, Sequence[str])
+        typeguard.check_type(multiple_choice_targets, Sequence[Sequence[str]])
+        typeguard.check_type(multiple_choice_scores, Sequence[Sequence[Number]])
 
         prompts = [
             self.numeric_choices(question=q, choices=c)

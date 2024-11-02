@@ -16,7 +16,7 @@ class RougeScore(Score):
         self._metric = metric
 
     def __call__(self, target: str, references: list[str]) -> float:
-        typeguard.check_type("references", references, list[str])
+        typeguard.check_type(references, list[str])
 
         if len(references) != 1:
             raise ValueError(
@@ -43,7 +43,7 @@ class RougeScore2(Score):
         self._typ = typ
 
     def __call__(self, target: Any, references: list[str]) -> float:
-        typeguard.check_type("references", references, list[str])
+        typeguard.check_type(references, list[str])
 
         if len(references) != 1:
             raise ValueError(

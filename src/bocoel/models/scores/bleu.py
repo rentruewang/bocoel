@@ -5,7 +5,7 @@ from .interfaces import Score
 
 class NltkBleuScore(Score):
     def __call__(self, target: str, references: list[str]) -> float:
-        typeguard.check_type("references", references, list[str])
+        typeguard.check_type(references, list[str])
 
         # Optional dependency.
         from nltk.translate import bleu_score
@@ -32,7 +32,7 @@ class SacreBleuScore(Score):
         )
 
     def __call__(self, target: str, references: list[str]) -> float:
-        typeguard.check_type("references", references, list[str])
+        typeguard.check_type(references, list[str])
 
         refs = [[ref] for ref in references]
         return self._bleu.corpus_score(references=refs, hypotheses=[target]).score / 100
