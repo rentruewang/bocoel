@@ -24,10 +24,16 @@ jobs:
         uses: pdm-project/setup-pdm@v4
         with:
           python-version: "3.12"
+          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies
         run: pdm sync -G:all
+
+      - name: 🚂 Activate environment
+        run: |
+          eval $(pdm venv activate)
+          echo PATH=$PATH >> $GITHUB_ENV
 
       - name: 🚧 Building distributions.
         run: pdm publish
