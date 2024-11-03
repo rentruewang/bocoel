@@ -17,16 +17,20 @@ jobs:
         uses: pdm-project/setup-pdm@v4
         with:
           python-version: "3.12"
+          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies
         run: pdm sync -G:all
 
+      - name: 🚂 Activate environment
+        run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
+
       - name: 🏃 autoflake, isort, black
-        run: pdm run autoflake -cr $(find -iname "*.py" ! -path '*/.venv/*' ! -name __init__.py) --remove-all-unused-imports
+        run: autoflake --check .
 
       - name: 🏃 isort
-        run: pdm run isort --profile black --check .
+        run: isort --check .
 
       - name: 🏃 black
-        run: pdm run black --diff .
+        run: black --diff .
