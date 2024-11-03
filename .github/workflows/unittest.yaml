@@ -20,16 +20,13 @@ jobs:
           cache: true
 
       - name: ⬇️ Python Dependencies
-        run: pdm sync
-
-      - name: 🚂 Activate environment
-        run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
+        run: pdm sync -G:all
 
       - name: 🏃 pytest
-        run: pytest -v -n auto
+        run: pdm run pytest -v -n auto
 
       # - name: 🏃 pytest
-      #   run: coverage run -m pytest -v
+      #   run: pdm run coverage run -m pytest -v
 
       # - name: 📊 coverage
-      #   run: coverage report -m
+      #   run: pdm run coverage report -m

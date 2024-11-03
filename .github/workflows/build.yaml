@@ -20,13 +20,10 @@ jobs:
           cache: true
 
       - name: ⬇️ Python Dependencies
-        run: pdm sync
-
-      - name: 🚂 Activate environment
-        run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
+        run: pdm sync -G:all
 
       - name: 🚧 Jupyter build
-        run: jupyter book build docs
+        run: pdm run jupyter book build docs
 
       - name: 📰 Publish docs
         uses: JamesIves/github-pages-deploy-action@v4
