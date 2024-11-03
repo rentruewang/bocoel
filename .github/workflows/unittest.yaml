@@ -20,7 +20,7 @@ jobs:
           cache: true
 
       - name: ⬇️ Python Dependencies
-        run: pdm install -G:all
+        run: pdm sync
 
       - name: 🚂 Activate environment
         run: echo "$(pdm venv --path in-project)/bin" >> $GITHUB_PATH
