@@ -10,26 +10,24 @@ from . import factories
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
-@pytest.mark.parametrize("workers", [1, 2, 4])
 @pytest.mark.parametrize("score", ["sacre-bleu", "rouge-1", "exact-match"])
-def test_init_optimizer(device: str, workers: int, score: str) -> None:
+def test_init_optimizer(device: str, score: str) -> None:
     embedder = SbertEmbedder(device=device)
     corpus = corpus_factories.corpus(embedder=embedder)
     lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
 
-    _ = factories.ax_optim(corpus, lm, adaptor, device=device, workers=workers)
+    _ = factories.ax_optim(corpus, lm, adaptor, device=device)
 
 
 @pytest.mark.parametrize("device", utils.torch_devices())
-@pytest.mark.parametrize("workers", [1, 2, 4])
 @pytest.mark.parametrize("score", ["sacre-bleu", "rouge-1", "exact-match"])
-def test_optimize(device: str, workers: int, score: str) -> None:
+def test_optimize(device: str, score: str) -> None:
     embedder = SbertEmbedder(device=device)
     corpus = corpus_factories.corpus(embedder=embedder)
     lm = lm_factories.generative_lm(device=device)
     adaptor = adaptor_factories.bigbench_adaptor(name=score, lm=lm)
-    optimizer = factories.ax_optim(corpus, lm, adaptor, device=device, workers=workers)
+    optimizer = factories.ax_optim(corpus, lm, adaptor, device=device)
 
     Manager().run(
         optimizer=optimizer,

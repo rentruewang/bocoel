@@ -15,7 +15,7 @@ from tests import utils
 
 @utils.cache
 def ax_optim(
-    corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor, device: str, workers: int
+    corpus: Corpus, lm: GenerativeModel, adaptor: Adaptor, device: str
 ) -> Optimizer:
     corpus_eval = CorpusEvaluator(corpus=corpus, adaptor=adaptor)
     return AxServiceOptimizer(
@@ -25,7 +25,6 @@ def ax_optim(
         device=device,
         acqf=AcquisitionFunc.UCB,
         task=Task.MAXIMIZE,
-        workers=workers,
     )
 
 
