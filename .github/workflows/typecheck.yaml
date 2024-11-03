@@ -27,5 +27,5 @@ jobs:
 
       - name: 🏃 mypy
         run: |
-          yes | mypy --install-types
+          mypy src --install-types --non-interactive
           mypy src

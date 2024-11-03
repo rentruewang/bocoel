@@ -43,7 +43,6 @@ class AxServiceOptimizer(Optimizer):
         *,
         sobol_steps: int = 0,
         device: Device = "cpu",
-        workers: int = 1,
         task: Task = Task.EXPLORE,
         acqf: str | AcquisitionFunc = AcquisitionFunc.AUTO,
         surrogate: str | SurrogateModel = SurrogateModel.AUTO,
@@ -55,7 +54,6 @@ class AxServiceOptimizer(Optimizer):
             index: The index to for querying.
             sobol_steps: The number of steps to use for the Sobol sequence.
             device: The device to use for the optimization.
-            workers: The number of workers to use for the optimization.
             task: The task to use for the optimization.
             acqf: The acquisition function to use for the optimization.
             surrogate: The surrogate model to use for the optimization.
@@ -79,7 +77,6 @@ class AxServiceOptimizer(Optimizer):
 
         self._index_eval = index_eval
         self._index = index
-        self._workers = workers
         self._terminate = False
 
     def __repr__(self) -> str:
@@ -90,10 +87,25 @@ class AxServiceOptimizer(Optimizer):
         return self._task
 
     def step(self) -> Mapping[int, float]:
+        """
+        Optimize one step with the ax optimizer.
+
+        Note:
+            Somehow it seems that with recent versions of ``Ax``,
+            it would crash when ``workers > 1`` in ``get_next_trials``.
+
+            Therefore, it's removed.
+
+        Raises:
+            StopIteration: When there are no more steps.
+
+        Returns:
+            The resulting trial-id to the evaluation result.
+        """
         if self._terminate:
             raise StopIteration
 
-        idx_param, done = self._ax_client.get_next_trials(self._workers)
+        idx_param, done = self._ax_client.get_next_trials(1)
 
         if done:
             self._terminate = True
