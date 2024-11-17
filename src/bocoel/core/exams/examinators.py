@@ -3,13 +3,14 @@
 from collections import OrderedDict
 from collections.abc import Mapping
 
+import numpy as np
 from pandas import DataFrame
 
 from bocoel.core.exams.interfaces import Exam
 from bocoel.corpora import Index
 
 from .columns import exams
-from .stats import AccType, Accumulation
+from .stats import Accumulation
 
 
 class Examinator:
@@ -54,10 +55,12 @@ class Examinator:
             The default examinator.
         """
 
+        avg_acc = lambda arr: np.cumsum(arr) / np.arange(1, arr.size + 1)
+
         return cls(
             {
-                exams.ACC_MIN: Accumulation(AccType.MIN),
-                exams.ACC_MAX: Accumulation(AccType.MAX),
-                exams.ACC_AVG: Accumulation(AccType.AVG),
+                exams.ACC_MIN: Accumulation(np.minimum.accumulate),
+                exams.ACC_MAX: Accumulation(np.maximum.accumulate),
+                exams.ACC_AVG: Accumulation(avg_acc),
             }
         )
