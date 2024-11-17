@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import abc
 import typing
 from collections.abc import Collection, Mapping, Sequence

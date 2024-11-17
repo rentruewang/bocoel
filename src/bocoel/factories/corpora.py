@@ -1,7 +1,9 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from collections.abc import Sequence
 from typing import Any
 
-from bocoel import ComposedCorpus, Corpus, Embedder, Storage
+from bocoel import Corpus, Embedder, Storage
 from bocoel.common import StrEnum
 
 from . import common, indices
@@ -48,7 +50,7 @@ def corpus(
     if CorpusName.lookup(name) is not CorpusName.COMPOSED:
         raise ValueError(f"Unknown corpus name: {name}")
 
-    return common.correct_kwargs(ComposedCorpus.index_storage)(
+    return common.correct_kwargs(Corpus.index_storage)(
         storage=storage,
         embedder=embedder,
         keys=keys,

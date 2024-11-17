@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from collections.abc import Mapping, Sequence
 from numbers import Number
 from typing import Any

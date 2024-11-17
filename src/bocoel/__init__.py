@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from importlib import metadata
 
 from .common import StrEnum, version
@@ -27,7 +29,6 @@ from .core import (
 )
 from .corpora import (
     Boundary,
-    ComposedCorpus,
     ConcatStorage,
     Corpus,
     DatasetsStorage,

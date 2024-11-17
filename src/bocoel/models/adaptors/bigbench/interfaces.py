@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from typing import Protocol
 
 from bocoel.models.adaptors.interfaces.adaptors import Adaptor

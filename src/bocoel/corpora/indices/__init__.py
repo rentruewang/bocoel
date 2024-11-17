@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 """
 Indices are used for fast nearest neighbor search.
 Optionally, they may also perform transformation prior to indexing.

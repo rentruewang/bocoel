@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import copy
 from collections.abc import Callable
 from typing import ParamSpec, TypeVar

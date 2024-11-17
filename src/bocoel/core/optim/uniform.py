@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import itertools
 from collections.abc import Generator, Mapping, Sequence
 

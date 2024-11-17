@@ -1,19 +1,28 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import dataclasses as dcls
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
 
 from numpy.typing import NDArray
 
-from bocoel.corpora.corpora.interfaces import Corpus
 from bocoel.corpora.embedders import Embedder
 from bocoel.corpora.indices import Index
 from bocoel.corpora.storages import Storage
 
 
 @dcls.dataclass(frozen=True)
-class ComposedCorpus(Corpus):
+class Corpus:
     """
-    Simply a collection of components.
+    Corpus is the entry point to handling the data in this library.
+
+    A corpus has 3 main components:
+    - Index: Searches one particular column in the storage.Provides fast retrival.
+    - Storage: Used to store the questions / answers / texts.
+    - Embedder: Embeds the text into vectors for faster access.
+
+    An index only corresponds to one key. If search over multiple keys is desired,
+    a new column or a new corpus (with shared storage) should be created.
     """
 
     index: Index
@@ -28,7 +37,7 @@ class ComposedCorpus(Corpus):
         index_backend: type[Index],
         concat: Callable[[Iterable[Any]], str] = " [SEP] ".join,
         **index_kwargs: Any,
-    ) -> "ComposedCorpus":
+    ) -> "Corpus":
         """
         Creates a corpus from the given storage, embedder, key and index class,
         where storage entries would be mapped to strings,
@@ -65,7 +74,7 @@ class ComposedCorpus(Corpus):
         transform: Callable[[Mapping[str, Sequence[Any]]], Sequence[str]],
         index_backend: type[Index],
         **index_kwargs: Any,
-    ) -> "ComposedCorpus":
+    ) -> "Corpus":
         """
         Creates a corpus from the given storage, embedder, key and index class,
         where storage entries would be mapped to strings,
@@ -97,7 +106,7 @@ class ComposedCorpus(Corpus):
         embeddings: NDArray,
         index_backend: type[Index],
         **index_kwargs: Any,
-    ) -> "ComposedCorpus":
+    ) -> "Corpus":
         """
         Create the corpus with the given embeddings.
         This can be used to save time by encoding once and caching embeddings.

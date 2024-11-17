@@ -9,7 +9,7 @@ import structlog
 from bocoel import (
     Adaptor,
     ClassifierModel,
-    ComposedCorpus,
+    Corpus,
     DatasetsStorage,
     Embedder,
     GlueAdaptor,
@@ -91,7 +91,7 @@ def main(
         )
     storage = DatasetsStorage(path=ds_path, split=ds_split)
 
-    corpus: ComposedCorpus
+    corpus: Corpus
     if unique_path.exists():
         LOGGER.info("Loading corpus from cache", path=unique_path)
         with open(unique_path, "rb") as f:

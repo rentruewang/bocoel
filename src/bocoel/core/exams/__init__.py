@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 """
 The exams module provides the functionality to create and manage exams.
 Here, an exam is used to measure how well the corpus or the model performs on a given task.

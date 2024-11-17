@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import abc
 from abc import ABCMeta
 from collections.abc import Mapping

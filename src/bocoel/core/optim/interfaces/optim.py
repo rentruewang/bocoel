@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import abc
 from collections.abc import Mapping
 from typing import Any, Protocol

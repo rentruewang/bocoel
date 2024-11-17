@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 """
 Optimizers is much like optimizers in PyTorch,
 but for the purpose of optimizing queries and search.

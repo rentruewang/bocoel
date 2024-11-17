@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from typing import Any, TypedDict
 
 from typing_extensions import NotRequired
