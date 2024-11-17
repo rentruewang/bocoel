@@ -1,5 +1,6 @@
 # Copyright (c) 2024 RenChu Wang - All Rights Reserved
 
+import dataclasses as dcls
 from collections import OrderedDict
 from collections.abc import Callable
 
@@ -7,44 +8,22 @@ import numpy as np
 import structlog
 from numpy.typing import NDArray
 
-from bocoel.common import StrEnum
 from bocoel.core.exams.interfaces import Exam
 from bocoel.corpora import Index
 
 LOGGER = structlog.get_logger()
 
 
-class AccType(StrEnum):
-    """
-    Accumulation type.
-    """
-
-    MIN = "MINIMUM"
-    "Minimum value accumulation."
-
-    MAX = "MAXIMUM"
-    "Maximum value accumulation."
-
-    AVG = "AVERAGE"
-    "Average value accumulation."
-
-
+@dcls.dataclass(frozen=True)
 class Accumulation(Exam):
     """
     Accumulation is an exam designed to evaluate the min / max / avg of the history.
     """
 
-    def __init__(self, typ: AccType) -> None:
-        self._acc_func: Callable[[NDArray], NDArray]
-        match typ:
-            case AccType.MIN:
-                self._acc_func = np.minimum.accumulate
-            case AccType.MAX:
-                self._acc_func = np.maximum.accumulate
-            case AccType.AVG:
-                self._acc_func = lambda arr: np.cumsum(arr) / np.arange(1, arr.size + 1)
-            case _:
-                raise ValueError(f"Unknown accumulation type {typ}")
+    acc_func: Callable[[NDArray], NDArray]
+    """
+    The function for accumulation.
+    """
 
     def _run(self, index: Index, results: OrderedDict[int, float]) -> NDArray:
         LOGGER.info("Running Accumulation exam", num_results=len(results))
@@ -52,7 +31,7 @@ class Accumulation(Exam):
         _ = index
 
         values = np.array(list(results.values()))
-        return self._acc(values, self._acc_func)
+        return self._acc(values, self.acc_func)
 
     @staticmethod
     def _acc(array: NDArray, accumulate: Callable[[NDArray], NDArray]) -> NDArray:
