@@ -310,10 +310,12 @@ window.addEventListener("load", () => mermaid.run());
                 <article class="bd-article">
                   
   <h1>Source code for bocoel.factories.corpora</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="c1"># Copyright (c) 2024 RenChu Wang - All Rights Reserved</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">bocoel</span> <span class="kn">import</span> <span class="n">ComposedCorpus</span><span class="p">,</span> <span class="n">Corpus</span><span class="p">,</span> <span class="n">Embedder</span><span class="p">,</span> <span class="n">Storage</span>
+<span class="kn">from</span> <span class="nn">bocoel</span> <span class="kn">import</span> <span class="n">Corpus</span><span class="p">,</span> <span class="n">Embedder</span><span class="p">,</span> <span class="n">Storage</span>
 <span class="kn">from</span> <span class="nn">bocoel.common</span> <span class="kn">import</span> <span class="n">StrEnum</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">common</span><span class="p">,</span> <span class="n">indices</span>
@@ -365,7 +367,7 @@ window.addEventListener("load", () => mermaid.run());
     <span class="k">if</span> <span class="n">CorpusName</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">CorpusName</span><span class="o">.</span><span class="n">COMPOSED</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown corpus name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">correct_kwargs</span><span class="p">(</span><span class="n">ComposedCorpus</span><span class="o">.</span><span class="n">index_storage</span><span class="p">)(</span>
+    <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">correct_kwargs</span><span class="p">(</span><span class="n">Corpus</span><span class="o">.</span><span class="n">index_storage</span><span class="p">)(</span>
         <span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">,</span>
         <span class="n">embedder</span><span class="o">=</span><span class="n">embedder</span><span class="p">,</span>
         <span class="n">keys</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span>
