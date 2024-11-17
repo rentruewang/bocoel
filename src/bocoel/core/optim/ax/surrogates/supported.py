@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from typing import TypedDict
 
 from ax.models.torch.botorch_modular.surrogate import Surrogate

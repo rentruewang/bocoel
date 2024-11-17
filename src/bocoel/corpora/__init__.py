@@ -1,4 +1,6 @@
-from .corpora import ComposedCorpus, Corpus
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
+from .corpora import Corpus
 from .embedders import Embedder, EnsembleEmbedder, HuggingfaceEmbedder, SbertEmbedder
 from .indices import (
     Boundary,

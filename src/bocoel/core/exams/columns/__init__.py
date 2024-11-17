@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 """
 This module contains the columns names used in the manager dataframes,
 which correspond to the different components and exams of the system.

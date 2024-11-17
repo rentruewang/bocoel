@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from botorch.acquisition import input_constructors, qMaxValueEntropy
 from torch import Tensor
 

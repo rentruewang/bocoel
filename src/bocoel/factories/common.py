@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import functools
 import inspect
 from collections.abc import Callable

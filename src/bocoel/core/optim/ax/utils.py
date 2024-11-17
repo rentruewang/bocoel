@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from bocoel.core.tasks import Task
 
 from .acquisition import AcquisitionFunc

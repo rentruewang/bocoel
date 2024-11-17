@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from collections.abc import Sequence
 
 from bocoel import (

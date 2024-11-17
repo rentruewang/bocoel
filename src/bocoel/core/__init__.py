@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from .exams import AccType, Accumulation, Exam, Examinator, Manager
 from .optim import (
     AcquisitionFunc,

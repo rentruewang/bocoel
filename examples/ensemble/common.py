@@ -11,7 +11,6 @@ from bocoel import (
     AxServiceOptimizer,
     BruteForceOptimizer,
     CachedIndexEvaluator,
-    ComposedCorpus,
     Corpus,
     CorpusEvaluator,
     Distance,
@@ -106,7 +105,7 @@ def composed_corpus(
     sentence: str,
     storage: Storage,
     embedder: Embedder,
-) -> ComposedCorpus:
+) -> Corpus:
     LOGGER.info(
         "Creating corpus with storage and embedder",
         storage=storage,
@@ -120,7 +119,7 @@ def composed_corpus(
         batch_size=batch_size,
         reduced=min(reduced, embedder.dims),
     )
-    corpus = ComposedCorpus.index_storage(
+    corpus = Corpus.index_storage(
         storage=storage,
         embedder=embedder,
         keys=sentence.split(),

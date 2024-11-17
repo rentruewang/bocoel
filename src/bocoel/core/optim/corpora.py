@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 import numpy as np
 import structlog
 from numpy.typing import ArrayLike, NDArray

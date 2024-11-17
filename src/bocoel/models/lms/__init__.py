@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 """
 Language models (LMs) are models that are trained
 to predict the next word in a sequence of words.

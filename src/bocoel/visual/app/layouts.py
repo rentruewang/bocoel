@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from dash.dash_table import DataTable
 from dash.dcc import Checklist, Graph, Slider
 from dash.html import H1, H2, H3, B, Div, Img, Li, P, Ul

@@ -1,3 +1,5 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 from .bleu import NltkBleuScore, SacreBleuScore
 from .exact import ExactMatch
 from .interfaces import Score

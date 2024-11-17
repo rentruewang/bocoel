@@ -1,6 +1,7 @@
+# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+
 TIME = "time"
 "Corresponds to the time at which the evaluation was performed."
-
 
 INDEX = "index"
 "Corresponds to the index."

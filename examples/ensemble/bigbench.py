@@ -13,8 +13,8 @@ from bocoel import (
     BigBenchMatchType,
     BigBenchMultipleChoice,
     BigBenchQuestionAnswer,
-    ComposedCorpus,
     ConcatStorage,
+    Corpus,
     DatasetsStorage,
     HuggingfaceGenerativeLM,
     HuggingfaceLogitsLM,
@@ -80,7 +80,7 @@ def main(
     )
 
     corpus_cache_path = Path(corpus_cache_path)
-    corpus: ComposedCorpus
+    corpus: Corpus
     if corpus_cache_path.exists():
         LOGGER.info("Loading corpus from cache", path=corpus_cache_path)
         with open(corpus_cache_path, "rb") as f:
