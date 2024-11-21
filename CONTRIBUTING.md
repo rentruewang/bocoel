@@ -19,11 +19,11 @@ git clone git@github.com:rentruewang/bocoel
 cd bocoel/
 ```
 
-I'm using [PDM](https://pdm-project.org/latest/) in this project for dependency management.
-To install all dependencies (including development dependencies) with `pdm`, run
+I'm using [poetry](https://python-poetry.org/) in this project for dependency management.
+To install all dependencies (including development dependencies) with `poetry`, run
 
 ```bash
-pdm install -G:all
+poetry install
 ```
 
 Alternatively, use of `pip` is also allowed (although might be less robust due to lack of version solving)

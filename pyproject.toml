@@ -106,6 +106,3 @@ module = [
     "bocoel.visual.*",
 ]
 ignore_errors = true
-
-[tool.pdm]
-distribution = "true"
