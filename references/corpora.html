@@ -325,9 +325,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -343,20 +341,6 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus"><code class="docutils literal notranslate"><span class="pre">Corpus</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_storage"><code class="docutils literal notranslate"><span class="pre">Corpus.index_storage()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_mapped"><code class="docutils literal notranslate"><span class="pre">Corpus.index_mapped()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_embeddings"><code class="docutils literal notranslate"><span class="pre">Corpus.index_embeddings()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.__init__"><code class="docutils literal notranslate"><span class="pre">Corpus.__init__()</span></code></a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -366,89 +350,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-bocoel.corpora.corpora">
-<span id="corpus-api"></span><h1>Corpus API<a class="headerlink" href="#module-bocoel.corpora.corpora" title="Link to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="bocoel.corpora.corpora.Corpus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bocoel.corpora.corpora.</span></span><span class="sig-name descname"><span class="pre">Corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bocoel/corpora/corpora.html#Corpus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bocoel.corpora.corpora.Corpus" title="Link to this definition">#</a></dt>
-<dd><p>Corpus is the entry point to handling the data in this library.</p>
-<p>A corpus has 3 main components:
-- Index: Searches one particular column in the storage.Provides fast retrival.
-- Storage: Used to store the questions / answers / texts.
-- Embedder: Embeds the text into vectors for faster access.</p>
-<p>An index only corresponds to one key. If search over multiple keys is desired,
-a new column or a new corpus (with shared storage) should be created.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.corpora.Corpus.index_storage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">storage:</span> <span class="pre">~bocoel.corpora.storages.interfaces.Storage,</span> <span class="pre">embedder:</span> <span class="pre">~bocoel.corpora.embedders.interfaces.Embedder,</span> <span class="pre">keys:</span> <span class="pre">~collections.abc.Sequence[str],</span> <span class="pre">index_backend:</span> <span class="pre">type[~bocoel.corpora.indices.interfaces.indices.Index],</span> <span class="pre">concat:</span> <span class="pre">~collections.abc.Callable[[~collections.abc.Iterable[~typing.Any]],</span> <span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">method</span> <span class="pre">join</span> <span class="pre">of</span> <span class="pre">str</span> <span class="pre">object&gt;,</span> <span class="pre">**index_kwargs:</span> <span class="pre">~typing.Any</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.Corpus"><span class="pre">Corpus</span></a></span></span><a class="reference internal" href="../_modules/bocoel/corpora/corpora.html#Corpus.index_storage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bocoel.corpora.corpora.Corpus.index_storage" title="Link to this definition">#</a></dt>
-<dd><p>Creates a corpus from the given storage, embedder, key and index class,
-where storage entries would be mapped to strings,</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>storage</strong> – The storage to index.</p></li>
-<li><p><strong>embedder</strong> – The embedder to use.</p></li>
-<li><p><strong>keys</strong> – The keys to use for the index.</p></li>
-<li><p><strong>index_backend</strong> – The index class to use.</p></li>
-<li><p><strong>concat</strong> – The function to use to concatenate the keys.</p></li>
-<li><p><strong>**index_kwargs</strong> – Additional arguments to pass to the index class.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The created corpus.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.corpora.Corpus.index_mapped">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index_mapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="embedders.html#bocoel.corpora.embedders.Embedder" title="bocoel.corpora.embedders.interfaces.Embedder"><span class="pre">Embedder</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.13)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.13)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">index_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.Corpus"><span class="pre">Corpus</span></a></span></span><a class="reference internal" href="../_modules/bocoel/corpora/corpora.html#Corpus.index_mapped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bocoel.corpora.corpora.Corpus.index_mapped" title="Link to this definition">#</a></dt>
-<dd><p>Creates a corpus from the given storage, embedder, key and index class,
-where storage entries would be mapped to strings,
-using the specified batched transform function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>storage</strong> – The storage to index.</p></li>
-<li><p><strong>embedder</strong> – The embedder to use.</p></li>
-<li><p><strong>transform</strong> – The function to use to transform the storage entries.</p></li>
-<li><p><strong>index_backend</strong> – The index class to use.</p></li>
-<li><p><strong>**index_kwargs</strong> – Additional arguments to pass to the index class.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The created corpus.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.corpora.Corpus.index_embeddings">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.1)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.1)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">index_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bocoel.corpora.corpora.Corpus" title="bocoel.corpora.corpora.Corpus"><span class="pre">Corpus</span></a></span></span><a class="reference internal" href="../_modules/bocoel/corpora/corpora.html#Corpus.index_embeddings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bocoel.corpora.corpora.Corpus.index_embeddings" title="Link to this definition">#</a></dt>
-<dd><p>Create the corpus with the given embeddings.
-This can be used to save time by encoding once and caching embeddings.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>storage</strong> – The storage to use.</p></li>
-<li><p><strong>embeddings</strong> – The embeddings to use.</p></li>
-<li><p><strong>index_backend</strong> – The index class to use.</p></li>
-<li><p><strong>**index_kwargs</strong> – Additional arguments to pass to the index class.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The created corpus.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="bocoel.corpora.corpora.Corpus.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="indices.html#bocoel.corpora.indices.Index" title="bocoel.corpora.indices.interfaces.indices.Index"><span class="pre">Index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storages.html#bocoel.corpora.storages.Storage" title="bocoel.corpora.storages.interfaces.Storage"><span class="pre">Storage</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#bocoel.corpora.corpora.Corpus.__init__" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <section id="corpus-api">
+<h1>Corpus API<a class="headerlink" href="#corpus-api" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -505,28 +408,6 @@ This can be used to save time by encoding once and caching embeddings.</p>
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus"><code class="docutils literal notranslate"><span class="pre">Corpus</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_storage"><code class="docutils literal notranslate"><span class="pre">Corpus.index_storage()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_mapped"><code class="docutils literal notranslate"><span class="pre">Corpus.index_mapped()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.index_embeddings"><code class="docutils literal notranslate"><span class="pre">Corpus.index_embeddings()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bocoel.corpora.corpora.Corpus.__init__"><code class="docutils literal notranslate"><span class="pre">Corpus.__init__()</span></code></a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
