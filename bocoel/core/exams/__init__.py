@@ -14,6 +14,6 @@ The module provides the following functionality:
 from .examinators import Examinator
 from .interfaces import Exam
 from .managers import Manager
-from .stats import AccType, Accumulation
+from .stats import Accumulation
 
-__all__ = ["Examinator", "Exam", "Manager", "AccType", "Accumulation"]
+__all__ = ["Examinator", "Exam", "Manager", "Accumulation"]

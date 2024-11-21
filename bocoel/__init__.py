@@ -4,7 +4,6 @@ from importlib import metadata
 
 from .common import StrEnum, version
 from .core import (
-    AccType,
     Accumulation,
     AcquisitionFunc,
     AxServiceOptimizer,
