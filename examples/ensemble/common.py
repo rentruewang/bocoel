@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 import math
 from collections.abc import Sequence
 from typing import Any, Literal

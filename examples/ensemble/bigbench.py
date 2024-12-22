@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 import logging
 import pickle
 from collections.abc import Sequence

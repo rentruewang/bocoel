@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 import pytest
 
 from bocoel import SbertEmbedder

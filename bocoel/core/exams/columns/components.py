@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) RenChu Wang - All Rights Reserved
 
 TIME = "time"
 "Corresponds to the time at which the evaluation was performed."

@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) RenChu Wang - All Rights Reserved
 
 from bocoel import Embedder, EnsembleEmbedder, HuggingfaceEmbedder, SbertEmbedder
 from bocoel.common import StrEnum

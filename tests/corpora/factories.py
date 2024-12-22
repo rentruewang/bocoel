@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 from bocoel import Corpus, Distance, Embedder, PandasStorage, WhiteningIndex
 
 from .indices import factories

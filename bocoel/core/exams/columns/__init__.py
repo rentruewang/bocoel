@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) RenChu Wang - All Rights Reserved
 
 """
 This module contains the columns names used in the manager dataframes,

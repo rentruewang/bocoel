@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 from bocoel import (
     BigBenchAdaptor,
     BigBenchMatchType,

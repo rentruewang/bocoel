@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) RenChu Wang - All Rights Reserved
 
 from .adaptors import AdaptorName, adaptor
 from .corpora import CorpusName, corpus

@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 import pytest
 
 from tests.corpora.storages import factories as storage_factories

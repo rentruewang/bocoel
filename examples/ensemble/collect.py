@@ -1,3 +1,5 @@
+# Copyright (c) RenChu Wang - All Rights Reserved
+
 import itertools
 import re
 from collections.abc import Callable, Sequence
