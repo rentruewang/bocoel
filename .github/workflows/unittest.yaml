@@ -11,13 +11,11 @@ jobs:
       - name: 🏗️ python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: ⬇️ Python PDM
         uses: pdm-project/setup-pdm@v4
         with:
-          python-version: "3.12"
-          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies
@@ -28,9 +26,3 @@ jobs:
 
       - name: 🏃 pytest
         run: pytest -xv
-
-      # - name: 🏃 pytest
-      #   run: coverage run -m pytest -v
-
-      # - name: 📊 coverage
-      #   run: coverage report -m
