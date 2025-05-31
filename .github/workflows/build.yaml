@@ -11,13 +11,11 @@ jobs:
       - name: 🏗️ python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: ⬇️ Python PDM
         uses: pdm-project/setup-pdm@v4
         with:
-          python-version: "3.12"
-          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies
@@ -36,4 +34,4 @@ jobs:
           folder: ./docs/_build/html
           git-config-name: "github-actions[bot]"
           git-config-email: "github-actions[bot]@users.noreply.github.com"
-          commit-message: 🎉 Book deployed
+          commit-message: 🎉 Site built

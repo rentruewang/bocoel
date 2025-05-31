@@ -16,8 +16,6 @@ jobs:
       - name: ⬇️ Python PDM
         uses: pdm-project/setup-pdm@v4
         with:
-          python-version: "3.12"
-          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies

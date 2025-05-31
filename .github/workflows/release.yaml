@@ -1,9 +1,10 @@
 name: Publish
+
 on:
   push:
-    # Sequence of patterns matched against refs/tags
     tags:
-      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+      - v*
+
 jobs:
   pypi-publish:
     name: ⬆️ Upload release to PyPI
@@ -11,6 +12,7 @@ jobs:
     permissions:
       contents: read
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+
     steps:
       - name: 🔔 Check out
         uses: actions/checkout@v3
@@ -18,22 +20,18 @@ jobs:
       - name: 🏗️ python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: ⬇️ Python PDM
         uses: pdm-project/setup-pdm@v4
         with:
-          python-version: "3.12"
-          version: head
           cache: true
 
       - name: ⬇️ Python Dependencies
         run: pdm sync -G:all
 
-      - name: 🚂 Activate environment
-        run: |
-          eval $(pdm venv activate)
-          echo PATH=$PATH >> $GITHUB_ENV
+      - name: 🪶 Build with PDM
+        run: pdm build
 
-      - name: 🚧 Building distributions.
+      - name: 📰 Publish to PyPI
         run: pdm publish
