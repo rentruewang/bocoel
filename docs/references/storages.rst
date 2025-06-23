@@ -1,5 +1,5 @@
 Storage API
 -----------
 
-.. automodule:: bocoel.corpora.storages
+.. automodule:: bocoel.storages
     :members:

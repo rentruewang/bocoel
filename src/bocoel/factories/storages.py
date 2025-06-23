@@ -1,26 +1,15 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from bocoel import DatasetsStorage, PandasStorage, Storage
-from bocoel.common import StrEnum
 
 from . import common
 
-
-class StorageName(StrEnum):
-    """
-    The storage names.
-    """
-
-    PANDAS = "PANDAS"
-    "Corresponds to `PandasStorage`."
-
-    DATASETS = "DATASETS"
-    "Corresponds to `DatasetsStorage`."
+__all__ = ["storage"]
 
 
 @common.correct_kwargs
 def storage(
-    storage: str | StorageName, /, *, path: str = "", name: str = "", split: str = ""
+    storage: str, /, *, path: str = "", name: str = "", split: str = ""
 ) -> Storage:
     """
     Create a single storage.
@@ -38,13 +27,10 @@ def storage(
         ValueError: If the storage is unknown.
     """
 
-    storage = StorageName.lookup(storage)
     match storage:
-        case StorageName.PANDAS:
-            return common.correct_kwargs(PandasStorage.from_jsonl_file)(path)
-        case StorageName.DATASETS:
-            return common.correct_kwargs(DatasetsStorage)(
-                path=path, name=name, split=split
-            )
+        case "PANDAS":
+            return PandasStorage.from_jsonl_file(path)
+        case "DATASETS":
+            return DatasetsStorage(path=path, name=name, split=split)
         case _:
             raise ValueError(f"Unknown storage name {storage}")

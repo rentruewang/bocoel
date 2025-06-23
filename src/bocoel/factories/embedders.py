@@ -1,28 +1,15 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from bocoel import Embedder, EnsembleEmbedder, HuggingfaceEmbedder, SbertEmbedder
-from bocoel.common import StrEnum
 
 from . import common
 
-
-class EmbedderName(StrEnum):
-    """
-    The names of the embedders.
-    """
-
-    SBERT = "SBERT"
-    "Corresponds to `SbertEmbedder`."
-
-    HUGGINGFACE = "HUGGINGFACE"
-    "Corresponds to `HuggingfaceEmbedder`."
-
-    HUGGINGFACE_ENSEMBLE = "HUGGINGFACE_ENSEMBLE"
-    "Corresponds to `EnsembleEmbedder` concatenating `HuggingfaceEmbedder`."
+__all__ = ["embedder"]
 
 
+@common.correct_kwargs
 def embedder(
-    name: str | EmbedderName,
+    name: str,
     /,
     *,
     model_name: str | list[str],
@@ -47,31 +34,31 @@ def embedder(
             or not a list of strings for HuggingfaceEnsemble.
     """
 
-    match EmbedderName.lookup(name):
-        case EmbedderName.SBERT:
+    match name:
+        case "SBERT":
             if not isinstance(model_name, str):
                 raise TypeError(
                     "SbertEmbedder requires a single model name. "
                     f"Got {model_name} instead."
                 )
 
-            return common.correct_kwargs(SbertEmbedder)(
+            return SbertEmbedder(
                 model_name=model_name,
                 device=common.auto_device(device),
                 batch_size=batch_size,
             )
-        case EmbedderName.HUGGINGFACE:
+        case "HUGGINGFACE":
             if not isinstance(model_name, str):
                 raise TypeError(
                     "HuggingfaceEmbedder requires a single model name. "
                     f"Got {model_name} instead."
                 )
-            return common.correct_kwargs(HuggingfaceEmbedder)(
+            return HuggingfaceEmbedder(
                 path=model_name,
                 device=common.auto_device(device),
                 batch_size=batch_size,
             )
-        case EmbedderName.HUGGINGFACE_ENSEMBLE:
+        case "HUGGINGFACE_ENSEMBLE":
             if not isinstance(model_name, list):
                 raise TypeError(
                     "HuggingfaceEnsembleEmbedder requires a list of model names. "
@@ -79,7 +66,7 @@ def embedder(
                 )
 
             device_list = common.auto_device_list(device, len(model_name))
-            return common.correct_kwargs(EnsembleEmbedder)(
+            return EnsembleEmbedder(
                 [
                     HuggingfaceEmbedder(path=model, device=dev, batch_size=batch_size)
                     for model, dev in zip(model_name, device_list)

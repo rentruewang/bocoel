@@ -1,6 +1,6 @@
 import numpy as np
 
-from bocoel.corpora.indices import utils
+from bocoel.indices import utils
 
 
 def test_normalize() -> None:

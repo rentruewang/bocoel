@@ -1,5 +1,5 @@
 Index API
 ---------
 
-.. automodule:: bocoel.corpora.indices
+.. automodule:: bocoel.indices
     :members:

@@ -1,75 +1,14 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
-from importlib import metadata
-
-from .common import StrEnum, version
-from .core import (
-    AccType,
-    Accumulation,
-    AcquisitionFunc,
-    AxServiceOptimizer,
-    BruteForceOptimizer,
-    CachedIndexEvaluator,
-    CorpusEvaluator,
-    Exam,
-    Examinator,
-    IndexEvaluator,
-    KMeansOptimizer,
-    KMeansOptions,
-    KMedoidsOptimizer,
-    KMedoidsOptions,
-    Manager,
-    Optimizer,
-    QueryEvaluator,
-    RandomOptimizer,
-    ScikitLearnOptimizer,
-    SearchEvaluator,
-    Task,
-    UniformOptimizer,
-)
-from .corpora import (
-    Boundary,
-    ConcatStorage,
-    Corpus,
-    DatasetsStorage,
-    Distance,
-    Embedder,
-    EnsembleEmbedder,
-    FaissIndex,
-    HnswlibIndex,
-    HuggingfaceEmbedder,
-    Index,
-    InverseCDFIndex,
-    PandasStorage,
-    PolarIndex,
-    SbertEmbedder,
-    Storage,
-    WhiteningIndex,
-)
-from .models import (
-    Adaptor,
-    BigBenchAdaptor,
-    BigBenchChoiceType,
-    BigBenchMatchType,
-    BigBenchMultipleChoice,
-    BigBenchQuestionAnswer,
-    ClassifierModel,
-    ExactMatch,
-    GenerativeModel,
-    GlueAdaptor,
-    HuggingfaceCausalLM,
-    HuggingfaceGenerativeLM,
-    HuggingfaceLogitsLM,
-    HuggingfaceSequenceLM,
-    HuggingfaceTokenizer,
-    MultiChoiceAccuracy,
-    NltkBleuScore,
-    OneHotChoiceAccuracy,
-    RougeScore,
-    RougeScore2,
-    SacreBleuScore,
-    Score,
-    Sst2QuestionAnswer,
-)
-
-__version__ = version()
+from .adaptors import *
+from .common import *
+from .constants import *
+from .corpora import *
+from .embedders import *
+from .exams import *
+from .indices import *
+from .lms import *
+from .optim import *
+from .scores import *
+from .storages import *
+from .tasks import *

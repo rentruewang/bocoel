@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from bocoel import Distance, FaissIndex
-from bocoel.corpora.indices import utils
+from bocoel.indices import utils
 from tests import utils as test_utils
 
 from . import factories

@@ -5,7 +5,7 @@ from numpy import random
 from numpy.typing import NDArray
 
 from bocoel import Distance, HnswlibIndex, Index, PolarIndex, WhiteningIndex
-from bocoel.corpora.indices import utils as index_utils
+from bocoel.indices import utils as index_utils
 from tests import utils
 
 

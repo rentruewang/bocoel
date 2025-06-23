@@ -1,5 +1,5 @@
 Optimizer API
 -------------
 
-.. automodule:: bocoel.core.optim
+.. automodule:: bocoel.optim
     :members:

@@ -1,6 +1,8 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from typing import Any
+
+__all__ = ["remove_base_suffix"]
 
 
 def remove_base_suffix(self: Any, base_class: type[Any]) -> str:

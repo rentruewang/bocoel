@@ -1,7 +1,7 @@
 import numpy as np
 
 from bocoel import Index
-from bocoel.corpora.indices import utils
+from bocoel.indices import utils
 
 from . import factories
 

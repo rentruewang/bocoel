@@ -1,32 +1,21 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from collections.abc import Sequence
 from typing import Any
 
 from bocoel import Corpus, Embedder, Storage
-from bocoel.common import StrEnum
 
-from . import common, indices
-from .indices import IndexName
+from . import indices
 
-
-class CorpusName(StrEnum):
-    """
-    The names of the corpus.
-    """
-
-    COMPOSED = "COMPOSED"
-    "Corresponds to `ComposedCorpus`."
+__all__ = ["corpus"]
 
 
 def corpus(
-    name: str | CorpusName = CorpusName.COMPOSED,
-    /,
     *,
     storage: Storage,
     embedder: Embedder,
     keys: Sequence[str],
-    index_name: str | IndexName,
+    index_name: str,
     **index_kwargs: Any,
 ) -> Corpus:
     """
@@ -47,10 +36,7 @@ def corpus(
         ValueError: If the name is unknown.
     """
 
-    if CorpusName.lookup(name) is not CorpusName.COMPOSED:
-        raise ValueError(f"Unknown corpus name: {name}")
-
-    return common.correct_kwargs(Corpus.index_storage)(
+    return Corpus.index_storage(
         storage=storage,
         embedder=embedder,
         keys=keys,
