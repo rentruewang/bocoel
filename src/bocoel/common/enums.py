@@ -1,10 +1,12 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from enum import Enum
 from typing import Self
 
+__all__ = ["ItemNotFound", "StrEnum"]
 
-class ItemNotFound(Exception):
+
+class ItemNotFound(KeyError):
     pass
 
 

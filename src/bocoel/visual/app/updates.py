@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 import math
 from collections.abc import Sequence
@@ -329,7 +329,7 @@ def three_d(
     show_3 = "BERT" in llm and "Corpus-1" in corpus
     show_4 = "BERT" in llm and "Corpus-2" in corpus
     show = [show_1, show_2, show_3, show_4]
-    count = sum(show)
+    sum(show)
 
     models = ["GPT-3", "BERT"]
     corpus = ["corpus-1", "corpus-2"]

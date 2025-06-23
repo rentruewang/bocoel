@@ -63,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto release to PyPI.
 - A few implementations for baselines.
 
-### Changed 
+### Changed
 
 - Index now support batch size != 1 and k != 1.
 - Batch size mandatary for Index, Embedders, LanguageModel, and Optimizer.

@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from typing import Any
 
@@ -9,30 +9,14 @@ from bocoel import (
     GlueAdaptor,
     Sst2QuestionAnswer,
 )
-from bocoel.common import StrEnum
 
 from . import common
 
-
-class AdaptorName(StrEnum):
-    """
-    The names of the adaptors.
-    """
-
-    BIGBENCH_MC = "BIGBENCH_MULTIPLE_CHOICE"
-    "Corresponds to `BigBenchMultipleChoice`."
-
-    BIGBENCH_QA = "BIGBENCH_QUESTION_ANSWER"
-    "Corresponds to `BigBenchQuestionAnswer`."
-
-    SST2 = "SST2"
-    "Corresponds to `Sst2QuestionAnswer`."
-
-    GLUE = "GLUE"
-    "Corresponds to `GlueAdaptor`."
+__all__ = ["adaptor"]
 
 
-def adaptor(name: str | AdaptorName, /, **kwargs: Any) -> Adaptor:
+@common.correct_kwargs
+def adaptor(name: str, /, **kwargs: Any) -> Adaptor:
     """
     Create an adaptor.
 
@@ -48,16 +32,14 @@ def adaptor(name: str | AdaptorName, /, **kwargs: Any) -> Adaptor:
         ValueError: If the name is unknown.
     """
 
-    name = AdaptorName.lookup(name)
-
     match name:
-        case AdaptorName.BIGBENCH_MC:
-            return common.correct_kwargs(BigBenchMultipleChoice)(**kwargs)
-        case AdaptorName.BIGBENCH_QA:
-            return common.correct_kwargs(BigBenchQuestionAnswer)(**kwargs)
-        case AdaptorName.SST2:
-            return common.correct_kwargs(Sst2QuestionAnswer)(**kwargs)
-        case AdaptorName.GLUE:
-            return common.correct_kwargs(GlueAdaptor)(**kwargs)
+        case "BIGBENCH_MC":
+            return BigBenchMultipleChoice(**kwargs)
+        case "BIGBENCH_QA":
+            return BigBenchQuestionAnswer(**kwargs)
+        case "SST2":
+            return Sst2QuestionAnswer(**kwargs)
+        case "GLUE":
+            return GlueAdaptor(**kwargs)
         case _:
             raise ValueError(f"Unknown adaptor name: {name}")

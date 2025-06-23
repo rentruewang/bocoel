@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from collections.abc import Sequence
 
@@ -9,34 +9,15 @@ from bocoel import (
     HuggingfaceLogitsLM,
     HuggingfaceSequenceLM,
 )
-from bocoel.common import StrEnum
 
 from . import common
 
-
-class GeneratorName(StrEnum):
-    """
-    The generator names.
-    """
-
-    HUGGINGFACE_GENERATIVE = "HUGGINGFACE_GENERATIVE"
-    "Corresponds to `HuggingfaceGenerativeLM`."
+__all__ = ["generative", "classifier"]
 
 
-class ClassifierName(StrEnum):
-    """
-    The classifier names.
-    """
-
-    HUGGINGFACE_LOGITS = "HUGGINGFACE_LOGITS"
-    "Corresponds to `HuggingfaceLogitsLM`."
-
-    HUGGINGFACE_SEQUENCE = "HUGGINGFACE_SEQUENCE"
-    "Corresponds to `HuggingfaceSequenceLM`."
-
-
+@common.correct_kwargs
 def generative(
-    name: str | GeneratorName,
+    name: str = "HUGGINGFACE_GENERATIVE",
     /,
     *,
     model_path: str,
@@ -63,9 +44,9 @@ def generative(
 
     device = common.auto_device(device)
 
-    match GeneratorName.lookup(name):
-        case GeneratorName.HUGGINGFACE_GENERATIVE:
-            return common.correct_kwargs(HuggingfaceGenerativeLM)(
+    match name:
+        case "HUGGINGFACE_GENERATIVE":
+            return HuggingfaceGenerativeLM(
                 model_path=model_path,
                 batch_size=batch_size,
                 device=device,
@@ -76,7 +57,7 @@ def generative(
 
 
 def classifier(
-    name: str | ClassifierName,
+    name: str,
     /,
     *,
     model_path: str,
@@ -87,17 +68,17 @@ def classifier(
 ) -> ClassifierModel:
     device = common.auto_device(device)
 
-    match ClassifierName.lookup(name):
-        case ClassifierName.HUGGINGFACE_LOGITS:
-            return common.correct_kwargs(HuggingfaceLogitsLM)(
+    match name:
+        case "HUGGINGFACE_LOGITS":
+            return HuggingfaceLogitsLM(
                 model_path=model_path,
                 batch_size=batch_size,
                 device=device,
                 choices=choices,
                 add_sep_token=add_sep_token,
             )
-        case ClassifierName.HUGGINGFACE_SEQUENCE:
-            return common.correct_kwargs(HuggingfaceSequenceLM)(
+        case "HUGGINGFACE_SEQUENCE":
+            return HuggingfaceSequenceLM(
                 model_path=model_path,
                 device=device,
                 choices=choices,

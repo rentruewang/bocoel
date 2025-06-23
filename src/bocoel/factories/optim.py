@@ -1,4 +1,4 @@
-# Copyright (c) 2024 RenChu Wang - All Rights Reserved
+# Copyright (c) BoCoEL Authors - All Rights Reserved
 
 from typing import Any
 
@@ -14,35 +14,15 @@ from bocoel import (
     RandomOptimizer,
     UniformOptimizer,
 )
-from bocoel.common import StrEnum
+
+from . import common
+
+__all__ = ["optimizer"]
 
 
-class OptimizerName(StrEnum):
-    """
-    The names of the optimizers.
-    """
-
-    BAYESIAN = "BAYESIAN"
-    "Corresponds to `AxServiceOptimizer`."
-
-    KMEANS = "KMEANS"
-    "Corresponds to `KMeansOptimizer`."
-
-    KMEDOIDS = "KMEDOIDS"
-    "Corresponds to `KMedoidsOptimizer`."
-
-    RANDOM = "RANDOM"
-    "Corresponds to `RandomOptimizer`."
-
-    BRUTE = "BRUTE"
-    "Corresponds to `BruteForceOptimizer`."
-
-    UNIFORM = "UNIFORM"
-    "Corresponds to `UniformOptimizer`."
-
-
+@common.correct_kwargs
 def optimizer(
-    name: str | OptimizerName, /, *, corpus: Corpus, adaptor: Adaptor, **kwargs: Any
+    name: str, /, *, corpus: Corpus, adaptor: Adaptor, **kwargs: Any
 ) -> Optimizer:
     """
     Create an optimizer instance.
@@ -61,22 +41,20 @@ def optimizer(
         ValueError: If the name is unknown.
     """
 
-    name = OptimizerName.lookup(name)
-
     klass: type[Optimizer]
 
     match name:
-        case OptimizerName.BAYESIAN:
+        case "BAYESIAN":
             klass = AxServiceOptimizer
-        case OptimizerName.KMEANS:
+        case "KMEANS":
             klass = KMeansOptimizer
-        case OptimizerName.KMEDOIDS:
+        case "KMEDOIDS":
             klass = KMedoidsOptimizer
-        case OptimizerName.BRUTE:
+        case "BRUTE":
             klass = BruteForceOptimizer
-        case OptimizerName.RANDOM:
+        case "RANDOM":
             klass = RandomOptimizer
-        case OptimizerName.UNIFORM:
+        case "UNIFORM":
             klass = UniformOptimizer
         case _:
             raise ValueError(f"Unknown optimizer name: {name}")
