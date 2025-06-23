@@ -1,5 +1,5 @@
 Embedder API
 ------------
 
-.. automodule:: bocoel.corpora.embedders
+.. automodule:: bocoel.embedders
     :members:

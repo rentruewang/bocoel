@@ -1,5 +1,5 @@
 Adaptor API
 -----------
 
-.. automodule:: bocoel.models.adaptors
+.. automodule:: bocoel.adaptors
     :members:

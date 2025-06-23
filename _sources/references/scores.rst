@@ -1,5 +1,5 @@
 Score API
 ---------
 
-.. automodule:: bocoel.models.scores
+.. automodule:: bocoel.scores
     :members:

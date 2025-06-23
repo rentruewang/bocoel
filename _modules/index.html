@@ -15,33 +15,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -72,7 +69,6 @@ window.addEventListener("load", () => mermaid.run());
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -88,8 +84,19 @@ window.addEventListener("load", () => mermaid.run());
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -97,6 +104,7 @@ window.addEventListener("load", () => mermaid.run());
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -104,8 +112,8 @@ window.addEventListener("load", () => mermaid.run());
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -123,8 +131,7 @@ window.addEventListener("load", () => mermaid.run());
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -154,17 +161,21 @@ window.addEventListener("load", () => mermaid.run());
     
     
     <img src="../_static/logo.svg" class="logo__image only-light" alt="Bocoel - Home"/>
-    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Bocoel - Home"/>
+    <script>document.write(`<img src="../_static/logo.svg" class="logo__image only-dark" alt="Bocoel - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -274,16 +285,24 @@ window.addEventListener("load", () => mermaid.run());
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -310,68 +329,7 @@ window.addEventListener("load", () => mermaid.run());
                 <article class="bd-article">
                   
   <h1>All modules for which code is available</h1>
-<ul><li><a href="bocoel/core/exams/examinators.html">bocoel.core.exams.examinators</a></li>
-<li><a href="bocoel/core/exams/interfaces.html">bocoel.core.exams.interfaces</a></li>
-<li><a href="bocoel/core/exams/managers.html">bocoel.core.exams.managers</a></li>
-<li><a href="bocoel/core/exams/stats/acc.html">bocoel.core.exams.stats.acc</a></li>
-<li><a href="bocoel/core/optim/ax/acquisition/supported.html">bocoel.core.optim.ax.acquisition.supported</a></li>
-<li><a href="bocoel/core/optim/ax/optim.html">bocoel.core.optim.ax.optim</a></li>
-<li><a href="bocoel/core/optim/ax/params.html">bocoel.core.optim.ax.params</a></li>
-<li><a href="bocoel/core/optim/brute.html">bocoel.core.optim.brute</a></li>
-<li><a href="bocoel/core/optim/corpora.html">bocoel.core.optim.corpora</a></li>
-<li><a href="bocoel/core/optim/interfaces/evals.html">bocoel.core.optim.interfaces.evals</a></li>
-<li><a href="bocoel/core/optim/interfaces/optim.html">bocoel.core.optim.interfaces.optim</a></li>
-<li><a href="bocoel/core/optim/interfaces/utils.html">bocoel.core.optim.interfaces.utils</a></li>
-<li><a href="bocoel/core/optim/random.html">bocoel.core.optim.random</a></li>
-<li><a href="bocoel/core/optim/sklearn/kmeans.html">bocoel.core.optim.sklearn.kmeans</a></li>
-<li><a href="bocoel/core/optim/sklearn/kmedoids.html">bocoel.core.optim.sklearn.kmedoids</a></li>
-<li><a href="bocoel/core/optim/sklearn/optim.html">bocoel.core.optim.sklearn.optim</a></li>
-<li><a href="bocoel/core/optim/uniform.html">bocoel.core.optim.uniform</a></li>
-<li><a href="bocoel/corpora/corpora.html">bocoel.corpora.corpora</a></li>
-<li><a href="bocoel/corpora/embedders/ensemble.html">bocoel.corpora.embedders.ensemble</a></li>
-<li><a href="bocoel/corpora/embedders/huggingface.html">bocoel.corpora.embedders.huggingface</a></li>
-<li><a href="bocoel/corpora/embedders/interfaces.html">bocoel.corpora.embedders.interfaces</a></li>
-<li><a href="bocoel/corpora/embedders/sberts.html">bocoel.corpora.embedders.sberts</a></li>
-<li><a href="bocoel/corpora/indices/backend/faiss.html">bocoel.corpora.indices.backend.faiss</a></li>
-<li><a href="bocoel/corpora/indices/backend/hnswlib.html">bocoel.corpora.indices.backend.hnswlib</a></li>
-<li><a href="bocoel/corpora/indices/interfaces/boundaries.html">bocoel.corpora.indices.interfaces.boundaries</a></li>
-<li><a href="bocoel/corpora/indices/interfaces/distances.html">bocoel.corpora.indices.interfaces.distances</a></li>
-<li><a href="bocoel/corpora/indices/interfaces/indices.html">bocoel.corpora.indices.interfaces.indices</a></li>
-<li><a href="bocoel/corpora/indices/interfaces/results.html">bocoel.corpora.indices.interfaces.results</a></li>
-<li><a href="bocoel/corpora/indices/polar.html">bocoel.corpora.indices.polar</a></li>
-<li><a href="bocoel/corpora/indices/ppf.html">bocoel.corpora.indices.ppf</a></li>
-<li><a href="bocoel/corpora/indices/whitening.html">bocoel.corpora.indices.whitening</a></li>
-<li><a href="bocoel/corpora/storages/concat.html">bocoel.corpora.storages.concat</a></li>
-<li><a href="bocoel/corpora/storages/datasets.html">bocoel.corpora.storages.datasets</a></li>
-<li><a href="bocoel/corpora/storages/interfaces.html">bocoel.corpora.storages.interfaces</a></li>
-<li><a href="bocoel/corpora/storages/pandas.html">bocoel.corpora.storages.pandas</a></li>
-<li><a href="bocoel/factories/adaptors.html">bocoel.factories.adaptors</a></li>
-<li><a href="bocoel/factories/corpora.html">bocoel.factories.corpora</a></li>
-<li><a href="bocoel/factories/embedders.html">bocoel.factories.embedders</a></li>
-<li><a href="bocoel/factories/indices.html">bocoel.factories.indices</a></li>
-<li><a href="bocoel/factories/lms.html">bocoel.factories.lms</a></li>
-<li><a href="bocoel/factories/optim.html">bocoel.factories.optim</a></li>
-<li><a href="bocoel/factories/storages.html">bocoel.factories.storages</a></li>
-<li><a href="bocoel/models/adaptors/bigbench/interfaces.html">bocoel.models.adaptors.bigbench.interfaces</a></li>
-<li><a href="bocoel/models/adaptors/bigbench/matching.html">bocoel.models.adaptors.bigbench.matching</a></li>
-<li><a href="bocoel/models/adaptors/bigbench/multi.html">bocoel.models.adaptors.bigbench.multi</a></li>
-<li><a href="bocoel/models/adaptors/dicts.html">bocoel.models.adaptors.dicts</a></li>
-<li><a href="bocoel/models/adaptors/glue/setfit.html">bocoel.models.adaptors.glue.setfit</a></li>
-<li><a href="bocoel/models/adaptors/glue/sst.html">bocoel.models.adaptors.glue.sst</a></li>
-<li><a href="bocoel/models/adaptors/interfaces/adaptors.html">bocoel.models.adaptors.interfaces.adaptors</a></li>
-<li><a href="bocoel/models/adaptors/interfaces/bundles.html">bocoel.models.adaptors.interfaces.bundles</a></li>
-<li><a href="bocoel/models/lms/huggingface/causal.html">bocoel.models.lms.huggingface.causal</a></li>
-<li><a href="bocoel/models/lms/huggingface/generative.html">bocoel.models.lms.huggingface.generative</a></li>
-<li><a href="bocoel/models/lms/huggingface/logits.html">bocoel.models.lms.huggingface.logits</a></li>
-<li><a href="bocoel/models/lms/huggingface/sequences.html">bocoel.models.lms.huggingface.sequences</a></li>
-<li><a href="bocoel/models/lms/huggingface/tokenizers.html">bocoel.models.lms.huggingface.tokenizers</a></li>
-<li><a href="bocoel/models/lms/interfaces/classifiers.html">bocoel.models.lms.interfaces.classifiers</a></li>
-<li><a href="bocoel/models/lms/interfaces/generative.html">bocoel.models.lms.interfaces.generative</a></li>
-<li><a href="bocoel/models/scores/bleu.html">bocoel.models.scores.bleu</a></li>
-<li><a href="bocoel/models/scores/exact.html">bocoel.models.scores.exact</a></li>
-<li><a href="bocoel/models/scores/interfaces.html">bocoel.models.scores.interfaces</a></li>
-<li><a href="bocoel/models/scores/multi.html">bocoel.models.scores.multi</a></li>
-<li><a href="bocoel/models/scores/rouge.html">bocoel.models.scores.rouge</a></li>
+<ul><li><a href="bocoel/corpora.html">bocoel.corpora</a></li>
 </ul>
 
                 </article>
@@ -434,8 +392,8 @@ By RenChu Wang
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -1,5 +1,5 @@
 Corpus API
 ----------
 
-.. automodule:: bocoel.corpora.corpora
+.. automodule:: bocoel.corpora
     :members:

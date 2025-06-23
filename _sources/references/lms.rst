@@ -1,5 +1,5 @@
 Language Model API
 ------------------
 
-.. automodule:: bocoel.models.lms
+.. automodule:: bocoel.lms
     :members:

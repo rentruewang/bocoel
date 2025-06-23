@@ -15,33 +15,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -72,7 +69,6 @@ window.addEventListener("load", () => mermaid.run());
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -88,8 +84,19 @@ window.addEventListener("load", () => mermaid.run());
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -97,6 +104,7 @@ window.addEventListener("load", () => mermaid.run());
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -104,8 +112,8 @@ window.addEventListener("load", () => mermaid.run());
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -123,8 +131,7 @@ window.addEventListener("load", () => mermaid.run());
       
         
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -154,17 +161,21 @@ window.addEventListener("load", () => mermaid.run());
     
     
     <img src="_static/logo.svg" class="logo__image only-light" alt="Bocoel - Home"/>
-    <img src="_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Bocoel - Home"/>
+    <script>document.write(`<img src="_static/logo.svg" class="logo__image only-dark" alt="Bocoel - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -274,16 +285,24 @@ window.addEventListener("load", () => mermaid.run());
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -314,172 +333,16 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="genindex-jumpbox">
  <a href="#_"><strong>_</strong></a>
- | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#K"><strong>K</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#U"><strong>U</strong></a>
- | <a href="#V"><strong>V</strong></a>
- | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/exams.html#bocoel.core.exams.Accumulation.__init__">__init__() (bocoel.core.exams.Accumulation method)</a>
-
-      <ul>
-        <li><a href="references/exams.html#bocoel.core.exams.Exam.__init__">(bocoel.core.exams.Exam method)</a>
-</li>
-        <li><a href="references/exams.html#bocoel.core.exams.Examinator.__init__">(bocoel.core.exams.Examinator method)</a>
-</li>
-        <li><a href="references/exams.html#bocoel.core.exams.Manager.__init__">(bocoel.core.exams.Manager method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer.__init__">(bocoel.core.optim.AxServiceOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer.__init__">(bocoel.core.optim.BruteForceOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.CachedIndexEvaluator.__init__">(bocoel.core.optim.CachedIndexEvaluator method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.CorpusEvaluator.__init__">(bocoel.core.optim.CorpusEvaluator method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.IndexEvaluator.__init__">(bocoel.core.optim.IndexEvaluator method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.KMeansOptimizer.__init__">(bocoel.core.optim.KMeansOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.KMedoidsOptimizer.__init__">(bocoel.core.optim.KMedoidsOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer.__init__">(bocoel.core.optim.Optimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.QueryEvaluator.__init__">(bocoel.core.optim.QueryEvaluator method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer.__init__">(bocoel.core.optim.RandomOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.__init__">(bocoel.core.optim.RemainingSteps method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer.__init__">(bocoel.core.optim.ScikitLearnOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.SearchEvaluator.__init__">(bocoel.core.optim.SearchEvaluator method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer.__init__">(bocoel.core.optim.UniformOptimizer method)</a>
-</li>
-        <li><a href="references/corpora.html#bocoel.corpora.corpora.Corpus.__init__">(bocoel.corpora.corpora.Corpus method)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder.__init__">(bocoel.corpora.embedders.Embedder method)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.EnsembleEmbedder.__init__">(bocoel.corpora.embedders.EnsembleEmbedder method)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.HuggingfaceEmbedder.__init__">(bocoel.corpora.embedders.HuggingfaceEmbedder method)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.SbertEmbedder.__init__">(bocoel.corpora.embedders.SbertEmbedder method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.__init__">(bocoel.corpora.indices.Boundary method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex.__init__">(bocoel.corpora.indices.FaissIndex method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.HnswlibIndex.__init__">(bocoel.corpora.indices.HnswlibIndex method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Index.__init__">(bocoel.corpora.indices.Index method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.__init__">(bocoel.corpora.indices.InverseCDFIndex method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.__init__">(bocoel.corpora.indices.PolarIndex method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.SearchResult.__init__">(bocoel.corpora.indices.SearchResult method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.SearchResultBatch.__init__">(bocoel.corpora.indices.SearchResultBatch method)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex.__init__">(bocoel.corpora.indices.WhiteningIndex method)</a>
-</li>
-        <li><a href="references/storages.html#bocoel.corpora.storages.ConcatStorage.__init__">(bocoel.corpora.storages.ConcatStorage method)</a>
-</li>
-        <li><a href="references/storages.html#bocoel.corpora.storages.DatasetsStorage.__init__">(bocoel.corpora.storages.DatasetsStorage method)</a>
-</li>
-        <li><a href="references/storages.html#bocoel.corpora.storages.PandasStorage.__init__">(bocoel.corpora.storages.PandasStorage method)</a>
-</li>
-        <li><a href="references/storages.html#bocoel.corpora.storages.Storage.__init__">(bocoel.corpora.storages.Storage method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor.__init__">(bocoel.models.adaptors.Adaptor method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.AdaptorBundle.__init__">(bocoel.models.adaptors.AdaptorBundle method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.AdaptorMapping.__init__">(bocoel.models.adaptors.AdaptorMapping method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchAdaptor.__init__">(bocoel.models.adaptors.BigBenchAdaptor method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMultipleChoice.__init__">(bocoel.models.adaptors.BigBenchMultipleChoice method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchQuestionAnswer.__init__">(bocoel.models.adaptors.BigBenchQuestionAnswer method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor.__init__">(bocoel.models.adaptors.GlueAdaptor method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.Sst2QuestionAnswer.__init__">(bocoel.models.adaptors.Sst2QuestionAnswer method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.ClassifierModel.__init__">(bocoel.models.lms.ClassifierModel method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.GenerativeModel.__init__">(bocoel.models.lms.GenerativeModel method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceCausalLM.__init__">(bocoel.models.lms.HuggingfaceCausalLM method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceGenerativeLM.__init__">(bocoel.models.lms.HuggingfaceGenerativeLM method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceLogitsLM.__init__">(bocoel.models.lms.HuggingfaceLogitsLM method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceSequenceLM.__init__">(bocoel.models.lms.HuggingfaceSequenceLM method)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.__init__">(bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-        <li><a href="references/scores.html#bocoel.models.scores.RougeScore.__init__">(bocoel.models.scores.RougeScore method)</a>
-</li>
-        <li><a href="references/scores.html#bocoel.models.scores.RougeScore2.__init__">(bocoel.models.scores.RougeScore2 method)</a>
-</li>
-        <li><a href="references/scores.html#bocoel.models.scores.SacreBleuScore.__init__">(bocoel.models.scores.SacreBleuScore method)</a>
-</li>
-        <li><a href="references/scores.html#bocoel.models.scores.Score.__init__">(bocoel.models.scores.Score method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/exams.html#bocoel.core.exams.Accumulation.acc_func">acc_func (bocoel.core.exams.Accumulation attribute)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Accumulation">Accumulation (class in bocoel.core.exams)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AcquisitionFunc">AcquisitionFunc (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor">Adaptor (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.adaptor">adaptor() (in module bocoel.factories)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.AdaptorBundle">AdaptorBundle (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.AdaptorMapping">AdaptorMapping (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.AdaptorName">AdaptorName (class in bocoel.factories)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer">AxServiceOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter">AxServiceParameter (class in bocoel.core.optim)</a>
+      <li><a href="references/corpora.html#bocoel.corpora.Corpus.__init__">__init__() (bocoel.corpora.Corpus method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -487,88 +350,32 @@ window.addEventListener("load", () => mermaid.run());
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder.batch">batch (bocoel.corpora.embedders.Embedder property)</a>
-
-      <ul>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.EnsembleEmbedder.batch">(bocoel.corpora.embedders.EnsembleEmbedder property)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.HuggingfaceEmbedder.batch">(bocoel.corpora.embedders.HuggingfaceEmbedder property)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.SbertEmbedder.batch">(bocoel.corpora.embedders.SbertEmbedder property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex.batch">(bocoel.corpora.indices.FaissIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.HnswlibIndex.batch">(bocoel.corpora.indices.HnswlibIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Index.batch">(bocoel.corpora.indices.Index property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.batch">(bocoel.corpora.indices.InverseCDFIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.batch">(bocoel.corpora.indices.PolarIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex.batch">(bocoel.corpora.indices.WhiteningIndex property)</a>
-</li>
-      </ul></li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.batch_decode">batch_decode() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.BAYESIAN">BAYESIAN (bocoel.factories.OptimizerName attribute)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.AdaptorName.BIGBENCH_MC">BIGBENCH_MC (bocoel.factories.AdaptorName attribute)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.AdaptorName.BIGBENCH_QA">BIGBENCH_QA (bocoel.factories.AdaptorName attribute)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchAdaptor">BigBenchAdaptor (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchChoiceType">BigBenchChoiceType (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMatchType">BigBenchMatchType (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMultipleChoice">BigBenchMultipleChoice (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchQuestionAnswer">BigBenchQuestionAnswer (class in bocoel.models.adaptors)</a>
-</li>
       <li>
-    bocoel.core.exams
+    bocoel.adaptors
 
       <ul>
-        <li><a href="references/exams.html#module-bocoel.core.exams">module</a>
+        <li><a href="references/adaptors.html#module-bocoel.adaptors">module</a>
 </li>
       </ul></li>
       <li>
-    bocoel.core.optim
+    bocoel.corpora
 
       <ul>
-        <li><a href="references/optimizers.html#module-bocoel.core.optim">module</a>
+        <li><a href="references/corpora.html#module-bocoel.corpora">module</a>
 </li>
       </ul></li>
       <li>
-    bocoel.corpora.corpora
+    bocoel.embedders
 
       <ul>
-        <li><a href="references/corpora.html#module-bocoel.corpora.corpora">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    bocoel.corpora.embedders
-
-      <ul>
-        <li><a href="references/embedders.html#module-bocoel.corpora.embedders">module</a>
+        <li><a href="references/embedders.html#module-bocoel.embedders">module</a>
 </li>
       </ul></li>
       <li>
-    bocoel.corpora.indices
+    bocoel.exams
 
       <ul>
-        <li><a href="references/indices.html#module-bocoel.corpora.indices">module</a>
-</li>
-      </ul></li>
-      <li>
-    bocoel.corpora.storages
-
-      <ul>
-        <li><a href="references/storages.html#module-bocoel.corpora.storages">module</a>
+        <li><a href="references/exams.html#module-bocoel.exams">module</a>
 </li>
       </ul></li>
       <li>
@@ -578,272 +385,50 @@ window.addEventListener("load", () => mermaid.run());
         <li><a href="references/factories.html#module-bocoel.factories">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    bocoel.models.adaptors
+    bocoel.indices
 
       <ul>
-        <li><a href="references/adaptors.html#module-bocoel.models.adaptors">module</a>
-</li>
-      </ul></li>
-      <li>
-    bocoel.models.lms
-
-      <ul>
-        <li><a href="references/lms.html#module-bocoel.models.lms">module</a>
+        <li><a href="references/indices.html#module-bocoel.indices">module</a>
 </li>
       </ul></li>
       <li>
-    bocoel.models.scores
+    bocoel.lms
 
       <ul>
-        <li><a href="references/scores.html#module-bocoel.models.scores">module</a>
+        <li><a href="references/lms.html#module-bocoel.lms">module</a>
 </li>
       </ul></li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Index.boundary">boundary (bocoel.corpora.indices.Index property)</a>
+      <li>
+    bocoel.optim
 
       <ul>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.boundary">(bocoel.corpora.indices.InverseCDFIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.boundary">(bocoel.corpora.indices.PolarIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex.boundary">(bocoel.corpora.indices.WhiteningIndex property)</a>
+        <li><a href="references/optimizers.html#module-bocoel.optim">module</a>
 </li>
       </ul></li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Boundary">Boundary (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.bounds">bounds (bocoel.core.optim.AxServiceParameter attribute)</a>
+      <li>
+    bocoel.scores
 
       <ul>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.bounds">(bocoel.corpora.indices.Boundary attribute)</a>
+        <li><a href="references/scores.html#module-bocoel.scores">module</a>
 </li>
       </ul></li>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.BRUTE">BRUTE (bocoel.factories.OptimizerName attribute)</a>
+      <li>
+    bocoel.storages
+
+      <ul>
+        <li><a href="references/storages.html#module-bocoel.storages">module</a>
 </li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer">BruteForceOptimizer (class in bocoel.core.optim)</a>
-</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.CachedIndexEvaluator">CachedIndexEvaluator (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.ClassifierModel.choices">choices (bocoel.models.lms.ClassifierModel property)</a>
-
-      <ul>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceLogitsLM.choices">(bocoel.models.lms.HuggingfaceLogitsLM property)</a>
-</li>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceSequenceLM.choices">(bocoel.models.lms.HuggingfaceSequenceLM property)</a>
-</li>
-      </ul></li>
-      <li><a href="references/lms.html#bocoel.models.lms.ClassifierModel">ClassifierModel (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.ClassifierName">ClassifierName (class in bocoel.factories)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.ClassifierModel.classify">classify() (bocoel.models.lms.ClassifierModel method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.CorpusName.COMPOSED">COMPOSED (bocoel.factories.CorpusName attribute)</a>
-</li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.ConcatStorage">ConcatStorage (class in bocoel.corpora.storages)</a>
-</li>
-      <li><a href="references/corpora.html#bocoel.corpora.corpora.Corpus">Corpus (class in bocoel.corpora.corpora)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.corpus">corpus() (in module bocoel.factories)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.CorpusEvaluator">CorpusEvaluator (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.CorpusName">CorpusName (class in bocoel.factories)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.count">count (bocoel.core.optim.RemainingSteps property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex.data">data (bocoel.corpora.indices.FaissIndex property)</a>
-
-      <ul>
-        <li><a href="references/indices.html#bocoel.corpora.indices.HnswlibIndex.data">(bocoel.corpora.indices.HnswlibIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Index.data">(bocoel.corpora.indices.Index property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.data">(bocoel.corpora.indices.InverseCDFIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.data">(bocoel.corpora.indices.PolarIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex.data">(bocoel.corpora.indices.WhiteningIndex property)</a>
-</li>
-      </ul></li>
-      <li><a href="references/factories.html#bocoel.factories.StorageName.DATASETS">DATASETS (bocoel.factories.StorageName attribute)</a>
-</li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.DatasetsStorage">DatasetsStorage (class in bocoel.corpora.storages)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.decode">decode() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder.dims">dims (bocoel.corpora.embedders.Embedder property)</a>
-
-      <ul>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.EnsembleEmbedder.dims">(bocoel.corpora.embedders.EnsembleEmbedder property)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.HuggingfaceEmbedder.dims">(bocoel.corpora.embedders.HuggingfaceEmbedder property)</a>
-</li>
-        <li><a href="references/embedders.html#bocoel.corpora.embedders.SbertEmbedder.dims">(bocoel.corpora.embedders.SbertEmbedder property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.dims">(bocoel.corpora.indices.Boundary property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex.dims">(bocoel.corpora.indices.FaissIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Index.dims">(bocoel.corpora.indices.Index property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.dims">(bocoel.corpora.indices.InverseCDFIndex property)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex.distance">distance (bocoel.corpora.indices.FaissIndex property)</a>
-
-      <ul>
-        <li><a href="references/indices.html#bocoel.corpora.indices.HnswlibIndex.distance">(bocoel.corpora.indices.HnswlibIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.Index.distance">(bocoel.corpora.indices.Index property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex.distance">(bocoel.corpora.indices.InverseCDFIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.distance">(bocoel.corpora.indices.PolarIndex property)</a>
-</li>
-        <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex.distance">(bocoel.corpora.indices.WhiteningIndex property)</a>
-</li>
-      </ul></li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Distance">Distance (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.InternalResult.distances">distances (bocoel.corpora.indices.InternalResult attribute)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.done">done (bocoel.core.optim.RemainingSteps property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder">Embedder (class in bocoel.corpora.embedders)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.embedder">embedder() (in module bocoel.factories)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.EmbedderName">EmbedderName (class in bocoel.factories)</a>
-</li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder.encode">encode() (bocoel.corpora.embedders.Embedder method)</a>
-
-      <ul>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.encode">(bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-      </ul></li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.Embedder.encode_storage">encode_storage() (bocoel.corpora.embedders.Embedder method)</a>
-</li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.EnsembleEmbedder">EnsembleEmbedder (class in bocoel.corpora.embedders)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor.evaluate">evaluate() (bocoel.models.adaptors.Adaptor method)</a>
-
-      <ul>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMultipleChoice.evaluate">(bocoel.models.adaptors.BigBenchMultipleChoice method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchQuestionAnswer.evaluate">(bocoel.models.adaptors.BigBenchQuestionAnswer method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor.evaluate">(bocoel.models.adaptors.GlueAdaptor method)</a>
-</li>
-        <li><a href="references/adaptors.html#bocoel.models.adaptors.Sst2QuestionAnswer.evaluate">(bocoel.models.adaptors.Sst2QuestionAnswer method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.ExactMatch">ExactMatch (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Exam">Exam (class in bocoel.core.exams)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Examinator">Examinator (class in bocoel.core.exams)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Examinator.examine">examine() (bocoel.core.exams.Examinator method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.IndexName.FAISS">FAISS (bocoel.factories.IndexName attribute)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.FaissIndex">FaissIndex (class in bocoel.corpora.indices)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.fixed">fixed() (bocoel.corpora.indices.Boundary class method)</a>
-</li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.PandasStorage.from_jsonl">from_jsonl() (bocoel.corpora.storages.PandasStorage class method)</a>
-</li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.PandasStorage.from_jsonl_file">from_jsonl_file() (bocoel.corpora.storages.PandasStorage class method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/lms.html#bocoel.models.lms.GenerativeModel.generate">generate() (bocoel.models.lms.GenerativeModel method)</a>
-
-      <ul>
-        <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceGenerativeLM.generate">(bocoel.models.lms.HuggingfaceGenerativeLM method)</a>
-</li>
-      </ul></li>
-      <li><a href="references/factories.html#bocoel.factories.generative">generative() (in module bocoel.factories)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/lms.html#bocoel.models.lms.GenerativeModel">GenerativeModel (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.GeneratorName">GeneratorName (class in bocoel.factories)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.AdaptorName.GLUE">GLUE (bocoel.factories.AdaptorName attribute)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor">GlueAdaptor (class in bocoel.models.adaptors)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.IndexName.HNSWLIB">HNSWLIB (bocoel.factories.IndexName attribute)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.HnswlibIndex">HnswlibIndex (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.EmbedderName.HUGGINGFACE">HUGGINGFACE (bocoel.factories.EmbedderName attribute)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.EmbedderName.HUGGINGFACE_ENSEMBLE">HUGGINGFACE_ENSEMBLE (bocoel.factories.EmbedderName attribute)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.GeneratorName.HUGGINGFACE_GENERATIVE">HUGGINGFACE_GENERATIVE (bocoel.factories.GeneratorName attribute)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.ClassifierName.HUGGINGFACE_LOGITS">HUGGINGFACE_LOGITS (bocoel.factories.ClassifierName attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.ClassifierName.HUGGINGFACE_SEQUENCE">HUGGINGFACE_SEQUENCE (bocoel.factories.ClassifierName attribute)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceCausalLM">HuggingfaceCausalLM (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.HuggingfaceEmbedder">HuggingfaceEmbedder (class in bocoel.corpora.embedders)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceGenerativeLM">HuggingfaceGenerativeLM (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceLogitsLM">HuggingfaceLogitsLM (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceSequenceLM">HuggingfaceSequenceLM (class in bocoel.models.lms)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer">HuggingfaceTokenizer (class in bocoel.models.lms)</a>
+      <li><a href="references/corpora.html#bocoel.corpora.Corpus">Corpus (class in bocoel.corpora)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -851,67 +436,13 @@ window.addEventListener("load", () => mermaid.run());
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Index">Index (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.index_class">index_class() (in module bocoel.factories)</a>
-</li>
-      <li><a href="references/corpora.html#bocoel.corpora.corpora.Corpus.index_embeddings">index_embeddings() (bocoel.corpora.corpora.Corpus class method)</a>
-</li>
-      <li><a href="references/corpora.html#bocoel.corpora.corpora.Corpus.index_mapped">index_mapped() (bocoel.corpora.corpora.Corpus class method)</a>
-</li>
-      <li><a href="references/corpora.html#bocoel.corpora.corpora.Corpus.index_storage">index_storage() (bocoel.corpora.corpora.Corpus class method)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.IndexEvaluator">IndexEvaluator (class in bocoel.core.optim)</a>
+      <li><a href="references/corpora.html#bocoel.corpora.Corpus.index_embeddings">index_embeddings() (bocoel.corpora.Corpus class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.IndexName">IndexName (class in bocoel.factories)</a>
+      <li><a href="references/corpora.html#bocoel.corpora.Corpus.index_mapped">index_mapped() (bocoel.corpora.Corpus class method)</a>
 </li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.InternalResult.indices">indices (bocoel.corpora.indices.InternalResult attribute)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.infinite">infinite() (bocoel.core.optim.RemainingSteps class method)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Distance.INNER_PRODUCT">INNER_PRODUCT (bocoel.corpora.indices.Distance attribute)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.InternalResult">InternalResult (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.InverseCDFIndex">InverseCDFIndex (class in bocoel.corpora.indices)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="K">K</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.KMEANS">KMEANS (bocoel.factories.OptimizerName attribute)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.KMeansOptimizer">KMeansOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.KMeansOptions">KMeansOptions (class in bocoel.core.optim)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.KMEDOIDS">KMEDOIDS (bocoel.factories.OptimizerName attribute)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.KMedoidsOptimizer">KMedoidsOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.KMedoidsOptions">KMedoidsOptions (class in bocoel.core.optim)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Distance.L2">L2 (bocoel.corpora.indices.Distance attribute)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager.load">load() (bocoel.core.exams.Manager static method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.log_scale">log_scale (bocoel.core.optim.AxServiceParameter attribute)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.lower">lower (bocoel.corpora.indices.Boundary property)</a>
+      <li><a href="references/corpora.html#bocoel.corpora.Corpus.index_storage">index_storage() (bocoel.corpora.Corpus class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -919,247 +450,31 @@ window.addEventListener("load", () => mermaid.run());
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager">Manager (class in bocoel.core.exams)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager.md5">md5() (bocoel.core.exams.Manager static method)</a>
-</li>
       <li>
     module
 
       <ul>
-        <li><a href="references/exams.html#module-bocoel.core.exams">bocoel.core.exams</a>
+        <li><a href="references/adaptors.html#module-bocoel.adaptors">bocoel.adaptors</a>
 </li>
-        <li><a href="references/optimizers.html#module-bocoel.core.optim">bocoel.core.optim</a>
+        <li><a href="references/corpora.html#module-bocoel.corpora">bocoel.corpora</a>
 </li>
-        <li><a href="references/corpora.html#module-bocoel.corpora.corpora">bocoel.corpora.corpora</a>
+        <li><a href="references/embedders.html#module-bocoel.embedders">bocoel.embedders</a>
 </li>
-        <li><a href="references/embedders.html#module-bocoel.corpora.embedders">bocoel.corpora.embedders</a>
-</li>
-        <li><a href="references/indices.html#module-bocoel.corpora.indices">bocoel.corpora.indices</a>
-</li>
-        <li><a href="references/storages.html#module-bocoel.corpora.storages">bocoel.corpora.storages</a>
+        <li><a href="references/exams.html#module-bocoel.exams">bocoel.exams</a>
 </li>
         <li><a href="references/factories.html#module-bocoel.factories">bocoel.factories</a>
 </li>
-        <li><a href="references/adaptors.html#module-bocoel.models.adaptors">bocoel.models.adaptors</a>
+        <li><a href="references/indices.html#module-bocoel.indices">bocoel.indices</a>
 </li>
-        <li><a href="references/lms.html#module-bocoel.models.lms">bocoel.models.lms</a>
+        <li><a href="references/lms.html#module-bocoel.lms">bocoel.lms</a>
 </li>
-        <li><a href="references/scores.html#module-bocoel.models.scores">bocoel.models.scores</a>
+        <li><a href="references/optimizers.html#module-bocoel.optim">bocoel.optim</a>
 </li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.MultiChoiceAccuracy">MultiChoiceAccuracy (class in bocoel.models.scores)</a>
+        <li><a href="references/scores.html#module-bocoel.scores">bocoel.scores</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.name">name (bocoel.core.optim.AxServiceParameter attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.NltkBleuScore">NltkBleuScore (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.BigBenchMultipleChoice.numeric_choices">numeric_choices() (bocoel.models.adaptors.BigBenchMultipleChoice static method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor.on_corpus">on_corpus() (bocoel.models.adaptors.Adaptor method)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.Adaptor.on_storage">on_storage() (bocoel.models.adaptors.Adaptor method)</a>
-</li>
-      <li><a href="references/scores.html#bocoel.models.scores.OneHotChoiceAccuracy">OneHotChoiceAccuracy (class in bocoel.models.scores)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer">Optimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.optimizer">optimizer() (in module bocoel.factories)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName">OptimizerName (class in bocoel.factories)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.StorageName.PANDAS">PANDAS (bocoel.factories.StorageName attribute)</a>
-</li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.PandasStorage">PandasStorage (class in bocoel.corpora.storages)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.IndexName.POLAR">POLAR (bocoel.factories.IndexName attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.polar_to_spatial">polar_to_spatial() (bocoel.corpora.indices.PolarIndex static method)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex">PolarIndex (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Examinator.presets">presets() (bocoel.core.exams.Examinator class method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.QueryEvaluator">QueryEvaluator (class in bocoel.core.optim)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.RANDOM">RANDOM (bocoel.factories.OptimizerName attribute)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer">RandomOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps">RemainingSteps (class in bocoel.core.optim)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.RougeScore">RougeScore (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/scores.html#bocoel.models.scores.RougeScore2">RougeScore2 (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Exam.run">run() (bocoel.core.exams.Exam method)</a>
-
-      <ul>
-        <li><a href="references/exams.html#bocoel.core.exams.Manager.run">(bocoel.core.exams.Manager method)</a>
+        <li><a href="references/storages.html#module-bocoel.storages">bocoel.storages</a>
 </li>
       </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/scores.html#bocoel.models.scores.SacreBleuScore">SacreBleuScore (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager.save">save() (bocoel.core.exams.Manager method)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.EmbedderName.SBERT">SBERT (bocoel.factories.EmbedderName attribute)</a>
-</li>
-      <li><a href="references/embedders.html#bocoel.corpora.embedders.SbertEmbedder">SbertEmbedder (class in bocoel.corpora.embedders)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer">ScikitLearnOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/scores.html#bocoel.models.scores.Score">Score (class in bocoel.models.scores)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Index.search">search() (bocoel.corpora.indices.Index method)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.SearchEvaluator">SearchEvaluator (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.SearchResult">SearchResult (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.SearchResultBatch">SearchResultBatch (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.PolarIndex.spatial_to_polar">spatial_to_polar() (bocoel.corpora.indices.PolarIndex static method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.AdaptorName.SST2">SST2 (bocoel.factories.AdaptorName attribute)</a>
-</li>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.Sst2QuestionAnswer">Sst2QuestionAnswer (class in bocoel.models.adaptors)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer.step">step() (bocoel.core.optim.AxServiceOptimizer method)</a>
-
-      <ul>
-        <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer.step">(bocoel.core.optim.BruteForceOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer.step">(bocoel.core.optim.Optimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer.step">(bocoel.core.optim.RandomOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.RemainingSteps.step">(bocoel.core.optim.RemainingSteps method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer.step">(bocoel.core.optim.ScikitLearnOptimizer method)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer.step">(bocoel.core.optim.UniformOptimizer method)</a>
-</li>
-      </ul></li>
-      <li><a href="references/storages.html#bocoel.corpora.storages.Storage">Storage (class in bocoel.corpora.storages)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.storage">storage() (in module bocoel.factories)</a>
-</li>
-      <li><a href="references/factories.html#bocoel.factories.StorageName">StorageName (class in bocoel.factories)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceOptimizer.task">task (bocoel.core.optim.AxServiceOptimizer property)</a>
-
-      <ul>
-        <li><a href="references/optimizers.html#bocoel.core.optim.BruteForceOptimizer.task">(bocoel.core.optim.BruteForceOptimizer property)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.Optimizer.task">(bocoel.core.optim.Optimizer property)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.RandomOptimizer.task">(bocoel.core.optim.RandomOptimizer property)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.ScikitLearnOptimizer.task">(bocoel.core.optim.ScikitLearnOptimizer property)</a>
-</li>
-        <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer.task">(bocoel.core.optim.UniformOptimizer property)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/adaptors.html#bocoel.models.adaptors.GlueAdaptor.task_choices">task_choices() (bocoel.models.adaptors.GlueAdaptor static method)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.to">to() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-      <li><a href="references/lms.html#bocoel.models.lms.HuggingfaceTokenizer.tokenize">tokenize() (bocoel.models.lms.HuggingfaceTokenizer method)</a>
-</li>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.type">type (bocoel.core.optim.AxServiceParameter attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="U">U</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.OptimizerName.UNIFORM">UNIFORM (bocoel.factories.OptimizerName attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.UniformOptimizer">UniformOptimizer (class in bocoel.core.optim)</a>
-</li>
-      <li><a href="references/indices.html#bocoel.corpora.indices.Boundary.upper">upper (bocoel.corpora.indices.Boundary property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/optimizers.html#bocoel.core.optim.AxServiceParameter.value_type">value_type (bocoel.core.optim.AxServiceParameter attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/factories.html#bocoel.factories.IndexName.WHITENING">WHITENING (bocoel.factories.IndexName attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="references/indices.html#bocoel.corpora.indices.WhiteningIndex">WhiteningIndex (class in bocoel.corpora.indices)</a>
-</li>
-      <li><a href="references/exams.html#bocoel.core.exams.Manager.with_cols">with_cols() (bocoel.core.exams.Manager method)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -1225,8 +540,8 @@ By RenChu Wang
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

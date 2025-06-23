@@ -1,5 +1,5 @@
 Exam API
 --------
 
-.. automodule:: bocoel.core.exams
+.. automodule:: bocoel.exams
     :members:
