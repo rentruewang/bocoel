@@ -2,7 +2,6 @@
 
 from .adaptors import *
 from .common import *
-from .constants import *
 from .corpora import *
 from .embedders import *
 from .exams import *
