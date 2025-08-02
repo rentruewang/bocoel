@@ -1,66 +1,15 @@
 # Copyright (c) BoCoEL Authors - All Rights Reserved
 
 import abc
-from collections import OrderedDict
-from collections.abc import Mapping
 from typing import Protocol
 
 import numpy as np
 import structlog
 from numpy.typing import ArrayLike, NDArray
 
-from bocoel.indices import SearchResult
-
 LOGGER = structlog.get_logger()
 
-__all__ = [
-    "CachedIndexEvaluator",
-    "IndexEvaluator",
-    "QueryEvaluator",
-    "SearchEvaluator",
-]
-
-
-class SearchEvaluator(Protocol):
-    """
-    A protocol for evaluating the search results.
-    """
-
-    @abc.abstractmethod
-    def __call__(self, results: Mapping[int, SearchResult], /) -> Mapping[int, float]:
-        """
-        Evaluates the given batched search result.
-        The order of the results must be kept in the original order.
-
-        Parameters:
-            results: The results of the search. Mapping from index to search result.
-
-        Returns:
-            The results of the search. Must be in the same order as the query.
-        """
-
-        ...
-
-
-class QueryEvaluator(Protocol):
-    """
-    A protocol for evaluating the query results.
-    """
-
-    @abc.abstractmethod
-    def __call__(self, query: ArrayLike, /) -> OrderedDict[int, float]:
-        """
-        Evaluates the given batched query.
-        The order of the results must be kept in the original order.
-
-        Parameters:
-            query: The query to evaluate.
-
-        Returns:
-            The results of the query. Must be in the same order as the query.
-        """
-
-        ...
+__all__ = ["CachedIndexEvaluator", "IndexEvaluator"]
 
 
 class IndexEvaluator(Protocol):
