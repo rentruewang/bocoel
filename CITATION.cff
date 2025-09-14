@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "BoCoEL: Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models"
+authors:
+  - family-names: Wang
+    given-names: RenChu
+date-released: 2024-01-30
+url: https://bocoel.rentruewang.com/research/
+version: "2024"
