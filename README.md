@@ -2,6 +2,10 @@
 
 This was born as a research project, and I think I have achieved most of what I set out to create. So today (2025/09/14) I'm archiving this repository.
 
+### 🔌 Plug
+
+I'm working on [`aioway`](https://github.com/rentruewang/aioway)! Check it out.
+
 # ☂️ BoCoEL
 
 ## Bayesian Optimization as a Coverage Tool for Evaluating Large Language Models

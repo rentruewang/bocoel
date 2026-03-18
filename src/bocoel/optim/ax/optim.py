@@ -95,8 +95,8 @@ class AxServiceOptimizer(Optimizer):
         Optimize one step with the ax optimizer.
 
         Note:
-            Somehow it seems that with recent versions of ``Ax``,
-            it would crash when ``workers > 1`` in ``get_next_trials``.
+            Somehow it seems that with recent versions of `Ax`,
+            it would crash when `workers > 1` in `get_next_trials`.
 
             Therefore, it's removed.
 
