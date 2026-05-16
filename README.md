@@ -1,10 +1,10 @@
 ### 🫙 Archive
 
-This was born as a research project, and I think I have achieved most of what I set out to create. So today (2025/09/14) I'm archiving this repository.
+> This has topped the show HN front page [link](https://news.ycombinator.com/item?id=39358406).
 
-### 🔌 Plug
+> This was born as a research project, and I think I have achieved most of what I set out to create. So today (2025/09/14) I'm archiving this repository.
 
-I'm working on [`aioway`](https://github.com/rentruewang/aioway)! Check it out.
+> Nowadays I'm mainly working on [`aioway`](https://github.com/rentruewang/aioway), a deep learning algorithm compiler! Check it out.
 
 # ☂️ BoCoEL
 
