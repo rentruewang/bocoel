@@ -4,7 +4,7 @@
 
 > This was born as a research project, and I think I have achieved most of what I set out to create. So today (2025/09/14) I'm archiving this repository.
 
-> Nowadays I'm mainly working on [`aioway`](https://github.com/rentruewang/aioway), a deep learning algorithm compiler! Check it out.
+> Nowadays I'm mainly working on [`aioway`](https://github.com/rentruewang/aioway), a revolutionary deep learning framework built on torch. Check it out.
 
 # ☂️ BoCoEL
 
